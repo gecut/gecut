@@ -1176,6 +1176,21 @@
     tmp "~0.2.1"
     tslib "^2.3.0"
 
+"@nrwl/esbuild@15.9.0-beta.10":
+  version "15.9.0-beta.10"
+  resolved "https://registry.yarnpkg.com/@nrwl/esbuild/-/esbuild-15.9.0-beta.10.tgz#9e3635913394cd1bd0a41dc054647067d009f918"
+  integrity sha512-BbVBRT7tcm3lDK8HZSKrSW9I/qDpMsJRkzd8uuioLF3mZ4wUqViFLg3HFODgguqXRIsMZsNw52K8bENh42tFZg==
+  dependencies:
+    "@nrwl/devkit" "15.9.0-beta.10"
+    "@nrwl/js" "15.9.0-beta.10"
+    "@nrwl/workspace" "15.9.0-beta.10"
+    chalk "^4.1.0"
+    dotenv "~10.0.0"
+    fast-glob "3.2.7"
+    fs-extra "^11.1.0"
+    tsconfig-paths "^4.1.2"
+    tslib "^2.3.0"
+
 "@nrwl/js@15.9.0-beta.10":
   version "15.9.0-beta.10"
   resolved "https://registry.yarnpkg.com/@nrwl/js/-/js-15.9.0-beta.10.tgz#6fd4294212ccc10cf5a1c4e7ee7a38c47f7a6242"
