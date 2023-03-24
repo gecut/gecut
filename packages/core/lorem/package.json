@@ -1,0 +1,17 @@
+{
+  "name": "@gecut/lorem",
+  "version": "0.0.1",
+  "type": "module",
+  "author": {
+    "name": "S. MohammadMahdi Zamanian",
+    "email": "mm25zamanian@gmail.com",
+    "url": "https://mm25zamanain.ir"
+  },
+  "description": "dummy text and custom lorem generator",
+  "keywords": [
+    "lorem",
+    "lorem-ipsum",
+    "dummy-text",
+    "gecut"
+  ]
+}
