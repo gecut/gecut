@@ -35,7 +35,7 @@ env:
   NODE_VERSION: latest
 
 jobs:
-  lint-ts:
+  lint:
     name: ESLint Scanning
     runs-on: ubuntu-latest
 
@@ -60,7 +60,7 @@ jobs:
       - name: 🚀 Lint All Projects
         run: yarn nx run-many --target=lint --all=true --with-deps=true
 
-  build-ts:
+  build:
     name: Build Typescript
     runs-on: ubuntu-latest
 
@@ -83,4 +83,28 @@ jobs:
 
       - name: 🚀 Build All Projects
         run: yarn nx run-many --target=build --all=true
+
+  test:
+    name: Unit Test
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      security-events: write
+
+    steps:
+      - name: ⤵️ Checkout repository
+        uses: actions/checkout@v3
+
+      - name: 🏗 Setup nodejs
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: yarn
+
+      - name: 🏗 Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: 🚀 Unit Test All Projects
+        run: yarn nx run-many --target=test --all=true
 
