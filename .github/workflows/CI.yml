@@ -1,0 +1,86 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+
+name: CI
+
+on:
+  workflow_dispatch:
+
+  pull_request:
+    branches:
+      - develop*
+      - master
+      - release/*
+      - dependabot/*
+      - feat/*
+
+  push:
+    branches:
+      - develop
+      - master
+      - release/*
+      - dependabot/*
+      - feat/*
+
+  schedule:
+    - cron: '0 7 * * 4'
+    #        * * * * *
+    #        │ │ │ │ │
+    #        │ │ │ │ └───── day of the week (0 - 6 or SUN-SAT)
+    #        │ │ │ └─────── month (1 - 12 or JAN-DEC)
+    #        │ │ └───────── day of the month (1 - 31)
+    #        │ └─────────── hour (0 - 23)
+    #        └───────────── minute (0 - 59)
+
+env:
+  NODE_VERSION: latest
+
+jobs:
+  lint-ts:
+    name: ESLint Scanning
+    runs-on: ubuntu-latest
+
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    steps:
+      - name: ⤵️ Checkout repository
+        uses: actions/checkout@v3
+
+      - name: 🏗 Setup nodejs
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: yarn
+
+      - name: 🏗 Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: 🚀 Lint All Projects
+        run: yarn nx run-many --target=lint --all=true --with-deps=true
+
+  build-ts:
+    name: Build Typescript
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      security-events: write
+
+    steps:
+      - name: ⤵️ Checkout repository
+        uses: actions/checkout@v3
+
+      - name: 🏗 Setup nodejs
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: yarn
+
+      - name: 🏗 Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: 🚀 Build All Projects
+        run: yarn nx run-many --target=build --all=true
+
