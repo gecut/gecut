@@ -7,16 +7,16 @@ on:
 
   pull_request:
     branches:
-      - develop*
-      - master
+      - next*
+      - main
       - release/*
       - dependabot/*
       - feat/*
 
   push:
     branches:
-      - develop
-      - master
+      - next
+      - main
       - release/*
       - dependabot/*
       - feat/*
