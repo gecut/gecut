@@ -55,16 +55,18 @@
     "vite": "^4.0.1",
     "vite-plugin-eslint": "^1.8.1",
     "vite-tsconfig-paths": "^4.0.2",
-    "vitest": "^0.25.8"
+    "vitest": "^0.25.8",
+    "webpack-env": "0.8.0"
   },
   "workspaces": [
     "packages/*"
   ],
   "dependencies": {
-    "tslib": "^2.3.0",
     "lit": "2.7.0",
+    "tslib": "^2.3.0",
     "tslog": "4.8.2",
     "vue": "^3.2.0",
-    "vue-router": "^4.1.0"
+    "vue-router": "^4.1.0",
+    "vuex": "^4.0.0-0"
   }
 }
