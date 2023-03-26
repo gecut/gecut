@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@gecut/lorem": ["packages/core/lorem/src/index.ts"]
+      "@gecut/lorem": ["packages/core/lorem/src/index.ts"],
+      "@gecut/mixins": ["packages/ui/mixins/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
