@@ -12,12 +12,12 @@ test:
       - src/**/*.spec.js
 
 ui:
-  - ui/**/*
+  - packages/ui/**/*
 core:
-  - core/**/*
+  - packages/core/**/*
 uniquely:
-  - uniquely/**/*
+  - packages/uniquely/**/*
 api:
-  - api/**/*
+  - packages/uniquely/api/**/*
 pwa:
-  - pwa/**/*
+  - packages/uniquely/pwa/**/*
