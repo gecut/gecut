@@ -9,13 +9,15 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "es2015",
-    "module": "esnext",
+    "module": "ESNext",
     "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@gecut/lorem": ["packages/core/lorem/src/index.ts"]
+      "@gecut/lorem": ["packages/core/lorem/src/index.ts"],
+      "@gecut/mixins": ["packages/ui/mixins/src/index.ts"],
+      "@gecut/types": ["packages/core/types/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

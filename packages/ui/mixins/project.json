@@ -1,7 +1,7 @@
 {
-  "name": "core-lorem",
+  "name": "ui-mixins",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "packages/core/lorem/src",
+  "sourceRoot": "packages/ui/mixins/src",
   "projectType": "library",
   "targets": {
     "build": {
@@ -9,16 +9,16 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "rootDir": ".",
-        "outputPath": "dist/packages/core/lorem",
-        "main": "packages/core/lorem/src/index.ts",
-        "tsConfig": "packages/core/lorem/tsconfig.lib.json",
-        "assets": ["packages/core/lorem/*.md"]
+        "outputPath": "dist/packages/ui/mixins",
+        "main": "packages/ui/mixins/src/index.ts",
+        "tsConfig": "packages/ui/mixins/tsconfig.lib.json",
+        "assets": ["packages/ui/mixins/*.md"]
       }
     },
     "publish": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "node tools/scripts/publish.mjs core-lorem {args.ver} {args.tag}"
+        "command": "node tools/scripts/publish.mjs ui-mixins {args.ver} {args.tag}"
       },
       "dependsOn": ["build"]
     },
@@ -26,14 +26,14 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/core/lorem/**/*.ts"]
+        "lintFilePatterns": ["packages/ui/mixins/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "packages/core/lorem/jest.config.ts",
+        "jestConfig": "packages/ui/mixins/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
