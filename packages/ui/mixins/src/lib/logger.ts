@@ -1,11 +1,9 @@
+import { Constructor } from '@gecut/types';
 import { Logger } from 'tslog';
 
 import type { LitElement } from 'lit';
 
 let lastIndex = 0;
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type Constructor<T> = new (...args: any[]) => T;
 
 export declare class LoggerMixinInterface extends LitElement {
   index: number;
