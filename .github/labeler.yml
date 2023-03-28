@@ -8,21 +8,21 @@ enhancement:
 
 test:
 - any:
-    - "src/**/*.spec.ts"
-    - "src/**/*.spec.js"
+    - "**/src/**/*.spec.ts"
+    - "**/src/**/*.spec.js"
 
 ui:
 - any:
-    - "ui/**/*"
+    - "**/ui/**/*"
 core:
 - any:
-    - "core/**/*"
+    - "**/core/**/*"
 uniquely:
 - any:
-    - "uniquely/**/*"
+    - "**/uniquely/**/*"
 api:
 - any:
-    - "api/**/*"
+    - "**/api/**/*"
 pwa:
 - any:
-    - "pwa/**/*"
+    - "**/pwa/**/*"
