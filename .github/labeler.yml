@@ -7,17 +7,20 @@ enhancement:
       - '**/*.ts'
 
 test:
-  - all:
-      - src/**/*.spec.ts
-      - src/**/*.spec.js
+  - src/**/*.spec.ts
+  - src/**/*.spec.js
 
 ui:
   - packages/ui/**/*
+
 core:
   - packages/core/**/*
+
 uniquely:
   - packages/uniquely/**/*
+
 api:
   - packages/uniquely/api/**/*
+
 pwa:
   - packages/uniquely/pwa/**/*
