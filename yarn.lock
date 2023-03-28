@@ -1797,17 +1797,6 @@
     tree-kill "1.2.2"
     tslib "^2.3.0"
 
-"@nrwl/linter@15.9.0-beta.10":
-  version "15.9.0-beta.10"
-  resolved "https://registry.yarnpkg.com/@nrwl/linter/-/linter-15.9.0-beta.10.tgz#8400aee06d16963ea7f9f03a3887ff02b54fb02d"
-  integrity sha512-i6ghpe/jv9V9iK/puWsOJAL/VDws3sgO4vzc9DYPyTQs5ooynU30hVxvkVJStepilymrxDzd0002cr7aRInRYA==
-  dependencies:
-    "@nrwl/devkit" "15.9.0-beta.10"
-    "@nrwl/js" "15.9.0-beta.10"
-    "@phenomnomnominal/tsquery" "4.1.1"
-    tmp "~0.2.1"
-    tslib "^2.3.0"
-
 "@nrwl/linter@15.9.0-beta.11":
   version "15.9.0-beta.11"
   resolved "https://registry.yarnpkg.com/@nrwl/linter/-/linter-15.9.0-beta.11.tgz#3072751a45396779e283f51d2b394796476c9b58"
