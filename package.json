@@ -6,7 +6,7 @@
   "private": true,
   "devDependencies": {
     "@nrwl/esbuild": "15.9.0-beta.10",
-    "@nrwl/eslint-plugin-nx": "15.9.0-beta.10",
+    "@nrwl/eslint-plugin-nx": "15.9.0-beta.11",
     "@nrwl/jest": "15.9.0-beta.11",
     "@nrwl/js": "15.9.0-beta.11",
     "@nrwl/linter": "15.9.0-beta.11",

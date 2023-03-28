@@ -1692,12 +1692,12 @@
     tsconfig-paths "^4.1.2"
     tslib "^2.3.0"
 
-"@nrwl/eslint-plugin-nx@15.9.0-beta.10":
-  version "15.9.0-beta.10"
-  resolved "https://registry.yarnpkg.com/@nrwl/eslint-plugin-nx/-/eslint-plugin-nx-15.9.0-beta.10.tgz#05bcea29d33c02a47f6b7018f5e1a203f2d033bd"
-  integrity sha512-hw8/L41HhqsdtY3LQzMCI4lkmZWAhvHFKZ/SbsbfaoBZ2cSzd81N9+XG2/g1qAYzLkscXIGWaXunCsH3H4tTQA==
+"@nrwl/eslint-plugin-nx@15.9.0-beta.11":
+  version "15.9.0-beta.11"
+  resolved "https://registry.yarnpkg.com/@nrwl/eslint-plugin-nx/-/eslint-plugin-nx-15.9.0-beta.11.tgz#177b5951dc2ca199239781929e5430d722cb9dda"
+  integrity sha512-yLNafC/aRYUHcYptJjimT1zvt7p3xZ542/dK4yT2hNgZ05oqnjhV7/WsMJjYnXFqkINEq5p3wOjz/3HS9PwTDQ==
   dependencies:
-    "@nrwl/devkit" "15.9.0-beta.10"
+    "@nrwl/devkit" "15.9.0-beta.11"
     "@typescript-eslint/utils" "^5.36.1"
     chalk "^4.1.0"
     confusing-browser-globals "^1.0.9"
