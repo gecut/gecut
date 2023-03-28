@@ -1,9 +1,9 @@
-import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
+import type { FastifyInstance } from 'fastify';
 
 export default async function (fastify: FastifyInstance) {
   fastify.get(
     '/',
-    async function (request: FastifyRequest, reply: FastifyReply) {
+    async function () {
       return { message: 'Hello API' };
     }
   );

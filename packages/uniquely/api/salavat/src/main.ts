@@ -1,18 +1,19 @@
+import { Environment } from '@gecut/types';
 import Fastify from 'fastify';
 import { app } from './app/app';
+import { loggerConfigs } from './app/logger';
 
-const host = process.env.HOST ?? 'localhost';
-const port = process.env.PORT ? Number(process.env.PORT) : 3000;
+const host: string = process.env.HOST ?? 'localhost';
+const environment: Environment =
+  <Environment>process.env.ENVIRONMENT ?? 'development';
+const port: number = process.env.PORT ? Number(process.env.PORT) : 3000;
 
-// Instantiate Fastify with some config
 const server = Fastify({
-  logger: true,
+  logger: loggerConfigs[environment],
 });
 
-// Register your application as a normal plugin.
 server.register(app);
 
-// Start listening.
 server.listen({ port, host }, (err) => {
   if (err) {
     server.log.error(err);
