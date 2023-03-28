@@ -17,3 +17,12 @@ ui:
 core:
 - any:
     - "core/**/*"
+uniquely:
+- any:
+    - "uniquely/**/*"
+api:
+- any:
+    - "api/**/*"
+pwa:
+- any:
+    - "pwa/**/*"
