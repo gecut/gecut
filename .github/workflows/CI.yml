@@ -7,19 +7,14 @@ on:
 
   pull_request:
     branches:
-      - next
-      - main
-      - release/*
-      - dependabot/*
-      - feat/*
+      - '*'
 
   push:
+    paths:
+      - '**.ts'
+      - '**.json'
     branches:
-      - next
-      - main
-      - release/*
-      - dependabot/*
-      - feat/*
+      - '*'
 
   schedule:
     - cron: '0 7 * * 4'
@@ -107,4 +102,3 @@ jobs:
 
       - name: 🚀 Unit Test All Projects
         run: yarn nx run-many --target=test --all=true
-
