@@ -5,7 +5,7 @@
   "scripts": {},
   "private": true,
   "devDependencies": {
-    "@nrwl/esbuild": "15.9.0-beta.10",
+    "@nrwl/esbuild": "15.9.0-beta.11",
     "@nrwl/eslint-plugin-nx": "15.9.0-beta.10",
     "@nrwl/jest": "15.9.0-beta.11",
     "@nrwl/js": "15.9.0-beta.11",
@@ -42,6 +42,10 @@
     "packages/*"
   ],
   "dependencies": {
+    "@fastify/autoload": "~5.7.1",
+    "@fastify/sensible": "~5.2.0",
+    "fastify": "~4.13.0",
+    "fastify-plugin": "~4.5.0",
     "lit": "2.7.0",
     "tslib": "^2.3.0",
     "tslog": "4.8.2"

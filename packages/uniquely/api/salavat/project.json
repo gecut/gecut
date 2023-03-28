@@ -1,0 +1,68 @@
+{
+  "name": "uniquely-api-salavat",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/uniquely/api/salavat/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "platform": "node",
+        "outputPath": "dist/packages/uniquely/api/salavat",
+        "format": ["cjs"],
+        "bundle": false,
+        "main": "packages/uniquely/api/salavat/src/main.ts",
+        "tsConfig": "packages/uniquely/api/salavat/tsconfig.app.json",
+        "assets": ["packages/uniquely/api/salavat/src/assets"],
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "generateLockfile": true,
+          "esbuildOptions": {
+            "sourcemap": false,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "uniquely-api-salavat:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "uniquely-api-salavat:build:development"
+        },
+        "production": {
+          "buildTarget": "uniquely-api-salavat:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/uniquely/api/salavat/**/*.ts"]
+      }
+    },
+    "docker-build": {
+      "dependsOn": ["build"],
+      "command": "docker build -f packages/uniquely/api/salavat/Dockerfile . -t uniquely-api-salavat"
+    }
+  },
+  "tags": []
+}
