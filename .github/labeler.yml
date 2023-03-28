@@ -1,28 +1,23 @@
 documentation:
-- any:
-    - "**/*.md"
+  - any:
+      - '**/*.md'
 
 enhancement:
-- any:
-    - "**/*.ts"
+  - any:
+      - '**/*.ts'
 
 test:
-- all:
-    - "src/**/*.spec.ts"
-    - "src/**/*.spec.js"
+  - all:
+      - src/**/*.spec.ts
+      - src/**/*.spec.js
 
 ui:
-- all:
-    - "ui/**/*"
+  - ui/**/*
 core:
-- all:
-    - "core/**/*"
+  - core/**/*
 uniquely:
-- all:
-    - "uniquely/**/*"
+  - uniquely/**/*
 api:
-- all:
-    - "api/**/*"
+  - api/**/*
 pwa:
-- all:
-    - "pwa/**/*"
+  - pwa/**/*
