@@ -12,8 +12,8 @@ test:
       - 'src/**/*.spec.js'
 
 ui:
-  - ui/*
-  - ui/**/*
+  - ui/*.*
+  - ui/**/*.*
 core:
   - core/*
   - core/**/*
