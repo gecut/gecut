@@ -1,7 +1,7 @@
-import { Constructor } from '@gecut/types';
 import { Logger } from 'tslog';
+import { LitElement } from 'lit';
 
-import type { LitElement } from 'lit';
+import type { Constructor } from '@gecut/types';
 
 let lastIndex = 0;
 
@@ -14,14 +14,14 @@ export function LoggerMixin<T extends Constructor<LitElement>>(
   superClass: T
 ): Constructor<LoggerMixinInterface> & T {
   class LoggerMixinClass extends superClass {
-    index = ++lastIndex;
-    protected logger = new Logger({ name: this.tagName, type: 'pretty' });
-
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     constructor(...args: any[]) {
       super(...args);
       this.logger.log(this.index, 'constructor');
     }
+
+    index = ++lastIndex;
+    protected logger = new Logger({ name: this.tagName, type: 'pretty' });
 
     // override connectedCallback(): void {
     //   this._logger.logMethod('connectedCallback');
