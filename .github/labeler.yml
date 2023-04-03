@@ -18,8 +18,7 @@ core:
   - packages/core/*
   - packages/core/**/*
 uniquely:
-  - all:
-      - uniquely/**/*
+  - packages/uniquely/**/*
 api:
   - all:
       - api/**/*
