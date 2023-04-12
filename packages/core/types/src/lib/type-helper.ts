@@ -26,6 +26,7 @@ export interface StringifyableRecord {
 export type Prop<T, K> = K extends keyof T ? T[K] : never;
 
 export type Values<T> = T[keyof T];
+export type ArrayValues<T extends Readonly<Array<any>>> = T[number];
 export type ArrayItems<T> = T extends Array<infer K> ? K : T;
 
 export type Merge<M, N> = Omit<M, keyof N> & N;
