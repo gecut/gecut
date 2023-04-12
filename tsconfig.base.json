@@ -2,6 +2,7 @@
   "compileOnSave": true,
   "compilerOptions": {
     "rootDir": ".",
+    "composite": true,
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
@@ -15,6 +16,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@gecut/form-builder": ["packages/ui/form-builder/src/index.ts"],
       "@gecut/lorem": ["packages/core/lorem/src/index.ts"],
       "@gecut/mixins": ["packages/ui/mixins/src/index.ts"],
       "@gecut/types": ["packages/core/types/src/index.ts"]
