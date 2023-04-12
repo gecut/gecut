@@ -15,7 +15,7 @@
     "@nrwl/vite": "^15.9.0-beta.10",
     "@nrwl/web": "^15.9.0-beta.10",
     "@swc-node/register": "1.6.4",
-    "@swc/core": "1.3.42",
+    "@swc/core": "1.3.49",
     "@types/jest": "^29.4.0",
     "@types/node": "18.7.1",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
