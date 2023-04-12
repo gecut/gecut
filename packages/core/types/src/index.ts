@@ -1,1 +1,1 @@
-export * from './lib/type-helper.js';
+export * from './lib/type-helper';

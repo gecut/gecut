@@ -1,6 +1,10 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
+  "env": {
+    "browser": true,
+    "es2022": true
+  },
   "plugins": ["@nrwl/nx"],
   "overrides": [
     {
@@ -23,8 +27,110 @@
     },
     {
       "files": ["*.ts", "*.tsx"],
-      "extends": ["plugin:@nrwl/nx/typescript"],
-      "rules": {}
+      "plugins": ["@typescript-eslint", "import", "wc", "lit", "lit-a11y"],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "ecmaVersion": 2022,
+        "sourceType": "module"
+      },
+      "extends": [
+        "eslint:recommended",
+        "google",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:import/recommended",
+        "plugin:import/typescript",
+        "plugin:wc/best-practice",
+        "plugin:lit/recommended",
+        "plugin:@nrwl/nx/typescript"
+      ],
+      "rules": {
+        "indent": [
+          "error",
+          2,
+          {
+            "ignoredNodes": ["TemplateLiteral > *"]
+          }
+        ],
+        "wc/guard-super-call": "off",
+        "no-misleading-character-class": "off",
+        "no-throw-literal": "off",
+        "new-cap": "off",
+        "require-jsdoc": "off",
+        "valid-jsdoc": "off",
+        "class-methods-use-this": [
+          "error",
+          {
+            "exceptMethods": [
+              "connectedCallback",
+              "disconnectedCallback",
+              "performUpdate",
+              "shouldUpdate",
+              "firstUpdated",
+              "update",
+              "updated",
+              "createRenderRoot",
+              "render"
+            ]
+          }
+        ],
+        "import/order": [
+          "error",
+          {
+            "groups": [
+              "builtin",
+              "external",
+              "internal",
+              "parent",
+              ["sibling", "index"],
+              "type"
+            ],
+            "newlines-between": "always"
+          }
+        ],
+        "@typescript-eslint/consistent-type-imports": [
+          "error",
+          {
+            "prefer": "type-imports",
+            "fixStyle": "separate-type-imports"
+          }
+        ],
+        "@typescript-eslint/member-ordering": [
+          "error",
+          {
+            "default": [
+              "signature",
+              "constructor",
+              "static-field",
+              "public-field",
+              "protected-field",
+              "private-field",
+              "field",
+              "public-method",
+              "static-method",
+              "protected-method",
+              "private-method",
+              "method"
+            ]
+          }
+        ],
+        "lit/no-template-bind": "error",
+        "lit/no-duplicate-template-bindings": "error",
+        "lit/no-useless-template-literals": "error",
+        "lit/attribute-value-entities": "error",
+        "lit/binding-positions": "error",
+        "lit/no-invalid-html": "error",
+        "lit/no-value-attribute": "error",
+        "lit/no-invalid-escape-sequences": "error",
+        "lit/no-legacy-template-syntax": "error",
+        "lit/no-private-properties": "error",
+        "lit/no-native-attributes": "error",
+        "lit-a11y/anchor-has-content": "warn",
+        "lit-a11y/click-events-have-key-events": "warn",
+        "lit-a11y/mouse-events-have-key-events": "warn",
+        "lit-a11y/valid-lang": "error",
+        "lit-a11y/autocomplete-valid": "error"
+      }
     },
     {
       "files": ["*.js", "*.jsx"],

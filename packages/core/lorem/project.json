@@ -26,6 +26,8 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
+        "fix": true,
+        "cache": true,
         "lintFilePatterns": ["packages/core/lorem/**/*.ts"]
       }
     },
