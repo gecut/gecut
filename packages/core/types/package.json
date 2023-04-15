@@ -1,5 +1,16 @@
 {
   "name": "@gecut/types",
   "version": "0.0.1",
-  "type": "module"
+  "type": "module",
+  "author": {
+    "name": "S. MohammadMahdi Zamanian",
+    "email": "mm25zamanian@gmail.com",
+    "url": "https://mm25zamanain.ir"
+  },
+  "description": "gecut local shared types",
+  "keywords": [
+    "types",
+    "declaration",
+    "gecut"
+  ]
 }
