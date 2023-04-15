@@ -21,4 +21,4 @@ jobs:
         uses: actions/add-to-project@v0.4.1
         with:
           project-url: https://github.com/orgs/gecut/projects/1
-          github-token: ${{secrets.ADD_TO_PROJECT}}
+          github-token: ${{ secrets.ADD_TO_PROJECT }}
