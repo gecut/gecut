@@ -8,6 +8,7 @@
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "rootDir": ".",
         "outputPath": "dist/packages/core/types",
         "main": "packages/core/types/src/index.ts",
         "tsConfig": "packages/core/types/tsconfig.lib.json"

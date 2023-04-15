@@ -11,7 +11,7 @@ export declare class LoggerMixinInterface extends LitElement {
 }
 
 export function LoggerMixin<T extends Constructor<LitElement>>(
-  superClass: T
+    superClass: T
 ): Constructor<LoggerMixinInterface> & T {
   class LoggerMixinClass extends superClass {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
