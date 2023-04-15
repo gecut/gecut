@@ -8,7 +8,6 @@
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "rootDir": ".",
         "outputPath": "dist/packages/core/lorem",
         "main": "packages/core/lorem/src/index.ts",
         "tsConfig": "packages/core/lorem/tsconfig.lib.json",

@@ -1,8 +1,8 @@
 {
-  "compileOnSave": true,
+  "compileOnSave": false,
   "compilerOptions": {
     "rootDir": ".",
-    "composite": true,
+    "noUnusedLocals": true,
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
@@ -10,7 +10,8 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "es2015",
-    "module": "ESNext",
+    "module": "esnext",
+    "typeRoots": ["node_modules/@types"],
     "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
