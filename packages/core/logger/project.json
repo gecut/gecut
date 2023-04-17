@@ -1,0 +1,33 @@
+{
+  "name": "core--logger",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/core/logger/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/core//logger",
+        "main": "packages/core/logger/src/index.ts",
+        "tsConfig": "packages/core/logger/tsconfig.lib.json",
+        "assets": ["packages/core/logger/*.md"]
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node tools/scripts/publish.mjs core--logger {args.ver} {args.tag}"
+      },
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/core/logger/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}
