@@ -48,7 +48,7 @@ export const createLogger = (scopeName: string, devMode = DEV_MODE): Logger => {
 
     property: console.debug.bind(
         console,
-        _keySection + '.%s = %O;',
+        _keySection + '.%s = %o;',
         styleScope,
         scopeName,
         _style.reset
@@ -56,7 +56,7 @@ export const createLogger = (scopeName: string, devMode = DEV_MODE): Logger => {
 
     method: console.debug.bind(
         console,
-        _keySection + '.%s();',
+        _keySection + '.%s( );',
         styleScope,
         scopeName,
         _style.reset
@@ -64,7 +64,7 @@ export const createLogger = (scopeName: string, devMode = DEV_MODE): Logger => {
 
     methodArgs: console.debug.bind(
         console,
-        _keySection + '.%s(%O);',
+        _keySection + '.%s(%o);',
         styleScope,
         scopeName,
         _style.reset
@@ -72,7 +72,7 @@ export const createLogger = (scopeName: string, devMode = DEV_MODE): Logger => {
 
     methodFull: console.debug.bind(
         console,
-        _keySection + '.%s(%O) => %O',
+        _keySection + '.%s(%o) => %o',
         styleScope,
         scopeName,
         _style.reset

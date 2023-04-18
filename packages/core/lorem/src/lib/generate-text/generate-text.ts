@@ -1,9 +1,9 @@
 import { generateArrayFromSize } from './array-size';
 
 export const generateText = (
-  array: string[],
-  size: number,
-  join = ' '
+    array: string[],
+    size: number,
+    join = ' '
 ): string => {
   array = generateArrayFromSize(array, size);
 
