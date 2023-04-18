@@ -1,16 +1,21 @@
 import type { ArrayValues } from '@gecut/types';
 
 export const foregroundColors = {
-  RED: '#D32F2F',
-  PINK: '#C2185B',
-  PURPLE: '#7B1FA2',
-  DEEP_PURPLE: '#512DA8',
-  INDIGO: '#303F9F',
-  BLUE: '#1976D2',
-  LIGHT_BLUE: '#0288D1',
-  CYAN: '#0097A7',
-  TEAL: '#00796B',
-  GREEN: '#388E3C',
+  RED: '#EF5350',
+  PINK: '#F06292',
+  PURPLE: '#AB47BC',
+  DEEP_PURPLE: '#7E57C2',
+  INDIGO: '#5C6BC0',
+  BLUE: '#42A5F5',
+  LIGHT_BLUE: '#03A9F4',
+  CYAN: '#26C6DA',
+  TEAL: '#009688',
+  GREEN: '#4CAF50',
+  LIGHT_GREEN: '#8BC34A',
+  LIME: '#CDDC39',
+  YELLOW: '#FDD835',
+  AMBER: '#FFC107',
+  ORANGE: '#FF9800',
 } as const;
 
 const colorList = Object.values(foregroundColors);
