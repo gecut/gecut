@@ -1,5 +1,6 @@
 import { loremIpsum } from '../../content.json';
 import { generateText } from '../generate-text/generate-text';
+import { logger } from '../logger';
 
 import type { LoremIpsumOptions, LoremIpsumParameters } from './type';
 
@@ -18,6 +19,8 @@ const requireParameters = (
 export const loremIpsumGenerator = (_options: LoremIpsumParameters): string => {
   const options = requireParameters(_options);
   const content = loremIpsum[options.lang] as string;
+
+  logger.methodArgs?.('loremIpsumGenerator', _options);
 
   switch (options.sizeType) {
     case 'paragraph':

@@ -4,6 +4,7 @@
     "module": "ESNext",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
+    "noEmit": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
