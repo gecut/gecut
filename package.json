@@ -38,6 +38,7 @@
     "apps/*"
   ],
   "dependencies": {
+    "@material/web": "^1.0.0-pre.6",
     "core-js": "^3.30.1",
     "lit": "2.7.2",
     "regenerator-runtime": "0.13.11",
