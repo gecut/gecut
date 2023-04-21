@@ -1,5 +1,36 @@
 {
   "name": "@gecut/logger",
   "version": "0.0.1",
-  "type": "commonjs"
+  "type": "module",
+  "author": {
+    "name": "S. MohammadMahdi Zamanian",
+    "email": "mm25zamanian@gmail.com",
+    "url": "https://mm25zamanain.ir"
+  },
+  "description": "Fancy colorful console debugger with custom scope written in tiny TypeScript, ES module.",
+  "keywords": [
+    "log",
+    "logger",
+    "console",
+    "debug",
+    "typescript",
+    "esm",
+    "gecut"
+  ],
+  "license": "MIT",
+  "files": [
+    "**/*.{d.ts.map,d.ts,js.map,js,html,md}"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gecut/gecut",
+    "directory": "packages/core/logger"
+  },
+  "homepage": "https://github.com/gecut/gecut/tree/next/packages/core/logger#readme",
+  "bugs": {
+    "url": "https://github.com/gecut/gecut/issues"
+  }
 }
