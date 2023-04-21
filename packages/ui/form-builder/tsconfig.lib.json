@@ -5,6 +5,7 @@
     "target": "ESNext",
     "declaration": true,
     "inlineSources": true,
+    "useDefineForClassFields": false,
     "lib": ["DOM", "ESNext"]
   },
   "include": ["src/**/*.ts"],

@@ -128,11 +128,13 @@ const buttonUI = ['outlined', 'filled', 'text', 'elevated', 'tonal'] as const;
 export type Form = {
   components: Array<SingleOrArray<Input | Button>>;
   listener?: (
-    component: Input | Button,
+    componentData: Input | Button,
     eventName: 'input' | 'change' | 'click',
     event: InputEvent | PointerEvent
   ) => void;
 };
+
+export type FormListener = NonNullable<Form['listener']>;
 
 export type Input = {
   name: string;

@@ -8,9 +8,12 @@ import '@material/web/button/elevated-button';
 import '@material/web/button/tonal-button';
 
 import type { RenderResult } from '@gecut/types';
-import type { Button, Form } from '../type';
+import type { Button, FormListener } from '../type';
 
-export default function button(component: Button, form: Form): RenderResult {
+export default function button(
+    component: Button,
+    listener: FormListener
+): RenderResult {
   const classes = classMap({
     button: true,
     'grow-button': component.grow === true,
@@ -27,7 +30,7 @@ export default function button(component: Button, form: Form): RenderResult {
           class=${classes}
           ?disabled=${component.disabled ?? false}
           ?trailingIcon=${component.trailingIcon ?? false}
-          @click=${event('click', component, form)}
+          @click=${event('click', component, listener)}
         ></md-filled-button>
       `;
     case 'outlined':
@@ -37,7 +40,7 @@ export default function button(component: Button, form: Form): RenderResult {
           class=${classes}
           ?disabled=${component.disabled ?? false}
           ?trailingIcon=${component.trailingIcon ?? false}
-          @click=${event('click', component, form)}
+          @click=${event('click', component, listener)}
         ></md-outlined-button>
       `;
     case 'text':
@@ -47,7 +50,7 @@ export default function button(component: Button, form: Form): RenderResult {
           class=${classes}
           ?disabled=${component.disabled ?? false}
           ?trailingIcon=${component.trailingIcon ?? false}
-          @click=${event('click', component, form)}
+          @click=${event('click', component, listener)}
         ></md-text-button>
       `;
     case 'elevated':
@@ -57,7 +60,7 @@ export default function button(component: Button, form: Form): RenderResult {
           class=${classes}
           ?disabled=${component.disabled ?? false}
           ?trailingIcon=${component.trailingIcon ?? false}
-          @click=${event('click', component, form)}
+          @click=${event('click', component, listener)}
         ></md-elevated-button>
       `;
     case 'tonal':
@@ -67,7 +70,7 @@ export default function button(component: Button, form: Form): RenderResult {
           class=${classes}
           ?disabled=${component.disabled ?? false}
           ?trailingIcon=${component.trailingIcon ?? false}
-          @click=${event('click', component, form)}
+          @click=${event('click', component, listener)}
         ></md-tonal-button>
       `;
   }
@@ -76,11 +79,9 @@ export default function button(component: Button, form: Form): RenderResult {
 function event(
     eventName: 'click',
     component: Button,
-    form: Form
+    listener: FormListener
 ): (event: PointerEvent) => void {
   return (event: PointerEvent) => {
-    if (form?.listener != null) {
-      form.listener(component, eventName, event);
-    }
+    listener(component, eventName, event);
   };
 }
