@@ -3,7 +3,8 @@ import { stabilizerScopeName } from './lib/stabilizer-scope-name';
 
 import type { Logger } from './type';
 
-export const DEV_MODE = localStorage?.getItem('GECUT_DEBUG') === '1';
+export * from './type';
+export const DEV_MODE = localStorage?.getItem('DEBUG') === '1';
 
 const _style = {
   scope: 'color: {{color}};',
@@ -14,7 +15,7 @@ const _keySection = '%c%s%c';
 
 export const createLogger = (scopeName: string, devMode = DEV_MODE): Logger => {
   scopeName = stabilizerScopeName(scopeName);
-  
+
   const color = getColor();
   const styleScope = _style.scope.replaceAll('{{color}}', color);
 
@@ -85,5 +86,8 @@ export const createLogger = (scopeName: string, devMode = DEV_MODE): Logger => {
         scopeName,
         _style.reset
     ),
+
+    time: (label: string) => console.time(scopeName + '.' + label),
+    timeEnd: (label: string) => console.timeEnd(scopeName + '.' + label),
   } as const;
 };
