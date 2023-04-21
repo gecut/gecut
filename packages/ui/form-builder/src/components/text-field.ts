@@ -10,9 +10,12 @@ import { emailValidate } from '../validators/email';
 
 import type { TextField } from '@material/web/textfield/lib/text-field';
 import type { RenderResult } from '@gecut/types';
-import type { Form, Input } from '../type';
+import type { FormListener, Input } from '../type';
 
-export default function textField(component: Input, form: Form): RenderResult {
+export default function textField(
+    component: Input,
+    listener: FormListener
+): RenderResult {
   const classes = classMap({
     field: true,
     'text-field': true,
@@ -48,8 +51,8 @@ export default function textField(component: Input, form: Form): RenderResult {
           ?readOnly=${component.readOnly ?? false}
           ?hasLeadingIcon=${component.hasLeadingIcon ?? false}
           ?hasTrailingIcon=${component.hasTrailingIcon ?? false}
-          @input=${event('input', component, form)}
-          @change=${event('change', component, form)}
+          @input=${event('input', component, listener)}
+          @change=${event('change', component, listener)}
         ></md-filled-text-field>
       `;
     case 'outlined':
@@ -79,8 +82,8 @@ export default function textField(component: Input, form: Form): RenderResult {
           ?readOnly=${component.readOnly ?? false}
           ?hasLeadingIcon=${component.hasLeadingIcon ?? false}
           ?hasTrailingIcon=${component.hasTrailingIcon ?? false}
-          @input=${event('input', component, form)}
-          @change=${event('change', component, form)}
+          @input=${event('input', component, listener)}
+          @change=${event('change', component, listener)}
         ></md-outlined-text-field>
       `;
   }
@@ -88,15 +91,17 @@ export default function textField(component: Input, form: Form): RenderResult {
 
 function event(
     eventName: 'input' | 'change',
-    component: Input,
-    form: Form
+    componentData: Input,
+    listener: FormListener
 ): (event: InputEvent) => void {
   return (event: InputEvent) => {
-    textFieldValidate(component, event);
+    textFieldValidate(componentData, event);
 
-    if (form?.listener != null) {
-      form.listener(component, eventName, event);
-    }
+    const target = event.target as TextField;
+
+    componentData.value = target.value;
+
+    listener(componentData, eventName, event);
   };
 }
 
