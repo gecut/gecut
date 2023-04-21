@@ -2007,13 +2007,13 @@
     enquirer "~2.3.6"
 
 "@nrwl/web@^15.9.0-beta.10":
-  version "15.9.0-beta.11"
-  resolved "https://registry.yarnpkg.com/@nrwl/web/-/web-15.9.0-beta.11.tgz#667e1152915b5b0d4b2a78015e89b5cdd7260b9b"
-  integrity sha512-Bw+k0i1hNXp652T+OiX+rlgqLgkEVMD83VQeiwoWH2C3DFqlV26+D+DpxOvouqJ4tZMW9hb/601ZTqZiutLhvw==
+  version "15.9.2"
+  resolved "https://registry.yarnpkg.com/@nrwl/web/-/web-15.9.2.tgz#1dcd116f9e015230c95a02dbcab39e54e940b8f6"
+  integrity sha512-MzuJExQjLFKntgVP/tXu2m3tNWLUfdZTiJPNA+Kb4fssAPgSkyGmGBNFF8rsb+t6UgYouLj5yeVJXvmf68jJLg==
   dependencies:
-    "@nrwl/devkit" "15.9.0-beta.11"
-    "@nrwl/js" "15.9.0-beta.11"
-    "@nrwl/workspace" "15.9.0-beta.11"
+    "@nrwl/devkit" "15.9.2"
+    "@nrwl/js" "15.9.2"
+    "@nrwl/workspace" "15.9.2"
     chalk "^4.1.0"
     chokidar "^3.5.1"
     http-server "^14.1.0"
