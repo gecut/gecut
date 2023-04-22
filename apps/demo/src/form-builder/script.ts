@@ -31,12 +31,35 @@ form.data = {
       label: 'Email',
       type: 'email',
       ui: 'filled',
+      validate: [
+        {
+          rule: 'email',
+          errorMessage: 'email error message',
+        },
+      ],
     },
     {
       name: 'tel',
       label: 'Phone Number',
       type: 'tel',
       ui: 'filled',
+      minLength: 11,
+      maxLength: 11,
+      validate: [
+        {
+          rule: 'required',
+          errorMessage: 'required',
+        },
+        {
+          rule: 'numeric',
+          errorMessage: 'must numeric',
+        },
+        {
+          rule: 'phone',
+          country: 'IR',
+          errorMessage: 'phone number error message',
+        },
+      ],
     },
     [
       {
