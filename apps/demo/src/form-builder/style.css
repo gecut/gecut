@@ -1,0 +1,20 @@
+pre {
+  background-color: #f8f8ff;
+  border: 1px solid #c0c0c0;
+  border-radius: 4px;
+  padding: 10px 20px;
+  max-height: 512px;
+  overflow: auto;
+}
+
+form {
+  max-width: 512px;
+  margin: auto;
+  background-color: #f8f8ff;
+  border: 1px solid #c0c0c0;
+  border-radius: 4px;
+}
+
+h2 {
+  margin-bottom: 0 !important;
+}

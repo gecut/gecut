@@ -1,60 +1,98 @@
-import { Logger } from 'tslog';
+import { createLogger } from '@gecut/logger';
 import { LitElement } from 'lit';
 
+import type { Logger } from '@gecut/logger';
+import type { PropertyValues, PropertyDeclaration } from 'lit';
 import type { Constructor } from '@gecut/types';
 
-let lastIndex = 0;
+let _lastIndex = 0;
 
 export declare class LoggerMixinInterface extends LitElement {
   index: number;
-  protected logger: Logger<unknown>;
+
+  protected log: Logger;
 }
 
 export function LoggerMixin<T extends Constructor<LitElement>>(
-  superClass: T
+    superClass: T
 ): Constructor<LoggerMixinInterface> & T {
   class LoggerMixinClass extends superClass {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    constructor(...args: any[]) {
-      super(...args);
-      this.logger.log(this.index, 'constructor');
+    index: number = ++_lastIndex;
+    protected log = createLogger(
+      `<${this.index}-${this.tagName.toLowerCase()}>`
+    );
+
+    private _$firstUpdated?: true;
+
+    override connectedCallback(): void {
+      this.log.method?.('connectedCallback');
+      super.connectedCallback();
     }
 
-    index = ++lastIndex;
-    protected logger = new Logger({ name: this.tagName, type: 'pretty' });
+    override disconnectedCallback(): void {
+      this.log.method?.('disconnectedCallback');
+      super.disconnectedCallback();
+    }
 
-    // override connectedCallback(): void {
-    //   this._logger.logMethod('connectedCallback');
-    //   super.connectedCallback();
-    // }
+    override dispatchEvent(event: Event): boolean {
+      this.log.methodArgs?.('dispatchEvent', {
+        type: event.type,
+        detail: (event as Event & { detail?: unknown }).detail,
+      });
+      return super.dispatchEvent(event);
+    }
 
-    // override disconnectedCallback(): void {
-    //   this._logger.logMethod('disconnectedCallback');
-    //   super.disconnectedCallback();
-    // }
+    override remove(): void {
+      this.log.method?.('remove');
+      super.remove();
+    }
 
-    // protected override update(changedProperties: PropertyValues): void {
-    //   this._logger.logMethodArgs('update', { changedProperties });
-    //   super.update(changedProperties);
-    // }
+    override requestUpdate(
+        name?: PropertyKey | undefined,
+        oldValue?: unknown,
+        options?: PropertyDeclaration<unknown, unknown> | undefined
+    ): void {
+      this?.log?.methodArgs?.('requestUpdate', {
+        name,
+        newValue: this[name as keyof LoggerMixinClass],
+        oldValue,
+        options,
+      });
 
-    // protected override firstUpdated(changedProperties: PropertyValues): void {
-    //   this._logger.logMethodArgs('firstUpdated', { changedProperties });
-    //   super.firstUpdated(changedProperties);
-    // }
+      super.requestUpdate(name, oldValue, options);
+    }
 
-    // protected override render(): unknown {
-    //   this._logger.logMethod('render');
-    //   return;
-    // }
+    protected override update(changedProperties: PropertyValues): void {
+      this.log.method?.('update');
+      this.log.time?.(
+        this._$firstUpdated ? 'update-time' : 'first-update-time'
+      );
+      super.update(changedProperties);
+    }
 
-    // override dispatchEvent(event: Event): boolean {
-    //   this._logger.logMethodArgs('dispatchEvent', {
-    //     type: event.type,
-    //     detail: (event as Event & { detail?: unknown }).detail,
-    //   });
-    //   return super.dispatchEvent(event);
-    // }
+    protected override firstUpdated(changedProperties: PropertyValues): void {
+      this.log.methodArgs?.('firstUpdated', { changedProperties });
+      this.log.timeEnd?.('first-update-time');
+      super.firstUpdated(changedProperties);
+    }
+
+    protected override updated(changedProperties: PropertyValues): void {
+      // this.log.logMethodArgs('updated', {changedProperties});
+      if (this.log.devMode) {
+        if (this._$firstUpdated) {
+          this.log.timeEnd?.('update-time');
+        } else {
+          this._$firstUpdated = true;
+        }
+      }
+
+      super.updated(changedProperties);
+    }
+
+    protected override render(): unknown {
+      this.log.method?.('render');
+      return;
+    }
   }
 
   return LoggerMixinClass as unknown as Constructor<LoggerMixinInterface> & T;

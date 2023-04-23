@@ -1,0 +1,8 @@
+{
+  "name": "@gecut/form-builder",
+  "version": "0.0.1",
+  "type": "commonjs",
+  "dependencies": {
+    "@material/web": "^1.0.0-pre.6"
+  }
+}

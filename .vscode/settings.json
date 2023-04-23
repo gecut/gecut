@@ -1,7 +1,28 @@
 {
-    "cSpell.words": [
-        "gecut",
-        "nrwl",
-        "tslog"
-    ]
+  "eslint.packageManager": "yarn",
+  "npm.packageManager": "yarn",
+  "lit-plugin.strict": true,
+  "lit-plugin.rules.no-missing-import": "off",
+  "editor.wordWrapColumn": 120,
+  "editor.formatOnPaste": false,
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.useEditorConfig": true,
+  "files.exclude": {
+    "**/*.map": true,
+    // "**/*.d.ts": true,
+    "**/*.tsbuildinfo": true
+  },
+  "cSpell.language": "en,fa,fa-IR",
+  "cSpell.words": [
+    "gecut",
+    "nrwl",
+    "tslog",
+    "unkown",
+    "zamanian"
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

@@ -1,20 +1,25 @@
 {
-  "compileOnSave": true,
+  "compileOnSave": false,
   "compilerOptions": {
     "rootDir": ".",
+    "noUnusedLocals": true,
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2015",
+    "target": "ES2020",
     "module": "ESNext",
-    "lib": ["es2017", "dom"],
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@gecut/form-builder": ["packages/ui/form-builder/src/index.ts"],
+      "@gecut/form-validator": ["packages/ui/form-validator/src/index.ts"],
+      "@gecut/logger": ["packages/core/logger/src/index.ts"],
       "@gecut/lorem": ["packages/core/lorem/src/index.ts"],
       "@gecut/mixins": ["packages/ui/mixins/src/index.ts"],
       "@gecut/types": ["packages/core/types/src/index.ts"]
