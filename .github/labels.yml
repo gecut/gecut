@@ -45,6 +45,10 @@
   color: 0052cc
   description: ''
 
+- name: 'demo'
+  color: 1caa58
+  description: 'Demo features'
+
 - name: 'test'
   color: 0e8a16
   description: 'test features'

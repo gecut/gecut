@@ -1,12 +1,10 @@
 import { html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { validator } from '@gecut/form-validator';
 
 import '@material/web/textfield/filled-text-field';
 import '@material/web/textfield/outlined-text-field';
-
-import { telValidate } from '../validators/tel';
-import { emailValidate } from '../validators/email';
 
 import type { TextField } from '@material/web/textfield/lib/text-field';
 import type { RenderResult } from '@gecut/types';
@@ -44,10 +42,11 @@ export default function textField(
           errorText=${ifDefined(component.errorText)}
           prefixText=${ifDefined(component.prefixText)}
           suffixText=${ifDefined(component.suffixText)}
-          pattern=${ifDefined(component.validate?.pattern)}
+          pattern=${ifDefined(component.pattern)}
           step=${ifDefined(component.step)}
           ?disabled=${component.disabled ?? false}
-          ?required=${component.validate?.required ?? false}
+          ?required=${component.required ?? false}
+          ?error=${component.error ?? false}
           ?readOnly=${component.readOnly ?? false}
           ?hasLeadingIcon=${component.hasLeadingIcon ?? false}
           ?hasTrailingIcon=${component.hasTrailingIcon ?? false}
@@ -62,6 +61,7 @@ export default function textField(
           type=${component.type}
           label=${component.label}
           class=${classes}
+          aria-autocomplete="none"
           placeholder=${ifDefined(component.placeholder)}
           supportingText=${ifDefined(component.supportingText)}
           textDirection=${ifDefined(component.textDirection)}
@@ -75,10 +75,11 @@ export default function textField(
           errorText=${ifDefined(component.errorText)}
           prefixText=${ifDefined(component.prefixText)}
           suffixText=${ifDefined(component.suffixText)}
-          pattern=${ifDefined(component.validate?.pattern)}
+          pattern=${ifDefined(component.pattern)}
           step=${ifDefined(component.step)}
           ?disabled=${component.disabled ?? false}
-          ?required=${component.validate?.required ?? false}
+          ?required=${component.required ?? false}
+          ?error=${component.error ?? false}
           ?readOnly=${component.readOnly ?? false}
           ?hasLeadingIcon=${component.hasLeadingIcon ?? false}
           ?hasTrailingIcon=${component.hasTrailingIcon ?? false}
@@ -108,12 +109,24 @@ function event(
 function textFieldValidate(input: Input, event: InputEvent): void {
   const target = event.target as TextField;
 
-  switch (input.type) {
-    case 'tel':
-      target.error = !telValidate(target.value);
-      break;
-    case 'email':
-      target.error = !emailValidate(target.value);
-      break;
+  if (input.validate != null) {
+    const validatorsResult = validator(target.value, input.validate);
+
+    input.errorText = validatorsResult
+        .filter((result) => result.validate != true)
+        .map((result) => result.errorMessage)
+        .join(' • ');
+
+    input.error = validatorsResult
+        .map((result) => !result.validate)
+        .reduce((p, c) => p || c, false);
+  }
+
+  if (input.errorText != null) {
+    target.errorText = input.errorText;
+  }
+
+  if (input.error != null) {
+    target.error = input.error;
   }
 }

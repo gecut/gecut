@@ -8,8 +8,11 @@ enhancement:
 
 test:
   - any:
-      - "src/**/*.spec.ts"
-      - "src/**/*.spec.js"
+      - "**/*.spec.ts"
+
+demo:
+  - apps/demo/*
+  - apps/demo/**/*
 
 ui:
   - packages/ui/*

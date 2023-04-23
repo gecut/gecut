@@ -17,6 +17,12 @@
     "**/*.tsbuildinfo": true
   },
   "cSpell.language": "en,fa,fa-IR",
-  "cSpell.words": ["gecut", "nrwl", "tslog"],
+  "cSpell.words": [
+    "gecut",
+    "nrwl",
+    "tslog",
+    "unkown",
+    "zamanian"
+  ],
   "typescript.tsdk": "node_modules/typescript/lib"
 }

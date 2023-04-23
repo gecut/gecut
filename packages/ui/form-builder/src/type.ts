@@ -1,3 +1,4 @@
+import type { Rules } from '@gecut/form-validator';
 import type { ArrayValues, SingleOrArray } from '@gecut/types';
 
 const inputTypeList = [
@@ -150,8 +151,11 @@ export type Input = {
   defaultValue?: string;
 
   role?: ArrayValues<typeof inputRole>;
-  validate?: Partial<InputValidate>;
+  validate?: Rules;
+  required?: boolean;
+  pattern?: string;
   errorText?: string;
+  error?: boolean;
 
   prefixText?: string;
   suffixText?: string;
@@ -184,7 +188,3 @@ export type Button = {
   trailingIcon?: boolean;
 };
 
-type InputValidate = {
-  required: boolean;
-  pattern: string;
-};
