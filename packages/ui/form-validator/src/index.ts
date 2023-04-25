@@ -10,7 +10,7 @@ export * from './validators/email/validator';
 export * from './validators/phone/validator';
 export * from './validators/numeric/validator';
 export * from './validators/required/validator';
-export * from './type';
+export type * from './type';
 
 export const validator = (value: Stringifyable, rules: Rules) => {
   return rules.map((ruleData) => {

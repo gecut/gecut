@@ -1,7 +1,7 @@
 import type { ValidatorFunction } from '../../type';
 import type { RequiredRule } from './type';
 
-export * from './type';
+export type * from './type';
 
 export const requiredValidator: ValidatorFunction<RequiredRule> = (
     value,

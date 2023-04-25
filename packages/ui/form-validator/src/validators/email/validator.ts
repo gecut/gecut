@@ -1,7 +1,7 @@
 import type { ValidatorFunction } from '../../type';
 import type { EmailRule } from './type';
 
-export * from './type';
+export type * from './type';
 
 const emailValidatorRegex = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
 
