@@ -1,7 +1,7 @@
 import type { ValidatorFunction } from '../../type';
 import type { NumericRule } from './type';
 
-export * from './type';
+export type * from './type';
 
 const numericValidatorRegex = /^-?\d+$/;
 

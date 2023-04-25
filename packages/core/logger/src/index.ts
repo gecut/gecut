@@ -3,7 +3,7 @@ import { stabilizerScopeName } from './lib/stabilizer-scope-name';
 
 import type { Logger } from './type';
 
-export * from './type';
+export type * from './type';
 export const DEV_MODE = localStorage?.getItem('DEBUG') === '1';
 
 const _style = {
