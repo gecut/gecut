@@ -125,12 +125,13 @@ const inputRole = [
   'doc-toc',
 ] as const;
 const buttonUI = ['outlined', 'filled', 'text', 'elevated', 'tonal'] as const;
+const listenerEventNameList = ['input', 'change', 'click'] as const;
 
 export type Form = {
   components: Array<SingleOrArray<Input | Button>>;
   listener?: (
     componentData: Input | Button,
-    eventName: 'input' | 'change' | 'click',
+    eventName: ArrayValues<typeof listenerEventNameList>,
     event: InputEvent | PointerEvent
   ) => void;
 };
@@ -187,4 +188,3 @@ export type Button = {
   disabled?: boolean;
   trailingIcon?: boolean;
 };
-
