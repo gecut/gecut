@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "prepublish": "yarn nx run-many --target=lint --all=true && yarn nx run-many --target=build --all=true && yarn nx run-many --target=test --all=true"
+    "analyze": "yarn nx run-many --target=lint --all=true && yarn nx run-many --target=build --all=true && yarn nx run-many --target=test --all=true"
   },
   "private": true,
   "devDependencies": {
