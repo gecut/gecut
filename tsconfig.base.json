@@ -17,12 +17,13 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@gecut/form-builder": ["packages/ui/form-builder/src/index.ts"],
-      "@gecut/form-validator": ["packages/ui/form-validator/src/index.ts"],
-      "@gecut/logger": ["packages/core/logger/src/index.ts"],
-      "@gecut/lorem": ["packages/core/lorem/src/index.ts"],
-      "@gecut/mixins": ["packages/ui/mixins/src/index.ts"],
-      "@gecut/types": ["packages/core/types/src/index.ts"]
+      "@gecut/common/*": ["packages/ui/common/src/*"],
+      "@gecut/form-builder": ["packages/ui/form-builder/src"],
+      "@gecut/form-validator": ["packages/ui/form-validator/src"],
+      "@gecut/logger": ["packages/core/logger/src"],
+      "@gecut/lorem": ["packages/core/lorem/src"],
+      "@gecut/mixins": ["packages/ui/mixins/src"],
+      "@gecut/types": ["packages/core/types/src"]
     }
   },
   "exclude": ["node_modules", "tmp"]
