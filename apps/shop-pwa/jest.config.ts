@@ -2,7 +2,6 @@
 export default {
   displayName: 'shop-pwa',
   preset: '../../jest.preset.js',
-  setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   transform: {
     '^.+\\.[tj]s$': '@swc/jest',
   },
