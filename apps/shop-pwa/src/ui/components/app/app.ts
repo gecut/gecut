@@ -2,16 +2,18 @@ import { html, unsafeCSS } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { loggerElement } from '@gecut/mixins';
 import iconifyComponentStyles from '@gecut/common/styles/iconify-component.css?inline';
+import typography from '@gecut/common/styles/modules/typography.module.css?inline';
 
-import '@gecut/common/styles/index.css';
+import '@gecut/common/styles/pwa.css';
+import '@gecut/common/styles/tokens.css';
+import '@gecut/common/styles/mobile-only.css';
+import '@gecut/common/styles/theme/palettes/cadmium-green.css';
 import '~icons/material-symbols/mic-rounded';
 import 'unfonts.css';
 
 import { requests } from '../../../providers/requests';
 
 import styles from './app.css?inline';
-
-import '../../styles.css';
 
 import type { PropertyValues } from 'lit';
 import type { RenderResult } from '@gecut/types';
@@ -26,6 +28,7 @@ declare global {
 export class AppRoot extends loggerElement {
   static override styles = [
     unsafeCSS(styles),
+    unsafeCSS(typography),
     unsafeCSS(iconifyComponentStyles),
   ];
 
