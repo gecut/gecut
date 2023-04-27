@@ -16,7 +16,11 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "skipLibCheck": true,
-    "types": ["vite/client", "unplugin-fonts/client"]
+    "types": ["vite/client", "unplugin-fonts/client"],
   },
-  "include": ["src"]
+  "include": ["src"],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.spec.json" }
+  ]
 }

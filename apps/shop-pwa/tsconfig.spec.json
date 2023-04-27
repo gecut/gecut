@@ -5,7 +5,7 @@
     "module": "commonjs",
     "types": ["jest", "node"]
   },
-  "files": ["src/test-setup.ts"],
+  "files": [],
   "include": [
     "jest.config.ts",
     "src/**/*.test.ts",
