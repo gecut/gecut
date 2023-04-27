@@ -3,10 +3,17 @@ import { customElement } from 'lit/decorators.js';
 import { loggerElement } from '@gecut/mixins';
 import iconifyComponentStyles from '@gecut/common/styles/iconify-component.css?inline';
 
-import styles from './app.element.css?inline';
-
+import '@gecut/common/styles/index.css';
 import '~icons/material-symbols/mic-rounded';
+import 'unfonts.css';
 
+import { requests } from '../../../manager/requests';
+
+import styles from './app.css?inline';
+
+import '../../styles.css';
+
+import type { PropertyValues } from 'lit';
 import type { RenderResult } from '@gecut/types';
 
 declare global {
@@ -38,5 +45,13 @@ export class AppRoot extends loggerElement {
       <h5>h5 heading <small>secondary text</small></h5>
       <h6>h6 heading <small>secondary text</small></h6>
     `;
+  }
+
+  protected firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+
+    requests.getProductsList({ limit: '10' }).then((data) => {
+      this.log.other?.(data);
+    });
   }
 }
