@@ -7,6 +7,9 @@
     "email": "mm25zamanian@gmail.com",
     "url": "https://mm25zamanain.ir"
   },
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "description": "Fancy colorful console debugger with custom scope written in tiny TypeScript, ES module.",
   "keywords": [
     "log",

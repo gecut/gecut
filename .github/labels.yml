@@ -32,6 +32,9 @@
 - name: 'ui'
   color: 0e8a16
   description: 'User Interface new feature or options'
+- name: 'apps'
+  color: e55451
+  description: 'Application projects'
 - name: 'core'
   color: 0052cc
   description: 'Core packages changes or make new feature'

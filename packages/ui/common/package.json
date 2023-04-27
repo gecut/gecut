@@ -1,0 +1,11 @@
+{
+  "name": "@gecut/common",
+  "version": "0.0.1",
+  "type": "module",
+  "files": [
+    "**/*.{d.ts.map,d.ts,js.map,js,html,md,css}"
+  ],
+  "exports": {
+    "*": "./src/*"
+  }
+}
