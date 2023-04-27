@@ -7,7 +7,7 @@ import '@gecut/common/styles/index.css';
 import '~icons/material-symbols/mic-rounded';
 import 'unfonts.css';
 
-import { requests } from '../../../manager/requests';
+import { requests } from '../../../providers/requests';
 
 import styles from './app.css?inline';
 
