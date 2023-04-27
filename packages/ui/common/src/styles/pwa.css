@@ -7,7 +7,10 @@
 * {
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
-  transition: all 1s ease;
+}
+
+html.theme-changing {
+  transition: all var(--sys-motion-duration-large, 300ms) ease;
 }
 
 html,
