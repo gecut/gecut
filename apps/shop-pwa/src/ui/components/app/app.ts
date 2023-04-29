@@ -1,22 +1,27 @@
-import { html, unsafeCSS } from 'lit';
+import { css, html, unsafeCSS } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { loggerElement } from '@gecut/mixins';
 import iconifyComponentStyles from '@gecut/common/styles/iconify-component.css?inline';
-import typography from '@gecut/common/styles/modules/typography.module.css?inline';
+import typography from '@gecut/common/styles/modules/typography.module.css?raw';
 
 import '@gecut/common/styles/pwa.css';
 import '@gecut/common/styles/tokens.css';
 import '@gecut/common/styles/mobile-only.css';
 import '@gecut/common/styles/theme/palettes/cadmium-green.css';
+import '~icons/material-symbols/mic';
 import '~icons/material-symbols/mic-rounded';
+import '@material/web/navigationbar/navigation-bar';
+import '@material/web/navigationtab/navigation-tab';
 import 'unfonts.css';
 
-import { requests } from '../../../providers/requests';
+import { attachRouter } from '../../router';
 
 import styles from './app.css?inline';
 
+import '../../../providers/get-products-list';
+
 import type { PropertyValues } from 'lit';
-import type { RenderResult } from '@gecut/types';
+import type { NavigationTab, RenderResult } from '@gecut/types';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -33,28 +38,46 @@ export class AppRoot extends loggerElement {
   ];
 
   override render(): RenderResult {
-    return html`
-      <g-material-symbols-mic-rounded></g-material-symbols-mic-rounded>
+    // ${AppRoot.renderNavigationBar(config.navigationTabs)}
 
-      <h1>Lighter, Secondary Text</h1>
-      <p>
-        The small element is used to create a lighter, secondary text in any
-        heading:
-      </p>
-      <h1>h1 heading <small>secondary text</small></h1>
-      <h2>h2 heading <small>secondary text</small></h2>
-      <h3>h3 heading <small>secondary text</small></h3>
-      <h4>h4 heading <small>secondary text</small></h4>
-      <h5>h5 heading <small>secondary text</small></h5>
-      <h6>h6 heading <small>secondary text</small></h6>
+    return html` <main role="main"></main> `;
+  }
+
+  override firstUpdated(changedProperties: PropertyValues<this>): void {
+    super.firstUpdated(changedProperties);
+
+    const mainContainer = this.renderRoot.querySelector('main');
+
+    if (mainContainer != null) {
+      attachRouter(mainContainer);
+    }
+
+    window.addEventListener('vaadin-router-location-changed', () =>
+      this.requestUpdate()
+    );
+  }
+
+  static renderNavigationBar(navigationTabs: NavigationTab[]): RenderResult {
+    const navigationTabsTemplate = navigationTabs.map(this.renderNavigationTab);
+
+    return html`
+      <md-navigation-bar> ${navigationTabsTemplate} </md-navigation-bar>
     `;
   }
 
-  protected firstUpdated(changedProperties: PropertyValues<this>): void {
-    super.firstUpdated(changedProperties);
-
-    requests.getProductsList({ limit: '10' }).then((data) => {
-      this.log.other?.(data);
-    });
+  static renderNavigationTab(tab: NavigationTab): RenderResult {
+    return html`
+      <a class="navigation-tab" href=${tab.link}>
+        <md-navigation-tab
+          label=${tab.label}
+          badgeValue=${tab.badgeValue}
+          ?active=${tab.link == location.pathname}
+          ?showBadge=${tab.showBadge}
+          ?hideInactiveLabel=${tab.hideInactiveLabel}
+        >
+          ${tab.icons.active} ${tab.icons.inActive}
+        </md-navigation-tab>
+      </a>
+    `;
   }
 }
