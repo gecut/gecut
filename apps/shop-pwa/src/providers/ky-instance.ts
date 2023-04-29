@@ -9,6 +9,7 @@ export const kyInstance = ky.create({
   },
   retry: {
     limit: 10,
+    statusCodes: [408, 413, 429, 500, 502, 503, 504],
   },
   prefixUrl: config.apiUrl,
 });
