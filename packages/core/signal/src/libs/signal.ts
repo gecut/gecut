@@ -26,8 +26,8 @@ function createSignalProvider<T extends keyof Signals>(name: T) {
     setProvider: (provider: SignalProvider<T>): void => {
       return setProvider(name, provider);
     },
-    request: (args: Providers[T]): void => {
-      return request(name, args);
+    request: async (args: Providers[T]): Promise<void> => {
+      return await request(name, args);
     },
     dispatch: (value: Signals[T]): void => {
       return dispatch(name, value);
@@ -66,7 +66,10 @@ function setProvider<T extends keyof Signals>(
   (signalsObject[name] as SignalNonNullable<typeof name>).provider = provider;
 }
 
-function request<T extends keyof Signals>(name: T, args: Providers[T]): void {
+async function request<T extends keyof Signals>(
+    name: T,
+    args: Providers[T]
+): Promise<void> {
   logger.methodArgs?.('request', { name, args });
   __initSignal(name);
 
@@ -79,7 +82,7 @@ function request<T extends keyof Signals>(name: T, args: Providers[T]): void {
     );
   }
 
-  const value = signalsObject[name]?.provider?.(args);
+  const value = await signalsObject[name]?.provider?.(args);
 
   if (value == null) {
     return logger.warning(
