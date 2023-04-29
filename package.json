@@ -39,6 +39,7 @@
     "swc-loader": "0.1.15",
     "ts-jest": "^29.0.5",
     "ts-node": "10.9.1",
+    "tsconfig-paths": "4.2.0",
     "typescript": "~5.0.4",
     "unplugin-fonts": "1.0.3",
     "unplugin-icons": "0.16.1",
