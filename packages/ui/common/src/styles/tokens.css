@@ -5,3 +5,18 @@
 @import url('tokens/scrollbar.css');
 @import url('tokens/z-index.css');
 @import url('tokens/safe-area.css');
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --md-navigation-bar-container-color: var(
+      --md-ref-palette-neutral-variant95
+    );
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --md-navigation-bar-container-color: var(
+      --md-ref-palette-neutral-variant20
+    );
+  }
+}
