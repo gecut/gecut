@@ -1,6 +1,11 @@
 import { createLogger } from '@gecut/logger';
 
-import type { SignalsObject, SignalNonNullable, SignalListener } from '../type';
+import type {
+  SignalsObject,
+  SignalNonNullable,
+  SignalListener,
+  SignalProvider,
+} from '../type';
 
 const signalsObject: SignalsObject = {};
 const logger = createLogger('gecut/signal');
@@ -8,6 +13,7 @@ const logger = createLogger('gecut/signal');
 function __initSignal<T extends keyof Signals>(name: T) {
   signalsObject[name] ??= {
     value: undefined,
+    provider: undefined,
     listeners: [],
   } as SignalNonNullable<typeof name>;
 }
@@ -16,6 +22,12 @@ function createSignalProvider<T extends keyof Signals>(name: T) {
   return {
     addListener: (callback: SignalListener<T>): void => {
       return addListener(name, callback);
+    },
+    setProvider: (provider: SignalProvider<T>): void => {
+      return setProvider(name, provider);
+    },
+    request: (args: Providers[T]): void => {
+      return request(name, args);
     },
     dispatch: (value: Signals[T]): void => {
       return dispatch(name, value);
@@ -44,4 +56,41 @@ function dispatch<T extends keyof Signals>(name: T, value: Signals[T]): void {
   }
 }
 
-export { createSignalProvider, dispatch, addListener };
+function setProvider<T extends keyof Signals>(
+    name: T,
+    provider: SignalProvider<T>
+): void {
+  logger.methodArgs?.('setProvider', { name, provider });
+  __initSignal(name);
+
+  (signalsObject[name] as SignalNonNullable<typeof name>).provider = provider;
+}
+
+function request<T extends keyof Signals>(name: T, args: Providers[T]): void {
+  logger.methodArgs?.('request', { name, args });
+  __initSignal(name);
+
+  if (signalsObject[name]?.provider == null) {
+    return logger.warning(
+        'request',
+        'provider_not_exists',
+        'Before run request, set Provider',
+        { name, args }
+    );
+  }
+
+  const value = signalsObject[name]?.provider?.(args);
+
+  if (value == null) {
+    return logger.warning(
+        'request',
+        'provider_return_empty',
+        'Provider must be return a value, not empty',
+        { name, args }
+    );
+  }
+
+  dispatch(name, value);
+}
+
+export { createSignalProvider, dispatch, addListener, setProvider, request };
