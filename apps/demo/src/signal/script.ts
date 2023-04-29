@@ -7,5 +7,8 @@ signalTest1.addListener((data) => {
   console.log(data);
 });
 
-signalTest2.dispatch({ foo: 'bar' });
-signalTest2.dispatch({ bar: 'foo' });
+signalTest2.setProvider((arg) => {
+  return { [arg]: arg };
+});
+
+signalTest2.request('fuck');
