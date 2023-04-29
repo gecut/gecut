@@ -8,6 +8,7 @@
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
+        "rootDir": ".",
         "outputPath": "dist/packages/core/signal",
         "main": "packages/core/signal/src/index.ts",
         "tsConfig": "packages/core/signal/tsconfig.lib.json",
