@@ -5,7 +5,7 @@
     "composite": true,
     "declaration": true,
     "target": "ESNext",
-    "useDefineForClassFields": true,
+    "useDefineForClassFields": false,
     "module": "ESNext",
     "strict": true,
     "moduleResolution": "Node",
