@@ -57,6 +57,7 @@
     "@fontsource/roboto": "4.5.8",
     "@fontsource/vazirmatn": "4.5.5",
     "@material/web": "^1.0.0-pre.6",
+    "@vaadin/router": "1.7.5",
     "core-js": "^3.30.1",
     "ky": "0.33.3",
     "lit": "2.7.3",
