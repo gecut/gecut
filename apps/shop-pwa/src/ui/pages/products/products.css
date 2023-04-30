@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 :host {
   --_gap: var(--sys-spacing-gutter);
 
@@ -7,19 +11,21 @@
   gap: var(--_gap);
   padding: calc(2 * var(--sys-spacing-track)) var(--sys-spacing-side-padding);
   overflow-y: auto;
+  width: 100%;
 }
 
 .row {
   display: flex;
+  flex-wrap: wrap;
+  width: 100%;
   gap: var(--_gap);
 }
+
 .row.circular-progress {
   margin: auto;
   margin-top: var(--sys-spacing-track);
 }
 
-.column {
-  display: flex;
-  flex-direction: column;
-  gap: var(--_gap);
+product-card {
+  width: 100%;
 }

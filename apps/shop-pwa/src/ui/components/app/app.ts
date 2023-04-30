@@ -1,5 +1,5 @@
 import { css, html, unsafeCSS } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, state } from 'lit/decorators.js';
 import { loggerElement } from '@gecut/mixins';
 import iconifyComponentStyles from '@gecut/common/styles/iconify-component.css?inline';
 import typography from '@gecut/common/styles/modules/typography.module.css?raw';
@@ -13,6 +13,7 @@ import '~icons/material-symbols/mic-rounded';
 import '@material/web/navigationbar/navigation-bar';
 import '@material/web/navigationtab/navigation-tab';
 import 'unfonts.css';
+import '@gecut/components';
 
 import { attachRouter } from '../../router';
 
@@ -22,6 +23,8 @@ import '../../../providers/get-products-list';
 
 import type { PropertyValues } from 'lit';
 import type { NavigationTab, RenderResult } from '@gecut/types';
+// eslint-disable-next-line @typescript-eslint/consistent-type-imports
+import type { TopAppBarContent } from '@gecut/components';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -37,10 +40,19 @@ export class AppRoot extends loggerElement {
     unsafeCSS(iconifyComponentStyles),
   ];
 
+  @state()
+  private topAppBarContent: TopAppBarContent = {
+      headline: 'Title',
+      type: 'small',
+    };
+
   override render(): RenderResult {
     // ${AppRoot.renderNavigationBar(config.navigationTabs)}
 
-    return html` <main role="main"></main> `;
+    return html`
+      <top-app-bar .content=${this.topAppBarContent}></top-app-bar>
+      <main role="main"></main>
+    `;
   }
 
   override firstUpdated(changedProperties: PropertyValues<this>): void {

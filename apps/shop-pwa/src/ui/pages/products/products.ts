@@ -39,25 +39,14 @@ export class ProductsPage extends loggerElement {
   }
 
   override render(): RenderResult {
-    const productsTemplateCol1 = repeat(
-        this.products.slice(0, Math.round(this.products.length / 2)),
-        (product) => product.id,
-        ProductsPage.renderProductCard
-    );
-    const productsTemplateCol2 = repeat(
-        this.products.slice(
-            Math.round(this.products.length / 2),
-            this.products.length
-        ),
+    const productsTemplate = repeat(
+        this.products,
         (product) => product.id,
         ProductsPage.renderProductCard
     );
 
     return html`
-      <div class="row">
-        <div class="column">${productsTemplateCol1}</div>
-        <div class="column">${productsTemplateCol2}</div>
-      </div>
+      <div class="row">${productsTemplate}</div>
       <div class="row circular-progress">
         <md-circular-progress indeterminate></md-circular-progress>
       </div>
