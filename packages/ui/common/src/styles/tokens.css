@@ -6,17 +6,21 @@
 @import url('tokens/z-index.css');
 @import url('tokens/safe-area.css');
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --md-navigation-bar-container-color: var(
-      --md-ref-palette-neutral-variant95
-    );
-  }
+:root {
+  --md-sys-color-surface-container: var(--md-ref-palette-neutral95);
+  --md-sys-color-surface-container-low: var(--md-ref-palette-neutral-variant98);
+
+  --md-navigation-bar-container-color: var(
+    var(--md-sys-color-surface-container)
+  );
 }
+
+
 @media (prefers-color-scheme: dark) {
   :root {
-    --md-navigation-bar-container-color: var(
+    --md-sys-color-surface-container: var(
       --md-ref-palette-neutral-variant20
     );
+    --md-sys-color-surface-container-low: var(--md-ref-palette-neutral10);
   }
 }

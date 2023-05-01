@@ -1,0 +1,11 @@
+:host {
+  display: block;
+  width: 100%;
+  min-height: 100%;
+
+  padding: calc(var(--sys-spacing-side-padding) * 1.5);
+
+  overflow-x: hidden;
+  overflow-y: scroll;
+  overflow-y: overlay;
+}

@@ -1,5 +1,3 @@
-import type { TemplateResult } from 'lit';
-
 export type NavigationTab = {
   link: string;
   label: string;
@@ -10,8 +8,8 @@ export type NavigationTab = {
   hideInactiveLabel?: boolean;
 
   icons: {
-    active: TemplateResult;
-    inActive: TemplateResult;
+    active: string;
+    inActive: string;
   };
 };
 

@@ -1,7 +1,5 @@
-import type { TemplateResult } from 'lit';
-
 export type IconButtonContent = {
-  icon: TemplateResult;
+  icon: string;
   href?: string;
   target?: string;
   disabled?: boolean;

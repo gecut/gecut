@@ -1,0 +1,21 @@
+@import '../stylesheets/element.scss';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  max-height: calc(100% - 64px - 80px);
+  padding: 0 calc(var(--sys-spacing-side-padding) / 2);
+}
+
+.navigation-tab {
+  flex: 1 1 auto;
+  text-decoration: none;
+}
