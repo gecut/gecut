@@ -22,5 +22,5 @@ jobs:
         with:
           project-url: https://github.com/orgs/gecut/projects/1
           github-token: ${{ secrets.ADD_TO_PROJECT }}
-          labeled: maintenance, dependencies
+          labeled: ci
           label-operator: NOT
