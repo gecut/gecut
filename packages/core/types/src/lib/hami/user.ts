@@ -37,7 +37,7 @@ export type SignInResponse = User & {token: string};
  * type `User` with default values for all properties, and any properties passed in the
  */
 export const userRequire = (user: Partial<User>): User => ({
-  id: '',
+  id: 'auto_increment',
   firstName: '',
   lastName: '',
   phoneNumber: '',
