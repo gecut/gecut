@@ -23,6 +23,9 @@ function createSignalProvider<T extends keyof Signals>(name: T) {
     addListener: (callback: SignalListener<T>): void => {
       return addListener(name, callback);
     },
+    removeListener: (callback: SignalListener<T>): void => {
+      return removeListener(name, callback);
+    },
     setProvider: (provider: SignalProvider<T>): void => {
       return setProvider(name, provider);
     },
@@ -43,6 +46,22 @@ function addListener<T extends keyof Signals>(
   __initSignal(name);
 
   signalsObject[name]?.listeners.push(callback);
+}
+
+function removeListener<T extends keyof Signals>(
+    name: T,
+    callback: SignalListener<T>
+): void {
+  logger.methodArgs?.('removeListener', { name, callback });
+  __initSignal(name);
+
+  signalsObject[name]?.listeners.push(callback);
+
+  const index = signalsObject[name]?.listeners.indexOf(callback);
+
+  if (index != null) {
+    delete signalsObject[name]?.listeners[index];
+  }
 }
 
 function dispatch<T extends keyof Signals>(name: T, value: Signals[T]): void {

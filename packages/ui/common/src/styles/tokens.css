@@ -6,17 +6,28 @@
 @import url('tokens/z-index.css');
 @import url('tokens/safe-area.css');
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --md-navigation-bar-container-color: var(
-      --md-ref-palette-neutral-variant95
-    );
-  }
+:root {
+  --md-sys-color-gold: #815500;
+  --md-sys-color-danger: #bd2a2a;
+  --md-sys-color-warning: #e24800;
+  --md-sys-color-success: #23811c;
+
+  --md-sys-color-surface-container: var(--md-ref-palette-neutral95);
+  --md-sys-color-surface-container-low: var(--md-ref-palette-neutral-variant98);
+
+  --md-navigation-bar-container-color: var(
+    var(--md-sys-color-surface-container)
+  );
 }
+
 @media (prefers-color-scheme: dark) {
   :root {
-    --md-navigation-bar-container-color: var(
-      --md-ref-palette-neutral-variant20
-    );
+    --md-sys-color-gold: #fcbc00;
+    --md-sys-color-danger: #ff4a4a;
+    --md-sys-color-warning: #ff7535;
+    --md-sys-color-success: #43c739;
+
+    --md-sys-color-surface-container: var(--md-ref-palette-neutral-variant20);
+    --md-sys-color-surface-container-low: var(--md-ref-palette-neutral10);
   }
 }

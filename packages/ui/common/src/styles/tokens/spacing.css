@@ -1,6 +1,6 @@
 /* https://material.io/design/layout/spacing-methods.html */
 :root {
-  --sys-spacing-track: 0.625rem;
+  --sys-spacing-track: 0.5rem;
 
   --sys-breakpoint-handset: 600px;
   --sys-breakpoint-tablet: 840px;

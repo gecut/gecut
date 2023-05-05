@@ -1,0 +1,23 @@
+@apiUrl = http://127.0.0.1:3000/api/v0
+@accessToken = YOUR_SECRET_TOKEN
+@userAdminToken = g6y6OMr9DuRYHpoAyH2iJ-WddGUKqE-UTsym013-o8I
+@adminToken = ADMIN_SECRET_TOKEN
+
+### Home
+GET {{apiUrl}}/
+
+### Sign In
+POST {{apiUrl}}/sign-in/
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "data": {
+    "phoneNumber": "09155595488",
+    "password": "zamanian.1384"
+  }
+}
+
+### Get Notifications Storage
+get {{apiUrl}}/notification-storage/?uid=0
+Authorization: Bearer {{userAdminToken}}
