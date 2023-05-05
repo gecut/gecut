@@ -40,6 +40,14 @@ nanoServer.route(
         };
       }
 
+      if (user.active === false) {
+        return {
+          ok: false,
+          statusCode: 403,
+          errorCode: 'user_forbidden',
+        };
+      }
+
       return {
         ok: true,
         data: { ...user, token: tokenGenerator.generate(user.id) },
