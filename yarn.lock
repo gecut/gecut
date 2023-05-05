@@ -1962,18 +1962,12 @@
   dependencies:
     nx "16.1.0"
 
-"@nrwl/vite@^15.9.2":
-  version "15.9.3"
-  resolved "https://registry.yarnpkg.com/@nrwl/vite/-/vite-15.9.3.tgz#4f7cb30608f36ea49a7987d3bdf00ed9965162e6"
-  integrity sha512-LPq8kFtBQRabaYJFITxQ0h77htETnArHzR+m+PqgnbB62UB5F5Ue7kYbxcZkd5kxT33FgvFgh3hrH2jGde2nAw==
+"@nrwl/vite@16.1.0", "@nrwl/vite@^16.1.0":
+  version "16.1.0"
+  resolved "https://registry.yarnpkg.com/@nrwl/vite/-/vite-16.1.0.tgz#019c87a57d88d0d1d623f4530097575c0e8fa72e"
+  integrity sha512-Iq4ONiR3jyPU1AfI+gIj4NaGqx2xMVuEcR5iyBUEHOnsL0V5hBDU+0k79w4jwkEaHU4yrRorl0VcHfBuIct+4Q==
   dependencies:
-    "@nrwl/devkit" "15.9.3"
-    "@nrwl/js" "15.9.3"
-    "@nrwl/workspace" "15.9.3"
-    "@phenomnomnominal/tsquery" "4.1.1"
-    "@swc/helpers" "^0.4.11"
-    dotenv "~10.0.0"
-    enquirer "~2.3.6"
+    "@nx/vite" "16.1.0"
 
 "@nrwl/web@^15.9.2":
   version "15.9.3"
@@ -2149,6 +2143,19 @@
   resolved "https://registry.yarnpkg.com/@nx/nx-win32-x64-msvc/-/nx-win32-x64-msvc-16.1.0.tgz#61a78be45640ab60de5a09df69258a18aaf0ca0a"
   integrity sha512-LI+kAha1m/9f7g+C+dgKZ13OncACSPkCla2tFRxkS/73+XAEhevo+FhdwT6NrE4y3+x7OpKb4rNiWQ5/iMmhZA==
 
+"@nx/vite@16.1.0":
+  version "16.1.0"
+  resolved "https://registry.yarnpkg.com/@nx/vite/-/vite-16.1.0.tgz#cdc9869a546782dfe67dba5b963c9d766fdf7f9d"
+  integrity sha512-nbsKUZiFoy0XdDOHzkInIOH2F9gZ01vYwifYCRbzs9PSYxP6jc0RzFJgB7WaBBB9yO7r9RAoEALGYdH9mrtshA==
+  dependencies:
+    "@nrwl/vite" "16.1.0"
+    "@nx/devkit" "16.1.0"
+    "@nx/js" "16.1.0"
+    "@phenomnomnominal/tsquery" "~5.0.1"
+    "@swc/helpers" "~0.5.0"
+    dotenv "~10.0.0"
+    enquirer "~2.3.6"
+
 "@nx/workspace@16.1.0":
   version "16.1.0"
   resolved "https://registry.yarnpkg.com/@nx/workspace/-/workspace-16.1.0.tgz#f77361b2586215df8358935125d13fa29ac4f0f2"
@@ -2307,10 +2314,10 @@
     magic-string "^0.25.0"
     string.prototype.matchall "^4.0.6"
 
-"@swc/helpers@^0.4.11":
-  version "0.4.14"
-  resolved "https://registry.yarnpkg.com/@swc/helpers/-/helpers-0.4.14.tgz#1352ac6d95e3617ccb7c1498ff019654f1e12a74"
-  integrity sha512-4C7nX/dvpzB7za4Ql9K81xK3HPxCpHMgwTZVyf+9JQ6VUbn9jjZVN7/Nkdz/Ugzs2CSjqnL/UPXroiVBVHUWUw==
+"@swc/helpers@~0.5.0":
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/@swc/helpers/-/helpers-0.5.1.tgz#e9031491aa3f26bfcc974a67f48bd456c8a5357a"
+  integrity sha512-sJ902EfIzn1Fa+qYmjdQqh8tPsoxyBz+8yBKC2HKUxyezKJFwPGOn7pv4WY6QuQW//ySQi5lJjA/ZT9sNWWNTg==
   dependencies:
     tslib "^2.4.0"
 

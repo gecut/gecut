@@ -14,7 +14,7 @@
     "@nrwl/jest": "15.9.2",
     "@nrwl/js": "^15.9.2",
     "@nrwl/linter": "^15.9.2",
-    "@nrwl/vite": "^15.9.2",
+    "@nrwl/vite": "^16.1.0",
     "@nrwl/web": "^15.9.2",
     "@types/jest": "^29.4.0",
     "@types/node": "18.15.11",
