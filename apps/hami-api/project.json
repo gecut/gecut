@@ -12,7 +12,7 @@
         "platform": "node",
         "outputPath": "dist/apps/hami-api",
         "format": ["esm"],
-        "bundle": true,
+        "bundle": false,
         "main": "apps/hami-api/src/index.ts",
         "tsConfig": "apps/hami-api/tsconfig.app.json",
         "assets": [],
@@ -28,6 +28,7 @@
       "configurations": {
         "development": {},
         "production": {
+          "bundle": true,
           "minify": true,
           "generateLockfile": true,
           "esbuildOptions": {
@@ -43,7 +44,7 @@
       "options": {
         "commands": [
           "nx run hami-api:build --watch",
-          "nodemon dist/apps/hami-api/index.mjs"
+          "cd dist/apps/hami-api && nodemon index.mjs"
         ],
         "parallel": true
       },
