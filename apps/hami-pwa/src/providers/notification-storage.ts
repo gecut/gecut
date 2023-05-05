@@ -1,6 +1,7 @@
-import { setProvider } from '@gecut/signal';
-import { kyInstance } from './request-base';
+// import { setProvider } from '@gecut/signal';
 
-setProvider('notification-storage', () => {
-    kyInstance.get('')
-});
+// import { kyInstance } from './request-base';
+
+// setProvider('notification-storage', () => {
+//   kyInstance.get('')
+// });
