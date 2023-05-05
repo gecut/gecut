@@ -1,7 +1,7 @@
 {
-  "name": "hami-api",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/hami-api/src",
+  "name": "services-storage-server",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/services/storage-server/src",
   "projectType": "application",
   "targets": {
     "build": {
@@ -10,11 +10,11 @@
       "defaultConfiguration": "production",
       "options": {
         "platform": "node",
-        "outputPath": "dist/apps/hami-api",
+        "outputPath": "dist/apps/services/storage-server",
         "format": ["esm"],
         "bundle": false,
-        "main": "apps/hami-api/src/index.ts",
-        "tsConfig": "apps/hami-api/tsconfig.app.json",
+        "main": "apps/services/storage-server/src/index.ts",
+        "tsConfig": "apps/services/storage-server/tsconfig.app.json",
         "assets": [],
         "generatePackageJson": true,
         "esbuildOptions": {
@@ -43,8 +43,8 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "nx run hami-api:build --watch",
-          "cd dist/apps/hami-api && nodemon index.mjs"
+          "nx run services-storage-server:build --watch",
+          "cd dist/apps/services/storage-server/ && nodemon index.mjs"
         ],
         "parallel": true
       },
@@ -54,12 +54,12 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/hami-api/**/*.ts"]
+        "lintFilePatterns": ["apps/services/storage-server/**/*.ts"]
       }
     },
     "docker-build": {
       "dependsOn": ["build"],
-      "command": "docker build -f apps/hami-api/Dockerfile . -t hami-api"
+      "command": "docker build -f apps/services/storage-server/Dockerfile . -t services--storage-server"
     }
   },
   "tags": []
