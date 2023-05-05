@@ -1,0 +1,64 @@
+@apiUrl = http://127.0.0.1:3000/api/v0
+@accessToken = YOUR_SECRET_TOKEN
+@userAdminToken = g6y6OMr9DuRYHpoAyH2iJ-WddGUKqE-UTsym013-o8I
+@adminToken = ADMIN_SECRET_TOKEN
+
+
+### Patch Users Demo
+PATCH {{apiUrl}}/user-list/
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "data": [
+    {
+      "firstName": "محمدمهدی",
+      "lastName": "زمانیان",
+
+      "phoneNumber": "09155595488",
+      "password": "zamanian.1384",
+
+      "role": "admin",
+
+      "gender": "male",
+      "email": "mm25zamanian@gmail.com"
+    },
+    {
+      "firstName": "مهدیار",
+      "lastName": "صهبائی",
+
+      "phoneNumber": "09123456789",
+      "password": "abc1234",
+
+      "role": "seller",
+
+      "gender": "male"
+    }
+  ]
+}
+
+### Patch Notifications Demo
+PATCH {{apiUrl}}/notification-list/?uid=0
+Authorization: Bearer {{userAdminToken}}
+Content-Type: application/json
+
+{
+  "data": [
+    {
+      "message": "زندگی می تواند آزاد و زیبا باشد ولی ما راه را گم کرده ایم",
+      "status": "normal"
+    },
+    {
+      "message": "برای خنده واقعی باید بتوانید درد خود را تحمل کنید و آن را به بازی بگیرید.",
+      "status": "success"
+    },
+    {
+      "message": "زندگی می ­تواند عالی باشد، اگر مردم دست از سرت بردارند",
+      "status": "warning"
+    },
+    {
+      "message": "من عاشق قدم زدن زیر باران هستم. چرا که هیچ­ کس نمی تواند زیر باران اشک هایم را ببیند،",
+      "status": "danger"
+    }
+  ]
+}
