@@ -38,9 +38,6 @@
 - name: 'core'
   color: 0052cc
   description: 'Core packages changes or make new feature'
-- name: 'uniquely'
-  color: 0e8a16
-  description: ''
 - name: 'api'
   color: 0052cc
   description: ''

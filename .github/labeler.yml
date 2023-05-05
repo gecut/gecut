@@ -20,12 +20,14 @@ ui:
 core:
   - packages/core/*
   - packages/core/**/*
-uniquely:
-  - packages/uniquely/*
-  - packages/uniquely/**/*
+
+
+apps:
+  - packages/apps/*
+  - packages/apps/**/*
 api:
-  - packages/uniquely/api/*
-  - packages/uniquely/api/**/*
+  - packages/apps/*-api/*
+  - packages/apps/*-api/**/*
 pwa:
-  - packages/uniquely/pwa/*
-  - packages/uniquely/pwa/**/*
+  - packages/apps/*-pwa/*
+  - packages/apps/*-pwa/**/*
