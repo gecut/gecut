@@ -70,6 +70,15 @@
     "@alwatr/logger" "^0.30.0"
     tslib "^2.5.0"
 
+"@alwatr/storage-engine@0.30.0":
+  version "0.30.0"
+  resolved "https://registry.yarnpkg.com/@alwatr/storage-engine/-/storage-engine-0.30.0.tgz#75a56ba16a027db4e85841c3739b3b50e1592afb"
+  integrity sha512-kFG9u+H/cSYeSSaL1qdn5kzCZlyXXp6FYVmJX15Ty5zXxW+WTrgMRTc1sWwcnPMJj2rSis6SP4f2I8/JFBixGA==
+  dependencies:
+    "@alwatr/logger" "^0.30.0"
+    exit-hook "^3.2.0"
+    tslib "^2.5.0"
+
 "@alwatr/token@^0.30.0":
   version "0.30.0"
   resolved "https://registry.yarnpkg.com/@alwatr/token/-/token-0.30.0.tgz#9699227ce118e51e253fc6beabe8203cbb5e5fe3"
@@ -3744,7 +3753,7 @@ es-to-primitive@^1.2.1:
     is-date-object "^1.0.1"
     is-symbol "^1.0.2"
 
-esbuild@^0.17.5:
+esbuild@^0.17.17, esbuild@^0.17.5:
   version "0.17.18"
   resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.17.18.tgz#f4f8eb6d77384d68cd71c53eb6601c7efe05e746"
   integrity sha512-z1lix43jBs6UKjcZVKOw2xx69ffE2aG0PygLL5qJ9OS/gy0Ewd1gW/PUQIOIQGXBHWNywSc0floSKoMFF8aK2w==
@@ -4029,6 +4038,11 @@ execa@^5.0.0, execa@^5.1.1:
     onetime "^5.1.2"
     signal-exit "^3.0.3"
     strip-final-newline "^2.0.0"
+
+exit-hook@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/exit-hook/-/exit-hook-3.2.0.tgz#7d86bc361a4d79278001b72a0509318a6f468f20"
+  integrity sha512-aIQN7Q04HGAV/I5BszisuHTZHXNoC23WtLkxdCLuYZMdWviRD0TMIt2bnUBi9MrHaF/hH8b3gwG9iaAUHKnJGA==
 
 exit@^0.1.2:
   version "0.1.2"
