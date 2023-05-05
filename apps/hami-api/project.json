@@ -42,7 +42,7 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "nx run hami-api:build:development --watch",
+          "nx run hami-api:build --watch",
           "nodemon dist/apps/hami-api/index.mjs"
         ],
         "parallel": true
