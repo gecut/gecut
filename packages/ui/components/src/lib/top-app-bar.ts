@@ -8,6 +8,7 @@ import { unsafeSVG } from 'lit/directives/unsafe-svg.js';
 import '@material/web/iconbutton/standard-icon-button';
 import '@material/web/elevation/elevation';
 
+import type { TemplateResult } from 'lit';
 import type { IconButtonContent, RenderResult } from '@gecut/types';
 
 declare global {
@@ -31,6 +32,7 @@ export type TopAppBarContent = {
    * @default ```[]```
    */
   trailingIconList?: IconButtonContent[];
+  trailingSlots?: TemplateResult;
   /**
    * @default ```flat```
    */
@@ -185,9 +187,10 @@ export class TopAppBar extends loggerElement {
         <div class="title">${titleTemplate}</div>
 
         <div class="trailing-icon">
-          ${map(
-            this.content.trailingIconList ?? [],
-            (iconContent) => html`
+          ${this.content?.trailingSlots ??
+          map(
+              this.content.trailingIconList ?? [],
+              (iconContent) => html`
               <md-standard-icon-button
                 href=${iconContent.href}
                 target=${iconContent.target}
