@@ -18,18 +18,18 @@ export const config = {
   },
   nanoServer: {
     host: process.env.HOST ?? '0.0.0.0',
-    port: process.env.PORT != null ? +process.env.PORT : 8000,
+    port: process.env.PORT != null ? +process.env.PORT : 3000,
     accessToken: process.env.ACCESS_TOKEN ?? 'YOUR_SECRET_TOKEN',
     adminToken: process.env.ADMIN_TOKEN ?? 'ADMIN_SECRET_TOKEN',
     allowAllOrigin: true,
   },
-  customerStorage: 'customer-list',
-  notificationStorage: 'notification-list',
-  orderStorage: 'order-list',
-  productPriceStorage: 'product-price-list',
-  productStorage: 'product-list',
-  supplierStorage: 'supplier-list',
-  userStorage: 'user-list',
+  customerStorage: 'customer-storage',
+  notificationStorage: 'notification-storage',
+  orderStorage: 'order-storage',
+  productPriceStorage: 'product-price-storage',
+  productStorage: 'product-storage',
+  supplierStorage: 'supplier-storage',
+  userStorage: 'user-storage',
 } as const;
 
 logger.logProperty('config', config);

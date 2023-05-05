@@ -5,8 +5,8 @@ import {requireSignedIn} from '../util/require-signed-in';
 
 import type {Notification} from '@gecut/types/hami/notification';
 
-nanoServer.route('GET', '/notification-list/', async (connection) => {
-  logger.logMethod('get-notification-list');
+nanoServer.route('GET', '/notification-storage/', async (connection) => {
+  logger.logMethod('get-notification-storage');
 
   await requireSignedIn(connection);
 

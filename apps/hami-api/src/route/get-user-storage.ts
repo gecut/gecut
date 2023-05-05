@@ -9,8 +9,8 @@ import type {Customer} from '@gecut/types/hami/customer';
 import type {Order} from '@gecut/types/hami/order';
 import type {Routes} from '@gecut/types/hami/routes';
 
-nanoServer.route('GET', '/user-list/', async (connection): Routes['/user-list/'] => {
-  logger.logMethod('get-user-list');
+nanoServer.route('GET', '/user-storage/', async (connection): Routes['user-storage'] => {
+  logger.logMethod('get-user-storage');
 
   await requireAdmin(connection);
 

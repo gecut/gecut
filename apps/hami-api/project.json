@@ -26,9 +26,6 @@
         }
       },
       "configurations": {
-        "watch": {
-          "watch": true
-        },
         "development": {},
         "production": {
           "minify": true,
@@ -45,8 +42,8 @@
       "executor": "nx:run-commands",
       "options": {
         "commands": [
-          "nx run hami-api:build:watch",
-          "cd dist/apps/hami-api && nodemon ./index.mjs"
+          "nx run hami-api:build:development --watch",
+          "nodemon dist/apps/hami-api/index.mjs"
         ],
         "parallel": true
       },

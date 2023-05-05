@@ -9,8 +9,8 @@ import type {User} from '@gecut/types/hami/user';
 import type {Order} from '@gecut/types/hami/order';
 import type {AlwatrDocumentStorage} from '@alwatr/type/storage';
 
-nanoServer.route('GET', '/customer-list/', async (connection): Routes['/customer-list/'] => {
-  logger.logMethod('get-customer-list');
+nanoServer.route('GET', '/customer-storage/', async (connection): Routes['customer-storage'] => {
+  logger.logMethod('get-customer-storage');
 
   await requireSignedIn(connection);
 

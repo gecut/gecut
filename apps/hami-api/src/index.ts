@@ -1,7 +1,7 @@
 import {logger} from './lib/config';
 // get routes
-import './route/get-customer-list';
-import './route/get-notification-list';
+import './route/get-customer-storage';
+import './route/get-notification-storage';
 import './route/get-product-list';
 import './route/get-product-price-list';
 // other
