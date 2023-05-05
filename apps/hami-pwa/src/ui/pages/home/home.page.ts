@@ -3,11 +3,13 @@ import { customElement, state } from 'lit/decorators.js';
 import { loggerElement } from '@gecut/mixins';
 import { map } from 'lit/directives/map.js';
 import { unsafeSVG } from 'lit/directives/unsafe-svg.js';
-import IconDoneRounded from 'virtual:icons/material-symbols/done-rounded';
 import { dispatch } from '@gecut/signal';
 import { loremIpsum } from '@gecut/lorem';
-// import IconErrorOutlineRounded from 'virtual:icons/material-symbols/error-outline-rounded';
-// import IconWarningOutlineRounded from 'virtual:icons/material-symbols/warning-outline-rounded';
+import { random } from '@alwatr/math';
+import IconDoneRounded from 'virtual:icons/material-symbols/done-rounded';
+import IconErrorOutlineRounded from 'virtual:icons/material-symbols/error-outline-rounded';
+import IconWarningOutlineRounded from 'virtual:icons/material-symbols/warning-outline-rounded';
+import IconStarOutlineRounded from 'virtual:icons/material-symbols/star-outline-rounded';
 
 import '@material/web/list/list';
 import '@material/web/list/list-item';
@@ -18,6 +20,8 @@ import pageStyle from '../../stylesheets/page.scss?inline';
 
 import styles from './home.page.scss?inline';
 
+import type { MdListItem } from '@material/web/list/list-item';
+import type { Notification } from '@gecut/types/hami/notification';
 import type { RenderResult } from '@gecut/types';
 
 declare global {
@@ -35,30 +39,62 @@ export class PageHome extends loggerElement {
   ];
 
   @state()
-  private notifications: string[] = [
-      loremIpsum({ lang: 'en', size: 4, sizeType: 'word' }),
-      loremIpsum({ lang: 'en', size: 4, sizeType: 'word' }),
-      loremIpsum({ lang: 'en', size: 4, sizeType: 'word' }),
-      loremIpsum({ lang: 'en', size: 4, sizeType: 'word' }),
+  private notifications: Notification[] = [
+      {
+        id: '0',
+        status: 'normal',
+        message: loremIpsum({
+          lang: 'en',
+          size: random.integer(5, 20),
+          sizeType: 'word',
+        }),
+        active: true,
+      },
+      {
+        id: '1',
+        status: 'danger',
+        message: loremIpsum({
+          lang: 'en',
+          size: random.integer(5, 20),
+          sizeType: 'word',
+        }),
+        active: true,
+      },
+      {
+        id: '2',
+        status: 'warning',
+        message: loremIpsum({
+          lang: 'en',
+          size: random.integer(5, 20),
+          sizeType: 'word',
+        }),
+        active: true,
+      },
+      {
+        id: '2',
+        status: 'success',
+        message: loremIpsum({
+          lang: 'en',
+          size: random.integer(5, 20),
+          sizeType: 'word',
+        }),
+        active: true,
+      },
     ];
 
   override connectedCallback(): void {
     super.connectedCallback();
 
-    this.addEventListener('scroll', this.topAppBarMode);
+    this.addEventListener('scroll', this.topAppBarChangeMode);
   }
   override disconnectedCallback(): void {
     super.disconnectedCallback();
 
-    this.removeEventListener('scroll', this.topAppBarMode);
+    this.removeEventListener('scroll', this.topAppBarChangeMode);
   }
 
   override render(): RenderResult {
     super.render();
-
-    // ${unsafeSVG(String(IconWarningOutlineRounded))}
-
-    // ${unsafeSVG(String(IconErrorOutlineRounded))}
 
     return html`
       <div class="card-box">
@@ -67,16 +103,7 @@ export class PageHome extends loggerElement {
         <div class="card">
           <div class="card-scroll">
             <md-list>
-              ${map(
-                this.notifications,
-                (notification) => html`
-                  <md-list-item headline=${notification}>
-                    <md-icon slot="start" class="success">
-                      ${unsafeSVG(String(IconDoneRounded))}
-                    </md-icon>
-                  </md-list-item>
-                `
-              )}
+              ${map(this.notifications, PageHome.renderNotificationItem)}
             </md-list>
           </div>
 
@@ -86,7 +113,62 @@ export class PageHome extends loggerElement {
     `;
   }
 
-  private topAppBarMode(): void {
+  static openDetailNotificationItem(event: Event): void {
+    const target = event.target as MdListItem;
+
+    target.multiLineSupportingText = true;
+  }
+
+  static closeDetailNotificationItem(event: Event): void {
+    const target = event.target as MdListItem;
+
+    target.multiLineSupportingText = false;
+  }
+
+  static renderNotificationItem(notification: Notification): RenderResult {
+    let icon = '';
+
+    const messageWords = notification.message.split(' ');
+    const messageLength = messageWords.length;
+    const messageHeadlineBreakIndex = Math.round(messageLength / 3);
+    const messageHeadline = messageWords
+        .slice(0, messageHeadlineBreakIndex)
+        .join(' ');
+    const messageSupportingText = messageWords
+        .slice(messageHeadlineBreakIndex, messageLength)
+        .join(' ');
+
+    switch (notification.status) {
+      case 'danger':
+        icon = IconErrorOutlineRounded;
+        break;
+      case 'warning':
+        icon = IconWarningOutlineRounded;
+        break;
+      case 'normal':
+        icon = IconStarOutlineRounded;
+        break;
+      case 'success':
+        icon = IconDoneRounded;
+        break;
+    }
+
+    return html`
+      <md-list-item
+        class="notification-item"
+        headline=${messageHeadline}
+        supportingText=${messageSupportingText}
+        @focus=${PageHome.openDetailNotificationItem}
+        @blur=${PageHome.closeDetailNotificationItem}
+      >
+        <md-icon slot="start" class="icon-${notification.status}">
+          ${unsafeSVG(String(icon))}
+        </md-icon>
+      </md-list-item>
+    `;
+  }
+
+  private topAppBarChangeMode(): void {
     const scrollY = this.scrollTop;
 
     if (Math.floor(scrollY / 10) != 0) {

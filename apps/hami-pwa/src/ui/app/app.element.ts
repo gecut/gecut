@@ -6,6 +6,7 @@ import { addListener } from '@gecut/signal';
 import IconMenuRounded from 'virtual:icons/material-symbols/menu-rounded';
 import IconLanguageRounded from 'virtual:icons/material-symbols/language';
 
+import '@material/web/circularprogress/circular-progress';
 import '@material/web/navigationbar/navigation-bar';
 import '@material/web/navigationtab/navigation-tab';
 import '@material/web/icon/icon';
@@ -17,7 +18,7 @@ import config from '../../config';
 import styles from './app.element.scss?inline';
 
 import type { TopAppBarContent } from '@gecut/components';
-import type { PropertyValues } from 'lit';
+import type { PropertyValues , PropertyDeclaration} from 'lit';
 import type { NavigationTab, RenderResult } from '@gecut/types';
 
 declare global {
@@ -40,6 +41,10 @@ const getDate = () => {
 export class AppRoot extends loggerElement {
   static override styles = [unsafeCSS(styles)];
 
+  private topAppBarLoading = html`
+    <md-circular-progress indeterminate> </md-circular-progress>
+  `;
+
   @state()
   private topAppBarContent: TopAppBarContent = {
       headline: getDate(),
@@ -52,7 +57,13 @@ export class AppRoot extends loggerElement {
           icon: IconLanguageRounded,
         },
       ],
+      trailingSlots: html`
+      <md-circular-progress indeterminate> </md-circular-progress>
+    `,
     };
+
+  @state()
+  private promisesListLength = 0;
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -63,11 +74,29 @@ export class AppRoot extends loggerElement {
         ...value,
       };
     });
+
+    addListener('promises-list', (value) => {
+      this.promisesListLength = value.length;
+    });
+  }
+
+  override requestUpdate(
+      name?: PropertyKey | undefined,
+      oldValue?: unknown,
+      options?: PropertyDeclaration<unknown, unknown> | undefined
+  ): void {
+    super.requestUpdate(name, oldValue, options);
+
+    if (name == 'promisesListLength') {
+      if (this.promisesListLength > 0) {
+        this.topAppBarContent['trailingSlots'] = this.topAppBarLoading;
+      } else {
+        delete this.topAppBarContent.trailingSlots;
+      }
+    }
   }
 
   override render(): RenderResult {
-    // ${AppRoot.renderNavigationBar(config.navigationTabs)}
-
     return html`
       <top-app-bar .content=${this.topAppBarContent}></top-app-bar>
       <main role="main"></main>

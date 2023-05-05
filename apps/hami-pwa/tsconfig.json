@@ -2,7 +2,6 @@
   "extends": "../../tsconfig.base.json",
   "files": [],
   "compilerOptions": {
-    "composite": true,
     "declaration": true,
     "target": "ESNext",
     "useDefineForClassFields": false,
@@ -11,7 +10,6 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "types": ["vite/client"],
     "lib": ["ESNext", "DOM"],
     "skipLibCheck": true,
     "esModuleInterop": true,

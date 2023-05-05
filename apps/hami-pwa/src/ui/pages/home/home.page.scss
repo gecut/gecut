@@ -41,24 +41,35 @@
           --_list-item-container-color: var(--_background-color);
 
           md-icon {
-            color: var(--md-sys-color-primary);
             margin-inline-start: calc(2 * var(--sys-spacing-track));
           }
 
-          md-icon.danger {
-            color: var(--md-sys-color-error);
+          md-icon.icon-normal {
+            color: var(--md-sys-color-gold);
+          }
+
+          md-icon.icon-danger {
+            color: var(--md-sys-color-danger);
+          }
+
+          md-icon.icon-warning {
+            color: var(--md-sys-color-warning);
+          }
+
+          md-icon.icon-success {
+            color: var(--md-sys-color-success);
           }
         }
       }
 
-      &::before {
-        content: '';
-        position: absolute;
+      // &::before {
+      //   content: '';
+      //   position: absolute;
 
-        width: 100%;
-        height: 100%;
-        z-index: var(--sys-zindex-above);
-      }
+      //   width: 100%;
+      //   height: 100%;
+      //   z-index: var(--sys-zindex-above);
+      // }
     }
   }
 }
