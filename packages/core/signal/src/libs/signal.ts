@@ -20,6 +20,9 @@ function __initSignal<T extends keyof Signals>(name: T) {
 
 function createSignalProvider<T extends keyof Signals>(name: T) {
   return {
+    get value() {
+      return getValue(name);
+    },
     addListener: (callback: SignalListener<T>): void => {
       return addListener(name, callback);
     },
@@ -85,6 +88,13 @@ function setProvider<T extends keyof Signals>(
   (signalsObject[name] as SignalNonNullable<typeof name>).provider = provider;
 }
 
+function getValue<T extends keyof Signals>(name: T): Signals[T] | undefined {
+  logger.methodArgs?.('getValue', { name });
+  __initSignal(name);
+
+  return signalsObject[name]?.value;
+}
+
 async function request<T extends keyof Signals>(
     name: T,
     args: Providers[T]
@@ -115,4 +125,12 @@ async function request<T extends keyof Signals>(
   dispatch(name, value);
 }
 
-export { createSignalProvider, dispatch, addListener, setProvider, request };
+export {
+  createSignalProvider,
+  dispatch,
+  addListener,
+  removeListener,
+  setProvider,
+  request,
+  getValue,
+};

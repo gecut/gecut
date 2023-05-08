@@ -4,7 +4,7 @@ import { routes } from './routes';
 
 import type { Params } from '@vaadin/router';
 
-const router = new Router();
+export const router = new Router();
 
 router.setRoutes([
   // Redirect to URL without trailing slash

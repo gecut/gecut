@@ -11,6 +11,7 @@ const listener = () => {
 };
 
 form.data = {
+  valid: false,
   components: [
     [
       {

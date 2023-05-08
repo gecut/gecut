@@ -44,7 +44,7 @@
       "options": {
         "commands": [
           "nx run hami-api:build --watch",
-          "cd dist/apps/hami-api && nodemon index.mjs"
+          "nodemon dist/apps/hami-api/index.mjs"
         ],
         "parallel": true
       },

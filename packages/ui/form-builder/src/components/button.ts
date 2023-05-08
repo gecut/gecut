@@ -1,16 +1,20 @@
 import { html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
+import { unsafeSVG } from 'lit/directives/unsafe-svg.js';
+import { when } from 'lit/directives/when.js';
 
 import '@material/web/button/filled-button';
 import '@material/web/button/outlined-button';
 import '@material/web/button/text-button';
 import '@material/web/button/elevated-button';
 import '@material/web/button/tonal-button';
+import '@material/web/icon/icon';
 
 import type { RenderResult } from '@gecut/types';
-import type { Button, FormListener } from '../type';
+import type { Button, Form, FormListener } from '../type';
 
 export default function button(
+    form: Form,
     component: Button,
     listener: FormListener
 ): RenderResult {
@@ -26,54 +30,97 @@ export default function button(
     case 'filled':
       return html`
         <md-filled-button
-          label=${component.label}
           class=${classes}
-          ?disabled=${component.disabled ?? false}
+          ?disabled=${buttonDisabled(component.disabled ?? false, form.valid)}
           ?trailingIcon=${component.trailingIcon ?? false}
           @click=${event('click', component, listener)}
-        ></md-filled-button>
+        >
+          <span class="button-label">${component.label}</span>
+          ${when(
+            component.iconSVG != null,
+            () => html`
+              <md-icon slot="icon"> ${unsafeSVG(component.iconSVG)} </md-icon>
+            `
+          )}
+        </md-filled-button>
       `;
     case 'outlined':
       return html`
         <md-outlined-button
-          label=${component.label}
           class=${classes}
-          ?disabled=${component.disabled ?? false}
+          ?disabled=${buttonDisabled(component.disabled ?? false, form.valid)}
           ?trailingIcon=${component.trailingIcon ?? false}
           @click=${event('click', component, listener)}
-        ></md-outlined-button>
+        >
+          <span class="button-label">${component.label}</span>
+          ${when(
+            component.iconSVG != null,
+            () => html`
+              <md-icon slot="icon"> ${unsafeSVG(component.iconSVG)} </md-icon>
+            `
+          )}
+        </md-outlined-button>
       `;
     case 'text':
       return html`
         <md-text-button
-          label=${component.label}
           class=${classes}
-          ?disabled=${component.disabled ?? false}
+          ?disabled=${buttonDisabled(component.disabled ?? false, form.valid)}
           ?trailingIcon=${component.trailingIcon ?? false}
           @click=${event('click', component, listener)}
-        ></md-text-button>
+        >
+          <span class="button-label">${component.label}</span>
+          ${when(
+            component.iconSVG != null,
+            () => html`
+              <md-icon slot="icon"> ${unsafeSVG(component.iconSVG)} </md-icon>
+            `
+          )}
+        </md-text-button>
       `;
     case 'elevated':
       return html`
         <md-elevated-button
-          label=${component.label}
           class=${classes}
-          ?disabled=${component.disabled ?? false}
+          ?disabled=${buttonDisabled(component.disabled ?? false, form.valid)}
           ?trailingIcon=${component.trailingIcon ?? false}
           @click=${event('click', component, listener)}
-        ></md-elevated-button>
+        >
+          <span class="button-label">${component.label}</span>
+          ${when(
+            component.iconSVG != null,
+            () => html`
+              <md-icon slot="icon"> ${unsafeSVG(component.iconSVG)} </md-icon>
+            `
+          )}
+        </md-elevated-button>
       `;
     case 'tonal':
       return html`
         <md-tonal-button
-          label=${component.label}
           class=${classes}
-          ?disabled=${component.disabled ?? false}
+          ?disabled=${buttonDisabled(component.disabled ?? false, form.valid)}
           ?trailingIcon=${component.trailingIcon ?? false}
           @click=${event('click', component, listener)}
-        ></md-tonal-button>
+        >
+          <span class="button-label">${component.label}</span>
+          ${when(
+            component.iconSVG != null,
+            () => html`
+              <md-icon slot="icon"> ${unsafeSVG(component.iconSVG)} </md-icon>
+            `
+          )}
+        </md-tonal-button>
       `;
   }
+}
+
+function buttonDisabled(disabled: boolean | 'by_valid', valid: boolean) {
+  if (disabled === 'by_valid') {
+    return !valid;
+  }
+
+  return disabled;
 }
 
 function event(

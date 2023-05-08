@@ -4,6 +4,7 @@ import './route/get-customer-storage';
 import './route/get-notification-storage';
 import './route/get-product-list';
 import './route/get-product-price-list';
+import './route/get-user';
 // other
 import './route/home';
 import './route/authentication/sign-in';

@@ -89,7 +89,7 @@ export default defineConfig({
     Icons({
       autoInstall: true,
       compiler: 'raw',
-      defaultStyle: 'display:block;margin:auto;',
+      defaultStyle: 'display:block;margin:auto;width:100%;height:100%;',
     }),
 
     Unfonts({

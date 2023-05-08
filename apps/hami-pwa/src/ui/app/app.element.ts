@@ -2,7 +2,7 @@ import { html, unsafeCSS } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { unsafeSVG } from 'lit/directives/unsafe-svg.js';
 import { loggerElement } from '@gecut/mixins';
-import { addListener } from '@gecut/signal';
+import { addListener, dispatch } from '@gecut/signal';
 import IconMenuRounded from 'virtual:icons/material-symbols/menu-rounded';
 import IconLanguageRounded from 'virtual:icons/material-symbols/language';
 
@@ -12,13 +12,14 @@ import '@material/web/navigationtab/navigation-tab';
 import '@material/web/icon/icon';
 import '@gecut/components';
 
-import { attachRouter } from '../router/index';
+import { attachRouter, router } from '../router/index';
 import config from '../../config';
+import i18n from '../i18n';
 
 import styles from './app.element.scss?inline';
 
 import type { TopAppBarContent } from '@gecut/components';
-import type { PropertyValues , PropertyDeclaration} from 'lit';
+import type { PropertyValues } from 'lit';
 import type { NavigationTab, RenderResult } from '@gecut/types';
 
 declare global {
@@ -30,7 +31,7 @@ declare global {
 const getDate = () => {
   const now = new Date();
 
-  return now.toLocaleDateString('en-US', {
+  return now.toLocaleDateString(i18n.getConfig().code, {
     weekday: 'long',
     day: 'numeric',
     month: 'long',
@@ -41,7 +42,7 @@ const getDate = () => {
 export class AppRoot extends loggerElement {
   static override styles = [unsafeCSS(styles)];
 
-  private topAppBarLoading = html`
+  static topAppBarLoading = html`
     <md-circular-progress indeterminate> </md-circular-progress>
   `;
 
@@ -57,16 +58,23 @@ export class AppRoot extends loggerElement {
           icon: IconLanguageRounded,
         },
       ],
-      trailingSlots: html`
-      <md-circular-progress indeterminate> </md-circular-progress>
-    `,
+      trailingSlots: undefined,
     };
 
   @state()
-  private promisesListLength = 0;
+  private topAppBarHidden = false;
+
+  @state()
+  private bottomAppBarHidden = false;
 
   override connectedCallback(): void {
     super.connectedCallback();
+
+    i18n.init();
+
+    if (router.location.pathname !== '/') {
+      router.render('/', true);
+    }
 
     addListener('top-app-bar', (value) => {
       this.topAppBarContent = {
@@ -76,31 +84,37 @@ export class AppRoot extends loggerElement {
     });
 
     addListener('promises-list', (value) => {
-      this.promisesListLength = value.length;
-    });
-  }
+      const oldValue = this.topAppBarContent;
 
-  override requestUpdate(
-      name?: PropertyKey | undefined,
-      oldValue?: unknown,
-      options?: PropertyDeclaration<unknown, unknown> | undefined
-  ): void {
-    super.requestUpdate(name, oldValue, options);
-
-    if (name == 'promisesListLength') {
-      if (this.promisesListLength > 0) {
-        this.topAppBarContent['trailingSlots'] = this.topAppBarLoading;
+      if (value.length > 0) {
+        dispatch('top-app-bar', { trailingSlots: AppRoot.topAppBarLoading });
       } else {
-        delete this.topAppBarContent.trailingSlots;
+        dispatch('top-app-bar', { trailingSlots: undefined });
       }
-    }
+
+      this.requestUpdate('topAppBarContent', oldValue);
+    });
+
+    addListener('top-app-bar-hidden', (hidden) => {
+      this.topAppBarHidden = hidden;
+    });
+
+    addListener('bottom-app-bar-hidden', (hidden) => {
+      this.bottomAppBarHidden = hidden;
+    });
   }
 
   override render(): RenderResult {
     return html`
-      <top-app-bar .content=${this.topAppBarContent}></top-app-bar>
+      <top-app-bar
+        .content=${this.topAppBarContent}
+        ?hidden=${this.topAppBarHidden}
+      ></top-app-bar>
       <main role="main"></main>
-      ${AppRoot.renderNavigationBar(config.navigationTabs)}
+      ${AppRoot.renderNavigationBar(
+        config.navigationTabs,
+        this.bottomAppBarHidden
+      )}
     `;
   }
 
@@ -118,11 +132,16 @@ export class AppRoot extends loggerElement {
     );
   }
 
-  static renderNavigationBar(navigationTabs: NavigationTab[]): RenderResult {
+  static renderNavigationBar(
+      navigationTabs: NavigationTab[],
+      bottomAppBarHidden: boolean
+  ): RenderResult {
     const navigationTabsTemplate = navigationTabs.map(this.renderNavigationTab);
 
     return html`
-      <md-navigation-bar> ${navigationTabsTemplate} </md-navigation-bar>
+      <md-navigation-bar ?hidden=${bottomAppBarHidden}>
+        ${navigationTabsTemplate}
+      </md-navigation-bar>
     `;
   }
 

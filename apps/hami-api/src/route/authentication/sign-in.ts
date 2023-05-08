@@ -1,13 +1,12 @@
+
 import { config, logger } from '../../lib/config';
 import { nanoServer } from '../../lib/server';
 import { storageClient } from '../../lib/storage';
 import { tokenGenerator } from '../../lib/token';
 
-import type { AlwatrServiceResponse } from '@alwatr/type/service-response';
-import type { StringifyableRecord } from '@gecut/types';
+import type { Routes } from '@gecut/types/hami/routes';
 import type {
   SignInRequest,
-  SignInResponse,
   User,
 } from '@gecut/types/hami/user';
 
@@ -16,7 +15,7 @@ nanoServer.route(
     '/sign-in/',
     async (
         connection
-    ): Promise<AlwatrServiceResponse<SignInResponse, StringifyableRecord>> => {
+    ): Promise<Routes['sign-in']> => {
       logger.logMethod('user-sign-in');
 
       const bodyJson = await connection.requireJsonBody<{

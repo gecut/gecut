@@ -1,11 +1,9 @@
-import { html, unsafeCSS } from 'lit';
+import { html, nothing, unsafeCSS } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { loggerElement } from '@gecut/mixins';
 import { map } from 'lit/directives/map.js';
 import { unsafeSVG } from 'lit/directives/unsafe-svg.js';
-import { dispatch } from '@gecut/signal';
-import { loremIpsum } from '@gecut/lorem';
-import { random } from '@alwatr/math';
+import { createSignalProvider, dispatch } from '@gecut/signal';
 import IconDoneRounded from 'virtual:icons/material-symbols/done-rounded';
 import IconErrorOutlineRounded from 'virtual:icons/material-symbols/error-outline-rounded';
 import IconWarningOutlineRounded from 'virtual:icons/material-symbols/warning-outline-rounded';
@@ -17,9 +15,11 @@ import '@material/web/icon/icon';
 
 import elementStyle from '../../stylesheets/element.scss?inline';
 import pageStyle from '../../stylesheets/page.scss?inline';
+import i18n from '../../i18n';
 
 import styles from './home.page.scss?inline';
 
+import type { AlwatrDocumentStorage } from '@alwatr/type/storage';
 import type { MdListItem } from '@material/web/list/list-item';
 import type { Notification } from '@gecut/types/hami/notification';
 import type { RenderResult } from '@gecut/types';
@@ -38,79 +38,41 @@ export class PageHome extends loggerElement {
     unsafeCSS(pageStyle),
   ];
 
+  static notificationStorageSignal = createSignalProvider(
+      'notification-storage'
+  );
+
   @state()
-  private notifications: Notification[] = [
-      {
-        id: '0',
-        status: 'normal',
-        message: loremIpsum({
-          lang: 'en',
-          size: random.integer(5, 20),
-          sizeType: 'word',
-        }),
-        active: true,
-      },
-      {
-        id: '1',
-        status: 'danger',
-        message: loremIpsum({
-          lang: 'en',
-          size: random.integer(5, 20),
-          sizeType: 'word',
-        }),
-        active: true,
-      },
-      {
-        id: '2',
-        status: 'warning',
-        message: loremIpsum({
-          lang: 'en',
-          size: random.integer(5, 20),
-          sizeType: 'word',
-        }),
-        active: true,
-      },
-      {
-        id: '2',
-        status: 'success',
-        message: loremIpsum({
-          lang: 'en',
-          size: random.integer(5, 20),
-          sizeType: 'word',
-        }),
-        active: true,
-      },
-    ];
+  private notifications: Notification[] = [];
 
   override connectedCallback(): void {
     super.connectedCallback();
+    
+    dispatch('top-app-bar-hidden', false);
+    dispatch('bottom-app-bar-hidden', false);
 
     this.addEventListener('scroll', this.topAppBarChangeMode);
+
+    PageHome.notificationStorageSignal.addListener((value) =>
+      this.onNotificationStorageDispatched(value)
+    );
+
+    PageHome.notificationStorageSignal.request({});
   }
   override disconnectedCallback(): void {
     super.disconnectedCallback();
 
     this.removeEventListener('scroll', this.topAppBarChangeMode);
+
+    PageHome.notificationStorageSignal.removeListener((value) =>
+      this.onNotificationStorageDispatched(value)
+    );
   }
 
   override render(): RenderResult {
     super.render();
 
-    return html`
-      <div class="card-box">
-        <h3 class="title">Notifications</h3>
-
-        <div class="card">
-          <div class="card-scroll">
-            <md-list>
-              ${map(this.notifications, PageHome.renderNotificationItem)}
-            </md-list>
-          </div>
-
-          <md-elevation></md-elevation>
-        </div>
-      </div>
-    `;
+    return PageHome.renderNotificationCard(this.notifications);
   }
 
   static openDetailNotificationItem(event: Event): void {
@@ -166,6 +128,32 @@ export class PageHome extends loggerElement {
         </md-icon>
       </md-list-item>
     `;
+  }
+
+  static renderNotificationCard(notifications: Notification[]): RenderResult {
+    if (notifications.length === 0) return nothing;
+
+    return html`
+      <div class="card-box">
+        <h3 class="title">${i18n.message('notification_box_title')}</h3>
+
+        <div class="card">
+          <div class="card-scroll">
+            <md-list>
+              ${map(notifications, PageHome.renderNotificationItem)}
+            </md-list>
+          </div>
+
+          <md-elevation></md-elevation>
+        </div>
+      </div>
+    `;
+  }
+
+  private onNotificationStorageDispatched(
+      notificationStorage: AlwatrDocumentStorage<Notification>
+  ): void {
+    this.notifications = Object.values(notificationStorage.data);
   }
 
   private topAppBarChangeMode(): void {
