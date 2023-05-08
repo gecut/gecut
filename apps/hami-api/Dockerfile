@@ -31,8 +31,7 @@ RUN set -ex;\
     fi;
 RUN set -ex;\
     cd "${PACKAGE_SOURCE}"; pwd; ls -lahF;\
-    yarn build;\
-    cd dist; pwd; ls -lahF;
+    pwd; ls -lahF;
 
 # Clean devDependencies
 RUN set -ex;\
@@ -49,7 +48,7 @@ WORKDIR /app
 # Install tini for recive system signal in nodejs
 # RUN apk add --no-cache tini
 # ENTRYPOINT ["/sbin/tini", "--"]
-CMD ["yarn", "serve"]
+CMD ["node", "${PACKAGE_SOURCE}/index.mjs"]
 
 ENV NODE_ENV production
 ENV NODE_OPTIONS --enable-source-maps
@@ -58,14 +57,14 @@ ENV HOST 0.0.0.0
 ENV PORT 80
 EXPOSE 80
 
-# Tell nodejs to run as ESM Modules
-# RUN echo '{"type":"module"}' > package.json
+# # Tell nodejs to run as ESM Modules
+# # RUN echo '{"type":"module"}' > package.json
 
-# Copy all deps from last stage
-COPY --from=builder /app/node_modules ./node_modules
+# # Copy all deps from last stage
+# COPY --from=builder /app/node_modules ./node_modules
 
-# Copy builded files from last stage
-ARG PACKAGE_SOURCE
-COPY --from=builder /app/${PACKAGE_SOURCE}/package.json ./
-COPY --from=builder /app/${PACKAGE_SOURCE}/dist ./dist
-RUN pwd; ls -lAhF;
+# # Copy builded files from last stage
+# ARG PACKAGE_SOURCE
+# COPY --from=builder /app/${PACKAGE_SOURCE}/package.json ./
+# COPY --from=builder /app/${PACKAGE_SOURCE}/dist ./dist
+# RUN pwd; ls -lAhF;
