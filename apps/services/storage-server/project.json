@@ -44,7 +44,7 @@
       "options": {
         "commands": [
           "nx run services-storage-server:build --watch",
-          "cd dist/apps/services/storage-server/ && nodemon index.mjs"
+          "nodemon dist/apps/services/storage-server/index.mjs"
         ],
         "parallel": true
       },

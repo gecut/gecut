@@ -1,10 +1,13 @@
 import { html } from 'lit';
 import { classMap } from 'lit/directives/class-map.js';
 import { ifDefined } from 'lit/directives/if-defined.js';
+import { when } from 'lit/directives/when.js';
+import { unsafeSVG } from 'lit/directives/unsafe-svg.js';
 import { validator } from '@gecut/form-validator';
 
 import '@material/web/textfield/filled-text-field';
 import '@material/web/textfield/outlined-text-field';
+import '@material/web/icon/icon';
 
 import type { TextField } from '@material/web/textfield/lib/text-field';
 import type { RenderResult } from '@gecut/types';
@@ -20,6 +23,8 @@ export default function textField(
     [`${component.type}-field`]: true,
     [`${component.ui}-field`]: true,
   });
+
+  component = textFieldValidate(component, component.value ?? '');
 
   switch (component.ui) {
     case 'filled':
@@ -52,7 +57,24 @@ export default function textField(
           ?hasTrailingIcon=${component.hasTrailingIcon ?? false}
           @input=${event('input', component, listener)}
           @change=${event('change', component, listener)}
-        ></md-filled-text-field>
+        >
+          ${when(
+            component.leadingIconSVG != null,
+            () => html`
+              <md-icon slot="leadingicon">
+                ${unsafeSVG(component.leadingIconSVG)}
+              </md-icon>
+            `
+          )}
+          ${when(
+            component.trailingIconSVG != null,
+            () => html`
+              <md-icon slot="trailingicon">
+                ${unsafeSVG(component.trailingIconSVG)}
+              </md-icon>
+            `
+          )}
+        </md-filled-text-field>
       `;
     case 'outlined':
       return html`
@@ -96,21 +118,20 @@ function event(
     listener: FormListener
 ): (event: InputEvent) => void {
   return (event: InputEvent) => {
-    textFieldValidate(componentData, event);
-
-    const target = event.target as TextField;
-
-    componentData.value = target.value;
+    componentData = textFieldValidate(
+        componentData,
+        (event.target as TextField).value
+    );
 
     listener(componentData, eventName, event);
   };
 }
 
-function textFieldValidate(input: Input, event: InputEvent): void {
-  const target = event.target as TextField;
+function textFieldValidate(input: Input, value: string): Input {
+  input['value'] = value;
 
   if (input.validate != null) {
-    const validatorsResult = validator(target.value, input.validate);
+    const validatorsResult = validator(value, input.validate);
 
     input.errorText = validatorsResult
         .filter((result) => result.validate != true)
@@ -122,11 +143,5 @@ function textFieldValidate(input: Input, event: InputEvent): void {
         .reduce((p, c) => p || c, false);
   }
 
-  if (input.errorText != null) {
-    target.errorText = input.errorText;
-  }
-
-  if (input.error != null) {
-    target.error = input.error;
-  }
+  return input;
 }

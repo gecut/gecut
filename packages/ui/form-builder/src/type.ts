@@ -128,6 +128,7 @@ const buttonUI = ['outlined', 'filled', 'text', 'elevated', 'tonal'] as const;
 const listenerEventNameList = ['input', 'change', 'click'] as const;
 
 export type Form = {
+  valid: boolean;
   components: Array<SingleOrArray<Input | Button>>;
   listener?: (
     componentData: Input | Button,
@@ -183,8 +184,9 @@ export type Button = {
   align?: 'center' | 'start' | 'end';
 
   label: string;
+  iconSVG?: string;
 
   grow?: boolean;
-  disabled?: boolean;
+  disabled?: boolean | 'by_valid';
   trailingIcon?: boolean;
 };

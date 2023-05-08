@@ -11,11 +11,26 @@ main {
   display: flex;
   flex-direction: column;
   flex: 1 1 auto;
-  max-height: calc(100% - 64px - 80px);
   padding: 0 calc(var(--sys-spacing-side-padding) / 2);
 }
 
 .navigation-tab {
   flex: 1 1 auto;
   text-decoration: none;
+}
+
+top-app-bar,
+md-navigation-bar {
+  transition-property: margin;
+  transition-duration: var(--sys-motion-duration-medium);
+  transition-timing-function: var(--sys-motion-easing-in-out);
+}
+
+top-app-bar[hidden] {
+  margin-top: calc(-1 * 8 * var(--sys-spacing-track));
+}
+
+md-navigation-bar[hidden] {
+  display: inherit;
+  margin-bottom: calc(-1 * 10 * var(--sys-spacing-track));
 }

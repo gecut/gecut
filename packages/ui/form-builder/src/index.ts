@@ -4,7 +4,7 @@ import { loggerElement } from '@gecut/mixins';
 
 import textField from './components/text-field';
 import button from './components/button';
-import { Form} from './type';
+import { Form } from './type';
 
 import type { Button, Input } from './type';
 import type { RenderResult } from '@gecut/types';
@@ -22,7 +22,7 @@ export class FormBuilder extends loggerElement {
   static override styles = [
     css`
       :host {
-        --gap: 8px;
+        --gap: var(--sys-spacing-track, 8px);
         --row-gap: var(--gap);
         --column-gap: var(--gap);
         --padding-side: var(--gap);
@@ -65,6 +65,9 @@ export class FormBuilder extends loggerElement {
         margin-inline-start: auto;
         margin-inline-end: 0;
       }
+      .button .button-label {
+        line-height: normal;
+      }
     `,
   ];
 
@@ -104,7 +107,17 @@ export class FormBuilder extends loggerElement {
       event,
     });
 
+    if (this.data != null) {
+      this.data['valid'] = this.data?.components
+          .flat()
+          .filter((component) => component.type != 'submit')
+          .map((component) => !((component as Input).error ?? false))
+          .reduce((p, c) => p && c, true);
+    }
+
     this.data?.listener?.(componentData, eventName, event);
+
+    this.requestUpdate('data');
   }
 
   private renderComponent(component: Input | Button): RenderResult {
@@ -126,7 +139,9 @@ export class FormBuilder extends loggerElement {
       case 'url':
         return textField(component, (...args) => this.listener(...args));
       case 'submit':
-        return button(component, (...args) => this.listener(...args));
+        return button(this.data, component, (...args) =>
+          this.listener(...args)
+        );
     }
   }
 }

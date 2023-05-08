@@ -8,3 +8,4 @@ import 'unfonts.css';
 
 import './providers/index';
 import './ui/app/app.element';
+import './ui/stylesheets/styles.scss';
