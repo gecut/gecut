@@ -10,7 +10,7 @@ import '@material/web/textfield/outlined-text-field';
 import '@material/web/icon/icon';
 
 import type { TextField } from '@material/web/textfield/lib/text-field';
-import type { RenderResult, Stringifyable } from '@gecut/types';
+import type { RenderResult } from '@gecut/types';
 import type { FormListener, Input } from '../type';
 
 export default function textField(
