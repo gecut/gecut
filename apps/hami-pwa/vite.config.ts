@@ -34,25 +34,25 @@ const manifestJson: Partial<ManifestOptions> = {
   orientation: 'portrait',
 
   /* theming */
-  theme_color: '',
-  background_color: '',
+  theme_color: '#fff',
+  background_color: '#fff',
 
   /* icons */
   icons: [
     {
-      src: 'images/icon-192-maskable.png',
+      src: '/icon-192-maskable.png',
       type: 'image/png',
       sizes: '192x192',
       purpose: 'maskable',
     },
     {
-      src: 'images/icon-512-maskable.png',
+      src: '/icon-512-maskable.png',
       type: 'image/png',
       sizes: '512x512',
       purpose: 'maskable',
     },
-    { src: 'images/icon-192.png', type: 'image/png', sizes: '192x192' },
-    { src: 'images/icon-512.png', type: 'image/png', sizes: '512x512' },
+    { src: '/icon-192.png', type: 'image/png', sizes: '192x192' },
+    { src: '/icon-512.png', type: 'image/png', sizes: '512x512' },
   ],
 };
 

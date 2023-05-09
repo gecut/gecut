@@ -60,6 +60,10 @@
       "options": {
         "lintFilePatterns": ["apps/hami-pwa/**/*.ts"]
       }
+    },
+    "docker-build": {
+      "dependsOn": ["build"],
+      "command": "docker build --build-arg PACKAGE_SOURCE=dist/apps/hami-pwa -f cloud/pwa/Dockerfile . -t hami-pwa"
     }
   }
 }
