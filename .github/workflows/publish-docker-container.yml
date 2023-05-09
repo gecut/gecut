@@ -33,7 +33,7 @@ jobs:
           # services
           - image: hami-pwa
             source: dist/apps/hami-pwa
-            dockerfile: cloud/container/alwatr-services.dockerfile
+            dockerfile: cloud/pwa/Dockerfile
             description: Hami Project Progressive Web Application
 
     permissions:
