@@ -36,5 +36,11 @@
   "typescript.tsdk": "node_modules/typescript/lib",
   "[dockerfile]": {
     "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "[properties]": {
+    "editor.defaultFormatter": "foxundermoon.shell-format"
+  },
+  "[nginx]": {
+    "editor.defaultFormatter": "raynigon.nginx-formatter"
   }
 }
