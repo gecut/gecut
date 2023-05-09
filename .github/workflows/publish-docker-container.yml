@@ -81,6 +81,7 @@ jobs:
             org.opencontainers.image.authors=MM25Zamanian@gmail.com
             org.opencontainers.image.title=@gecut/${{ matrix.image }}
             org.opencontainers.image.description=${{ matrix.description }}
+            org.opencontainers.image.source = "https://github.com/gecut/gecut"
 
           tags: |
             type=semver,enable=true,pattern={{major}}
