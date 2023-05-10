@@ -18,7 +18,11 @@ import i18n from '../i18n';
 
 import styles from './app.element.scss?inline';
 
-import type { TopAppBarContent } from '@gecut/components';
+import type {
+  TopAppBarContent,
+  CircularProgressContent,
+  IconButtonContent,
+} from '@gecut/components';
 import type { PropertyValues } from 'lit';
 import type { NavigationTab, RenderResult } from '@gecut/types';
 
@@ -42,23 +46,38 @@ const getDate = () => {
 export class AppRoot extends loggerElement {
   static override styles = [unsafeCSS(styles)];
 
-  static topAppBarLoading = html`
-    <md-circular-progress indeterminate> </md-circular-progress>
-  `;
+  static topAppBarLoadingSlot: CircularProgressContent = {
+    component: 'progress',
+    type: 'circular',
+    indeterminate: true,
+  };
+  static topAppBarTrailingSlot: IconButtonContent = {
+    component: 'iconButton',
+    type: 'standard',
+    icon: {
+      component: 'icon',
+      type: 'svg',
+      SVG: IconLanguageRounded,
+    },
+  };
 
   @state()
   private topAppBarContent: TopAppBarContent = {
-      headline: getDate(),
+      component: 'top-app-bar',
       type: 'center',
-      leadingIcon: {
-        icon: IconMenuRounded,
-      },
-      trailingIconList: [
-        {
-          icon: IconLanguageRounded,
+      headline: getDate(),
+      leadingSlot: {
+        component: 'iconButton',
+        type: 'standard',
+        icon: {
+          component: 'icon',
+          type: 'svg',
+          SVG: IconMenuRounded,
         },
+      },
+      trailingSlotList: [
+        AppRoot.topAppBarTrailingSlot,
       ],
-      trailingSlots: undefined,
     };
 
   @state()
@@ -87,9 +106,13 @@ export class AppRoot extends loggerElement {
       const oldValue = this.topAppBarContent;
 
       if (value.length > 0) {
-        dispatch('top-app-bar', { trailingSlots: AppRoot.topAppBarLoading });
+        dispatch('top-app-bar', {
+          trailingSlotList: [AppRoot.topAppBarLoadingSlot],
+        });
       } else {
-        dispatch('top-app-bar', { trailingSlots: undefined });
+        dispatch('top-app-bar', {
+          trailingSlotList: [AppRoot.topAppBarTrailingSlot],
+        });
       }
 
       this.requestUpdate('topAppBarContent', oldValue);
