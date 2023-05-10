@@ -3,41 +3,22 @@ import { customElement, property } from 'lit/decorators.js';
 import { map } from 'lit/directives/map.js';
 import { when } from 'lit/directives/when.js';
 import { loggerElement } from '@gecut/mixins';
-import { unsafeSVG } from 'lit/directives/unsafe-svg.js';
 
 import '@material/web/iconbutton/standard-icon-button';
 import '@material/web/elevation/elevation';
 
-import type { TemplateResult } from 'lit';
-import type { IconButtonContent, RenderResult } from '@gecut/types';
+import { TopAppBarContent } from '../types/top-app-bar';
+
+import { renderComponent } from './render';
+
+import type { RenderResult } from '@gecut/types';
+import type { SlotsComponentsContent } from '../types/components';
 
 declare global {
   interface HTMLElementTagNameMap {
     'top-app-bar': TopAppBar;
   }
 }
-
-export type TopAppBarContent = {
-  /**
-   * @default ```'small'```
-   */
-  type: 'center' | 'small' | 'medium' | 'large';
-  /**
-   * @default ```""```
-   */
-  headline: string;
-
-  leadingIcon?: IconButtonContent;
-  /**
-   * @default ```[]```
-   */
-  trailingIconList?: IconButtonContent[];
-  trailingSlots?: TemplateResult;
-  /**
-   * @default ```flat```
-   */
-  mode?: 'flat' | 'on-scroll';
-};
 
 @customElement('top-app-bar')
 export class TopAppBar extends loggerElement {
@@ -169,37 +150,16 @@ export class TopAppBar extends loggerElement {
     return html`
       <div class="row">
         <div class="leading-icon">
-          ${when(
-            this.content != null && this.content.leadingIcon != null,
-            () => html`
-              <md-standard-icon-button
-                href=${this.content?.leadingIcon?.href}
-                target=${this.content?.leadingIcon?.target}
-                ?flipIconInRtl=${this.content?.leadingIcon?.flipIconInRtl}
-                ?disabled=${this.content?.leadingIcon?.disabled}
-              >
-                ${unsafeSVG(String(this.content?.leadingIcon?.icon))}
-              </md-standard-icon-button>
-            `
+          ${when(this.content != null && this.content.leadingSlot != null, () =>
+      renderComponent(this.content?.leadingSlot as SlotsComponentsContent)
           )}
         </div>
 
         <div class="title">${titleTemplate}</div>
 
         <div class="trailing-icon">
-          ${this.content?.trailingSlots ??
-          map(
-              this.content.trailingIconList ?? [],
-              (iconContent) => html`
-              <md-standard-icon-button
-                href=${iconContent.href}
-                target=${iconContent.target}
-                ?flipIconInRtl=${iconContent.flipIconInRtl}
-                ?disabled=${iconContent.disabled}
-              >
-                ${unsafeSVG(String(iconContent.icon))}
-              </md-standard-icon-button>
-            `
+          ${map(this.content.trailingSlotList ?? [], (content) =>
+            renderComponent(content)
           )}
         </div>
       </div>
