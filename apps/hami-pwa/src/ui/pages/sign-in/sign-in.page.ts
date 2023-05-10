@@ -153,11 +153,13 @@ export class PageSignIn extends loggerElement {
   private async onSignInButtonClick(button: Button) {
     button.disabled = true;
 
-    await request('sign-in', this.formValue).then((value) => {
-      router.render('/home', true);
+    try {
+      await request('sign-in', this.formValue);
 
-      return value;
-    });
+      router.render('/home', true);
+    } catch (error) {
+      this.log.error('onSignInButtonClick', 'sign_in_request_failed', error);
+    }
 
     button.disabled = false;
   }
