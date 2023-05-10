@@ -1,4 +1,6 @@
 import { html } from 'lit';
+import { unsafeSVG } from 'lit/directives/unsafe-svg.js';
+import { ifDefined } from 'lit/directives/if-defined.js';
 
 import '@material/web/iconbutton/standard-icon-button';
 import '@material/web/iconbutton/outlined-icon-button';
@@ -19,7 +21,10 @@ export function renderIconButton(content: IconButtonContent): RenderResult {
           ?flipIconInRtl=${content.flipIconInRtl}
           ?toggle=${content.toggle}
           ?selected=${content.selected}
-        ></md-standard-icon-button>
+          slot=${ifDefined(content.slot)}
+        >
+          ${unsafeSVG(content.icon.SVG)}
+        </md-standard-icon-button>
       `;
     case 'outlined':
       return html`
@@ -30,7 +35,10 @@ export function renderIconButton(content: IconButtonContent): RenderResult {
           ?flipIconInRtl=${content.flipIconInRtl}
           ?toggle=${content.toggle}
           ?selected=${content.selected}
-        ></md-outlined-icon-button>
+          slot=${ifDefined(content.slot)}
+        >
+          ${unsafeSVG(content.icon.SVG)}
+        </md-outlined-icon-button>
       `;
     case 'filled':
       return html`
@@ -41,7 +49,10 @@ export function renderIconButton(content: IconButtonContent): RenderResult {
           ?flipIconInRtl=${content.flipIconInRtl}
           ?toggle=${content.toggle}
           ?selected=${content.selected}
-        ></md-filled-icon-button>
+          slot=${ifDefined(content.slot)}
+        >
+          ${unsafeSVG(content.icon.SVG)}
+        </md-filled-icon-button>
       `;
     case 'filled-tonal':
       return html`
@@ -52,7 +63,10 @@ export function renderIconButton(content: IconButtonContent): RenderResult {
           ?flipIconInRtl=${content.flipIconInRtl}
           ?toggle=${content.toggle}
           ?selected=${content.selected}
-        ></md-filled-tonal-icon-button>
+          slot=${ifDefined(content.slot)}
+        >
+          ${unsafeSVG(content.icon.SVG)}
+        </md-filled-tonal-icon-button>
       `;
   }
 }

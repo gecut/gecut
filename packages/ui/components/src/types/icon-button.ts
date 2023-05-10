@@ -5,6 +5,7 @@ import type { IconContent } from './icon';
 export type IconButtonContent = {
   component: 'iconButton';
   type: 'standard' | 'outlined' | 'filled' | 'filled-tonal';
+  slot?: string;
   /**
    * Disables the icon button and makes it non-interactive.
    */

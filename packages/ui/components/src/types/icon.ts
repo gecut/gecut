@@ -3,4 +3,5 @@ export type IconContent = {
   type: 'svg';
 
   SVG: string;
+  slot?: string;
 };
