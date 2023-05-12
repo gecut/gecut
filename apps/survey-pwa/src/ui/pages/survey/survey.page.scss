@@ -1,0 +1,45 @@
+:host {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+h2 {
+  font-family: var(--md-sys-typescale-title-large-font-family-name);
+  font-style: var(--md-sys-typescale-title-large-font-family-style);
+  font-weight: var(--md-sys-typescale-title-large-font-weight);
+  font-size: var(--md-sys-typescale-title-large-font-size);
+  letter-spacing: var(--md-sys-typescale-title-large-tracking);
+  line-height: var(--md-sys-typescale-title-large-height);
+  text-transform: var(--md-sys-typescale-title-large-text-transform);
+  text-decoration: var(--md-sys-typescale-title-large-text-decoration);
+
+  margin: var(--sys-spacing-track);
+}
+
+.form-box {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  position: relative;
+
+  .form {
+    width: 100%;
+  }
+}
+
+.gecut-logo {
+  position: absolute;
+  bottom: calc(2 * var(--sys-spacing-track));
+  width: calc(3 * var(--sys-spacing-track));
+  height: auto;
+}
+
+@media (max-height: 450px) {
+  .gecut-logo {
+    opacity: 0;
+  }
+}
