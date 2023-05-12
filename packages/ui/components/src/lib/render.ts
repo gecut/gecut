@@ -2,6 +2,7 @@ import { renderButton } from './button';
 import { renderIconButton } from './icon-button';
 import { renderProgress } from './progress';
 import { renderIcon } from './icon';
+import { renderListItem } from './list-item';
 
 import type { RenderResult } from '@gecut/types';
 import type { AllComponentsContent } from '../types/components';
@@ -16,5 +17,7 @@ export function renderComponent(component: AllComponentsContent): RenderResult {
       return renderIcon(component);
     case 'progress':
       return renderProgress(component);
+    case 'listItem':
+      return renderListItem(component);
   }
 }

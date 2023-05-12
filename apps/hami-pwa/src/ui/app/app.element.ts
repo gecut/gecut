@@ -12,7 +12,7 @@ import '@material/web/navigationtab/navigation-tab';
 import '@material/web/icon/icon';
 import '@gecut/components';
 
-import { attachRouter, router } from '../router/index';
+import { attachRouter } from '../router/index';
 import config from '../../config';
 import i18n from '../i18n';
 
@@ -75,9 +75,7 @@ export class AppRoot extends loggerElement {
           SVG: IconMenuRounded,
         },
       },
-      trailingSlotList: [
-        AppRoot.topAppBarTrailingSlot,
-      ],
+      trailingSlotList: [AppRoot.topAppBarTrailingSlot],
     };
 
   @state()
@@ -90,10 +88,6 @@ export class AppRoot extends loggerElement {
     super.connectedCallback();
 
     i18n.init();
-
-    if (router.location.pathname !== '/') {
-      router.render('/', true);
-    }
 
     addListener('top-app-bar', (value) => {
       this.topAppBarContent = {
@@ -162,8 +156,12 @@ export class AppRoot extends loggerElement {
     const navigationTabsTemplate = navigationTabs.map(this.renderNavigationTab);
 
     return html`
-      <md-navigation-bar ?hidden=${bottomAppBarHidden}>
-        ${navigationTabsTemplate}
+      <md-navigation-bar
+        ?hidden=${bottomAppBarHidden}
+        .activeIndex=${0}
+        hideInactiveLabel
+      >
+      ${navigationTabsTemplate}
       </md-navigation-bar>
     `;
   }
@@ -172,11 +170,10 @@ export class AppRoot extends loggerElement {
     return html`
       <a class="navigation-tab" href=${tab.link}>
         <md-navigation-tab
-          label=${tab.label}
-          badgeValue=${tab.badgeValue}
-          ?active=${tab.link == location.pathname}
+          .label=${tab.label}
+          .badgeValue=${tab.badgeValue}
+          ?active=${tab.link === location.pathname}
           ?showBadge=${tab.showBadge}
-          ?hideInactiveLabel=${tab.hideInactiveLabel}
         >
           <md-icon slot="activeIcon">
             ${unsafeSVG(String(tab.icons.active))}

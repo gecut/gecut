@@ -34,3 +34,7 @@ md-navigation-bar[hidden] {
   display: inherit;
   margin-bottom: calc(-1 * 10 * var(--sys-spacing-track));
 }
+
+md-navigation-tab {
+  height: 100%;
+}

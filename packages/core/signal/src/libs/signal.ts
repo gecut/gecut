@@ -15,7 +15,7 @@ function __initSignal<T extends keyof Signals>(name: T) {
     value: undefined,
     provider: undefined,
     listeners: [],
-  } as SignalNonNullable<typeof name>;
+  };
 }
 
 function createSignalProvider<T extends keyof Signals>(name: T) {
@@ -58,8 +58,6 @@ function removeListener<T extends keyof Signals>(
   logger.methodArgs?.('removeListener', { name, callback });
   __initSignal(name);
 
-  signalsObject[name]?.listeners.push(callback);
-
   const index = signalsObject[name]?.listeners.indexOf(callback);
 
   if (index != null) {
@@ -74,7 +72,9 @@ function dispatch<T extends keyof Signals>(name: T, value: Signals[T]): void {
   (signalsObject[name] as SignalNonNullable<typeof name>).value = value;
 
   for (const listener of signalsObject[name]?.listeners ?? []) {
-    requestAnimationFrame(() => listener(value));
+    if (typeof listener === 'function') {
+      requestAnimationFrame(() => listener(value));
+    }
   }
 }
 

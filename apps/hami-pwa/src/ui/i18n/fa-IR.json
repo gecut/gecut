@@ -3,6 +3,12 @@
   "$direction": "rtl",
   "$language": "فارسی",
 
+  "admin": "مدیریت",
+  "seller": "فروشنده",
+
+  "bottom_bar_home_label": "خانه",
+  "bottom_bar_user_label": "کاربر",
+
   "notification_box_title": "اعلانات",
 
   "sign_in_page_title": "ورود",
@@ -11,5 +17,7 @@
   "sign_in_page_form_phone-number_error": "نا معتبر است",
   "sign_in_page_form_phone-number_label": "شماره تماس",
   "sign_in_page_form_password_label": "گذرواژه",
-  "sign_in_page_form_submit": "ورود"
+  "sign_in_page_form_submit": "ورود",
+
+  "user_information_box_title": "اطلاعات"
 }
