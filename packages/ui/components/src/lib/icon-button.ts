@@ -11,6 +11,8 @@ import type { IconButtonContent } from '../types/icon-button';
 import type { RenderResult } from '@gecut/types';
 
 export function renderIconButton(content: IconButtonContent): RenderResult {
+  const iconSvgTemplate = unsafeSVG(content.icon.SVG);
+
   switch (content.type) {
     case 'standard':
       return html`
@@ -23,7 +25,7 @@ export function renderIconButton(content: IconButtonContent): RenderResult {
           ?selected=${content.selected}
           slot=${ifDefined(content.slot)}
         >
-          ${unsafeSVG(content.icon.SVG)}
+          ${iconSvgTemplate}
         </md-standard-icon-button>
       `;
     case 'outlined':
@@ -37,7 +39,7 @@ export function renderIconButton(content: IconButtonContent): RenderResult {
           ?selected=${content.selected}
           slot=${ifDefined(content.slot)}
         >
-          ${unsafeSVG(content.icon.SVG)}
+          ${iconSvgTemplate}
         </md-outlined-icon-button>
       `;
     case 'filled':
@@ -51,7 +53,7 @@ export function renderIconButton(content: IconButtonContent): RenderResult {
           ?selected=${content.selected}
           slot=${ifDefined(content.slot)}
         >
-          ${unsafeSVG(content.icon.SVG)}
+          ${iconSvgTemplate}
         </md-filled-icon-button>
       `;
     case 'filled-tonal':
@@ -65,7 +67,7 @@ export function renderIconButton(content: IconButtonContent): RenderResult {
           ?selected=${content.selected}
           slot=${ifDefined(content.slot)}
         >
-          ${unsafeSVG(content.icon.SVG)}
+          ${iconSvgTemplate}
         </md-filled-tonal-icon-button>
       `;
   }

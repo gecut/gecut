@@ -1,10 +1,12 @@
 import { Router } from '@vaadin/router';
+import { createLogger } from '@gecut/logger';
 
 import { routes } from './routes';
 
 import type { Params } from '@vaadin/router';
 
-export const router = new Router();
+const logger = createLogger('[router]');
+const router = new Router();
 
 router.setRoutes([
   // Redirect to URL without trailing slash
@@ -23,5 +25,23 @@ export const attachRouter = (outlet: HTMLElement) => {
 };
 
 export const urlForName = (name: string, params?: Params) => {
-  return router.urlForName(name, params);
+  const _return = router.urlForName(name, params);
+
+  logger.methodFull?.('urlForName', { name, params }, _return);
+
+  return _return;
+};
+
+let lastRouterGo: number | null = null;
+
+export const routerGo = (path: string) => {
+  logger.methodArgs?.('routerGo', { path });
+
+  if (lastRouterGo != null) {
+    cancelIdleCallback(lastRouterGo);
+  }
+
+  lastRouterGo = requestIdleCallback(() => router.render(path, true));
+
+  return path;
 };

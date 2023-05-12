@@ -1,9 +1,9 @@
 import { html, nothing, unsafeCSS } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import { loggerElement } from '@gecut/mixins';
+import { signalElement } from '@gecut/mixins';
 import { map } from 'lit/directives/map.js';
 import { unsafeSVG } from 'lit/directives/unsafe-svg.js';
-import { createSignalProvider, dispatch } from '@gecut/signal';
+import { dispatch, request } from '@gecut/signal';
 import IconDoneRounded from 'virtual:icons/material-symbols/done-rounded';
 import IconErrorOutlineRounded from 'virtual:icons/material-symbols/error-outline-rounded';
 import IconWarningOutlineRounded from 'virtual:icons/material-symbols/warning-outline-rounded';
@@ -13,13 +13,14 @@ import '@material/web/list/list';
 import '@material/web/list/list-item';
 import '@material/web/icon/icon';
 
+import { requireSignIn } from '../../../controllers/require-sign-in';
 import elementStyle from '../../stylesheets/element.scss?inline';
 import pageStyle from '../../stylesheets/page.scss?inline';
 import i18n from '../../i18n';
+import { urlForName } from '../../router';
 
 import styles from './home.page.scss?inline';
 
-import type { AlwatrDocumentStorage } from '@alwatr/type/storage';
 import type { MdListItem } from '@material/web/list/list-item';
 import type { Notification } from '@gecut/types/hami/notification';
 import type { RenderResult } from '@gecut/types';
@@ -31,42 +32,36 @@ declare global {
 }
 
 @customElement('page-home')
-export class PageHome extends loggerElement {
+export class PageHome extends signalElement {
   static override styles = [
     unsafeCSS(styles),
     unsafeCSS(elementStyle),
     unsafeCSS(pageStyle),
   ];
 
-  static notificationStorageSignal = createSignalProvider(
-      'notification-storage'
-  );
-
   @state()
   private notifications: Notification[] = [];
 
   override connectedCallback(): void {
     super.connectedCallback();
-    
+
+    requireSignIn({ catchUrl: urlForName('Landing') });
+
     dispatch('top-app-bar-hidden', false);
     dispatch('bottom-app-bar-hidden', false);
 
     this.addEventListener('scroll', this.topAppBarChangeMode);
 
-    PageHome.notificationStorageSignal.addListener((value) =>
-      this.onNotificationStorageDispatched(value)
-    );
+    this.addSignalListener('notification-storage', (value) => {
+      this.notifications = Object.values(value.data);
+    });
 
-    PageHome.notificationStorageSignal.request({});
+    request('notification-storage', {});
   }
   override disconnectedCallback(): void {
     super.disconnectedCallback();
 
     this.removeEventListener('scroll', this.topAppBarChangeMode);
-
-    PageHome.notificationStorageSignal.removeListener((value) =>
-      this.onNotificationStorageDispatched(value)
-    );
   }
 
   override render(): RenderResult {
@@ -148,12 +143,6 @@ export class PageHome extends loggerElement {
         </div>
       </div>
     `;
-  }
-
-  private onNotificationStorageDispatched(
-      notificationStorage: AlwatrDocumentStorage<Notification>
-  ): void {
-    this.notifications = Object.values(notificationStorage.data);
   }
 
   private topAppBarChangeMode(): void {

@@ -8,12 +8,13 @@ import IconLoginOutlineRounded from 'virtual:icons/material-symbols/login-rounde
 
 import '@gecut/form-builder';
 
+import { requireSignIn } from '../../../controllers/require-sign-in';
 import elementStyle from '../../stylesheets/element.scss?inline';
 import pageStyle from '../../stylesheets/page.scss?inline';
 import gecutLogo from '../../assets/gecut-logo.png?inline';
 import hamiLogo from '../../assets/hami-logo.png?inline';
 import i18n from '../../i18n';
-import { router } from '../../router';
+import { routerGo, urlForName } from '../../router';
 
 import styles from './sign-in.page.scss?inline';
 
@@ -96,14 +97,7 @@ export class PageSignIn extends loggerElement {
   override connectedCallback() {
     super.connectedCallback();
 
-    if (
-      localStorage.getItem('USER_ID') != null &&
-      localStorage.getItem('USER_TOKEN') != null
-    ) {
-      request('user', {}).then(() => {
-        router.render('/home', true);
-      });
-    }
+    requireSignIn({ tryUrl: urlForName('Landing') });
 
     dispatch('top-app-bar-hidden', true);
     dispatch('bottom-app-bar-hidden', true);
@@ -156,7 +150,7 @@ export class PageSignIn extends loggerElement {
     try {
       await request('sign-in', this.formValue);
 
-      router.render('/home', true);
+      routerGo(urlForName('Landing'));
     } catch (error) {
       this.log.error('onSignInButtonClick', 'sign_in_request_failed', error);
     }

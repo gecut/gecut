@@ -36,10 +36,21 @@ function getConfig() {
   };
 }
 
+function numberFormat(phoneNumber: string): string {
+  const x = [
+    phoneNumber.substring(0, 4),
+    phoneNumber.substring(4, 7),
+    phoneNumber.substring(7, 11),
+  ];
+
+  return x.join('-');
+}
+
 const i18n = {
   init,
   message,
   getConfig,
+  numberFormat,
 };
 
 export default i18n;

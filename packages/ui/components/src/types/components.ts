@@ -1,3 +1,4 @@
+import type { ListItemContent } from './list-item';
 import type { IconContent } from './icon';
 import type { IconButtonContent } from './icon-button';
 import type { CircularProgressContent } from './circular-progress';
@@ -7,6 +8,7 @@ export type SlotsComponentsContent =
   | ButtonContent
   | IconContent
   | IconButtonContent
-  | CircularProgressContent;
+  | CircularProgressContent
+  | ListItemContent;
 
 export type AllComponentsContent = SlotsComponentsContent;
