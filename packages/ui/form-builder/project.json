@@ -10,7 +10,7 @@
       "options": {
         "rootDir": ".",
         "outputPath": "dist/packages/ui/form-builder",
-        "main": "packages/ui/form-builder/src/index.ts",
+        "main": "packages/ui/form-builder/src/form-builder.ts",
         "tsConfig": "packages/ui/form-builder/tsconfig.lib.json",
         "assets": ["packages/ui/form-builder/*.md"]
       }
