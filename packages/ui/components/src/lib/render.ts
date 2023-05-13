@@ -7,7 +7,9 @@ import { renderListItem } from './list-item';
 import type { RenderResult } from '@gecut/types';
 import type { AllComponentsContent } from '../types/components';
 
-export function renderComponent(component: AllComponentsContent): RenderResult {
+export function renderComponent(
+    component: AllComponentsContent
+): RenderResult | HTMLElement {
   switch (component.component) {
     case 'button':
       return renderButton(component);

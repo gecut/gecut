@@ -1,5 +1,6 @@
 import '@material/web/button/filled-button';
 import '@material/web/button/outlined-button';
+import '@material/web/button/elevated-button';
 import '@material/web/button/text-button';
 import '@material/web/button/tonal-button';
 
@@ -37,20 +38,20 @@ export function renderButton(content: ButtonContent): renderButtonReturnType {
     }
   }
 
+  button.innerHTML = content.label;
+
   if (content.customConfig != null) {
     button = content.customConfig(button);
   }
 
   if (content.iconSVG != null) {
-    const trailingIcon = document.createElement('md-icon');
+    const icon = document.createElement('md-icon');
 
-    trailingIcon.innerHTML = content.iconSVG;
-    trailingIcon.slot = 'icon';
+    icon.innerHTML = content.iconSVG;
+    icon.slot = 'icon';
 
-    button.appendChild(trailingIcon);
+    button.appendChild(icon);
   }
-
-  button.innerHTML = content.label;
 
   button.classList.add(...(content.classes ?? []));
 
