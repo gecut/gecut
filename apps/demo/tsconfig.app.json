@@ -2,7 +2,12 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
-    "types": ["node"]
+    "types": [
+      "node",
+      "vite/client",
+      "unplugin-fonts/client",
+      "unplugin-icons/types/raw"
+    ]
   },
   "exclude": ["src/**/*.spec.ts", "src/**/*.test.ts"],
   "include": ["src/**/*.ts"]
