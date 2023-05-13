@@ -1,91 +1,117 @@
 import '@gecut/form-builder';
 
+import IconCallOutlineRounded from 'virtual:icons/material-symbols/call-outline-rounded';
+import IconPasswordOutline from 'virtual:icons/material-symbols/lock-outline';
+
 const form = document.createElement('form-builder');
 const formBox = document.querySelector<HTMLFormElement>('.form');
 const result = document.querySelector<HTMLPreElement>('.result');
 
-const listener = () => {
-  if (result != null) {
-    result.innerHTML = JSON.stringify(form.data, null, 4);
-  }
+form.data = {
+  slides: {
+    slide1: [
+      {
+        component: 'text-field',
+        type: 'filled',
+        inputType: 'text',
+        label: 'Label',
+        name: 'Name1',
+      },
+      [
+        {
+          component: 'text-field',
+          type: 'filled',
+          inputType: 'text',
+          label: 'Label',
+          name: 'Name2',
+        },
+        {
+          component: 'text-field',
+          type: 'filled',
+          inputType: 'text',
+          label: 'Label',
+          name: 'Name3',
+        },
+      ],
+      {
+        component: 'button',
+        type: 'filled',
+
+        label: 'Next Slide',
+
+        action: 'next_slide',
+      },
+    ],
+    slide2: [
+      {
+        component: 'text-field',
+        type: 'filled',
+        inputType: 'email',
+        label: 'Email',
+        name: 'email',
+        leadingIconSVG: IconCallOutlineRounded,
+        hasLeadingIcon: true,
+        trailingIconSVG: IconPasswordOutline,
+        hasTrailingIcon: true,
+        validator: [
+          {
+            rule: 'email',
+            errorMessage: 'email not valid',
+          },
+        ],
+      },
+      [
+        {
+          component: 'text-field',
+          type: 'filled',
+          inputType: 'text',
+          label: 'Label',
+          name: 'Name5',
+        },
+        {
+          component: 'text-field',
+          type: 'filled',
+          inputType: 'text',
+          label: 'Label',
+          name: 'Name6',
+        },
+      ],
+      [
+        {
+          component: 'button',
+          type: 'filled',
+
+          label: 'Previous Slide',
+
+          action: 'previous_slide',
+
+          customConfig(target) {
+            target.style.flexGrow = '0';
+            
+            return target;
+          },
+        },
+        {
+          component: 'button',
+          type: 'filled',
+
+          label: 'Form Submit',
+
+          action: 'form_submit',
+        },
+      ],
+    ],
+  },
 };
 
-form.data = {
-  valid: false,
-  components: [
-    [
-      {
-        name: 'first-name',
-        label: 'First Name',
-        type: 'text',
-        ui: 'filled',
-      },
-      {
-        name: 'last-name',
-        label: 'Last Name',
-        type: 'text',
-        ui: 'filled',
-      },
-    ],
-    {
-      name: 'email',
-      label: 'Email',
-      type: 'email',
-      ui: 'filled',
-      validate: [
-        {
-          rule: 'email',
-          errorMessage: 'email error message',
-        },
-      ],
-    },
-    {
-      name: 'tel',
-      label: 'Phone Number',
-      type: 'tel',
-      ui: 'filled',
-      minLength: 11,
-      maxLength: 11,
-      validate: [
-        {
-          rule: 'required',
-          errorMessage: 'required',
-        },
-        {
-          rule: 'numeric',
-          errorMessage: 'must numeric',
-        },
-        {
-          rule: 'phone',
-          country: 'IR',
-          errorMessage: 'phone number error message',
-        },
-      ],
-    },
-    [
-      {
-        name: 'password',
-        label: 'Password',
-        type: 'password',
-        ui: 'filled',
-      },
-      {
-        name: 'confirm-password',
-        label: 'Confirm Password',
-        type: 'password',
-        ui: 'filled',
-      },
-    ],
-    {
-      type: 'submit',
-      label: 'Submit',
-      ui: 'filled',
-      align: 'end',
-    },
-  ],
-  listener,
-};
+form.addEventListener('change', (event) => {
+  console.log({ validate: form.validate }, event, form);
+
+  if (result != null) {
+    result.innerHTML = JSON.stringify(form.values, null, 2);
+  }
+});
+
+// form.activeSlide = 'slide2';
 
 formBox?.appendChild(form);
-
-listener();
