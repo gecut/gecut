@@ -1,12 +1,18 @@
 // import type { Button } from '@material/web/button/lib/button';
 
+import type { MdElevatedButton } from '@material/web/button/elevated-button';
+import type { MdFilledButton } from '@material/web/button/filled-button';
+import type { MdOutlinedButton } from '@material/web/button/outlined-button';
+import type { MdTextButton } from '@material/web/button/text-button';
+import type { MdTonalButton } from '@material/web/button/tonal-button';
+
 export type ButtonContent = {
   component: 'button';
   type: 'elevated' | 'filled' | 'outlined' | 'text' | 'tonal';
   /**
    * Whether or not the button is disabled.
    */
-  disabled: boolean;
+  disabled?: boolean;
   /**
    * The URL that the link button points to.
    */
@@ -33,4 +39,21 @@ export type ButtonContent = {
    * submissions.
    */
   preventClickDefault?: boolean;
+
+  label: string;
+
+  iconSVG?: string;
+
+  classes?: string[];
+
+  customConfig?: <
+    T extends
+      | MdElevatedButton
+      | MdFilledButton
+      | MdOutlinedButton
+      | MdTextButton
+      | MdTonalButton
+  >(
+    target: T
+  ) => T;
 };
