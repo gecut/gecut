@@ -16,6 +16,10 @@
   "survey-page-form-required-error": "اجباری است",
   "survey-page-form-numeric-error": "باید عددی باشد",
   "survey-page-form-phone-number-error": "نا معتبر است",
+  
+  "survey-page-form-next-button": "بعدی",
+  "survey-page-form-previous-button": "قبلی",
+  "survey-page-form-submit-button": "ذخیره",
 
   "survey-page-form-submit": "ثبت"
 }

@@ -2,6 +2,7 @@ import { html, unsafeCSS } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { signalElement } from '@gecut/mixins';
 import IconEastRounded from 'virtual:icons/material-symbols/east-rounded';
+import IconWestRounded from 'virtual:icons/material-symbols/west-rounded';
 // import IconCallOutlineRounded from 'virtual:icons/material-symbols/call-outline-rounded';
 // import IconPasswordOutline from 'virtual:icons/material-symbols/lock-outline';
 
@@ -36,15 +37,16 @@ export class PageSurvey extends signalElement {
   ];
 
   private form: Form = {
-    valid: false,
-    components: [
-      [
+    slides: {
+      personal: [
         {
+          component: 'text-field',
+          type: 'filled',
           name: 'firstName',
           label: i18n.message('survey-page-form-first-name-label'),
-          type: 'text',
-          ui: 'filled',
-          validate: [
+          inputType: 'text',
+          required: true,
+          validator: [
             {
               rule: 'required',
               errorMessage: i18n.message('survey-page-form-required-error'),
@@ -52,104 +54,134 @@ export class PageSurvey extends signalElement {
           ],
         },
         {
+          component: 'text-field',
+          type: 'filled',
           name: 'lastName',
-          type: 'text',
+          inputType: 'text',
           label: i18n.message('survey-page-form-last-name-label'),
-          ui: 'filled',
-          validate: [
+          required: true,
+          validator: [
             {
               rule: 'required',
               errorMessage: i18n.message('survey-page-form-required-error'),
             },
           ],
         },
-      ],
-      {
-        name: 'phoneNumber',
-        type: 'tel',
-        label: i18n.message('survey-page-form-phone-number-label'),
-        ui: 'filled',
-        validate: [
-          {
-            rule: 'required',
-            errorMessage: i18n.message('survey-page-form-required-error'),
-          },
-          {
-            rule: 'numeric',
-            errorMessage: i18n.message('survey-page-form-numeric-error'),
-          },
-          {
-            rule: 'phone',
-            country: 'IR',
-            errorMessage: i18n.message('survey-page-form-phone-number-error'),
-          },
-        ],
-      },
-      {
-        name: 'age',
-        type: 'number',
-        label: i18n.message('survey-page-form-age-label'),
-        ui: 'filled',
-        validate: [
-          {
-            rule: 'required',
-            errorMessage: i18n.message('survey-page-form-required-error'),
-          },
-          {
-            rule: 'numeric',
-            errorMessage: i18n.message('survey-page-form-numeric-error'),
-          },
-        ],
-      },
+        {
+          component: 'text-field',
+          type: 'filled',
+          name: 'phoneNumber',
+          inputType: 'tel',
+          label: i18n.message('survey-page-form-phone-number-label'),
+          required: true,
+          validator: [
+            {
+              rule: 'required',
+              errorMessage: i18n.message('survey-page-form-required-error'),
+            },
+            {
+              rule: 'numeric',
+              errorMessage: i18n.message('survey-page-form-numeric-error'),
+            },
+            {
+              rule: 'phone',
+              country: 'IR',
+              errorMessage: i18n.message('survey-page-form-phone-number-error'),
+            },
+          ],
+        },
+        {
+          component: 'button',
+          type: 'tonal',
+          label: i18n.message('survey-page-form-next-button'),
+          iconSVG: IconEastRounded,
+          hasIcon: true,
+          action: 'next_slide',
+          customConfig(target) {
+            target.style.flexGrow = '0';
+            target.style.marginInlineStart = 'auto';
 
-      {
-        name: 'teacherFirstName',
-        label: i18n.message('survey-page-form-teacher-first-name-label'),
-        type: 'text',
-        ui: 'filled',
-      },
-      {
-        name: 'teacherLastName',
-        label: i18n.message('survey-page-form-teacher-last-name-label'),
-        type: 'text',
-        ui: 'filled',
-        validate: [
+            return target;
+          },
+        },
+      ],
+      teacher: [
+        {
+          component: 'text-field',
+          type: 'filled',
+          name: 'firstName',
+          label: i18n.message('survey-page-form-teacher-first-name-label'),
+          inputType: 'text',
+        },
+        {
+          component: 'text-field',
+          type: 'filled',
+          name: 'lastName',
+          inputType: 'text',
+          label: i18n.message('survey-page-form-teacher-last-name-label'),
+          required: true,
+          validator: [
+            {
+              rule: 'required',
+              errorMessage: i18n.message('survey-page-form-required-error'),
+            },
+          ],
+        },
+        {
+          component: 'text-field',
+          type: 'filled',
+          name: 'phoneNumber',
+          inputType: 'tel',
+          label: i18n.message('survey-page-form-teacher-phone-number-label'),
+          required: true,
+          validator: [
+            {
+              rule: 'required',
+              errorMessage: i18n.message('survey-page-form-required-error'),
+            },
+            {
+              rule: 'numeric',
+              errorMessage: i18n.message('survey-page-form-numeric-error'),
+            },
+            {
+              rule: 'phone',
+              country: 'IR',
+              errorMessage: i18n.message('survey-page-form-phone-number-error'),
+            },
+          ],
+        },
+        [
           {
-            rule: 'required',
-            errorMessage: i18n.message('survey-page-form-required-error'),
+            component: 'button',
+            type: 'tonal',
+            label: i18n.message('survey-page-form-next-button'),
+            iconSVG: IconEastRounded,
+            hasIcon: true,
+            action: 'next_slide',
+            customConfig(target) {
+              target.style.flexGrow = '0';
+              target.style.marginInlineStart = 'auto';
+
+              return target;
+            },
+          },
+          {
+            component: 'button',
+            type: 'text',
+            label: i18n.message('survey-page-form-previous-button'),
+            iconSVG: IconWestRounded,
+            hasIcon: true,
+            trailingIcon: true,
+            action: 'previous_slide',
+            customConfig(target) {
+              target.style.flexGrow = '0';
+
+              return target;
+            },
           },
         ],
-      },
-      {
-        name: 'teacherPhoneNumber',
-        type: 'tel',
-        label: i18n.message('survey-page-form-teacher-phone-number-label'),
-        ui: 'filled',
-        validate: [
-          {
-            rule: 'required',
-            errorMessage: i18n.message('survey-page-form-required-error'),
-          },
-          {
-            rule: 'numeric',
-            errorMessage: i18n.message('survey-page-form-numeric-error'),
-          },
-          {
-            rule: 'phone',
-            country: 'IR',
-            errorMessage: i18n.message('survey-page-form-phone-number-error'),
-          },
-        ],
-      },
-      {
-        type: 'submit',
-        label: i18n.message('survey-page-form-submit'),
-        ui: 'filled',
-        align: 'end',
-        iconSVG: IconEastRounded,
-        disabled: 'by_valid',
-      },
-    ],
+      ],
+    },
   };
 
   override render(): RenderResult {
