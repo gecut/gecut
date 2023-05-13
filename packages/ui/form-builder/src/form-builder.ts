@@ -9,7 +9,13 @@ import { Form } from './type';
 
 import type { TextFieldContent } from '@gecut/components';
 import type { PropertyDeclaration } from 'lit';
-import type { FormComponent, FormRow, FormSlide, FormValues } from './type';
+import type {
+  FormComponent,
+  FormRow,
+  FormSlide,
+  FormValues,
+  FormTextFieldContent,
+} from './type';
 import type { RenderResult } from '@gecut/types';
 
 export type * from './type';
@@ -20,7 +26,13 @@ declare global {
   }
   interface HTMLElementEventMap {
     change: CustomEvent<{ ev: Event; component: FormComponent; form: Form }>;
-    submit: CustomEvent<{ ev: Event; component: FormComponent; form: Form }>;
+    submit: CustomEvent<{
+      ev: Event;
+      component: FormComponent;
+      form: Form;
+      values: FormValues<Form> | undefined;
+      validate: boolean;
+    }>;
   }
 }
 
@@ -113,6 +125,30 @@ export class FormBuilder extends loggerElement {
     return html`<div class="slides">${slides}</div>`;
   }
 
+  static textFieldValidator(
+    component: FormTextFieldContent
+  ): FormTextFieldContent {
+    if (component.component !== 'text-field') return component;
+
+    if (component.validator != null) {
+      const validatorsResult = validator(
+        component.value ?? '',
+        component.validator
+      );
+
+      component.errorText = validatorsResult
+        .filter((result) => result.validate != true)
+        .map((result) => result.errorMessage)
+        .join(' • ');
+
+      component.error = validatorsResult
+        .map((result) => !result.validate)
+        .reduce((p, c) => p || c, false);
+    }
+
+    return component;
+  }
+
   private renderFormSlide(
     slideName: string,
     slideForm: FormSlide
@@ -145,30 +181,20 @@ export class FormBuilder extends loggerElement {
             target = component.customConfig(target);
           }
 
+          FormBuilder.textFieldValidator(component);
+
+          target.error = component.error ?? false;
+          target.errorText = component.errorText ?? '';
+
           target.addEventListener('input', (event) => {
             const _target = event.target as typeof target;
 
             component.value = _target.value;
 
-            if (component.validator != null) {
-              const validatorsResult = validator(
-                _target.value,
-                component.validator
-              );
+            FormBuilder.textFieldValidator(component);
 
-              component.errorText = validatorsResult
-                .filter((result) => result.validate != true)
-                .map((result) => result.errorMessage)
-                .join(' • ');
-
-              _target.errorText = component.errorText;
-
-              component.error = validatorsResult
-                .map((result) => !result.validate)
-                .reduce((p, c) => p || c, false);
-
-              _target.error = component.error;
-            }
+            _target.error = component.error ?? false;
+            _target.errorText = component.errorText ?? '';
 
             if (this.data != null) {
               this.dispatchEvent(
