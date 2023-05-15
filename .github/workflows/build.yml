@@ -86,7 +86,7 @@ jobs:
   test:
     name: Unit Test
     runs-on: ubuntu-latest
-    needs: 
+    needs:
       - lint
       - typescript
 
@@ -109,4 +109,3 @@ jobs:
 
       - name: 🚀 Unit Test All Projects
         run: yarn nx run-many --target=test --all=true
-

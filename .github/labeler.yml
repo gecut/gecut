@@ -1,14 +1,14 @@
 documentation:
   - any:
-      - "**/*.md"
+      - '**/*.md'
 
 enhancement:
   - any:
-      - "**/*.ts"
+      - '**/*.ts'
 
 test:
   - any:
-      - "**/*.spec.ts"
+      - '**/*.spec.ts'
 
 demo:
   - apps/demo/*
@@ -20,7 +20,6 @@ ui:
 core:
   - packages/core/*
   - packages/core/**/*
-
 
 apps:
   - packages/apps/*
