@@ -45,27 +45,7 @@
         "plugin:@nrwl/nx/typescript"
       ],
       "rules": {
-        "indent": [
-          "error",
-          2,
-          {
-            "CallExpression": {
-              "arguments": 2
-            },
-            "FunctionDeclaration": {
-              "body": 1,
-              "parameters": 2
-            },
-            "FunctionExpression": {
-              "body": 1,
-              "parameters": 2
-            },
-            "MemberExpression": 2,
-            "ObjectExpression": 1,
-            "SwitchCase": 1,
-            "ignoredNodes": ["ConditionalExpression", "TemplateLiteral > *"]
-          }
-        ],
+        "indent": ["error", 2],
         "wc/guard-super-call": "off",
         "no-misleading-character-class": "off",
         "no-throw-literal": "off",
@@ -99,7 +79,13 @@
               ["sibling", "index"],
               "type"
             ],
-            "newlines-between": "always"
+            "alphabetize": {
+              "order": "asc",
+              "caseInsensitive": false
+            },
+            "warnOnUnassignedImports": true,
+            "newlines-between": "always",
+            "distinctGroup": true
           }
         ],
         "import/no-unresolved": "off",
