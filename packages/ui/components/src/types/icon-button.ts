@@ -1,9 +1,14 @@
 // import type { IconButton } from '@material/web/iconbutton/lib/icon-button';
 
+import type { CustomConfigFunction } from './custom-config-function';
 import type { IconContent } from './icon';
+import type { MdFilledIconButton } from '@material/web/iconbutton/filled-icon-button';
+import type { MdFilledTonalIconButton } from '@material/web/iconbutton/filled-tonal-icon-button';
+import type { MdOutlinedIconButton } from '@material/web/iconbutton/outlined-icon-button';
+import type { MdStandardIconButton } from '@material/web/iconbutton/standard-icon-button';
 
 export type IconButtonContent = {
-  component: 'iconButton';
+  component: 'icon-button';
   type: 'standard' | 'outlined' | 'filled' | 'filled-tonal';
   slot?: string;
   /**
@@ -38,4 +43,13 @@ export type IconButtonContent = {
    */
   selected?: boolean;
   icon: IconContent;
+
+  classes?: string[];
+
+  customConfig?: CustomConfigFunction<
+    | MdStandardIconButton
+    | MdFilledIconButton
+    | MdFilledTonalIconButton
+    | MdOutlinedIconButton
+  >;
 };
