@@ -2,7 +2,7 @@ import { setProvider } from '@gecut/signal';
 
 import { kyInstance } from './request-base';
 
-import type { Routes } from '@gecut/types/hami/routes';
+import type { Projects } from '@gecut/types';
 
 setProvider('notification-storage', async () => {
   return await kyInstance
@@ -14,5 +14,5 @@ setProvider('notification-storage', async () => {
         uid: 0,
       },
     })
-    .json<Routes['notification-storage']>();
+    .json<Projects.Hami.Routes['notification-storage']>();
 });

@@ -2,7 +2,7 @@ import { dispatch, getValue, setProvider } from '@gecut/signal';
 
 import { kyInstance } from './request-base';
 
-import type { Routes } from '@gecut/types/hami/routes';
+import type { Projects } from '@gecut/types';
 
 setProvider('user', async () => {
   const user = getValue('user');
@@ -29,6 +29,6 @@ async function fetchUser() {
           uid: Number(localStorage.getItem('USER_ID')),
         },
       })
-      .json<Routes['user']>()
+      .json<Projects.Hami.Routes['user']>()
   ).data;
 }

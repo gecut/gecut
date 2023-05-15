@@ -1,11 +1,9 @@
-import { productPriceRequire } from '@gecut/types/hami/product-price';
+import { Projects } from '@gecut/types';
 
 import { config, logger } from '../lib/config';
 import { nanoServer } from '../lib/server';
 import { storageClient } from '../lib/storage';
 import { requireAdmin } from '../util/require-admin';
-
-import type { ProductPrice } from '@gecut/types/hami/product-price';
 
 nanoServer.route('PATCH', '/product-price-storage/', async (connection) => {
   logger.logMethod('patch-product-price-storage');
@@ -13,12 +11,12 @@ nanoServer.route('PATCH', '/product-price-storage/', async (connection) => {
   await requireAdmin(connection);
 
   const bodyJson = await connection.requireJsonBody<{
-    data: Array<Partial<ProductPrice>>;
+    data: Array<Partial<Projects.Hami.ProductPrice>>;
   }>();
 
   for (const productPrice of bodyJson.data) {
     await storageClient.set(
-      productPriceRequire(productPrice),
+      Projects.Hami.productPriceRequire(productPrice),
       config.productPriceStorage
     );
   }

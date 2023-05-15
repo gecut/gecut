@@ -3,7 +3,7 @@ import { storageClient } from '../lib/storage';
 import { tokenGenerator } from '../lib/token';
 
 import type { AlwatrConnection } from '@alwatr/nano-server';
-import type { User } from '@gecut/types/hami/user';
+import type { Projects } from '@gecut/types';
 
 /**
  * This function requires a signed-in user by verifying their token and retrieving their information
@@ -14,7 +14,7 @@ import type { User } from '@gecut/types/hami/user';
  */
 export const requireSignedIn = async (
   connection: AlwatrConnection
-): Promise<User> => {
+): Promise<Projects.Hami.User> => {
   logger.logMethod('require-signed-in');
 
   const params = connection.requireQueryParams<{ uid: string }>({
@@ -26,7 +26,7 @@ export const requireSignedIn = async (
   );
 
   const user = await storageClient
-    .get<User>(params.uid, config.userStorage)
+    .get<Projects.Hami.User>(params.uid, config.userStorage)
     .catch(() => null);
 
   if (user == null) {

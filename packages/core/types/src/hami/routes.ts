@@ -1,4 +1,3 @@
-
 import type { CustomerModel } from './customer.js';
 import type { Notification } from './notification.js';
 import type { ProductPrice } from './product-price.js';

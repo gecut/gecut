@@ -3,19 +3,18 @@ import { nanoServer } from '../../lib/server';
 import { storageClient } from '../../lib/storage';
 import { tokenGenerator } from '../../lib/token';
 
-import type { Routes } from '@gecut/types/hami/routes';
-import type { SignInRequest, User } from '@gecut/types/hami/user';
+import type { Projects } from '@gecut/types';
 
 nanoServer.route(
   'POST',
   '/sign-in/',
-  async (connection): Promise<Routes['sign-in']> => {
+  async (connection): Promise<Projects.Hami.Routes['sign-in']> => {
     logger.logMethod('user-sign-in');
 
     const bodyJson = await connection.requireJsonBody<{
-      data: SignInRequest;
+      data: Projects.Hami.SignInRequest;
     }>();
-    const userStorage = await storageClient.getStorage<User>(
+    const userStorage = await storageClient.getStorage<Projects.Hami.User>(
       config.userStorage
     );
 

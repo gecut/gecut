@@ -10,16 +10,14 @@ import IconWarningOutlineRounded from 'virtual:icons/material-symbols/warning-ou
 
 import i18n from '../../i18n';
 
-import type { RenderResult } from '@gecut/types';
-import type { Notification } from '@gecut/types/hami/notification';
-import type { ProductPrice } from '@gecut/types/hami/product-price';
+import type { RenderResult, Projects } from '@gecut/types';
 
 export class HomeComponents extends signalElement {
   @state()
-  protected notifications: Notification[] = [];
+  protected notifications: Projects.Hami.Notification[] = [];
 
   @state()
-  protected productsPrice: ProductPrice[] = [];
+  protected productsPrice: Projects.Hami.ProductPrice[] = [];
 
   @state()
   protected productsPriceSearchQuery = '';
@@ -35,7 +33,9 @@ export class HomeComponents extends signalElement {
     });
   }
 
-  static renderNotificationItem(notification: Notification): HTMLElement {
+  static renderNotificationItem(
+    notification: Projects.Hami.Notification
+  ): HTMLElement {
     let icon = '';
 
     const messageWords = notification.message.split(' ');
@@ -81,7 +81,9 @@ export class HomeComponents extends signalElement {
       ],
     });
   }
-  static renderProductPriceItem(productPrice: ProductPrice): HTMLElement {
+  static renderProductPriceItem(
+    productPrice: Projects.Hami.ProductPrice
+  ): HTMLElement {
     return renderListItem({
       component: 'list-item',
       type: 'list-item',

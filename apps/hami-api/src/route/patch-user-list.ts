@@ -1,10 +1,8 @@
-import { userRequire } from '@gecut/types/hami/user';
+import { Projects } from '@gecut/types';
 
 import { config, logger } from '../lib/config';
 import { nanoServer } from '../lib/server';
 import { storageClient } from '../lib/storage';
-
-import type { User } from '@gecut/types/hami/user';
 
 nanoServer.route('PATCH', '/user-list/', async (connection) => {
   logger.logMethod('patch-user-list');
@@ -12,11 +10,14 @@ nanoServer.route('PATCH', '/user-list/', async (connection) => {
   connection.requireToken(config.nanoServer.adminToken);
 
   const bodyJson = await connection.requireJsonBody<{
-    data: Array<Partial<User>>;
+    data: Array<Partial<Projects.Hami.User>>;
   }>();
 
   for (const user of bodyJson.data) {
-    await storageClient.set(userRequire(user), config.userStorage);
+    await storageClient.set(
+      Projects.Hami.userRequire(user),
+      config.userStorage
+    );
   }
 
   return {

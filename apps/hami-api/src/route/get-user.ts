@@ -3,12 +3,12 @@ import { nanoServer } from '../lib/server';
 import { tokenGenerator } from '../lib/token';
 import { requireSignedIn } from '../util/require-signed-in';
 
-import type { Routes } from '@gecut/types/hami/routes';
+import type { Projects } from '@gecut/types';
 
 nanoServer.route(
   'GET',
   '/user/',
-  async (connection): Promise<Routes['user']> => {
+  async (connection): Promise<Projects.Hami.Routes['user']> => {
     logger.logMethod('get-user');
 
     const user = await requireSignedIn(connection);

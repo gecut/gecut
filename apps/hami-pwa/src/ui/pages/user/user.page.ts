@@ -14,8 +14,7 @@ import pageStyle from '../../stylesheets/page.scss?inline';
 
 import styles from './user.page.scss?inline';
 
-import type { RenderResult } from '@gecut/types';
-import type { SignInResponse } from '@gecut/types/hami/user';
+import type { RenderResult, Projects } from '@gecut/types';
 import type { TemplateResult } from 'lit';
 
 declare global {
@@ -33,7 +32,7 @@ export class PageUser extends signalElement {
   ];
 
   @state()
-    user?: SignInResponse;
+    user?: Projects.Hami.SignInResponse;
 
   override connectedCallback() {
     super.connectedCallback();
@@ -58,7 +57,9 @@ export class PageUser extends signalElement {
     return [PageUser.renderUserInformationCard(this.user)];
   }
 
-  static renderUserInformationCard(user: SignInResponse): TemplateResult {
+  static renderUserInformationCard(
+    user: Projects.Hami.SignInResponse
+  ): TemplateResult {
     const userInformationListTemplate = [
       renderListItem({
         component: 'list-item',

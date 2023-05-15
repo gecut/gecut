@@ -4,7 +4,6 @@ import { LitElement } from 'lit';
 import type { SignalListener } from '@gecut/signal';
 import type { Constructor } from '@gecut/types';
 
-
 export declare class SignalMixinInterface extends LitElement {
   protected addSignalListener: <T extends keyof Signals>(
     name: T,
