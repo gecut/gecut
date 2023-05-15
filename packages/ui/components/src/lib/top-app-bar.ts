@@ -1,18 +1,17 @@
+import { loggerElement } from '@gecut/mixins';
+import '@material/web/elevation/elevation';
+import '@material/web/iconbutton/standard-icon-button';
 import { html, nothing, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { map } from 'lit/directives/map.js';
 import { when } from 'lit/directives/when.js';
-import { loggerElement } from '@gecut/mixins';
-
-import '@material/web/iconbutton/standard-icon-button';
-import '@material/web/elevation/elevation';
 
 import { TopAppBarContent } from '../types/top-app-bar';
 
 import { renderComponent } from './render';
 
-import type { RenderResult } from '@gecut/types';
 import type { SlotsComponentsContent } from '../types/components';
+import type { RenderResult } from '@gecut/types';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -151,16 +150,16 @@ export class TopAppBar extends loggerElement {
       <div class="row">
         <div class="leading-icon">
           ${when(this.content != null && this.content.leadingSlot != null, () =>
-      renderComponent(this.content?.leadingSlot as SlotsComponentsContent)
-          )}
+    renderComponent(this.content?.leadingSlot as SlotsComponentsContent)
+  )}
         </div>
 
         <div class="title">${titleTemplate}</div>
 
         <div class="trailing-icon">
           ${map(this.content.trailingSlotList ?? [], (content) =>
-            renderComponent(content)
-          )}
+    renderComponent(content)
+  )}
         </div>
       </div>
 
