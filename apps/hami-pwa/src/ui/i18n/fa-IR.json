@@ -9,7 +9,9 @@
   "bottom_bar_home_label": "خانه",
   "bottom_bar_user_label": "کاربر",
 
-  "notification_box_title": "اعلانات",
+  "home_page_notification_box_title": "اعلانات",
+
+  "home_page_product_price_box_title": "لیست قیمت",
 
   "sign_in_page_title": "ورود",
   "sign_in_page_form_required_error": "اجباری است",
