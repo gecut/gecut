@@ -1,12 +1,15 @@
 // import type { MdListItem } from '@material/web/list/list-item';
 
 import type { SlotsComponentsContent } from './components';
+import type { CustomConfigFunction } from './custom-config-function';
+import type { MdListItem } from '@material/web/list/list-item';
+import type { MdListItemLink } from '@material/web/list/list-item-link';
 
 type ItemContent = {
-  component: 'listItem';
-  type: 'listItem';
+  component: 'list-item';
+  type: 'list-item';
 
-  slotList?: (SlotsComponentsContent & { slot: string })[];
+  slotList?: SlotsComponentsContent[];
 
   /**
    * The primary, headline text of the list item.
@@ -44,10 +47,14 @@ type ItemContent = {
    * md-list-item), focuses the underlying item.
    */
   active?: boolean;
+
+  classes?: string[];
+
+  customConfig?: CustomConfigFunction<MdListItem | MdListItemLink>;
 };
 
 type ItemLinkContent = {
-  type: 'listItemLink';
+  type: 'list-item-link';
   /**
    * Sets the underlying `HTMLAnchorElement`'s `href` resource attribute.
    */
