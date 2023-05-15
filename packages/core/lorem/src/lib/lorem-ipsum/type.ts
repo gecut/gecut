@@ -1,4 +1,4 @@
-import type {Languages, SizeType} from '../type';
+import type { Languages, SizeType } from '../type';
 
 export type LoremIpsumOptions = {
   lang: Languages[number];

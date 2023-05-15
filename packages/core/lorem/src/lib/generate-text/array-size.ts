@@ -6,8 +6,8 @@
  * @returns {string[]}
  */
 export const generateArrayFromSize = (
-    array: string[],
-    size: number
+  array: string[],
+  size: number
 ): string[] => {
   if (size > array.length) {
     return array.concat(...generateArrayFromSize(array, size - array.length));
