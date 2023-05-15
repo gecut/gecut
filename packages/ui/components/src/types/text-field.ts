@@ -1,7 +1,8 @@
 // import { TextField } from '@material/web/textfield/lib/text-field';
 
-import type { MdFilledTextField } from '@material/web/textfield/filled-text-field';
+import type { CustomConfigFunction } from './custom-config-function';
 import type { ArrayValues } from '@gecut/types';
+import type { MdFilledTextField } from '@material/web/textfield/filled-text-field';
 import type { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field';
 
 const inputTypeList = [
@@ -135,7 +136,7 @@ export type TextFieldContent = {
   name: string;
   inputType: ArrayValues<typeof inputTypeList>;
 
-  label: string;
+  label?: string;
   placeholder?: string;
   supportingText?: string;
   textDirection?: ArrayValues<typeof inputTextDirection>;
@@ -169,5 +170,5 @@ export type TextFieldContent = {
 
   classes?: string[];
 
-  customConfig?: <T extends MdFilledTextField | MdOutlinedTextField>(target: T) => T;
+  customConfig?: CustomConfigFunction<MdFilledTextField | MdOutlinedTextField>;
 };
