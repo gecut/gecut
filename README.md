@@ -1,9 +1,10 @@
 # Gecut Company MonoRepo
 
 ![GitHub](https://img.shields.io/github/license/gecut/gecut)
+![Lines of code](https://img.shields.io/tokei/lines/github/gecut/gecut)
 ![GitHub top language](https://img.shields.io/github/languages/top/gecut/gecut)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/gecut/gecut)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/y/gecut/gecut)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/gecut/gecut)
 ![GitHub last commit](https://img.shields.io/github/last-commit/gecut/gecut)
 
 Gecut is an open-source project based on NX.
