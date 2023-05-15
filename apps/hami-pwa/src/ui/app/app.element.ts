@@ -1,4 +1,4 @@
-import '@gecut/components';
+import '@gecut/ui-kit';
 import { loggerElement } from '@gecut/mixins';
 import { addListener, dispatch } from '@gecut/signal';
 import '@material/web/circularprogress/circular-progress';
@@ -17,12 +17,12 @@ import { attachRouter } from '../router/index';
 
 import styles from './app.element.scss?inline';
 
+import type { NavigationTab, RenderResult } from '@gecut/types';
 import type {
   TopAppBarContent,
   CircularProgressContent,
   IconButtonContent,
-} from '@gecut/components';
-import type { NavigationTab, RenderResult } from '@gecut/types';
+} from '@gecut/ui-kit';
 import type { PropertyValues } from 'lit';
 
 declare global {

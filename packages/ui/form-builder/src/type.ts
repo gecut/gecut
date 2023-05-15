@@ -1,4 +1,4 @@
-import type { ButtonContent, TextFieldContent } from '@gecut/components';
+import type { ButtonContent, TextFieldContent } from '@gecut/ui-kit';
 import type { Rules } from '@gecut/form-validator';
 import type { SingleOrArray } from '@gecut/types';
 

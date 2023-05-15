@@ -18,7 +18,7 @@
     "baseUrl": ".",
     "paths": {
       "@gecut/common/*": ["packages/ui/common/src/*"],
-      "@gecut/components": ["packages/ui/components/src/index.ts"],
+      "@gecut/ui-kit": ["packages/ui/ui-kit/src/index.ts"],
       "@gecut/form-builder": ["packages/ui/form-builder/src/form-builder.ts"],
       "@gecut/form-validator": ["packages/ui/form-validator/src/index.ts"],
       "@gecut/logger": ["packages/core/logger/src/index.ts"],

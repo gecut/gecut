@@ -1,4 +1,4 @@
-import { renderListItem } from '@gecut/components';
+import { renderListItem } from '@gecut/ui-kit';
 import { signalElement } from '@gecut/mixins';
 import { dispatch, request } from '@gecut/signal';
 import { html, nothing, unsafeCSS } from 'lit';

@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import { renderButton, renderTextField } from '@gecut/components';
+import { renderButton, renderTextField } from '@gecut/ui-kit';
 import { validator } from '@gecut/form-validator';
 import { loggerElement } from '@gecut/mixins';
 import { html, css, nothing } from 'lit';
@@ -14,7 +14,7 @@ import type {
   FormValues,
   FormTextFieldContent,
 } from './type';
-import type { TextFieldContent } from '@gecut/components';
+import type { TextFieldContent } from '@gecut/ui-kit';
 import type { RenderResult } from '@gecut/types';
 import type { PropertyDeclaration } from 'lit';
 

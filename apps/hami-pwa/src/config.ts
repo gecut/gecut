@@ -8,7 +8,7 @@ import proxyConfig from '../proxy.conf.json';
 import i18n from './ui/i18n';
 import { urlForName } from './ui/router';
 
-import type { TopAppBarContent, NavigationTab } from '@gecut/components';
+import type { TopAppBarContent, NavigationTab } from '@gecut/ui-kit';
 import type { Projects } from '@gecut/types';
 
 declare global {
