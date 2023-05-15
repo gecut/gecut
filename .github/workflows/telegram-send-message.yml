@@ -23,6 +23,9 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
+          debug: true
+          disable_notification: true
+          format: html
           message: |
             🟩 Push Notification On ${{ github.repository }}
 
@@ -30,4 +33,5 @@ jobs:
             👉 Actor: ${{ github.actor }}
             👉 Commit: ${{ github.event.commits[0].message }}
 
-            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
+
+            👉 <a href="https://github.com/${{ github.repository }}/commit/${{github.sha}}"}>See changes</a>
