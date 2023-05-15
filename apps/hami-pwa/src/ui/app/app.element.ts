@@ -1,6 +1,6 @@
-import '@gecut/ui-kit';
 import { loggerElement } from '@gecut/mixins';
 import { addListener, dispatch } from '@gecut/signal';
+import '@gecut/ui-kit';
 import '@material/web/circularprogress/circular-progress';
 import '@material/web/icon/icon';
 import '@material/web/navigationbar/navigation-bar';
@@ -17,11 +17,12 @@ import { attachRouter } from '../router/index';
 
 import styles from './app.element.scss?inline';
 
-import type { NavigationTab, RenderResult } from '@gecut/types';
+import type { RenderResult } from '@gecut/types';
 import type {
   TopAppBarContent,
   CircularProgressContent,
   IconButtonContent,
+  NavigationTab,
 } from '@gecut/ui-kit';
 import type { PropertyValues } from 'lit';
 
