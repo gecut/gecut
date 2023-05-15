@@ -26,7 +26,8 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/core/signal/**/*.ts"]
+        "lintFilePatterns": ["packages/core/signal/**/*.ts"],
+        "fix": true
       }
     },
     "test": {
