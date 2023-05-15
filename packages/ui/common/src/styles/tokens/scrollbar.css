@@ -13,12 +13,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --sys-scrollbar-color: rgba(
-      255,
-      255,
-      255,
-      0
-    );
+    --sys-scrollbar-color: rgba(255, 255, 255, 0);
     --sys-scrollbar-color-hover: rgba(
       255,
       255,
