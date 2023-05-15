@@ -4,7 +4,7 @@ updates:
     directory: /
     open-pull-requests-limit: 5
     assignees:
-      - 'dependabot'
+      - dependabot
     reviewers:
       - MM25Zamanian
     schedule:
@@ -19,7 +19,7 @@ updates:
     versioning-strategy: increase-if-necessary
     open-pull-requests-limit: 5
     assignees:
-      - 'dependabot'
+      - dependabot
     reviewers:
       - MM25Zamanian
     schedule:
