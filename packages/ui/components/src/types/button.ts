@@ -1,5 +1,7 @@
 // import type { Button } from '@material/web/button/lib/button';
 
+import type { CustomConfigFunction } from './custom-config-function';
+import type { IconContent } from './icon';
 import type { MdElevatedButton } from '@material/web/button/elevated-button';
 import type { MdFilledButton } from '@material/web/button/filled-button';
 import type { MdOutlinedButton } from '@material/web/button/outlined-button';
@@ -42,18 +44,17 @@ export type ButtonContent = {
 
   label: string;
 
-  iconSVG?: string;
+  slot?: string;
+
+  icon?: IconContent;
 
   classes?: string[];
 
-  customConfig?: <
-    T extends
-      | MdElevatedButton
-      | MdFilledButton
-      | MdOutlinedButton
-      | MdTextButton
-      | MdTonalButton
-  >(
-    target: T
-  ) => T;
+  customConfig?: CustomConfigFunction<
+    | MdElevatedButton
+    | MdFilledButton
+    | MdOutlinedButton
+    | MdTextButton
+    | MdTonalButton
+  >;
 };
