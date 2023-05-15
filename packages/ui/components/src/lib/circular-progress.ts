@@ -12,7 +12,7 @@ const circularProgressKeys = [
 export function renderCircularProgress(
   content: CircularProgressContent
 ): renderCircularProgressReturnType {
-  let progress = document.createElement(`md-${content.type}-progress`);
+  let progress = document.createElement(`md-${content.type}`);
 
   for (const key of circularProgressKeys) {
     const value = content[key];
