@@ -18,8 +18,7 @@ import pageStyle from '../../stylesheets/page.scss?inline';
 import styles from './sign-in.page.scss?inline';
 
 import type { Form } from '@gecut/form-builder';
-import type { RenderResult } from '@gecut/types';
-import type { SignInRequest } from '@gecut/types/hami/user';
+import type { RenderResult, Projects } from '@gecut/types';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -129,7 +128,9 @@ export class PageSignIn extends loggerElement {
 
   private async onSubmit(event: HTMLElementEventMap['submit']) {
     if (event.detail.values != null) {
-      const values = event.detail.values['sign-in'] as unknown as SignInRequest;
+      const values = event.detail.values[
+        'sign-in'
+      ] as unknown as Projects.Hami.SignInRequest;
 
       try {
         await request('sign-in', values);

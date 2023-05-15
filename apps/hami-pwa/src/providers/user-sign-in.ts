@@ -2,7 +2,7 @@ import { request, setProvider } from '@gecut/signal';
 
 import { kyInstance } from './request-base';
 
-import type { Routes } from '@gecut/types/hami/routes';
+import type { Projects } from '@gecut/types';
 
 setProvider('sign-in', async (signInData) => {
   const response = await kyInstance
@@ -10,7 +10,7 @@ setProvider('sign-in', async (signInData) => {
       headers: {},
       json: { data: signInData },
     })
-    .json<Routes['sign-in']>();
+    .json<Projects.Hami.Routes['sign-in']>();
 
   if (response.ok === true) {
     const user = response.data;

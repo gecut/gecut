@@ -9,22 +9,22 @@ import i18n from './ui/i18n';
 import { urlForName } from './ui/router';
 
 import type { TopAppBarContent, NavigationTab } from '@gecut/components';
-import type { Routes } from '@gecut/types/hami/routes';
-import type { SignInRequest, SignInResponse } from '@gecut/types/hami/user';
+import type { Projects } from '@gecut/types';
 
 declare global {
-  interface Signals extends Routes {
+  interface Signals extends Projects.Hami.Routes {
     readonly 'top-app-bar-hidden': boolean;
     readonly 'bottom-app-bar-hidden': boolean;
 
-    readonly user: SignInResponse;
+    readonly user: Projects.Hami.SignInResponse;
     readonly 'search-product-price-query': string;
     readonly 'sign-in': Record<string, never>;
     readonly 'top-app-bar': Partial<TopAppBarContent>;
     readonly 'promises-list': string[];
   }
-  interface Providers extends Record<keyof Routes, Record<string, never>> {
-    readonly 'sign-in': SignInRequest;
+  interface Providers
+    extends Record<keyof Projects.Hami.Routes, Record<string, never>> {
+    readonly 'sign-in': Projects.Hami.SignInRequest;
     readonly 'promises-list': {
       key: string;
       type: 'add' | 'remove';

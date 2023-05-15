@@ -25,7 +25,7 @@
       "@gecut/lorem": ["packages/core/lorem/src/index.ts"],
       "@gecut/mixins": ["packages/ui/mixins/src/index.ts"],
       "@gecut/signal": ["packages/core/signal/src/index.ts"],
-      "@gecut/types": ["packages/core/types/src/types.ts"],
+      "@gecut/types": ["packages/core/types/src/types.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

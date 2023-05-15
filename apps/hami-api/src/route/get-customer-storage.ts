@@ -4,26 +4,24 @@ import { storageClient } from '../lib/storage';
 import { requireSignedIn } from '../util/require-signed-in';
 
 import type { AlwatrDocumentStorage } from '@alwatr/type/storage';
-import type { Customer, CustomerModel } from '@gecut/types/hami/customer';
-import type { Order } from '@gecut/types/hami/order';
-import type { Routes } from '@gecut/types/hami/routes';
-import type { User } from '@gecut/types/hami/user';
+import type { Projects } from '@gecut/types';
 
 nanoServer.route(
   'GET',
   '/customer-storage/',
-  async (connection): Promise<Routes['customer-storage']> => {
+  async (connection): Promise<Projects.Hami.Routes['customer-storage']> => {
     logger.logMethod('get-customer-storage');
 
     await requireSignedIn(connection);
 
-    const customerStorage = await storageClient.getStorage<Customer>(
-      config.customerStorage
-    );
-    const userStorage = await storageClient.getStorage<User>(
+    const customerStorage =
+      await storageClient.getStorage<Projects.Hami.Customer>(
+        config.customerStorage
+      );
+    const userStorage = await storageClient.getStorage<Projects.Hami.User>(
       config.userStorage
     );
-    const orderStorage = await storageClient.getStorage<Order>(
+    const orderStorage = await storageClient.getStorage<Projects.Hami.Order>(
       config.orderStorage
     );
 
@@ -34,7 +32,7 @@ nanoServer.route(
         (order) => order.customerId === customerId
       );
 
-      const customerModel: CustomerModel = {
+      const customerModel: Projects.Hami.CustomerModel = {
         creator,
         orderList,
         ...customer,
@@ -43,6 +41,6 @@ nanoServer.route(
       customerStorage[customerId] = customerModel;
     }
 
-    return customerStorage as AlwatrDocumentStorage<CustomerModel>;
+    return customerStorage as AlwatrDocumentStorage<Projects.Hami.CustomerModel>;
   }
 );
