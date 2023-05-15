@@ -25,7 +25,8 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/ui/common/**/*.ts"]
+        "lintFilePatterns": ["packages/ui/common/**/*.ts"],
+        "fix": true
       }
     }
   },
