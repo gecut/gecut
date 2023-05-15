@@ -58,7 +58,8 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/hami-pwa/**/*.ts"]
+        "lintFilePatterns": ["apps/hami-pwa/**/*.ts"],
+        "fix": true
       }
     },
     "docker-build": {

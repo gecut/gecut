@@ -1,5 +1,5 @@
-import { Router } from '@vaadin/router';
 import { createLogger } from '@gecut/logger';
+import { Router } from '@vaadin/router';
 
 import { routes } from './routes';
 

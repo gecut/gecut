@@ -1,9 +1,9 @@
-import type { Route } from '@vaadin/router';
-
 import '../pages/home/home.page';
-import '../pages/sign-in/sign-in.page';
 import '../pages/landing/landing.page';
+import '../pages/sign-in/sign-in.page';
 import '../pages/user/user.page';
+
+import type { Route } from '@vaadin/router';
 
 export const routes: Route[] = [
   { path: '/', name: 'Landing', component: 'page-landing' },

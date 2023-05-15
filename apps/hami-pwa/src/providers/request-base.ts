@@ -13,9 +13,9 @@ export const kyInstance = ky.create({
       (_request) => {
         const url = new URL(_request.url);
         const pathname = url.href
-            .replace(config.apiUrl, '')
-            .replace(url.search, '')
-            .replaceAll('/', '');
+          .replace(config.apiUrl, '')
+          .replace(url.search, '')
+          .replaceAll('/', '');
 
         request('promises-list', {
           key: pathname,

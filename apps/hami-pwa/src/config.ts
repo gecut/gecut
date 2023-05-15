@@ -1,16 +1,16 @@
-import IconHomeRounded from 'virtual:icons/material-symbols/home-rounded';
 import IconHomeOutlineRounded from 'virtual:icons/material-symbols/home-outline-rounded';
-import IconPersonRounded from 'virtual:icons/material-symbols/person-rounded';
+import IconHomeRounded from 'virtual:icons/material-symbols/home-rounded';
 import IconPersonOutlineRounded from 'virtual:icons/material-symbols/person-outline-rounded';
+import IconPersonRounded from 'virtual:icons/material-symbols/person-rounded';
 
 import proxyConfig from '../proxy.conf.json';
 
-import { urlForName } from './ui/router';
 import i18n from './ui/i18n';
+import { urlForName } from './ui/router';
 
-import type { SignInRequest, SignInResponse } from '@gecut/types/hami/user';
 import type { TopAppBarContent, NavigationTab } from '@gecut/components';
 import type { Routes } from '@gecut/types/hami/routes';
+import type { SignInRequest, SignInResponse } from '@gecut/types/hami/user';
 
 declare global {
   interface Signals extends Routes {
@@ -18,6 +18,7 @@ declare global {
     readonly 'bottom-app-bar-hidden': boolean;
 
     readonly user: SignInResponse;
+    readonly 'search-product-price-query': string;
     readonly 'sign-in': Record<string, never>;
     readonly 'top-app-bar': Partial<TopAppBarContent>;
     readonly 'promises-list': string[];

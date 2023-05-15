@@ -1,14 +1,13 @@
-import { html, unsafeCSS } from 'lit';
-import { customElement } from 'lit/decorators.js';
 import { loggerElement } from '@gecut/mixins';
 import { dispatch } from '@gecut/signal';
-
 import '@material/web/circularprogress/circular-progress';
+import { html, unsafeCSS } from 'lit';
+import { customElement } from 'lit/decorators.js';
 
 import { requireSignIn } from '../../../controllers/require-sign-in';
+import { urlForName } from '../../router';
 import elementStyle from '../../stylesheets/element.scss?inline';
 import pageStyle from '../../stylesheets/page.scss?inline';
-import { urlForName } from '../../router';
 
 import styles from './landing.page.scss?inline';
 
@@ -44,7 +43,9 @@ export class PageLanding extends loggerElement {
     `;
   }
 
-  override async firstUpdated(changedProperties: PropertyValues<this>): Promise<void> {
+  override async firstUpdated(
+    changedProperties: PropertyValues<this>
+  ): Promise<void> {
     super.firstUpdated(changedProperties);
 
     const isSignIn = await requireSignIn({
@@ -54,7 +55,7 @@ export class PageLanding extends loggerElement {
 
     if (isSignIn === false) {
       localStorage.removeItem('USER_ID');
-      localStorage.removeItem('USER_TOKEN');  
+      localStorage.removeItem('USER_TOKEN');
     }
   }
 }

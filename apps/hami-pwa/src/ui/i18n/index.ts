@@ -18,8 +18,8 @@ function message(key: LanguageKeys<typeof fa>) {
 
   if (value == null) {
     logger.warning(
-        'message',
-        'key_not_defined',
+      'message',
+      'key_not_defined',
       `'${key}' not have any value`,
       key
     );

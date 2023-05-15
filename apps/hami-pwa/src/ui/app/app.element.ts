@@ -1,20 +1,19 @@
+import '@gecut/components';
+import { loggerElement } from '@gecut/mixins';
+import { addListener, dispatch } from '@gecut/signal';
+import '@material/web/circularprogress/circular-progress';
+import '@material/web/icon/icon';
+import '@material/web/navigationbar/navigation-bar';
+import '@material/web/navigationtab/navigation-tab';
 import { html, unsafeCSS } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import { unsafeSVG } from 'lit/directives/unsafe-svg.js';
-import { loggerElement } from '@gecut/mixins';
-import { addListener, dispatch } from '@gecut/signal';
-import IconMenuRounded from 'virtual:icons/material-symbols/menu-rounded';
 import IconLanguageRounded from 'virtual:icons/material-symbols/language';
+import IconMenuRounded from 'virtual:icons/material-symbols/menu-rounded';
 
-import '@material/web/circularprogress/circular-progress';
-import '@material/web/navigationbar/navigation-bar';
-import '@material/web/navigationtab/navigation-tab';
-import '@material/web/icon/icon';
-import '@gecut/components';
-
-import { attachRouter } from '../router/index';
 import config from '../../config';
 import i18n from '../i18n';
+import { attachRouter } from '../router/index';
 
 import styles from './app.element.scss?inline';
 
@@ -23,8 +22,8 @@ import type {
   CircularProgressContent,
   IconButtonContent,
 } from '@gecut/components';
-import type { PropertyValues } from 'lit';
 import type { NavigationTab, RenderResult } from '@gecut/types';
+import type { PropertyValues } from 'lit';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -47,12 +46,12 @@ export class AppRoot extends loggerElement {
   static override styles = [unsafeCSS(styles)];
 
   static topAppBarLoadingSlot: CircularProgressContent = {
-    component: 'progress',
-    type: 'circular',
+    component: 'circular-progress',
+    type: 'circular-progress',
     indeterminate: true,
   };
   static topAppBarTrailingSlot: IconButtonContent = {
-    component: 'iconButton',
+    component: 'icon-button',
     type: 'standard',
     icon: {
       component: 'icon',
@@ -67,7 +66,7 @@ export class AppRoot extends loggerElement {
       type: 'center',
       headline: getDate(),
       leadingSlot: {
-        component: 'iconButton',
+        component: 'icon-button',
         type: 'standard',
         icon: {
           component: 'icon',
@@ -129,9 +128,9 @@ export class AppRoot extends loggerElement {
       ></top-app-bar>
       <main role="main"></main>
       ${AppRoot.renderNavigationBar(
-        config.navigationTabs,
-        this.bottomAppBarHidden
-      )}
+    config.navigationTabs,
+    this.bottomAppBarHidden
+  )}
     `;
   }
 
@@ -150,8 +149,8 @@ export class AppRoot extends loggerElement {
   }
 
   static renderNavigationBar(
-      navigationTabs: NavigationTab[],
-      bottomAppBarHidden: boolean
+    navigationTabs: NavigationTab[],
+    bottomAppBarHidden: boolean
   ): RenderResult {
     const navigationTabsTemplate = navigationTabs.map(this.renderNavigationTab);
 
@@ -161,7 +160,7 @@ export class AppRoot extends loggerElement {
         .activeIndex=${0}
         hideInactiveLabel
       >
-      ${navigationTabsTemplate}
+        ${navigationTabsTemplate}
       </md-navigation-bar>
     `;
   }
