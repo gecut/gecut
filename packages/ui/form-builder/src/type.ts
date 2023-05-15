@@ -1,6 +1,6 @@
-import type { ButtonContent, TextFieldContent } from '@gecut/ui-kit';
 import type { Rules } from '@gecut/form-validator';
 import type { SingleOrArray } from '@gecut/types';
+import type { ButtonContent, TextFieldContent } from '@gecut/ui-kit';
 
 export type FormTextFieldContent = TextFieldContent & { validator?: Rules };
 export type FormButtonContent = ButtonContent & {
