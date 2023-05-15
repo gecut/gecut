@@ -1,21 +1,17 @@
-import { html, unsafeCSS } from 'lit';
-import { customElement } from 'lit/decorators.js';
-import { signalElement } from '@gecut/mixins';
-import IconEastRounded from 'virtual:icons/material-symbols/east-rounded';
-import IconWestRounded from 'virtual:icons/material-symbols/west-rounded';
-// import IconCallOutlineRounded from 'virtual:icons/material-symbols/call-outline-rounded';
-// import IconPasswordOutline from 'virtual:icons/material-symbols/lock-outline';
-
 import '@gecut/form-builder';
-
+import { signalElement } from '@gecut/mixins';
+import '@material/web/icon/icon';
 import '@material/web/list/list';
 import '@material/web/list/list-item';
-import '@material/web/icon/icon';
+import { html, unsafeCSS } from 'lit';
+import { customElement } from 'lit/decorators.js';
+import IconEastRounded from 'virtual:icons/material-symbols/east-rounded';
+import IconWestRounded from 'virtual:icons/material-symbols/west-rounded';
 
-import elementStyle from '../../stylesheets/element.scss?inline';
-import pageStyle from '../../stylesheets/page.scss?inline';
 import gecutLogo from '../../assets/gecut-logo.png?inline';
 import i18n from '../../i18n';
+import elementStyle from '../../stylesheets/element.scss?inline';
+import pageStyle from '../../stylesheets/page.scss?inline';
 
 import styles from './survey.page.scss?inline';
 

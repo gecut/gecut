@@ -58,7 +58,8 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/survey-pwa/**/*.ts"]
+        "lintFilePatterns": ["apps/survey-pwa/**/*.ts"],
+        "fix": true
       }
     },
     "docker-build": {
