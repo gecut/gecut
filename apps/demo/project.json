@@ -57,7 +57,8 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/demo/**/*.ts"]
+        "lintFilePatterns": ["apps/demo/**/*.ts"],
+        "fix": true
       }
     }
   }
