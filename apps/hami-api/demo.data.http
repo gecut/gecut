@@ -62,3 +62,23 @@ Content-Type: application/json
     }
   ]
 }
+
+### Patch Product Price Demo
+PATCH {{apiUrl}}/product-price-storage/?uid=0
+Authorization: Bearer {{userAdminToken}}
+Content-Type: application/json
+
+{
+  "data": [
+    {
+      "name": "ماسه دوبار شور",
+      "minPrice": 100000,
+      "normalPrice": 125000
+    },
+    {
+      "name": "گچ چرت و پرت",
+      "minPrice": 100000,
+      "normalPrice": 125000
+    }
+  ]
+}

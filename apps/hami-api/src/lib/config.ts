@@ -1,6 +1,6 @@
-import {createLogger} from '@alwatr/logger';
+import { createLogger } from '@alwatr/logger';
 
-import type {TokenGeneratorConfig} from '@alwatr/token';
+import type { TokenGeneratorConfig } from '@alwatr/token';
 
 export const logger = createLogger('hami-api');
 

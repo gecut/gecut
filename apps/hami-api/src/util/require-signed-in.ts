@@ -13,7 +13,7 @@ import type { User } from '@gecut/types/hami/user';
  * @returns A Promise that resolves to a User object.
  */
 export const requireSignedIn = async (
-    connection: AlwatrConnection
+  connection: AlwatrConnection
 ): Promise<User> => {
   logger.logMethod('require-signed-in');
 
@@ -22,12 +22,12 @@ export const requireSignedIn = async (
   });
 
   connection.requireToken(
-      (token) => tokenGenerator.verify(params.uid, token) === 'valid'
+    (token) => tokenGenerator.verify(params.uid, token) === 'valid'
   );
 
   const user = await storageClient
-      .get<User>(params.uid, config.userStorage)
-      .catch(() => null);
+    .get<User>(params.uid, config.userStorage)
+    .catch(() => null);
 
   if (user == null) {
     // eslint-disable-next-line no-throw-literal

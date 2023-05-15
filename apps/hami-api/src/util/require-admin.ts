@@ -1,11 +1,13 @@
-import {logger} from '../lib/config';
+import { logger } from '../lib/config';
 
-import {requireSignedIn} from './require-signed-in';
+import { requireSignedIn } from './require-signed-in';
 
-import type {AlwatrConnection} from '@alwatr/nano-server';
-import type {User} from '@gecut/types/hami/user';
+import type { AlwatrConnection } from '@alwatr/nano-server';
+import type { User } from '@gecut/types/hami/user';
 
-export const requireAdmin = async (connection: AlwatrConnection): Promise<User> => {
+export const requireAdmin = async (
+  connection: AlwatrConnection
+): Promise<User> => {
   logger.logMethod('require-admin');
 
   const user = await requireSignedIn(connection);

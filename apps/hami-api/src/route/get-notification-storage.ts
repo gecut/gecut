@@ -11,6 +11,6 @@ nanoServer.route('GET', '/notification-storage/', async (connection) => {
   await requireSignedIn(connection);
 
   return await storageClient.getStorage<Notification>(
-      config.notificationStorage
+    config.notificationStorage
   );
 });

@@ -21,3 +21,7 @@ Content-Type: application/json
 ### Get Notifications Storage
 get {{apiUrl}}/notification-storage/?uid=0
 Authorization: Bearer {{userAdminToken}}
+
+### Get Product Price Storage
+get {{apiUrl}}/product-price-storage/?uid=0
+Authorization: Bearer {{userAdminToken}}
