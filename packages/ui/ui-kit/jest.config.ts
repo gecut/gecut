@@ -1,10 +1,10 @@
 /* eslint-disable */
 export default {
-  displayName: 'ui-components',
+  displayName: 'ui-ui-kit',
   preset: '../../../jest.preset.js',
   transform: {
     '^.+\\.[tj]s$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.spec.json' }],
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../coverage/packages/ui/components',
+  coverageDirectory: '../../../coverage/packages/ui/ui-kit',
 };
