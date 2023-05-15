@@ -18,9 +18,8 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "fix": true,
-        "cache": true,
-        "lintFilePatterns": ["packages/core/types/**/*.ts"]
+        "lintFilePatterns": ["packages/core/types/**/*.ts"],
+        "fix": true
       }
     }
   },

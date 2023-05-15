@@ -1,5 +1,5 @@
-import type {AlwatrDocumentObjectActive} from './document-object-active.js';
-import type {StringifyableRecord} from '../type-helper.js';
+import type { AlwatrDocumentObjectActive } from './document-object-active.js';
+import type { StringifyableRecord } from '../type-helper.js';
 
 export interface Supplier extends AlwatrDocumentObjectActive {
   uniqueCode: string;

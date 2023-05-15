@@ -1,7 +1,7 @@
-import type {Customer} from './customer.js';
-import type {Order} from './order.js';
-import type {AlwatrDocumentObjectActive} from './document-object-active.js';
-import type {ArrayValues} from '../type-helper.js';
+import type { Customer } from './customer.js';
+import type { AlwatrDocumentObjectActive } from './document-object-active.js';
+import type { Order } from './order.js';
+import type { ArrayValues } from '../type-helper.js';
 
 export const userGenderList = ['male', 'female'] as const;
 export const userRoleList = ['admin', 'seller'] as const;
@@ -27,7 +27,7 @@ export interface User extends AlwatrDocumentObjectActive {
 }
 
 export type SignInRequest = Pick<User, 'phoneNumber' | 'password'>;
-export type SignInResponse = User & {token: string};
+export type SignInResponse = User & { token: string };
 
 /**
  * This is a TypeScript function that takes in a partial user object and returns a complete user object

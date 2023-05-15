@@ -1,7 +1,7 @@
-import type {Order} from './order.js';
-import type {User} from './user.js';
-import type {AlwatrDocumentObjectActive} from './document-object-active.js';
-import type {StringifyableRecord} from '../type-helper.js';
+import type { AlwatrDocumentObjectActive } from './document-object-active.js';
+import type { Order } from './order.js';
+import type { User } from './user.js';
+import type { StringifyableRecord } from '../type-helper.js';
 
 export interface CustomerModel extends Customer {
   orderList: Order[];

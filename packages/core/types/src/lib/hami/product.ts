@@ -1,4 +1,4 @@
-import type {AlwatrDocumentObjectActive} from './document-object-active.js';
+import type { AlwatrDocumentObjectActive } from './document-object-active.js';
 
 export interface Product extends AlwatrDocumentObjectActive {
   code: string;
