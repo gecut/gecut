@@ -10,7 +10,7 @@
       "options": {
         "rootDir": ".",
         "outputPath": "dist/packages/core/types",
-        "main": "packages/core/types/src/index.ts",
+        "main": "packages/core/types/src/types.ts",
         "tsConfig": "packages/core/types/tsconfig.lib.json"
       }
     },
