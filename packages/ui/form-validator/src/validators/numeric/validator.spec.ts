@@ -8,15 +8,15 @@ const rules: NumericRule = {
 };
 
 describe('Phone Validator', () => {
-  test('Return \'true\' To My Number', () => {
+  test("Return 'true' To My Number", () => {
     expect(numericValidator('09155595488', rules)).toEqual(true);
   });
 
-  test('Return \'true\' To Empty', () => {
+  test("Return 'true' To Empty", () => {
     expect(numericValidator('', rules)).toEqual(true);
   });
 
-  test('Return \'false\' To My Name', () => {
+  test("Return 'false' To My Name", () => {
     expect(numericValidator('MohammadMahdi Zamanian', rules)).toEqual(false);
   });
 });

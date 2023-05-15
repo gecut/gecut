@@ -4,9 +4,9 @@ import { kyInstance } from './request-base';
 
 import type { Routes } from '@gecut/types/hami/routes';
 
-setProvider('notification-storage', async () => {
+setProvider('product-price-storage', async () => {
   return await kyInstance
-    .get('notification-storage/', {
+    .get('product-price-storage/', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('USER_TOKEN')}`,
       },
@@ -14,5 +14,5 @@ setProvider('notification-storage', async () => {
         uid: 0,
       },
     })
-    .json<Routes['notification-storage']>();
+    .json<Routes['product-price-storage']>();
 });

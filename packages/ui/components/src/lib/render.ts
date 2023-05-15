@@ -1,25 +1,24 @@
 import { renderButton } from './button';
-import { renderIconButton } from './icon-button';
-import { renderProgress } from './progress';
+import { renderCircularProgress } from './circular-progress';
 import { renderIcon } from './icon';
+import { renderIconButton } from './icon-button';
 import { renderListItem } from './list-item';
 
-import type { RenderResult } from '@gecut/types';
 import type { AllComponentsContent } from '../types/components';
 
-export function renderComponent(
-    component: AllComponentsContent
-): RenderResult | HTMLElement {
+export function renderComponent(component: AllComponentsContent) {
   switch (component.component) {
-    case 'button':
-      return renderButton(component);
-    case 'iconButton':
-      return renderIconButton(component);
-    case 'icon':
-      return renderIcon(component);
-    case 'progress':
-      return renderProgress(component);
-    case 'listItem':
-      return renderListItem(component);
+  case 'button':
+    return renderButton(component);
+  case 'icon-button':
+    return renderIconButton(component);
+  case 'icon':
+    return renderIcon(component);
+  case 'circular-progress':
+    return renderCircularProgress(component);
+  case 'list-item':
+    return renderListItem(component);
+  default:
+    return undefined;
   }
 }

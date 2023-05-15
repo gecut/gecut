@@ -1,8 +1,8 @@
-import viteTsConfigPaths from 'vite-tsconfig-paths';
 import Unfonts from 'unplugin-fonts/vite';
 import Icons from 'unplugin-icons/vite';
 import { defineConfig } from 'vite';
 import { VitePWA as vitePWA } from 'vite-plugin-pwa';
+import viteTsConfigPaths from 'vite-tsconfig-paths';
 
 import project from './project.json';
 

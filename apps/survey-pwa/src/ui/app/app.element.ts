@@ -1,16 +1,15 @@
+import '@gecut/components';
+import { loggerElement } from '@gecut/mixins';
 import { html, unsafeCSS } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { loggerElement } from '@gecut/mixins';
 
-import '@gecut/components';
-
-import { attachRouter } from '../router/index';
 import i18n from '../i18n';
+import { attachRouter } from '../router/index';
 
 import styles from './app.element.scss?inline';
 
-import type { PropertyValues } from 'lit';
 import type { RenderResult } from '@gecut/types';
+import type { PropertyValues } from 'lit';
 
 declare global {
   interface HTMLElementTagNameMap {

@@ -54,7 +54,8 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/services/storage-server/**/*.ts"]
+        "lintFilePatterns": ["apps/services/storage-server/**/*.ts"],
+        "fix": true
       }
     },
     "docker-build": {

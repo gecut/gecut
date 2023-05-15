@@ -1,5 +1,5 @@
-import type { ValidatorFunction } from '../../type';
 import type { PhoneRule } from './type';
+import type { ValidatorFunction } from '../../type';
 
 export type * from './type';
 
@@ -8,8 +8,8 @@ const phoneValidatorRegexListByCountry: Record<PhoneRule['country'], RegExp> = {
 };
 
 export const phoneValidator: ValidatorFunction<PhoneRule> = (
-    value,
-    ruleData
+  value,
+  ruleData
 ) => {
   value = String(value).trim();
 

@@ -1,4 +1,5 @@
 import type { AlwatrDocumentObjectActive } from './document-object-active.js';
+import type { RequireFunc } from './require-functions.js';
 import type { ArrayValues } from '../type-helper.js';
 
 export const notificationStatusList = [
@@ -13,8 +14,8 @@ export interface Notification extends AlwatrDocumentObjectActive {
   status: ArrayValues<typeof notificationStatusList>;
 }
 
-export const notificationRequire = (
-    notification: Partial<Notification>
+export const notificationRequire: RequireFunc<Notification> = (
+  notification: Partial<Notification>
 ): Notification => ({
   id: 'auto_increment',
   message: '',

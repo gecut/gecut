@@ -54,7 +54,8 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/hami-api/**/*.ts"]
+        "lintFilePatterns": ["apps/hami-api/**/*.ts"],
+        "fix": true
       }
     },
     "docker-build": {

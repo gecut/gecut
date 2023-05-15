@@ -7,8 +7,8 @@ import { requireAdmin } from '../util/require-admin';
 
 import type { Notification } from '@gecut/types/hami/notification';
 
-nanoServer.route('PATCH', '/notification-list/', async (connection) => {
-  logger.logMethod('patch-notification-list');
+nanoServer.route('PATCH', '/notification-storage/', async (connection) => {
+  logger.logMethod('patch-notification-storage');
 
   await requireAdmin(connection);
 
@@ -18,8 +18,8 @@ nanoServer.route('PATCH', '/notification-list/', async (connection) => {
 
   for (const notification of bodyJson.data) {
     await storageClient.set(
-        notificationRequire(notification),
-        config.notificationStorage
+      notificationRequire(notification),
+      config.notificationStorage
     );
   }
 

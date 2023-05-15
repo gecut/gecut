@@ -4,7 +4,7 @@
   "$language": "فارسی",
 
   "survey-page-title": "نظرسنجی",
-  
+
   "survey-page-form-first-name-label": "نام",
   "survey-page-form-last-name-label": "نام خانوادگی",
   "survey-page-form-age-label": "سن",
@@ -16,7 +16,7 @@
   "survey-page-form-required-error": "اجباری است",
   "survey-page-form-numeric-error": "باید عددی باشد",
   "survey-page-form-phone-number-error": "نا معتبر است",
-  
+
   "survey-page-form-next-button": "بعدی",
   "survey-page-form-previous-button": "قبلی",
   "survey-page-form-submit-button": "ذخیره",

@@ -1,5 +1,4 @@
 import '@gecut/form-builder';
-
 import IconCallOutlineRounded from 'virtual:icons/material-symbols/call-outline-rounded';
 import IconPasswordOutline from 'virtual:icons/material-symbols/lock-outline';
 
@@ -87,7 +86,7 @@ form.data = {
 
           customConfig(target) {
             target.style.flexGrow = '0';
-            
+
             return target;
           },
         },

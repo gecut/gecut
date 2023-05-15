@@ -34,7 +34,7 @@ const textFieldKeys = [
 type renderTextFieldReturnType = MdFilledTextField | MdOutlinedTextField;
 
 export function renderTextField(
-    content: TextFieldContent
+  content: TextFieldContent
 ): renderTextFieldReturnType {
   let textField = document.createElement(`md-${content.type}-text-field`);
 

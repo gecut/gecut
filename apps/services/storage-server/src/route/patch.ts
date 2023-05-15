@@ -1,21 +1,26 @@
-import {config, logger} from '../config.js';
-import {nanoServer} from '../lib/nano-server.js';
-import {storageProvider} from '../lib/storage-provider.js';
+import { config, logger } from '../config.js';
+import { nanoServer } from '../lib/nano-server.js';
+import { storageProvider } from '../lib/storage-provider.js';
 
-import type {AlwatrConnection, AlwatrServiceResponse} from '@alwatr/nano-server';
-import type {AlwatrDocumentObject} from '@alwatr/storage-engine';
-import type {StringifyableRecord} from '@alwatr/type';
+import type {
+  AlwatrConnection,
+  AlwatrServiceResponse,
+} from '@alwatr/nano-server';
+import type { AlwatrDocumentObject } from '@alwatr/storage-engine';
+import type { StringifyableRecord } from '@alwatr/type';
 
 nanoServer.route('PATCH', 'all', updateDocument);
 
 async function updateDocument(
-    connection: AlwatrConnection,
+  connection: AlwatrConnection
 ): Promise<AlwatrServiceResponse<StringifyableRecord, StringifyableRecord>> {
   logger.logMethod('updateDocument');
 
   connection.requireToken(config.nanoServer.accessToken);
 
-  const param = connection.requireQueryParams<{storage: string}>({storage: 'string'});
+  const param = connection.requireQueryParams<{ storage: string }>({
+    storage: 'string',
+  });
 
   const document = await connection.requireJsonBody<AlwatrDocumentObject>();
 
@@ -27,7 +32,7 @@ async function updateDocument(
     };
   }
 
-  const storageEngine = storageProvider.get({name: param.storage});
+  const storageEngine = storageProvider.get({ name: param.storage });
 
   return {
     ok: true,

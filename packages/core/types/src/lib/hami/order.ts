@@ -1,7 +1,13 @@
-import type {AlwatrDocumentObjectActive} from './document-object-active.js';
-import type {ArrayValues, StringifyableRecord} from '../type-helper.js';
+import type { AlwatrDocumentObjectActive } from './document-object-active.js';
+import type { ArrayValues, StringifyableRecord } from '../type-helper.js';
 
-export const orderStatusList = ['canceled', 'evacuated', 'accepted', 'failed', 'awaitingConfirmation'] as const;
+export const orderStatusList = [
+  'canceled',
+  'evacuated',
+  'accepted',
+  'failed',
+  'awaitingConfirmation',
+] as const;
 
 export interface Order extends AlwatrDocumentObjectActive {
   creatorId: string;

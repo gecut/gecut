@@ -8,11 +8,11 @@ const rules: RequiredRule = {
 };
 
 describe('Required Validator', () => {
-  test('Return \'true\' To My Name', () => {
+  test("Return 'true' To My Name", () => {
     expect(requiredValidator('MohammadMahdi Zamanian', rules)).toEqual(true);
   });
 
-  test('Return \'false\' To Empty', () => {
+  test("Return 'false' To Empty", () => {
     expect(requiredValidator('', rules)).toEqual(false);
   });
 });

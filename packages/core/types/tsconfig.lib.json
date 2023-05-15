@@ -3,7 +3,7 @@
   "compilerOptions": {
     "outDir": "../../../dist/out-tsc",
     "target": "ESNext",
-    
+
     "declaration": true,
     "inlineSources": true,
     "types": [],

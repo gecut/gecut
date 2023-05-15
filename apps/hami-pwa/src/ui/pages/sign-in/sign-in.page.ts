@@ -1,26 +1,25 @@
-import { html, unsafeCSS } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import '@gecut/form-builder';
 import { loggerElement } from '@gecut/mixins';
 import { dispatch, request } from '@gecut/signal';
+import { html, unsafeCSS } from 'lit';
+import { customElement } from 'lit/decorators.js';
 import IconCallOutlineRounded from 'virtual:icons/material-symbols/call-outline-rounded';
 import IconPasswordOutline from 'virtual:icons/material-symbols/lock-outline';
 import IconLoginOutlineRounded from 'virtual:icons/material-symbols/login-rounded';
 
-import '@gecut/form-builder';
-
 import { requireSignIn } from '../../../controllers/require-sign-in';
-import elementStyle from '../../stylesheets/element.scss?inline';
-import pageStyle from '../../stylesheets/page.scss?inline';
 import gecutLogo from '../../assets/gecut-logo.png?inline';
 import hamiLogo from '../../assets/hami-logo.png?inline';
 import i18n from '../../i18n';
 import { routerGo, urlForName } from '../../router';
+import elementStyle from '../../stylesheets/element.scss?inline';
+import pageStyle from '../../stylesheets/page.scss?inline';
 
 import styles from './sign-in.page.scss?inline';
 
-import type { SignInRequest } from '@gecut/types/hami/user';
 import type { Form } from '@gecut/form-builder';
 import type { RenderResult } from '@gecut/types';
+import type { SignInRequest } from '@gecut/types/hami/user';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -62,7 +61,7 @@ export class PageSignIn extends loggerElement {
               rule: 'phone',
               country: 'IR',
               errorMessage: i18n.message(
-                  'sign_in_page_form_phone-number_error'
+                'sign_in_page_form_phone-number_error'
               ),
             },
           ],
@@ -86,8 +85,9 @@ export class PageSignIn extends loggerElement {
           component: 'button',
           type: 'filled',
           label: i18n.message('sign_in_page_form_submit'),
+          action: 'form_submit',
           iconSVG: IconLoginOutlineRounded,
-          customConfig(target) {
+          customConfig: (target) => {
             target.style.flexGrow = '0';
             target.style.marginInlineStart = 'auto';
 

@@ -21,14 +21,14 @@ setProvider('user', async () => {
 async function fetchUser() {
   return (
     await kyInstance
-        .get('user/', {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('USER_TOKEN')}`,
-          },
-          searchParams: {
-            uid: Number(localStorage.getItem('USER_ID')),
-          },
-        })
-        .json<Routes['user']>()
+      .get('user/', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('USER_TOKEN')}`,
+        },
+        searchParams: {
+          uid: Number(localStorage.getItem('USER_ID')),
+        },
+      })
+      .json<Routes['user']>()
   ).data;
 }

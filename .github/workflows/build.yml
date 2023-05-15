@@ -81,12 +81,12 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: 🚀 Build All Projects
-        run: yarn nx run-many --target=build --all=true
+        run: yarn nx run-many --target=build --all=true --verbose=true --with-deps=true --skip-nx-cache=true --only-failed=true --parallel=9
 
   test:
     name: Unit Test
     runs-on: ubuntu-latest
-    needs: 
+    needs:
       - lint
       - typescript
 
@@ -109,4 +109,3 @@ jobs:
 
       - name: 🚀 Unit Test All Projects
         run: yarn nx run-many --target=test --all=true
-

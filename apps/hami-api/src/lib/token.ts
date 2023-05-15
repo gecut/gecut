@@ -1,5 +1,5 @@
-import {AlwatrTokenGenerator} from '@alwatr/token';
+import { AlwatrTokenGenerator } from '@alwatr/token';
 
-import {config} from './config';
+import { config } from './config';
 
 export const tokenGenerator = new AlwatrTokenGenerator(config.token);

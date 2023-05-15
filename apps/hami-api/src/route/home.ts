@@ -1,4 +1,4 @@
-import {nanoServer} from '../lib/server';
+import { nanoServer } from '../lib/server';
 
 nanoServer.route('GET', '/', () => ({
   ok: true,

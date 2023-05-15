@@ -1,8 +1,11 @@
 // import { CircularProgress } from '@material/web/circularprogress/lib/circular-progress'
 
+import type { CustomConfigFunction } from './custom-config-function';
+import type { MdCircularProgress } from '@material/web/circularprogress/circular-progress';
+
 export type CircularProgressContent = {
-  component: 'progress';
-  type: 'circular';
+  component: 'circular-progress';
+  type: 'circular-progress';
   /**
    * Progress to display, a fraction between 0 and 1.
    */
@@ -17,4 +20,8 @@ export type CircularProgressContent = {
    *
    */
   fourColor?: boolean;
+
+  classes?: string[];
+
+  customConfig?: CustomConfigFunction<MdCircularProgress>;
 };

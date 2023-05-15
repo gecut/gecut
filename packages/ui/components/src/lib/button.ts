@@ -1,8 +1,10 @@
+import '@material/web/button/elevated-button';
 import '@material/web/button/filled-button';
 import '@material/web/button/outlined-button';
-import '@material/web/button/elevated-button';
 import '@material/web/button/text-button';
 import '@material/web/button/tonal-button';
+
+import { renderIcon } from './icon';
 
 import type { ButtonContent } from '../types/button';
 import type { MdElevatedButton } from '@material/web/button/elevated-button';
@@ -11,15 +13,6 @@ import type { MdOutlinedButton } from '@material/web/button/outlined-button';
 import type { MdTextButton } from '@material/web/button/text-button';
 import type { MdTonalButton } from '@material/web/button/tonal-button';
 
-const buttonKeys = [
-  'disabled',
-  'href',
-  'target',
-  'trailingIcon',
-  'hasIcon',
-  'preventClickDefault',
-] as const;
-
 type renderButtonReturnType =
   | MdElevatedButton
   | MdFilledButton
@@ -27,11 +20,21 @@ type renderButtonReturnType =
   | MdTextButton
   | MdTonalButton;
 
+const buttonKeys = [
+  'disabled',
+  'href',
+  'target',
+  'trailingIcon',
+  'hasIcon',
+  'preventClickDefault',
+  'slot',
+] as const;
+
 export function renderButton(content: ButtonContent): renderButtonReturnType {
   let button = document.createElement(`md-${content.type}-button`);
 
   for (const key of buttonKeys) {
-    const value: (typeof button)[typeof key] = content[key];
+    const value = content[key];
 
     if (value != null) {
       button[key] = value as never;
@@ -44,13 +47,8 @@ export function renderButton(content: ButtonContent): renderButtonReturnType {
     button = content.customConfig(button);
   }
 
-  if (content.iconSVG != null) {
-    const icon = document.createElement('md-icon');
-
-    icon.innerHTML = content.iconSVG;
-    icon.slot = 'icon';
-
-    button.appendChild(icon);
+  if (content.icon != null) {
+    button.appendChild(renderIcon(content.icon));
   }
 
   button.classList.add(...(content.classes ?? []));

@@ -6,11 +6,11 @@ import type { Routes } from '@gecut/types/hami/routes';
 
 setProvider('sign-in', async (signInData) => {
   const response = await kyInstance
-      .post('sign-in/', {
-        headers: {},
-        json: { data: signInData },
-      })
-      .json<Routes['sign-in']>();
+    .post('sign-in/', {
+      headers: {},
+      json: { data: signInData },
+    })
+    .json<Routes['sign-in']>();
 
   if (response.ok === true) {
     const user = response.data;

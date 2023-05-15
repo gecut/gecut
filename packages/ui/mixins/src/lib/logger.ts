@@ -2,8 +2,8 @@ import { createLogger } from '@gecut/logger';
 import { LitElement } from 'lit';
 
 import type { Logger } from '@gecut/logger';
-import type { PropertyValues, PropertyDeclaration } from 'lit';
 import type { Constructor } from '@gecut/types';
+import type { PropertyValues, PropertyDeclaration } from 'lit';
 
 let _lastIndex = 0;
 
@@ -14,7 +14,7 @@ export declare class LoggerMixinInterface extends LitElement {
 }
 
 export function LoggerMixin<T extends Constructor<LitElement>>(
-    superClass: T
+  superClass: T
 ): Constructor<LoggerMixinInterface> & T {
   class LoggerMixinClass extends superClass {
     index: number = ++_lastIndex;
@@ -48,9 +48,9 @@ export function LoggerMixin<T extends Constructor<LitElement>>(
     }
 
     override requestUpdate(
-        name?: PropertyKey | undefined,
-        oldValue?: unknown,
-        options?: PropertyDeclaration<unknown, unknown> | undefined
+      name?: PropertyKey | undefined,
+      oldValue?: unknown,
+      options?: PropertyDeclaration<unknown, unknown> | undefined
     ): void {
       this?.log?.methodArgs?.('requestUpdate', {
         name,

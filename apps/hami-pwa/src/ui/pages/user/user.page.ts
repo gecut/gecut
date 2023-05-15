@@ -1,25 +1,22 @@
-import { html, nothing, unsafeCSS } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
+import { renderListItem } from '@gecut/components';
 import { signalElement } from '@gecut/mixins';
 import { dispatch, request } from '@gecut/signal';
-import { renderListItem } from '@gecut/components';
-import { when } from 'lit/directives/when.js';
-import IconPersonOutline from 'virtual:icons/material-symbols/person-outline';
+import { html, nothing, unsafeCSS } from 'lit';
+import { customElement, state } from 'lit/decorators.js';
 import IconCallOutline from 'virtual:icons/material-symbols/call-outline';
-// import IconAccountBoxOutline from 'virtual:icons/material-symbols/account-box-outline';
-// import IconLockOutline from 'virtual:icons/material-symbols/lock-outline';
+import IconPersonOutline from 'virtual:icons/material-symbols/person-outline';
 
+import { requireSignIn } from '../../../controllers/require-sign-in';
+import i18n from '../../i18n';
+import { urlForName } from '../../router';
 import elementStyle from '../../stylesheets/element.scss?inline';
 import pageStyle from '../../stylesheets/page.scss?inline';
-import { requireSignIn } from '../../../controllers/require-sign-in';
-import { urlForName } from '../../router';
-import i18n from '../../i18n';
 
 import styles from './user.page.scss?inline';
 
-import type { TemplateResult } from 'lit';
-import type { SignInResponse } from '@gecut/types/hami/user';
 import type { RenderResult } from '@gecut/types';
+import type { SignInResponse } from '@gecut/types/hami/user';
+import type { TemplateResult } from 'lit';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -64,8 +61,8 @@ export class PageUser extends signalElement {
   static renderUserInformationCard(user: SignInResponse): TemplateResult {
     const userInformationListTemplate = [
       renderListItem({
-        component: 'listItem',
-        type: 'listItem',
+        component: 'list-item',
+        type: 'list-item',
         headline: `${user.firstName} ${user.lastName}`,
         slotList: [
           {
@@ -77,8 +74,8 @@ export class PageUser extends signalElement {
         ],
       }),
       renderListItem({
-        component: 'listItem',
-        type: 'listItem',
+        component: 'list-item',
+        type: 'list-item',
         headline: `${i18n.numberFormat(user.phoneNumber)}`,
         slotList: [
           {

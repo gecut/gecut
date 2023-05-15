@@ -26,7 +26,8 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/core/logger/**/*.ts"]
+        "lintFilePatterns": ["packages/core/logger/**/*.ts"],
+        "fix": true
       }
     }
   },

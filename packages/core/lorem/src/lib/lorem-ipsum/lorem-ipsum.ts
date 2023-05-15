@@ -5,7 +5,7 @@ import { logger } from '../logger';
 import type { LoremIpsumOptions, LoremIpsumParameters } from './type';
 
 const requireParameters = (
-    _options: LoremIpsumParameters
+  _options: LoremIpsumParameters
 ): LoremIpsumOptions => {
   return {
     lang: 'en',
@@ -23,11 +23,11 @@ export const loremIpsumGenerator = (_options: LoremIpsumParameters): string => {
   logger.methodArgs?.('loremIpsumGenerator', _options);
 
   switch (options.sizeType) {
-    case 'paragraph':
-      return content.repeat(options.size);
-    case 'sentence':
-      return generateText(content.split(/[.،,]{1}/g), options.size);
-    case 'word':
-      return generateText(content.split(' '), options.size);
+  case 'paragraph':
+    return content.repeat(options.size);
+  case 'sentence':
+    return generateText(content.split(/[.،,]{1}/g), options.size);
+  case 'word':
+    return generateText(content.split(' '), options.size);
   }
 };

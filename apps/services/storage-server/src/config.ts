@@ -1,4 +1,4 @@
-import {createLogger} from '@alwatr/logger';
+import { createLogger } from '@alwatr/logger';
 
 export const logger = createLogger('storage-server');
 
@@ -10,7 +10,8 @@ export const config = {
   },
   storage: {
     path: process.env.STORAGE_PATH ?? 'db',
-    saveDebounce: process.env.SAVE_DEBOUNCE != null ? +process.env.SAVE_DEBOUNCE : 100,
+    saveDebounce:
+      process.env.SAVE_DEBOUNCE != null ? +process.env.SAVE_DEBOUNCE : 100,
   },
 };
 
