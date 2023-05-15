@@ -27,11 +27,14 @@ jobs:
           disable_notification: true
           format: markdown
           message: |
-            🟩 Push Notification On ${{ github.repository }}
+            🟩 Push Notification On *${{ github.repository }}*
 
 
-            👉 Actor: ${{ github.actor }}
-            👉 Commit: ${{ github.event.commits[0].message }}
+            👉 Actor: `${{ github.actor }}`
+            👉 Commit: 
+            ```
+            ${{ github.event.commits[0].message }}
+            ```
 
 
             👉 [See Changes](https://github.com/${{ github.repository }}/commit/${{github.sha}})
