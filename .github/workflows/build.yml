@@ -81,7 +81,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: 🚀 Build All Projects
-        run: yarn nx run-many --target=build --all=true
+        run: yarn nx run-many --target=build --all=true --verbose=true --with-deps=true --skip-nx-cache=true --only-failed=true --parallel=9
 
   test:
     name: Unit Test
