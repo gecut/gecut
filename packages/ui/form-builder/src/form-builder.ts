@@ -1,14 +1,12 @@
 /* eslint-disable indent */
-import { html, css, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
-import { loggerElement } from '@gecut/mixins';
 import { renderButton, renderTextField } from '@gecut/components';
 import { validator } from '@gecut/form-validator';
+import { loggerElement } from '@gecut/mixins';
+import { html, css, nothing } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 
 import { Form } from './type';
 
-import type { TextFieldContent } from '@gecut/components';
-import type { PropertyDeclaration } from 'lit';
 import type {
   FormComponent,
   FormRow,
@@ -16,7 +14,9 @@ import type {
   FormValues,
   FormTextFieldContent,
 } from './type';
+import type { TextFieldContent } from '@gecut/components';
 import type { RenderResult } from '@gecut/types';
+import type { PropertyDeclaration } from 'lit';
 
 export type * from './type';
 

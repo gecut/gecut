@@ -1,5 +1,5 @@
-import type { Rules } from '@gecut/form-validator';
 import type { ButtonContent, TextFieldContent } from '@gecut/components';
+import type { Rules } from '@gecut/form-validator';
 import type { SingleOrArray } from '@gecut/types';
 
 export type FormTextFieldContent = TextFieldContent & { validator?: Rules };
@@ -10,7 +10,7 @@ export type FormButtonContent = ButtonContent & {
 
 export type FormComponent = FormTextFieldContent | FormButtonContent;
 export type FormRow = SingleOrArray<FormComponent>;
-export type FormSlide = FormRow[];
+export type FormSlide = Array<FormRow>;
 export type Form = {
   slides: Record<string, FormSlide>;
 };
