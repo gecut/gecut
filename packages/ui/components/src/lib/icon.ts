@@ -1,12 +1,28 @@
-import { html } from 'lit';
-import { unsafeSVG } from 'lit/directives/unsafe-svg.js';
-import { ifDefined } from 'lit/directives/if-defined.js';
-
-import '@material/web/icon/icon';
-
 import type { IconContent } from '../types/icon';
-import type { RenderResult } from '@gecut/types';
+import type { MdIcon } from '@material/web/icon/icon';
 
-export function renderIcon(content: IconContent): RenderResult {
-  return html`<md-icon slot=${ifDefined(content.slot)}>${unsafeSVG(content.SVG)}</md-icon>`;
+type renderIconReturnType = MdIcon;
+
+const iconKeys = ['slot'] as const;
+
+export function renderIcon(content: IconContent): renderIconReturnType {
+  let icon = document.createElement('md-icon');
+
+  for (const key of iconKeys) {
+    const value = content[key];
+
+    if (value != null) {
+      icon[key] = value as never;
+    }
+  }
+
+  icon.innerHTML = content.SVG;
+
+  if (content.customConfig != null) {
+    icon = content.customConfig(icon);
+  }
+
+  icon.classList.add(...(content.classes ?? []));
+
+  return icon;
 }
