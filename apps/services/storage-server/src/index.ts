@@ -1,4 +1,4 @@
-import {logger} from './config.js';
+import { logger } from './config.js';
 import './route/delete.js';
 import './route/get.js';
 import './route/has.js';
