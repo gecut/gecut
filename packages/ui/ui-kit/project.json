@@ -10,7 +10,7 @@
       "options": {
         "rootDir": ".",
         "outputPath": "dist/packages/ui/ui-kit",
-        "main": "packages/ui/ui-kit/src/index.ts",
+        "main": "packages/ui/ui-kit/src/ui-kit.ts",
         "tsConfig": "packages/ui/ui-kit/tsconfig.lib.json",
         "assets": ["packages/ui/ui-kit/*.md"]
       }
