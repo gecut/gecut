@@ -1,7 +1,7 @@
 /* eslint-disable indent */
-import { renderButton, renderTextField } from '@gecut/components';
 import { validator } from '@gecut/form-validator';
 import { loggerElement } from '@gecut/mixins';
+import { M3 } from '@gecut/ui-kit';
 import { html, css, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
@@ -14,7 +14,6 @@ import type {
   FormValues,
   FormTextFieldContent,
 } from './type';
-import type { TextFieldContent } from '@gecut/components';
 import type { RenderResult } from '@gecut/types';
 import type { PropertyDeclaration } from 'lit';
 
@@ -174,7 +173,7 @@ export class FormBuilder extends loggerElement {
 
   private renderComponents(component: FormComponent): RenderResult {
     if (component.component === 'text-field') {
-      const textField = renderTextField({
+      const textField = M3.Renderers.renderTextField({
         ...component,
         customConfig: (target) => {
           if (component.customConfig != null) {
@@ -213,7 +212,7 @@ export class FormBuilder extends loggerElement {
     }
 
     if (component.component === 'button') {
-      const button = renderButton({
+      const button = M3.Renderers.renderButton({
         ...component,
         customConfig: (target) => {
           if (component.customConfig != null) {
@@ -277,8 +276,8 @@ export class FormBuilder extends loggerElement {
             .flat()
             .filter((component) => component.component === 'text-field')
             .map((component) => [
-              (component as TextFieldContent).name ?? '',
-              (component as TextFieldContent).value ?? '',
+              (component as M3.Types.TextFieldContent).name ?? '',
+              (component as M3.Types.TextFieldContent).value ?? '',
             ]);
 
           return rowValues;

@@ -1,5 +1,5 @@
-import '@gecut/components';
 import { loggerElement } from '@gecut/mixins';
+import '@gecut/ui-kit/m3';
 import { html, unsafeCSS } from 'lit';
 import { customElement } from 'lit/decorators.js';
 

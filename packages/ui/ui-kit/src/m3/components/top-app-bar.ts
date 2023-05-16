@@ -6,11 +6,10 @@ import { customElement, property } from 'lit/decorators.js';
 import { map } from 'lit/directives/map.js';
 import { when } from 'lit/directives/when.js';
 
+import { renderer } from '../renderers/renderers';
 import { TopAppBarContent } from '../types/top-app-bar';
 
-import { renderComponent } from './render';
-
-import type { SlotsComponentsContent } from '../types/components';
+import type { SlotsComponentsContent } from '../types/types';
 import type { RenderResult } from '@gecut/types';
 
 declare global {
@@ -150,7 +149,7 @@ export class TopAppBar extends loggerElement {
       <div class="row">
         <div class="leading-icon">
           ${when(this.content != null && this.content.leadingSlot != null, () =>
-    renderComponent(this.content?.leadingSlot as SlotsComponentsContent)
+    renderer(this.content?.leadingSlot as SlotsComponentsContent)
   )}
         </div>
 
@@ -158,7 +157,7 @@ export class TopAppBar extends loggerElement {
 
         <div class="trailing-icon">
           ${map(this.content.trailingSlotList ?? [], (content) =>
-    renderComponent(content)
+    renderer(content)
   )}
         </div>
       </div>

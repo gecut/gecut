@@ -1,5 +1,5 @@
-import { renderListItem, renderTextField } from '@gecut/components';
 import { signalElement } from '@gecut/mixins';
+import { M3 } from '@gecut/ui-kit';
 import { html, nothing } from 'lit';
 import { state } from 'lit/decorators/state.js';
 import { repeat } from 'lit/directives/repeat.js';
@@ -63,7 +63,7 @@ export class HomeComponents extends signalElement {
       break;
     }
 
-    return renderListItem({
+    return M3.Renderers.renderListItem({
       component: 'list-item',
       type: 'list-item',
       headline: messageHeadline,
@@ -84,7 +84,7 @@ export class HomeComponents extends signalElement {
   static renderProductPriceItem(
     productPrice: Projects.Hami.ProductPrice
   ): HTMLElement {
-    return renderListItem({
+    return M3.Renderers.renderListItem({
       component: 'list-item',
       type: 'list-item',
       headline: productPrice.name,
@@ -121,7 +121,7 @@ export class HomeComponents extends signalElement {
   }
 
   protected renderProductPriceSearchBox(): HTMLElement {
-    return renderTextField({
+    return M3.Renderers.renderTextField({
       component: 'text-field',
       type: 'outlined',
 

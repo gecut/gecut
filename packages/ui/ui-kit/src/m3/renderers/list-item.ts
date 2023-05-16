@@ -1,7 +1,7 @@
 import '@material/web/list/list-item';
 import '@material/web/list/list-item-link';
 
-import { renderComponent } from './render';
+import { renderer } from './renderers';
 
 import type { ListItemContent } from '../types/list-item';
 import type { MdListItem } from '@material/web/list/list-item';
@@ -22,7 +22,7 @@ export function renderListItem(
   content: ListItemContent
 ): renderListItemReturnType {
   const slotList = (content.slotList ?? []).map((slot) =>
-    renderComponent(slot)
+    renderer(slot)
   );
 
   let item = document.createElement(`md-${content.type}`);

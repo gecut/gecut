@@ -1,4 +1,4 @@
-export type NavigationTab = {
+export type NavigationTabContent = {
   link: string;
   label: string;
   badgeValue?: string;
