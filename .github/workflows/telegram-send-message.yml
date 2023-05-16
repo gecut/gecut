@@ -31,10 +31,11 @@ jobs:
 
 
             👉 Actor: `${{ github.actor }}`
+            👉 Target Branch: `${{github.base_ref}}``
             👉 Commit: 
             ```
             ${{ github.event.commits[0].message }}
             ```
 
 
-            👉 [See Changes](https://github.com/${{ github.repository }}/commit/${{github.sha}})
+            🔗 [See Changes](https://github.com/${{ github.repository }}/commit/${{github.sha}})
