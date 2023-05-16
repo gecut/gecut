@@ -1,0 +1,23 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+}
+
+.card {
+  --_background-color: var(--md-sys-color-surface-container-low);
+
+  position: relative;
+  border-radius: var(--sys-radius-medium);
+  background-color: var(--_background-color);
+
+  md-elevation {
+    --_level: 2;
+  }
+
+  .card-scroll {
+    position: relative;
+    border-radius: var(--sys-radius-medium);
+    overflow: hidden;
+  }
+}
