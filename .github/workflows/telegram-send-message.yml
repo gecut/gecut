@@ -31,7 +31,7 @@ jobs:
 
 
             👉 Actor: `${{ github.actor }}`
-            👉 Target Branch: `${{github.base_ref}}``
+            👉 Target Branch: `${{ github.base_ref }}`
             👉 Commit: 
             ```
             ${{ github.event.commits[0].message }}
