@@ -1,6 +1,6 @@
 import { signalElement } from '@gecut/mixins';
 import { dispatch, request } from '@gecut/signal';
-import { renderListItem } from '@gecut/ui-kit';
+import { M3 } from '@gecut/ui-kit';
 import { html, nothing, unsafeCSS } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import IconCallOutline from 'virtual:icons/material-symbols/call-outline';
@@ -61,7 +61,7 @@ export class PageUser extends signalElement {
     user: Projects.Hami.SignInResponse
   ): TemplateResult {
     const userInformationListTemplate = [
-      renderListItem({
+      M3.Renderers.renderListItem({
         component: 'list-item',
         type: 'list-item',
         headline: `${user.firstName} ${user.lastName}`,
@@ -74,7 +74,7 @@ export class PageUser extends signalElement {
           },
         ],
       }),
-      renderListItem({
+      M3.Renderers.renderListItem({
         component: 'list-item',
         type: 'list-item',
         headline: `${i18n.numberFormat(user.phoneNumber)}`,

@@ -1,6 +1,6 @@
 import { loggerElement } from '@gecut/mixins';
 import { addListener, dispatch } from '@gecut/signal';
-import '@gecut/ui-kit';
+import '@gecut/ui-kit/m3';
 import '@material/web/circularprogress/circular-progress';
 import '@material/web/icon/icon';
 import '@material/web/navigationbar/navigation-bar';
@@ -18,12 +18,7 @@ import { attachRouter } from '../router/index';
 import styles from './app.element.scss?inline';
 
 import type { RenderResult } from '@gecut/types';
-import type {
-  TopAppBarContent,
-  CircularProgressContent,
-  IconButtonContent,
-  NavigationTab,
-} from '@gecut/ui-kit';
+import type { M3 } from '@gecut/ui-kit';
 import type { PropertyValues } from 'lit';
 
 declare global {
@@ -46,12 +41,12 @@ const getDate = () => {
 export class AppRoot extends loggerElement {
   static override styles = [unsafeCSS(styles)];
 
-  static topAppBarLoadingSlot: CircularProgressContent = {
+  static topAppBarLoadingSlot: M3.Types.CircularProgressContent = {
     component: 'circular-progress',
     type: 'circular-progress',
     indeterminate: true,
   };
-  static topAppBarTrailingSlot: IconButtonContent = {
+  static topAppBarTrailingSlot: M3.Types.IconButtonContent = {
     component: 'icon-button',
     type: 'standard',
     icon: {
@@ -62,7 +57,7 @@ export class AppRoot extends loggerElement {
   };
 
   @state()
-  private topAppBarContent: TopAppBarContent = {
+  private topAppBarContent: M3.Types.TopAppBarContent = {
       component: 'top-app-bar',
       type: 'center',
       headline: getDate(),
@@ -150,7 +145,7 @@ export class AppRoot extends loggerElement {
   }
 
   static renderNavigationBar(
-    navigationTabs: NavigationTab[],
+    navigationTabs: M3.Types.NavigationTabContent[],
     bottomAppBarHidden: boolean
   ): RenderResult {
     const navigationTabsTemplate = navigationTabs.map(this.renderNavigationTab);
@@ -166,7 +161,7 @@ export class AppRoot extends loggerElement {
     `;
   }
 
-  static renderNavigationTab(tab: NavigationTab): RenderResult {
+  static renderNavigationTab(tab: M3.Types.NavigationTabContent): RenderResult {
     return html`
       <a class="navigation-tab" href=${tab.link}>
         <md-navigation-tab
