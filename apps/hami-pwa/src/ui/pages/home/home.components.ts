@@ -8,6 +8,7 @@ import IconErrorOutlineRounded from 'virtual:icons/material-symbols/error-outlin
 import IconStarOutlineRounded from 'virtual:icons/material-symbols/star-outline-rounded';
 import IconWarningOutlineRounded from 'virtual:icons/material-symbols/warning-outline-rounded';
 
+import '../../components/product-price-card/product-price-card';
 import i18n from '../../i18n';
 
 import type { RenderResult, Projects } from '@gecut/types';
@@ -18,9 +19,6 @@ export class HomeComponents extends signalElement {
 
   @state()
   protected productsPrice: Projects.Hami.ProductPrice[] = [];
-
-  @state()
-  protected productsPriceSearchQuery = '';
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -81,18 +79,6 @@ export class HomeComponents extends signalElement {
       ],
     });
   }
-  static renderProductPriceItem(
-    productPrice: Projects.Hami.ProductPrice
-  ): HTMLElement {
-    return M3.Renderers.renderListItem({
-      component: 'list-item',
-      type: 'list-item',
-      headline: productPrice.name,
-      supportingText: productPrice.normalPrice.toLocaleString(),
-      trailingSupportingText: productPrice.minPrice.toLocaleString(),
-      classes: ['product-price-item'],
-    });
-  }
 
   protected renderNotificationCard(): RenderResult {
     if (this.notifications.length === 0) return nothing;
@@ -128,10 +114,23 @@ export class HomeComponents extends signalElement {
       inputType: 'search',
       name: 'productPriceSearch',
       placeholder: 'product-price-search',
+      
 
       customConfig: (target) => {
         target.addEventListener('input', () => {
-          this.productsPriceSearchQuery = target.value;
+          const query = target.value;
+          const productPriceCard =
+            this.renderRoot.querySelector('product-price-card');
+
+          if (productPriceCard != null) {
+            if (query.trim() !== '') {
+              productPriceCard.productsPrice = this.productsPrice.filter(
+                (productPrice) => productPrice.name.includes(query)
+              );
+            } else {
+              productPriceCard.productsPrice = this.productsPrice;
+            }
+          }
         });
 
         return target;
@@ -141,14 +140,6 @@ export class HomeComponents extends signalElement {
   protected renderProductPriceCard(): RenderResult {
     if (this.productsPrice.length === 0) return nothing;
 
-    let productsPrice = this.productsPrice;
-
-    if (this.productsPriceSearchQuery.trim() !== '') {
-      productsPrice = this.productsPrice.filter((productPrice) => {
-        return productPrice.name.indexOf(this.productsPriceSearchQuery) != -1;
-      });
-    }
-
     return html`
       <div class="card-box">
         <h3 class="title">
@@ -157,19 +148,9 @@ export class HomeComponents extends signalElement {
 
         <div class="search-box">${this.renderProductPriceSearchBox()}</div>
 
-        <div class="card">
-          <div class="card-scroll">
-            <md-list>
-              ${repeat(
-    productsPrice,
-    (productPrice) => productPrice.id,
-    HomeComponents.renderProductPriceItem
-  )}
-            </md-list>
-          </div>
-
-          <md-elevation></md-elevation>
-        </div>
+        <product-price-card
+          .productsPrice=${this.productsPrice}
+        ></product-price-card>
       </div>
     `;
   }
