@@ -24,6 +24,7 @@ core:
 apps:
   - apps/*
   - apps/**/*
+  - apps/**/**/*
 api:
   - apps/*-api/*
   - apps/*-api/**/*
