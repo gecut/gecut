@@ -45,7 +45,14 @@ export class PageSignIn extends loggerElement {
           inputType: 'tel',
           minLength: 11,
           maxLength: 11,
-          leadingIconSVG: IconCallOutlineRounded,
+          slotList: [
+            {
+              component: 'icon',
+              type: 'svg',
+              SVG: IconCallOutlineRounded,
+              slot: 'leadingicon',
+            },
+          ],
           hasLeadingIcon: true,
           validator: [
             {
@@ -71,7 +78,14 @@ export class PageSignIn extends loggerElement {
           inputType: 'password',
           name: 'password',
           label: i18n.message('sign_in_page_form_password_label'),
-          leadingIconSVG: IconPasswordOutline,
+          slotList: [
+            {
+              component: 'icon',
+              type: 'svg',
+              SVG: IconPasswordOutline,
+              slot: 'leadingicon',
+            },
+          ],
           hasLeadingIcon: true,
           validator: [
             {
@@ -80,19 +94,28 @@ export class PageSignIn extends loggerElement {
             },
           ],
         },
-        {
-          component: 'button',
-          type: 'filled',
-          label: i18n.message('sign_in_page_form_submit'),
-          action: 'form_submit',
-          iconSVG: IconLoginOutlineRounded,
-          customConfig: (target) => {
-            target.style.flexGrow = '0';
-            target.style.marginInlineStart = 'auto';
+        [
+          {
+            component: 'button',
+            type: 'filled',
+            label: i18n.message('sign_in_page_form_submit'),
+            action: 'form_submit',
+            slotList: [
+              {
+                component: 'icon',
+                type: 'svg',
+                SVG: IconLoginOutlineRounded,
+                slot: 'icon',
+              },
+            ],
+            customConfig: (target) => {
+              target.style.flexGrow = '0';
+              target.style.marginInlineStart = 'auto';
 
-            return target;
+              return target;
+            },
           },
-        },
+        ],
       ],
     },
   };

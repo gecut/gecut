@@ -49,11 +49,7 @@ export class AppRoot extends loggerElement {
   static topAppBarTrailingSlot: M3.Types.IconButtonContent = {
     component: 'icon-button',
     type: 'standard',
-    icon: {
-      component: 'icon',
-      type: 'svg',
-      SVG: IconLanguageRounded,
-    },
+    iconSVG: IconLanguageRounded,
   };
 
   @state()
@@ -61,14 +57,10 @@ export class AppRoot extends loggerElement {
       component: 'top-app-bar',
       type: 'center',
       headline: getDate(),
-      leadingSlot: {
+      leadingSlot: <M3.Types.IconButtonContent>{
         component: 'icon-button',
         type: 'standard',
-        icon: {
-          component: 'icon',
-          type: 'svg',
-          SVG: IconMenuRounded,
-        },
+        iconSVG: IconMenuRounded,
       },
       trailingSlotList: [AppRoot.topAppBarTrailingSlot],
     };
