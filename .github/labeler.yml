@@ -25,8 +25,8 @@ apps:
   - packages/apps/*
   - packages/apps/**/*
 api:
-  - packages/apps/*-api/*
-  - packages/apps/*-api/**/*
+  - packages/apps/*api/*
+  - packages/apps/*api/**/*
 pwa:
-  - packages/apps/*-pwa/*
-  - packages/apps/*-pwa/**/*
+  - packages/apps/*pwa/*
+  - packages/apps/*pwa/**/*
