@@ -14,7 +14,7 @@ on:
 jobs:
   build:
     name: Build
-    if: ${{ github.actor != 'dependabot' }}
+    if: ${{ github.event.assigned == true }}
     runs-on: ubuntu-latest
 
     steps:

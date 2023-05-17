@@ -14,7 +14,7 @@ on:
 jobs:
   add-to-project:
     name: Add To GitHub projects
-    if: ${{ github.event.unassigned == false }}
+    if: ${{ github.event.assigned == true }}
     runs-on: ubuntu-latest
 
     steps:
