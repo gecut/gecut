@@ -12,7 +12,7 @@ export type ButtonRendererReturn =
   | MdTextButton
   | MdTonalButton;
 
-export interface ButtonContent extends BaseContent<ButtonRendererReturn> {
+export interface ButtonContent extends BaseContent<ButtonRendererReturn, 'icon'> {
   component: 'button';
   type: 'elevated' | 'filled' | 'outlined' | 'text' | 'tonal';
   /**
