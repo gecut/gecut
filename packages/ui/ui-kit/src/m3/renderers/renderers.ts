@@ -28,7 +28,5 @@ export function renderer(content: AllComponentsContent) {
     return renderListItem(content);
   case 'text-field':
     return renderTextField(content);
-  default:
-    return undefined;
   }
 }

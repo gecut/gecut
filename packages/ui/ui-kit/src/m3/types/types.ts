@@ -5,11 +5,10 @@ import type { IconButtonContent } from './icon-button';
 import type { ListItemContent } from './list-item';
 // import type { NavigationTabContent } from './navigation-tab';
 import type { TextFieldContent } from './text-field';
-import type { TopAppBarContent } from './top-app-bar';
 
 export type * from './button';
 export type * from './circular-progress';
-export type * from './custom-config-function';
+export type * from './base/custom-config-function';
 export type * from './icon';
 export type * from './icon-button';
 export type * from './list-item';
@@ -30,5 +29,4 @@ export type AllComponentsContent =
   | IconButtonContent
   | CircularProgressContent
   | ListItemContent
-  | TextFieldContent
-  | TopAppBarContent;
+  | TextFieldContent;

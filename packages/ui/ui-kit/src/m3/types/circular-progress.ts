@@ -1,9 +1,10 @@
-// import { CircularProgress } from '@material/web/circularprogress/lib/circular-progress'
-
-import type { CustomConfigFunction } from './custom-config-function';
+import type { BaseContent } from './base/base-content';
 import type { MdCircularProgress } from '@material/web/circularprogress/circular-progress';
 
-export type CircularProgressContent = {
+export type CircularProgressRendererReturn = MdCircularProgress;
+
+export interface CircularProgressContent
+  extends BaseContent<CircularProgressRendererReturn, never> {
   component: 'circular-progress';
   type: 'circular-progress';
   /**
@@ -20,8 +21,4 @@ export type CircularProgressContent = {
    *
    */
   fourColor?: boolean;
-
-  classes?: string[];
-
-  customConfig?: CustomConfigFunction<MdCircularProgress>;
-};
+}

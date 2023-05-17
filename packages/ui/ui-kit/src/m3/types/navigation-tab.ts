@@ -11,3 +11,5 @@ export type NavigationTabContent = {
     inActive: string;
   };
 };
+
+// TODO: create a renderer for navigation tab content

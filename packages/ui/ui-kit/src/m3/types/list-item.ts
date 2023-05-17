@@ -1,16 +1,21 @@
-// import type { MdListItem } from '@material/web/list/list-item';
-
-import type { CustomConfigFunction } from './custom-config-function';
-import type { SlotsComponentsContent } from './types';
+import type { BaseContent } from './base/base-content';
 import type { MdListItem } from '@material/web/list/list-item';
 import type { MdListItemLink } from '@material/web/list/list-item-link';
 
-type ItemContent = {
+export type ItemRendererReturn = MdListItem | MdListItemLink;
+
+export interface ListItemContent extends BaseContent<ItemRendererReturn> {
   component: 'list-item';
-  type: 'list-item';
+  type: 'list-item' | 'list-item-link';
 
-  slotList?: SlotsComponentsContent[];
-
+  /**
+   * Sets the underlying `HTMLAnchorElement`'s `href` resource attribute.
+   */
+  href?: string;
+  /**
+   * Sets the underlying `HTMLAnchorElement`'s `target` attribute.
+   */
+  target?: string;
   /**
    * The primary, headline text of the list item.
    */
@@ -47,22 +52,4 @@ type ItemContent = {
    * md-list-item), focuses the underlying item.
    */
   active?: boolean;
-
-  classes?: string[];
-
-  customConfig?: CustomConfigFunction<MdListItem | MdListItemLink>;
-};
-
-type ItemLinkContent = {
-  type: 'list-item-link';
-  /**
-   * Sets the underlying `HTMLAnchorElement`'s `href` resource attribute.
-   */
-  href: string;
-  /**
-   * Sets the underlying `HTMLAnchorElement`'s `target` attribute.
-   */
-  target: string;
-} & Omit<ItemContent, 'type'>;
-
-export type ListItemContent = ItemContent | ItemLinkContent;
+}

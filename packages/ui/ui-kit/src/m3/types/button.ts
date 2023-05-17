@@ -1,14 +1,18 @@
-// import type { Button } from '@material/web/button/lib/button';
-
-import type { CustomConfigFunction } from './custom-config-function';
-import type { IconContent } from './icon';
+import type { BaseContent } from './base/base-content';
 import type { MdElevatedButton } from '@material/web/button/elevated-button';
 import type { MdFilledButton } from '@material/web/button/filled-button';
 import type { MdOutlinedButton } from '@material/web/button/outlined-button';
 import type { MdTextButton } from '@material/web/button/text-button';
 import type { MdTonalButton } from '@material/web/button/tonal-button';
 
-export type ButtonContent = {
+export type ButtonRendererReturn =
+  | MdElevatedButton
+  | MdFilledButton
+  | MdOutlinedButton
+  | MdTextButton
+  | MdTonalButton;
+
+export interface ButtonContent extends BaseContent<ButtonRendererReturn> {
   component: 'button';
   type: 'elevated' | 'filled' | 'outlined' | 'text' | 'tonal';
   /**
@@ -43,18 +47,4 @@ export type ButtonContent = {
   preventClickDefault?: boolean;
 
   label: string;
-
-  slot?: string;
-
-  icon?: IconContent;
-
-  classes?: string[];
-
-  customConfig?: CustomConfigFunction<
-    | MdElevatedButton
-    | MdFilledButton
-    | MdOutlinedButton
-    | MdTextButton
-    | MdTonalButton
-  >;
-};
+}
