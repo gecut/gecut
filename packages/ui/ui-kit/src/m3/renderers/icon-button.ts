@@ -13,18 +13,22 @@ import type {
 export function renderIconButton(
   content: IconButtonContent
 ): IconButtonRendererReturn {
-  const iconButton = createElementByContent(`md-${content.type}-icon-button`, content, [
-    'disabled',
-    'flipIconInRtl',
-    'href',
-    'target',
-    'selectedAriaLabel',
-    'toggle',
-    'selected',
-  ]);
+  const iconButton = createElementByContent(
+    `md-${content.type}-icon-button`,
+    content,
+    [
+      'disabled',
+      'flipIconInRtl',
+      'href',
+      'target',
+      'selectedAriaLabel',
+      'toggle',
+      'selected',
+    ]
+  );
 
   if (content.iconSVG != null) {
-    iconButton.innerHTML = content.iconSVG;
+    iconButton.append(content.iconSVG);
   }
 
   return iconButton;
