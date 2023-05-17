@@ -38,3 +38,14 @@ md-navigation-bar[hidden] {
 md-navigation-tab {
   height: 100%;
 }
+
+@media (max-height: 450px) {
+  top-app-bar {
+    margin-top: calc(-1 * 8 * var(--sys-spacing-track));
+  }
+  
+  md-navigation-bar {
+    display: inherit;
+    margin-bottom: calc(-1 * 10 * var(--sys-spacing-track));
+  }
+}

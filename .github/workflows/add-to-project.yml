@@ -14,7 +14,7 @@ on:
 jobs:
   add-to-project:
     name: Add To GitHub projects
-    if: ${{ github.event_name == 'pull_request' && github.event.assigned == true }}
+    if: ${{ github.event.unassigned == false }}
     runs-on: ubuntu-latest
 
     steps:

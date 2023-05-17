@@ -1,7 +1,6 @@
 import { dispatch, request } from '@gecut/signal';
 import { html, unsafeCSS } from 'lit';
 import { customElement } from 'lit/decorators.js';
-import { cache } from 'lit/directives/cache.js';
 
 import { requireSignIn } from '../../../controllers/require-sign-in';
 import { urlForName } from '../../router';
@@ -50,7 +49,7 @@ export class PageHome extends HomeComponents {
     super.render();
 
     return html`
-      ${cache(this.renderNotificationCard())} ${this.renderProductPriceCard()}
+      ${this.renderNotificationCard()} ${this.renderProductPriceCard()}
     `;
   }
 

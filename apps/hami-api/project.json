@@ -12,7 +12,7 @@
         "platform": "node",
         "outputPath": "dist/apps/hami-api",
         "format": ["esm"],
-        "bundle": false,
+        "bundle": true,
         "main": "apps/hami-api/src/index.ts",
         "tsConfig": "apps/hami-api/tsconfig.app.json",
         "assets": [],
@@ -28,14 +28,8 @@
       "configurations": {
         "development": {},
         "production": {
-          "bundle": true,
           "minify": true,
-          "generateLockfile": true,
-          "esbuildOptions": {
-            "outExtension": {
-              ".js": ".mjs"
-            }
-          }
+          "generateLockfile": true
         }
       }
     },
