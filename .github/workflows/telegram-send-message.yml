@@ -14,7 +14,7 @@ on:
 jobs:
   build:
     name: Build
-    if: ${{ github.event.assigned == true }}
+    if: ${{ github.actor == 'MM25Zamanian' }}
     runs-on: ubuntu-latest
 
     steps:
