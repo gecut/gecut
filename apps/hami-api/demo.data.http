@@ -38,7 +38,7 @@ Content-Type: application/json
 }
 
 ### Patch Notifications Demo
-PATCH {{apiUrl}}/notification-list/?uid=0
+PATCH {{apiUrl}}/notification-storage/?uid=0
 Authorization: Bearer {{userAdminToken}}
 Content-Type: application/json
 
