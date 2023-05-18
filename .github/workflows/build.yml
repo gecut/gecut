@@ -56,7 +56,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: 🚀 Lint All Projects
-        run: yarn nx run-many --target=lint --all=true --with-deps=true
+        run: yarn lint:all
 
   typescript:
     name: Typescript
@@ -81,7 +81,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: 🚀 Build All Projects
-        run: yarn nx run-many --target=build --all=true --verbose=true --with-deps=true --skip-nx-cache=true --only-failed=true --parallel=9
+        run: yarn build:all
 
   test:
     name: Unit Test
@@ -108,4 +108,4 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: 🚀 Unit Test All Projects
-        run: yarn nx run-many --target=test --all=true
+        run: yarn test:all

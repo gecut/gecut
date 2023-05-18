@@ -114,7 +114,6 @@ export class HomeComponents extends signalElement {
       inputType: 'search',
       name: 'productPriceSearch',
       placeholder: 'product-price-search',
-      
 
       customConfig: (target) => {
         target.addEventListener('input', () => {

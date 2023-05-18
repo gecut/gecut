@@ -1,6 +1,6 @@
 // import { TextField } from '@material/web/textfield/lib/text-field';
 
-import type { CustomConfigFunction } from './custom-config-function';
+import type { BaseContent } from './base/base-content';
 import type { ArrayValues } from '@gecut/types';
 import type { MdFilledTextField } from '@material/web/textfield/filled-text-field';
 import type { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field';
@@ -14,8 +14,6 @@ const inputTypeList = [
   'text',
   'url',
 ] as const;
-const inputTextDirection = ['rtl', 'ltr'] as const;
-const inputUI = ['outlined', 'filled'] as const;
 const inputRole = [
   'alert',
   'alertdialog',
@@ -129,9 +127,12 @@ const inputRole = [
   'doc-toc',
 ] as const;
 
-export type TextFieldContent = {
+export type TextFieldRendererReturn = MdFilledTextField | MdOutlinedTextField;
+
+export interface TextFieldContent
+  extends BaseContent<TextFieldRendererReturn, 'leadingicon' | 'trailingicon'> {
   component: 'text-field';
-  type: ArrayValues<typeof inputUI>;
+  type: 'outlined' | 'filled';
 
   name: string;
   inputType: ArrayValues<typeof inputTypeList>;
@@ -139,7 +140,7 @@ export type TextFieldContent = {
   label?: string;
   placeholder?: string;
   supportingText?: string;
-  textDirection?: ArrayValues<typeof inputTextDirection>;
+  textDirection?: 'rtl' | 'ltr';
 
   value?: string;
   defaultValue?: string;
@@ -163,12 +164,5 @@ export type TextFieldContent = {
   readOnly?: boolean;
 
   hasLeadingIcon?: boolean;
-  leadingIconSVG?: string;
-
   hasTrailingIcon?: boolean;
-  trailingIconSVG?: string;
-
-  classes?: string[];
-
-  customConfig?: CustomConfigFunction<MdFilledTextField | MdOutlinedTextField>;
-};
+}

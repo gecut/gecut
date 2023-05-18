@@ -86,20 +86,29 @@ export class PageSurvey extends signalElement {
             },
           ],
         },
-        {
-          component: 'button',
-          type: 'tonal',
-          label: i18n.message('survey-page-form-next-button'),
-          iconSVG: IconEastRounded,
-          hasIcon: true,
-          action: 'next_slide',
-          customConfig(target) {
-            target.style.flexGrow = '0';
-            target.style.marginInlineStart = 'auto';
+        [
+          {
+            component: 'button',
+            type: 'tonal',
+            label: i18n.message('survey-page-form-next-button'),
+            slotList: [
+              {
+                component: 'icon',
+                type: 'svg',
+                slot: 'icon',
+                SVG: IconEastRounded,
+              },
+            ],
+            hasIcon: true,
+            action: 'next_slide',
+            customConfig(target) {
+              target.style.flexGrow = '0';
+              target.style.marginInlineStart = 'auto';
 
-            return target;
+              return target;
+            },
           },
-        },
+        ],
       ],
       teacher: [
         {
@@ -151,7 +160,14 @@ export class PageSurvey extends signalElement {
             component: 'button',
             type: 'tonal',
             label: i18n.message('survey-page-form-next-button'),
-            iconSVG: IconEastRounded,
+            slotList: [
+              {
+                component: 'icon',
+                type: 'svg',
+                slot: 'icon',
+                SVG: IconEastRounded,
+              },
+            ],
             hasIcon: true,
             action: 'next_slide',
             customConfig(target) {
@@ -165,7 +181,14 @@ export class PageSurvey extends signalElement {
             component: 'button',
             type: 'text',
             label: i18n.message('survey-page-form-previous-button'),
-            iconSVG: IconWestRounded,
+            slotList: [
+              {
+                component: 'icon',
+                type: 'svg',
+                slot: 'icon',
+                SVG: IconWestRounded,
+              },
+            ],
             hasIcon: true,
             trailingIcon: true,
             action: 'previous_slide',

@@ -1,16 +1,19 @@
-// import type { IconButton } from '@material/web/iconbutton/lib/icon-button';
-
-import type { CustomConfigFunction } from './custom-config-function';
-import type { IconContent } from './icon';
+import type { BaseContent } from './base/base-content';
 import type { MdFilledIconButton } from '@material/web/iconbutton/filled-icon-button';
 import type { MdFilledTonalIconButton } from '@material/web/iconbutton/filled-tonal-icon-button';
 import type { MdOutlinedIconButton } from '@material/web/iconbutton/outlined-icon-button';
 import type { MdStandardIconButton } from '@material/web/iconbutton/standard-icon-button';
 
-export type IconButtonContent = {
+export type IconButtonRendererReturn =
+  | MdStandardIconButton
+  | MdFilledIconButton
+  | MdFilledTonalIconButton
+  | MdOutlinedIconButton;
+
+export interface IconButtonContent
+  extends BaseContent<IconButtonRendererReturn, never> {
   component: 'icon-button';
   type: 'standard' | 'outlined' | 'filled' | 'filled-tonal';
-  slot?: string;
   /**
    * Disables the icon button and makes it non-interactive.
    */
@@ -42,14 +45,5 @@ export type IconButtonContent = {
    * provided.
    */
   selected?: boolean;
-  icon: IconContent;
-
-  classes?: string[];
-
-  customConfig?: CustomConfigFunction<
-    | MdStandardIconButton
-    | MdFilledIconButton
-    | MdFilledTonalIconButton
-    | MdOutlinedIconButton
-  >;
-};
+  iconSVG: string;
+}

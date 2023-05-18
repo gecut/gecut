@@ -1,51 +1,19 @@
 import '@material/web/list/list-item';
 import '@material/web/list/list-item-link';
 
-import { renderer } from './renderers';
+import { createElementByContent } from './base/base-renderer';
 
-import type { ListItemContent } from '../types/list-item';
-import type { MdListItem } from '@material/web/list/list-item';
-import type { MdListItemLink } from '@material/web/list/list-item-link';
+import type { ListItemContent, ItemRendererReturn } from '../types/list-item';
 
-const itemKeys = [
-  'headline',
-  'supportingText',
-  'multiLineSupportingText',
-  'trailingSupportingText',
-  'disabled',
-  'active',
-] as const;
-
-type renderListItemReturnType = MdListItem | MdListItemLink;
-
-export function renderListItem(
-  content: ListItemContent
-): renderListItemReturnType {
-  const slotList = (content.slotList ?? []).map((slot) =>
-    renderer(slot)
-  );
-
-  let item = document.createElement(`md-${content.type}`);
-
-  for (const key of itemKeys) {
-    const value = content[key];
-
-    if (value != null) {
-      item[key] = value as never;
-    }
-  }
-
-  for (const slot of slotList) {
-    if (slot != null) {
-      item.appendChild(slot);
-    }
-  }
-
-  if (content.customConfig != null) {
-    item = content.customConfig(item);
-  }
-
-  item.classList.add(...(content.classes ?? []));
+export function renderListItem(content: ListItemContent): ItemRendererReturn {
+  const item = createElementByContent(`md-${content.type}`, content, [
+    'headline',
+    'supportingText',
+    'multiLineSupportingText',
+    'trailingSupportingText',
+    'disabled',
+    'active',
+  ]);
 
   return item;
 }

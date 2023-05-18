@@ -22,11 +22,12 @@ core:
   - packages/core/**/*
 
 apps:
-  - packages/apps/*
-  - packages/apps/**/*
+  - apps/*
+  - apps/**/*
+  - apps/**/**/*
 api:
-  - packages/apps/*-api/*
-  - packages/apps/*-api/**/*
+  - apps/*-api/*
+  - apps/*-api/**/*
 pwa:
-  - packages/apps/*-pwa/*
-  - packages/apps/*-pwa/**/*
+  - apps/*pwa/*
+  - apps/*pwa/**/*
