@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "analyze": "yarn nx run-many --target=lint --all=true && yarn nx run-many --target=build --all=true && yarn nx run-many --target=test --all=true"
+    "build:all": "yarn nx run-many --target=build --all=true --parallel=9 --only-failed=true --skip-nx-cache=true --with-deps=true --verbose=true",
+    "lint:all": "yarn nx run-many --target=lint --all=true --parallel=9 --only-failed=true --with-deps=true --skip-nx-cache=true --verbose=true",
+    "test:all": "yarn nx run-many --target=test --all=true --parallel=9 --only-failed=true --skip-nx-cache=true --with-deps=true --verbose=true",
+    "analyze": "yarn build:all && yarn lint:all && yarn test:all"
   },
   "private": true,
   "devDependencies": {
@@ -11,7 +14,7 @@
     "@iconify-json/material-symbols": "1.1.42",
     "@iconify/json": "2.2.60",
     "@nrwl/cli": "^15.9.2",
-    "@nrwl/esbuild": "16.2.1",
+    "@nrwl/esbuild": "16.1.0",
     "@nrwl/eslint-plugin-nx": "^16.1.0",
     "@nrwl/jest": "16.1.4",
     "@nrwl/js": "^16.1.0",
@@ -38,7 +41,7 @@
     "jest-environment-jsdom": "^29.4.1",
     "jsdom": "~22.0.0",
     "nodemon": "2.0.22",
-    "nx": "16.2.1",
+    "nx": "16.1.3",
     "nx-plugin-esbuild": "0.5.0",
     "prettier": "^2.6.2",
     "sass": "1.62.1",
