@@ -1,9 +1,10 @@
+
 import type { ButtonContent } from './button';
 import type { CircularProgressContent } from './circular-progress';
 import type { IconContent } from './icon';
 import type { IconButtonContent } from './icon-button';
 import type { ListItemContent } from './list-item';
-// import type { NavigationTabContent } from './navigation-tab';
+import type { SnackBarContent } from './snack-bar';
 import type { TextFieldContent } from './text-field';
 
 export type * from './button';
@@ -14,6 +15,7 @@ export type * from './icon-button';
 export type * from './list-item';
 export type * from './navigation-tab';
 export type * from './text-field';
+export type * from './snack-bar';
 export type * from './top-app-bar';
 
 export type SlotsComponentsContent =
@@ -29,4 +31,5 @@ export type AllComponentsContent =
   | IconButtonContent
   | CircularProgressContent
   | ListItemContent
-  | TextFieldContent;
+  | TextFieldContent
+  | SnackBarContent;
