@@ -1,7 +1,7 @@
-import { loggerElement } from '@gecut/mixins';
-import { addListener, dispatch } from '@gecut/signal';
+import { signalElement } from '@gecut/mixins';
+import { dispatch } from '@gecut/signal';
+import { M3 } from '@gecut/ui-kit';
 import '@gecut/ui-kit/m3';
-import '@material/web/circularprogress/circular-progress';
 import '@material/web/icon/icon';
 import '@material/web/navigationbar/navigation-bar';
 import '@material/web/navigationtab/navigation-tab';
@@ -18,7 +18,6 @@ import { attachRouter } from '../router/index';
 import styles from './app.element.scss?inline';
 
 import type { RenderResult } from '@gecut/types';
-import type { M3 } from '@gecut/ui-kit';
 import type { PropertyValues } from 'lit';
 
 declare global {
@@ -38,12 +37,13 @@ const getDate = () => {
 };
 
 @customElement('app-root')
-export class AppRoot extends loggerElement {
+export class AppRoot extends signalElement {
   static override styles = [unsafeCSS(styles)];
 
   static topAppBarLoadingSlot: M3.Types.CircularProgressContent = {
     component: 'circular-progress',
     type: 'circular-progress',
+    fourColor: true,
     indeterminate: true,
   };
   static topAppBarTrailingSlot: M3.Types.IconButtonContent = {
@@ -76,14 +76,14 @@ export class AppRoot extends loggerElement {
 
     i18n.init();
 
-    addListener('top-app-bar', (value) => {
+    this.addSignalListener('top-app-bar', (value) => {
       this.topAppBarContent = {
         ...this.topAppBarContent,
         ...value,
       };
     });
 
-    addListener('promises-list', (value) => {
+    this.addSignalListener('promises-list', (value) => {
       const oldValue = this.topAppBarContent;
 
       if (value.length > 0) {
@@ -99,12 +99,33 @@ export class AppRoot extends loggerElement {
       this.requestUpdate('topAppBarContent', oldValue);
     });
 
-    addListener('top-app-bar-hidden', (hidden) => {
+    this.addSignalListener('top-app-bar-hidden', (hidden) => {
       this.topAppBarHidden = hidden;
     });
 
-    addListener('bottom-app-bar-hidden', (hidden) => {
+    this.addSignalListener('bottom-app-bar-hidden', (hidden) => {
       this.bottomAppBarHidden = hidden;
+    });
+
+    this.addSignalListener('snack-bar', (content) => {
+      const fixedBox =
+        this.renderRoot.querySelector<HTMLDivElement>('div.fixed');
+
+      if (fixedBox != null) {
+        const oldSnackBar = fixedBox.querySelector('snack-bar');
+        let waiting = 0;
+
+        if (oldSnackBar != null) {
+          oldSnackBar.closeSnackBar();
+          waiting = 400;
+        }
+
+        setTimeout(() => {
+          requestAnimationFrame(() => {
+            fixedBox.appendChild(M3.Renderers.renderSnackBar(content));
+          });
+        }, waiting);
+      }
     });
   }
 
@@ -114,7 +135,10 @@ export class AppRoot extends loggerElement {
         .content=${this.topAppBarContent}
         ?hidden=${this.topAppBarHidden}
       ></top-app-bar>
-      <main role="main"></main>
+      <main>
+        <div class="main" role="main"></div>
+        <div class="fixed"></div>
+      </main>
       ${AppRoot.renderNavigationBar(
     config.navigationTabs,
     this.bottomAppBarHidden

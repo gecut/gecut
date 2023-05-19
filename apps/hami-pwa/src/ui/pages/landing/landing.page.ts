@@ -1,6 +1,6 @@
 import { loggerElement } from '@gecut/mixins';
-import { dispatch } from '@gecut/signal';
-import '@material/web/circularprogress/circular-progress';
+import { dispatch, getValue } from '@gecut/signal';
+import { M3 } from '@gecut/ui-kit';
 import { html, unsafeCSS } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
@@ -39,7 +39,12 @@ export class PageLanding extends loggerElement {
     super.render();
 
     return html`
-      <md-circular-progress indeterminate fourColor></md-circular-progress>
+      ${M3.Renderers.renderCircularProgress({
+    component: 'circular-progress',
+    type: 'circular-progress',
+    fourColor: true,
+    indeterminate: true,
+  })}
     `;
   }
 
@@ -52,6 +57,19 @@ export class PageLanding extends loggerElement {
       tryUrl: urlForName('Home'),
       catchUrl: urlForName('SignIn'),
     });
+
+    if (isSignIn === true) {
+      const user = getValue('user');
+
+      if (user != null) {
+        dispatch('snack-bar', {
+          component: 'snack-bar',
+          type: 'ellipsis-message',
+          message: user.firstName,
+          closeButton: true,
+        });
+      }
+    }
 
     if (isSignIn === false) {
       localStorage.removeItem('USER_ID');
