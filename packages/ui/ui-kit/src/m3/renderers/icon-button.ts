@@ -28,7 +28,7 @@ export function renderIconButton(
   );
 
   if (content.iconSVG != null) {
-    iconButton.append(content.iconSVG);
+    iconButton.innerHTML = content.iconSVG;
   }
 
   return iconButton;
