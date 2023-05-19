@@ -127,7 +127,7 @@ export class TopAppBar extends loggerElement {
   ];
 
   @property({ type: Object, attribute: false })
-  private content?: TopAppBarContent;
+    content?: TopAppBarContent;
 
   override render(): RenderResult {
     if (this.content == null) return nothing;
