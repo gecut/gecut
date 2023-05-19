@@ -1,14 +1,6 @@
 name: Telegram Message
 
 on:
-  pull_request:
-    branches:
-      - next*
-      - main
-      - release/*
-      - dependabot/*
-      - feat/*
-
   push:
 
 jobs:
@@ -19,6 +11,8 @@ jobs:
       id-token: read
       contents: read
       statuses: read
+      security-events: read
+      pull-requests: read
 
     steps:
       - name: Push

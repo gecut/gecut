@@ -95,6 +95,8 @@ export class SnackBar extends loggerElement {
 
       .message {
         flex-grow: 1;
+      }
+      :host([type='wrap-message']) .message {
         padding-bottom: calc(1.5 * var(--sys-spacing-track, 8px));
       }
       :host([type='ellipsis-message']) .message {
