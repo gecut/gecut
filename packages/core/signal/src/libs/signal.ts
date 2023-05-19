@@ -111,18 +111,20 @@ async function request<T extends keyof Signals>(
     );
   }
 
-  const value = await signalsObject[name]?.provider?.(args);
+  requestAnimationFrame(async () => {
+    const value = await signalsObject[name]?.provider?.(args);
 
-  if (value == null) {
-    return logger.warning(
-      'request',
-      'provider_return_empty',
-      'Provider must be return a value, not empty',
-      { name, args }
-    );
-  }
+    if (value == null) {
+      return logger.warning(
+        'request',
+        'provider_return_empty',
+        'Provider must be return a value, not empty',
+        { name, args }
+      );
+    }
 
-  dispatch(name, value);
+    dispatch(name, value);
+  });
 }
 
 export {
