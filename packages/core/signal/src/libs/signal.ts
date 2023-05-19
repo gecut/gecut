@@ -111,7 +111,7 @@ async function request<T extends keyof Signals>(
     );
   }
 
-  requestIdleCallback(async () => {
+  requestAnimationFrame(async () => {
     const value = await signalsObject[name]?.provider?.(args);
 
     if (value == null) {
