@@ -61,7 +61,6 @@ jobs:
   typescript:
     name: Typescript
     runs-on: ubuntu-latest
-    needs: lint
 
     permissions:
       contents: read
@@ -86,9 +85,6 @@ jobs:
   test:
     name: Unit Test
     runs-on: ubuntu-latest
-    needs:
-      - lint
-      - typescript
 
     permissions:
       contents: read

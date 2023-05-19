@@ -9,7 +9,7 @@ import i18n from './ui/i18n';
 import { urlForName } from './ui/router';
 
 import type { Projects } from '@gecut/types';
-import type { TopAppBarContent, NavigationTab } from '@gecut/ui-kit';
+import type { M3 } from '@gecut/ui-kit';
 
 declare global {
   interface Signals extends Projects.Hami.Routes {
@@ -19,7 +19,8 @@ declare global {
     readonly user: Projects.Hami.SignInResponse;
     readonly 'search-product-price-query': string;
     readonly 'sign-in': Record<string, never>;
-    readonly 'top-app-bar': Partial<TopAppBarContent>;
+    readonly 'top-app-bar': Partial<M3.Types.TopAppBarContent>;
+    readonly 'snack-bar': M3.Types.SnackBarContent;
     readonly 'promises-list': string[];
   }
   interface Providers
@@ -32,7 +33,7 @@ declare global {
   }
 }
 
-const navigationTabs: NavigationTab[] = [
+const navigationTabs: M3.Types.NavigationTabContent[] = [
   {
     label: i18n.message('bottom_bar_home_label'),
     link: urlForName('Home'),
