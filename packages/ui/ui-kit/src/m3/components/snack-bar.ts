@@ -26,7 +26,6 @@ export class SnackBar extends loggerElement {
 
       :host {
         --_gap: min(calc(1.5 * var(--sys-spacing-side-padding)), 24px);
-        --_in-point: 0;
 
         display: flex;
         flex-direction: row;
@@ -58,28 +57,25 @@ export class SnackBar extends loggerElement {
 
         /* close state */
         opacity: 0;
-        transform: translateY(var(--_in-point)) scale(0.6);
+        transform: translateX(100%) scale(1.1);
         pointer-events: none;
         transition-property: opacity, transform;
         transition-duration: var(--sys-motion-duration-medium, 400ms);
-        transition-timing-function: cubic-bezier(0.6, -0.28, 0.74, 0.05);
         will-change: opacity, transform;
-      }
-
-      :host([align='top']) {
-        --_in-point: -200%;
-      }
-
-      :host([align='bottom']) {
-        --_in-point: 200%;
       }
 
       :host([opened]) {
         opacity: 1;
-        transform: translateY(0px) scale(1);
+        transform: translateX(0px) scale(1);
         pointer-events: auto;
         transition-duration: var(--sys-motion-duration-large, 512ms);
-        transition-timing-function: cubic-bezier(0.18, 0.89, 0.32, 1.27);
+        transition-timing-function: cubic-bezier(0.18, 0.89, 0.32, 1.1);
+      }
+
+      :host([closing]) {
+        opacity: 0;
+        transform: translateY(-150%) scale(.9);
+        transform-timing-function: cubic-bezier(0.46, 0.03, 0.52, 0.96);
       }
 
       :host([type='wrap-message']) {
@@ -137,6 +133,9 @@ export class SnackBar extends loggerElement {
   @property({ type: Boolean, reflect: true })
     opened = false;
 
+  @property({ type: Boolean, reflect: true })
+    closing = false;
+
   override render(): RenderResult {
     if (this.message == null) return nothing;
 
@@ -153,6 +152,7 @@ export class SnackBar extends loggerElement {
   }
 
   closeSnackBar(): void {
+    this.closing = true;
     this.opened = false;
 
     setTimeout(() => {
@@ -171,9 +171,9 @@ export class SnackBar extends loggerElement {
       this.opened = true;
     });
 
-    // setTimeout(() => {
-    //   this.closeSnackBar();
-    // }, this.duration);
+    setTimeout(() => {
+      this.closeSnackBar();
+    }, this.duration);
   }
 
   private renderCloseButton(): IconRendererReturn {
