@@ -1,12 +1,15 @@
-import { signalElement } from '@gecut/mixins';
-import { dispatch, request } from '@gecut/signal';
+import { scheduleSignalElement } from '@gecut/mixins';
+import { dispatch } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
 import { html, nothing, unsafeCSS } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import IconCallOutline from 'virtual:icons/material-symbols/call-outline';
-import IconPersonOutline from 'virtual:icons/material-symbols/person-outline';
+import IconAlternateEmailRounded from 'virtual:icons/material-symbols/alternate-email-rounded';
+import IconAwardStarRounded from 'virtual:icons/material-symbols/award-star-rounded';
+import IconCallOutlineRounded from 'virtual:icons/material-symbols/call-outline-rounded';
+import IconPersonOutlineRounded from 'virtual:icons/material-symbols/person-outline-rounded';
 
 import { requireSignIn } from '../../../controllers/require-sign-in';
+import '../../components/surface-card/surface-card';
 import i18n from '../../i18n';
 import { urlForName } from '../../router';
 import elementStyle from '../../stylesheets/element.scss?inline';
@@ -15,7 +18,6 @@ import pageStyle from '../../stylesheets/page.scss?inline';
 import styles from './user.page.scss?inline';
 
 import type { RenderResult, Projects } from '@gecut/types';
-import type { TemplateResult } from 'lit';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -24,7 +26,7 @@ declare global {
 }
 
 @customElement('page-user')
-export class PageUser extends signalElement {
+export class PageUser extends scheduleSignalElement {
   static override styles = [
     unsafeCSS(styles),
     unsafeCSS(elementStyle),
@@ -45,8 +47,6 @@ export class PageUser extends signalElement {
     this.addSignalListener('user', (value) => {
       this.user = value;
     });
-
-    request('user', {});
   }
 
   override render(): RenderResult {
@@ -54,36 +54,58 @@ export class PageUser extends signalElement {
 
     if (this.user == null) return nothing;
 
-    return [PageUser.renderUserInformationCard(this.user)];
+    return this.renderUserInformationCard();
   }
 
-  static renderUserInformationCard(
-    user: Projects.Hami.SignInResponse
-  ): TemplateResult {
+  private renderUserInformationCard(): RenderResult {
+    if (this.user == null) return nothing;
+
     const userInformationListTemplate = [
       M3.Renderers.renderListItem({
         component: 'list-item',
         type: 'list-item',
-        headline: `${user.firstName} ${user.lastName}`,
+        headline: [
+          this.user.gender != null ? i18n.message(this.user.gender) : '',
+          this.user.firstName,
+          this.user.lastName,
+          `(${i18n.message(this.user.role)})`,
+        ].join(' '),
         slotList: [
           {
             component: 'icon',
             type: 'svg',
             slot: 'start',
-            SVG: IconPersonOutline,
+            SVG: IconPersonOutlineRounded,
           },
         ],
       }),
       M3.Renderers.renderListItem({
         component: 'list-item',
         type: 'list-item',
-        headline: `${i18n.numberFormat(user.phoneNumber)}`,
+        headline: `${i18n.phoneNumber(this.user.phoneNumber)}`,
         slotList: [
           {
             component: 'icon',
             type: 'svg',
             slot: 'start',
-            SVG: IconCallOutline,
+            SVG: IconCallOutlineRounded,
+          },
+        ],
+      }),
+      this.renderInformationCardEmailItem(),
+      M3.Renderers.renderListItem({
+        component: 'list-item',
+        type: 'list-item',
+        headline: `${i18n
+          .message('user_information_box_score_title')
+          .replace('{{score}}', i18n.numberFormat(this.user.score))}`,
+        classes: ['icon-gold'],
+        slotList: [
+          {
+            component: 'icon',
+            type: 'svg',
+            slot: 'start',
+            SVG: IconAwardStarRounded,
           },
         ],
       }),
@@ -93,14 +115,51 @@ export class PageUser extends signalElement {
       <div class="card-box">
         <h3 class="title">${i18n.message('user_information_box_title')}</h3>
 
-        <div class="card">
-          <div class="card-scroll">
-            <md-list>${userInformationListTemplate}</md-list>
-          </div>
+        <surface-card type="elevated">
+          <md-list>${userInformationListTemplate}</md-list>
 
-          <md-elevation></md-elevation>
-        </div>
+          <div class="buttons-list">${this.renderButtonsList()}</div>
+        </surface-md>
       </div>
     `;
+  }
+
+  private renderInformationCardEmailItem():
+    | M3.Types.ItemRendererReturn
+    | undefined {
+    if (this.user?.email != null) {
+      return M3.Renderers.renderListItem({
+        component: 'list-item',
+        type: 'list-item',
+        headline: `${this.user.email}`,
+        slotList: [
+          {
+            component: 'icon',
+            type: 'svg',
+            slot: 'start',
+            SVG: IconAlternateEmailRounded,
+          },
+        ],
+      });
+    }
+
+    return undefined;
+  }
+
+  private renderButtonsList(): RenderResult {
+    const buttonsListTemplate = [
+      M3.Renderers.renderButton({
+        component: 'button',
+        type: 'tonal',
+        label: i18n.message('user_information_box_add_score_button_label'),
+      }),
+      M3.Renderers.renderButton({
+        component: 'button',
+        type: 'tonal',
+        label: i18n.message('user_information_box_change_password_button_label'),
+      }),
+    ];
+
+    return html`${buttonsListTemplate}`;
   }
 }
