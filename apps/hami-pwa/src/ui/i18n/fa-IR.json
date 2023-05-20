@@ -6,6 +6,9 @@
   "admin": "مدیریت",
   "seller": "فروشنده",
 
+  "male": "آقای",
+  "female": "خانم",
+
   "bottom_bar_home_label": "خانه",
   "bottom_bar_user_label": "کاربر",
 
@@ -22,5 +25,8 @@
   "sign_in_page_form_password_label": "گذرواژه",
   "sign_in_page_form_submit": "ورود",
 
-  "user_information_box_title": "اطلاعات"
+  "user_information_box_title": "اطلاعات",
+  "user_information_box_score_title": "شما {{score}} امتیاز دارید",
+  "user_information_box_add_score_button_label": "افزودن امتیاز",
+  "user_information_box_change_password_button_label": "تغییر گذرواژه"
 }

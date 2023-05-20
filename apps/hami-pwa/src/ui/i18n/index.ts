@@ -36,7 +36,14 @@ function getConfig() {
   };
 }
 
-function numberFormat(phoneNumber: string): string {
+function numberFormat(
+  _number: number,
+  options?: Intl.NumberFormatOptions
+): string {
+  return _number.toLocaleString(getConfig().code, options);
+}
+
+function phoneNumber(phoneNumber: string): string {
   const x = [
     phoneNumber.substring(0, 4),
     phoneNumber.substring(4, 7),
@@ -51,6 +58,7 @@ const i18n = {
   message,
   getConfig,
   numberFormat,
+  phoneNumber,
 };
 
 export default i18n;
