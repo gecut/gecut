@@ -117,7 +117,7 @@ export class AppRoot extends signalElement {
 
         if (oldSnackBar != null) {
           oldSnackBar.closeSnackBar();
-          waiting = 400;
+          waiting = 200;
         }
 
         setTimeout(() => {
@@ -135,10 +135,11 @@ export class AppRoot extends signalElement {
         .content=${this.topAppBarContent}
         ?hidden=${this.topAppBarHidden}
       ></top-app-bar>
-      <main>
-        <div class="main" role="main"></div>
+
+      <main role="main">
         <div class="fixed"></div>
       </main>
+
       ${AppRoot.renderNavigationBar(
     config.navigationTabs,
     this.bottomAppBarHidden

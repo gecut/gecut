@@ -22,7 +22,7 @@ import pageStyle from '../../stylesheets/page.scss?inline';
 import styles from './home.page.scss?inline';
 
 import type { Projects, RenderResult } from '@gecut/types';
-import type { PropertyValues, PropertyDeclaration } from 'lit';
+import type { PropertyValues } from 'lit';
 
 declare global {
   interface HTMLElementTagNameMap {

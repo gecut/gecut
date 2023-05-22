@@ -12,6 +12,14 @@ main {
   flex-direction: column;
   flex: 1 1 auto;
   padding: 0 calc(var(--sys-spacing-side-padding) / 2);
+  position: relative;
+
+  .fixed {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
 }
 
 .navigation-tab {
@@ -43,7 +51,7 @@ md-navigation-tab {
   top-app-bar {
     margin-top: calc(-1 * 8 * var(--sys-spacing-track));
   }
-  
+
   md-navigation-bar {
     display: inherit;
     margin-bottom: calc(-1 * 10 * var(--sys-spacing-track));
