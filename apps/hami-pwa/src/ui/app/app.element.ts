@@ -135,6 +135,7 @@ export class AppRoot extends signalElement {
         .content=${this.topAppBarContent}
         ?hidden=${this.topAppBarHidden}
       ></top-app-bar>
+
       <main role="main">
         <div class="fixed"></div>
       </main>
