@@ -148,6 +148,7 @@ export class PageUser extends scheduleSignalElement {
     return undefined;
   }
 
+  // eslint-disable-next-line class-methods-use-this
   private renderButtonsList(): RenderResult {
     const buttonsListTemplate = [
       M3.Renderers.renderButton({
