@@ -3,9 +3,11 @@ import { dispatch } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
 import { html, nothing, unsafeCSS } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
+import IconStarOutlineRounded from 'virtual:icons/material-symbols/add-rounded';
 import IconAlternateEmailRounded from 'virtual:icons/material-symbols/alternate-email-rounded';
 import IconAwardStarRounded from 'virtual:icons/material-symbols/award-star-rounded';
 import IconCallOutlineRounded from 'virtual:icons/material-symbols/call-outline-rounded';
+import IconLockOutline from 'virtual:icons/material-symbols/lock-outline';
 import IconPersonOutlineRounded from 'virtual:icons/material-symbols/person-outline-rounded';
 
 import { requireSignIn } from '../../../controllers/require-sign-in';
@@ -117,7 +119,7 @@ export class PageUser extends scheduleSignalElement {
 
         <surface-card type="elevated">
           <md-list>${userInformationListTemplate}</md-list>
-
+          
           <div class="buttons-list">${this.renderButtonsList()}</div>
         </surface-md>
       </div>
@@ -152,11 +154,33 @@ export class PageUser extends scheduleSignalElement {
         component: 'button',
         type: 'tonal',
         label: i18n.message('user_information_box_add_score_button_label'),
+        hasIcon: true,
+        trailingIcon: true,
+        slotList: [
+          {
+            component: 'icon',
+            type: 'svg',
+            SVG: IconStarOutlineRounded,
+            slot: 'icon',
+          },
+        ],
       }),
       M3.Renderers.renderButton({
         component: 'button',
         type: 'tonal',
-        label: i18n.message('user_information_box_change_password_button_label'),
+        label: i18n.message(
+          'user_information_box_change_password_button_label'
+        ),
+        hasIcon: true,
+        trailingIcon: true,
+        slotList: [
+          {
+            component: 'icon',
+            type: 'svg',
+            SVG: IconLockOutline,
+            slot: 'icon',
+          },
+        ],
       }),
     ];
 
