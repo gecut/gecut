@@ -1,18 +1,11 @@
 name: Telegram Message
 
-on:
-  push:
+on: push
 
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    permissions:
-      id-token: read
-      contents: read
-      statuses: read
-      security-events: read
-      pull-requests: read
 
     steps:
       - name: Push
@@ -21,8 +14,6 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          debug: true
-          disable_notification: true
           format: markdown
           message: |
             🟩 Push Notification On *${{ github.repository }}*
