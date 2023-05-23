@@ -18,7 +18,7 @@ export const notificationRequire: RequireFunc<Notification> = (
   notification: Partial<Notification>
 ): Notification => ({
   id: 'auto_increment',
-  message: '',
+  message: 'no-message',
   status: 'normal',
   active: true,
 

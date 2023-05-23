@@ -4,8 +4,8 @@ import { config, logger } from '../lib/config';
 import { nanoServer } from '../lib/server';
 import { storageClient } from '../lib/storage';
 
-nanoServer.route('PATCH', '/user-list/', async (connection) => {
-  logger.logMethod('patch-user-list');
+nanoServer.route('PATCH', '/user-storage/', async (connection) => {
+  logger.logMethod('patch-user-storage');
 
   connection.requireToken(config.nanoServer.adminToken);
 

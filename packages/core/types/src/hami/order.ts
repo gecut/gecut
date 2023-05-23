@@ -1,4 +1,5 @@
 import type { AlwatrDocumentObjectActive } from './document-object-active.js';
+import type { RequireFunc } from './require-functions.js';
 import type { ArrayValues, StringifyableRecord } from '../type-helper.js';
 
 export const orderStatusList = [
@@ -10,7 +11,6 @@ export const orderStatusList = [
 ] as const;
 
 export interface Order extends AlwatrDocumentObjectActive {
-  creatorId: string;
   customerId: string;
   customerProjectId: string;
   registrationDate: number;
@@ -27,3 +27,18 @@ export interface OrderProduct extends StringifyableRecord {
   unit: string;
   supplierId: string;
 }
+
+export const orderRequire: RequireFunc<Order> = (
+  order: Partial<Order>
+): Order => ({
+  id: 'auto_increment',
+  customerId: '',
+  customerProjectId: '',
+  evacuationDate: 0,
+  registrationDate: 0,
+  productList: [],
+  status: 'awaitingConfirmation',
+  active: true,
+
+  ...order,
+});

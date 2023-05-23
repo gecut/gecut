@@ -5,12 +5,12 @@ import { requireSignedIn } from '../util/require-signed-in';
 
 import type { Projects } from '@gecut/types';
 
-nanoServer.route('GET', '/product-list/', async (connection) => {
-  logger.logMethod('get-product-list');
+nanoServer.route('GET', '/supplier-storage/', async (connection) => {
+  logger.logMethod('get-supplier-storage');
 
   await requireSignedIn(connection);
 
-  return await storageClient.getStorage<Projects.Hami.Product>(
-    config.productStorage
+  return await storageClient.getStorage<Projects.Hami.Supplier>(
+    config.supplierStorage
   );
 });

@@ -4,7 +4,7 @@
 @adminToken = ADMIN_SECRET_TOKEN
 
 
-### Patch Users Demo
+### PATCH Users Demo
 PATCH {{apiUrl}}/user-list/
 Authorization: Bearer {{adminToken}}
 Content-Type: application/json
@@ -37,7 +37,7 @@ Content-Type: application/json
   ]
 }
 
-### Patch Notifications Demo
+### PATCH Notifications Demo
 PATCH {{apiUrl}}/notification-storage/?uid=0
 Authorization: Bearer {{userAdminToken}}
 Content-Type: application/json
@@ -63,7 +63,7 @@ Content-Type: application/json
   ]
 }
 
-### Patch Product Price Demo
+### PATCH Product Price Demo
 PATCH {{apiUrl}}/product-price-storage/?uid=0
 Authorization: Bearer {{userAdminToken}}
 Content-Type: application/json
@@ -79,6 +79,155 @@ Content-Type: application/json
       "name": "گچ چرت و پرت",
       "minPrice": 100000,
       "normalPrice": 125000
+    }
+  ]
+}
+
+### PATCH Product Demo
+PATCH {{apiUrl}}/product-storage/?uid=0
+Authorization: Bearer {{userAdminToken}}
+Content-Type: application/json
+
+{
+  "data": [
+    {
+      "code": "001",
+      "name": "ماسه خیار شور",
+      "unit": "TON",
+      "category": "خیار شور",
+      "brand": "خیار شور زادگان",
+      "description": "پیر مردی هر روز تو محله می دید پسر کی با کفش های پاره و پای برهنه با توپ پلاستیکی فوتبال بازی می کند، روزی رفت ی کتانی نو خرید و اومد"
+    },
+    {
+      "code": "002",
+      "name": "ماسه خیار شیرین",
+      "unit": "KG",
+      "category": "خیار شیرین",
+      "brand": "خیار شیرین زادگان",
+      "description": "پیر مردی هر روز تو محله می دید پسر کی با کفش های پاره و پای برهنه با توپ پلاستیکی فوتبال بازی می کند، روزی رفت ی کتانی نو خرید و اومد"
+    },
+    {
+      "code": "003",
+      "name": "ماسه خیار شور",
+      "unit": "KG",
+      "category": "خیار شور",
+      "brand": "خیار شور زادگان",
+      "description": "پیر مردی هر روز تو محله می دید پسر کی با کفش های پاره و پای برهنه با توپ پلاستیکی فوتبال بازی می کند، روزی رفت ی کتانی نو خرید و اومد"
+    },
+    {
+      "code": "004",
+      "name": "ماسه خیار شیرین",
+      "unit": "TON",
+      "category": "خیار شیرین",
+      "brand": "خیار شیرین زادگان",
+      "description": "پیر مردی هر روز تو محله می دید پسر کی با کفش های پاره و پای برهنه با توپ پلاستیکی فوتبال بازی می کند، روزی رفت ی کتانی نو خرید و اومد"
+    }
+  ]
+}
+
+### PATCH Customer Demo
+PATCH {{apiUrl}}/customer-storage/?uid=0
+Authorization: Bearer {{userAdminToken}}
+Content-Type: application/json
+
+{
+  "data": [
+    {
+      "firstName": "اصغر",
+      "lastName": "جعفری",
+      "phoneNumber": "09123456789",
+
+      "description": "هیچی بابا طرف خیلی اسکله",
+
+      "creatorId": "0"
+    },
+    {
+      "firstName": "محمدمهدی",
+      "lastName": "زمانیان",
+      "phoneNumber": "09155595488",
+
+      "description": "طرف خیلی پولداره، خیلی پروژه داره، ولی یکم سگ مغزه",
+
+      "creatorId": "1"
+    }
+  ]
+}
+
+### PATCH Customer Project Demo
+PATCH {{apiUrl}}/customer-project-storage/?uid=0&customer-id=0
+Authorization: Bearer {{userAdminToken}}
+Content-Type: application/json
+
+{
+  "data": [
+    {
+      "projectName": "پروژه قبر من (شهر من)",
+      "projectAddress": "دو قوز آباد سفلا، پلاک ۹۸",
+      "supervisorName": "یه اسکلی",
+      "supervisorPhone": "09876543210",
+      "guardName": "یه اسکل تری",
+      "guardPhone": "09876543210"
+    }
+  ]
+}
+
+### PATCH Supplier Demo
+PATCH {{apiUrl}}/supplier-storage/?uid=0&customer-id=0
+Authorization: Bearer {{userAdminToken}}
+Content-Type: application/json
+
+{
+  "data": [
+    {
+      "uniqueCode": "sup-1",
+      "firstName": "جواد",
+      "lastName": "حاجی احمدی",
+      "phoneNumber": "09876543210",
+      "address": "در همین حوالی",
+      "description": "پیر مردی هر روز تو محله می دید پسر کی با کفش های پاره و پای برهنه با توپ پلاستیکی فوتبال بازی می کند،",
+      "phoneNumberList": [
+        {
+          "name": "موبایل گرونش",
+          "phoneNumber": "09876543210"
+        }
+      ]
+    },
+    {
+      "uniqueCode": "sup-2",
+      "firstName": "عطا",
+      "lastName": "فکور",
+      "phoneNumber": "09876543210",
+      "address": "تو بغل جواد حاجی احمدی",
+      "description": "پیر مردی هر روز تو محله می دید پسر کی با کفش های پاره و پای برهنه با توپ پلاستیکی فوتبال بازی می کند،",
+      "phoneNumberList": [
+        {
+          "name": "موبایل گرونش",
+          "phoneNumber": "09876543210"
+        }
+      ]
+    }
+  ]
+}
+
+### PUT Order Demo
+PUT {{apiUrl}}/order/?uid=0
+Authorization: Bearer {{userAdminToken}}
+Content-Type: application/json
+
+{
+  "customerId": "0",
+  "customerProjectId": "0",
+  "registrationDate": 1684790023267,
+  "evacuationDate": 1684790023267,
+  "status": "awaitingConfirmation",
+  "productList": [
+    {
+      "productId": "0",
+      "salesPrice": "1000",
+      "purchasePrice": "1200",
+      "quantity": 10,
+      "unit": "TON",
+      "supplierId": "1"
     }
   ]
 }

@@ -1,11 +1,13 @@
+import type { CustomerProject } from './customer-project.js';
 import type { AlwatrDocumentObjectActive } from './document-object-active.js';
 import type { Order } from './order.js';
-import type { User } from './user.js';
-import type { StringifyableRecord } from '../type-helper.js';
+import type { RequireFunc } from './require-functions.js';
+import type { UserResponse } from './user.js';
 
 export interface CustomerModel extends Customer {
+  projectList: CustomerProject[];
   orderList: Order[];
-  creator: User;
+  creator: UserResponse;
 }
 
 export interface Customer extends AlwatrDocumentObjectActive {
@@ -15,20 +17,19 @@ export interface Customer extends AlwatrDocumentObjectActive {
 
   description: string;
 
-  projectList: CustomerProject[];
-
   creatorId: string;
 }
 
-export interface CustomerProject extends StringifyableRecord {
-  id: string;
+export const customerRequire: RequireFunc<Customer> = (
+  customer: Partial<Customer>
+): Customer => ({
+  id: 'auto_increment',
+  creatorId: 'no-creator-id',
+  description: 'no-description',
+  firstName: 'no-first-name',
+  lastName: 'no-last-name',
+  phoneNumber: 'no-phone-number',
+  active: true,
 
-  projectName: string;
-  projectAddress: string;
-
-  supervisorName: string;
-  supervisorPhone: string;
-
-  guardName: string;
-  guardPhone: string;
-}
+  ...customer,
+});

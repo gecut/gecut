@@ -4,6 +4,7 @@ export * from './notification';
 export * from './order';
 export * from './product';
 export * from './product-price';
+export * from './customer-project';
 export * from './require-functions';
 export * from './routes';
 export * from './supplier';
