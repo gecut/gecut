@@ -14,19 +14,19 @@ nanoServer.route(
 
     await requireAdmin(connection);
 
-    const userStorage = await storageClient.getStorage<Projects.Hami.User>(
+    const userStorage = await storageClient.getStorage<Projects.Hami.UserModel>(
       config.userStorage
     );
     const customerStorage =
       await storageClient.getStorage<Projects.Hami.Customer>(
         config.customerStorage
       );
+    const orderStorage = await storageClient.getStorage<Projects.Hami.Order>(
+      config.orderStorage
+    );
 
-    for await (const userId of Object.keys(userStorage.data)) {
+    for (const userId of Object.keys(userStorage.data)) {
       const user = userStorage.data[userId];
-      const orderStorage = await storageClient.getStorage<Projects.Hami.Order>(
-        config.orderStorage
-      );
 
       const userModel: Projects.Hami.UserModel = {
         orderList: Object.values(orderStorage.data).filter(
@@ -35,12 +35,13 @@ nanoServer.route(
         customerList: Object.values(customerStorage.data).filter(
           (customer) => customer.creatorId === userId
         ),
+
         ...user,
       };
 
       userStorage[userId] = userModel;
     }
 
-    return userStorage as AlwatrDocumentStorage<Projects.Hami.UserModel>;
+    return userStorage;
   }
 );
