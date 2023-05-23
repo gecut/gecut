@@ -18,18 +18,15 @@ nanoServer.route(
       await storageClient.getStorage<Projects.Hami.Customer>(
         config.customerStorage
       );
-    const userStorage = await storageClient.getStorage<Projects.Hami.User>(
-      config.userStorage
-    );
     const orderStorage = await storageClient.getStorage<Projects.Hami.Order>(
       config.orderStorage
     );
 
     for await (const customerId of Object.keys(customerStorage.data)) {
       const customer = customerStorage.data[customerId];
-      const creator = userStorage.data[customer.creatorId];
-      const orderList = Object.values(orderStorage.data).filter(
-        (order) => order.customerId === customerId
+      const creator = await storageClient.get<Projects.Hami.User>(
+        customer.creatorId,
+        config.userStorage
       );
       const customerProjectStorage =
         await storageClient.getStorage<Projects.Hami.CustomerProject>(
@@ -39,7 +36,9 @@ nanoServer.route(
       delete creator['password'];
       const customerModel: Projects.Hami.CustomerModel = {
         creator,
-        orderList,
+        orderList: Object.values(orderStorage.data).filter(
+          (order) => order.customerId === customerId
+        ),
         projectList: Object.values(customerProjectStorage.data),
         ...customer,
       };
