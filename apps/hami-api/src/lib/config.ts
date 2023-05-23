@@ -17,16 +17,14 @@ export const config = {
     encoding: 'base64url',
     duration: null,
   },
-  nanoServer: <NanoServerConfig & { adminToken: string }>{
+  nanoServer: <Partial<NanoServerConfig> & { adminToken: string }>{
     host: process.env.HOST ?? '0.0.0.0',
     port: process.env.PORT != null ? +process.env.PORT : 3000,
     accessToken: process.env.ACCESS_TOKEN ?? 'YOUR_SECRET_TOKEN',
     adminToken: process.env.ADMIN_TOKEN ?? 'ADMIN_SECRET_TOKEN',
     allowAllOrigin: true,
-    requestTimeout: 10_000,
     headersTimeout: 40_000,
     keepAliveTimeout: 30_000,
-    healthRoute: true,
   },
 
   userStorage: 'hami/private/user-storage',
