@@ -35,8 +35,7 @@ export const config = {
   productPriceStorage: 'hami/public/product-price-storage',
   productStorage: 'hami/public/product-storage',
   supplierStorage: 'hami/public/supplier-storage',
-
-  orderStoragePrefix: 'hami/public/order-storage/user-',
+  orderStorage: 'hami/public/order-storage',
 } as const;
 
 logger.logProperty('config', config);

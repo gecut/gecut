@@ -25,7 +25,7 @@ nanoServer.route(
     for await (const userId of Object.keys(userStorage.data)) {
       const user = userStorage.data[userId];
       const orderStorage = await storageClient.getStorage<Projects.Hami.Order>(
-        config.orderStoragePrefix
+        config.orderStorage
       );
 
       const userModel: Projects.Hami.UserModel = {

@@ -21,14 +21,14 @@ nanoServer.route(
     const userStorage = await storageClient.getStorage<Projects.Hami.User>(
       config.userStorage
     );
+    const orderStorage = await storageClient.getStorage<Projects.Hami.Order>(
+      config.orderStorage
+    );
 
     for await (const customerId of Object.keys(customerStorage.data)) {
       const customer = customerStorage.data[customerId];
       const creator = userStorage.data[customer.creatorId];
-      const customerOrderStorage = await storageClient.getStorage<Projects.Hami.Order>(
-        config.orderStoragePrefix + creator.id
-      );
-      const orderList = Object.values(customerOrderStorage.data).filter(
+      const orderList = Object.values(orderStorage.data).filter(
         (order) => order.customerId === customerId
       );
       const customerProjectStorage =

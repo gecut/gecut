@@ -8,16 +8,14 @@ import { requireSignedIn } from '../util/require-signed-in';
 nanoServer.route('PUT', '/order/', async (connection) => {
   logger.logMethod('put-order');
 
-  const user = await requireSignedIn(connection);
-
-  const creatorId = user.id;
+  await requireSignedIn(connection);
 
   const bodyJson = await connection.requireJsonBody<
     Partial<Projects.Hami.Order>
   >();
   const order = Projects.Hami.orderRequire(bodyJson);
 
-  await storageClient.set(order, config.orderStoragePrefix + creatorId);
+  await storageClient.set(order, config.orderStorage);
 
   return {
     ok: true,
