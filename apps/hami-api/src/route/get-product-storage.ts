@@ -5,7 +5,7 @@ import { requireSignedIn } from '../util/require-signed-in';
 
 import type { Projects } from '@gecut/types';
 
-nanoServer.route('GET', '/product-storage/', async (connection) => {
+nanoServer.route('GET', '/product-storage/', async (connection):Promise<Projects.Hami.Routes['product-storage']> => {
   logger.logMethod('get-product-storage');
 
   await requireSignedIn(connection);
