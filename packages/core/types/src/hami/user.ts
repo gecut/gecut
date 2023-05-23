@@ -28,6 +28,7 @@ export interface User extends AlwatrDocumentObjectActive {
 
 export type SignInRequest = Pick<User, 'phoneNumber' | 'password'>;
 export type SignInResponse = User & { token: string };
+export type UserResponse = Omit<User, 'password'>;
 
 /**
  * This is a TypeScript function that takes in a partial user object and returns a complete user object
@@ -38,10 +39,10 @@ export type SignInResponse = User & { token: string };
  */
 export const userRequire = (user: Partial<User>): User => ({
   id: 'auto_increment',
-  firstName: '',
-  lastName: '',
-  phoneNumber: '',
-  password: '',
+  firstName: 'no-first-name',
+  lastName: 'no-last-name',
+  phoneNumber: 'no-phone-number',
+  password: 'no-password',
   score: 0,
   role: 'seller',
   active: true,

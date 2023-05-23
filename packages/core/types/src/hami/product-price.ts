@@ -11,7 +11,7 @@ export const productPriceRequire: RequireFunc<ProductPrice> = (
   productPrice: Partial<ProductPrice>
 ): ProductPrice => ({
   id: 'auto_increment',
-  name: '',
+  name: 'no-name',
   minPrice: 0,
   normalPrice: 0,
   active: true,
