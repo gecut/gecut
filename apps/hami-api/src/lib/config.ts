@@ -28,13 +28,17 @@ export const config = {
     keepAliveTimeout: 30_000,
     healthRoute: true,
   },
-  customerStorage: 'customer-storage',
-  notificationStorage: 'notification-storage',
-  orderStorage: 'order-storage',
-  productPriceStorage: 'product-price-storage',
-  productStorage: 'product-storage',
-  supplierStorage: 'supplier-storage',
-  userStorage: 'user-storage',
+
+  userStorage: 'hami/private/user-storage',
+
+  customerStorage: 'hami/public/customer-storage',
+  customerProjectStoragePrefix: 'hami/public/project-storage/customer-',
+  notificationStorage: 'hami/public/notification-storage',
+  productPriceStorage: 'hami/public/product-price-storage',
+  productStorage: 'hami/public/product-storage',
+  supplierStorage: 'hami/public/supplier-storage',
+
+  orderStoragePrefix: 'hami/public/order-storage/user-',
 } as const;
 
 logger.logProperty('config', config);
