@@ -5,8 +5,8 @@ import { requireSignedIn } from '../util/require-signed-in';
 
 import type { Projects } from '@gecut/types';
 
-nanoServer.route('GET', '/supplier-list/', async (connection) => {
-  logger.logMethod('get-supplier-list');
+nanoServer.route('GET', '/supplier-storage/', async (connection) => {
+  logger.logMethod('get-supplier-storage');
 
   await requireSignedIn(connection);
 
