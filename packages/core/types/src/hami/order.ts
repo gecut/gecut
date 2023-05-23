@@ -11,6 +11,7 @@ export const orderStatusList = [
 ] as const;
 
 export interface Order extends AlwatrDocumentObjectActive {
+  creatorId: string;
   customerId: string;
   customerProjectId: string;
   registrationDate: number;
@@ -32,8 +33,9 @@ export const orderRequire: RequireFunc<Order> = (
   order: Partial<Order>
 ): Order => ({
   id: 'auto_increment',
-  customerId: '',
-  customerProjectId: '',
+  creatorId: 'no-creator-id',
+  customerId: 'no-customer-id',
+  customerProjectId: 'no-customer-project-id',
   evacuationDate: 0,
   registrationDate: 0,
   productList: [],
