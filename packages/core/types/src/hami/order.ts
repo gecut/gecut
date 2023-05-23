@@ -1,6 +1,15 @@
+import type { CustomerProject } from './customer-project.js';
+import type { Customer } from './customer.js';
 import type { AlwatrDocumentObjectActive } from './document-object-active.js';
 import type { RequireFunc } from './require-functions.js';
+import type { User } from './user.js';
 import type { ArrayValues, StringifyableRecord } from '../type-helper.js';
+
+export interface OrderModel extends Order {
+  creator: User;
+  customer: Customer;
+  customerProject: CustomerProject;
+}
 
 export const orderStatusList = [
   'canceled',
