@@ -6,7 +6,7 @@ import { storageClient } from '../lib/storage';
 import { requireAdmin } from '../util/require-admin';
 
 nanoServer.route('PATCH', '/supplier-storage/', async (connection) => {
-  logger.logMethod('patch-supplier-storage');
+  logger.logMethod?.('patch-supplier-storage');
 
   await requireAdmin(connection);
 

@@ -1,5 +1,5 @@
 {
-  "name": "services-storage-server",
+  "name": "storage-server",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/services/storage-server/src",
   "projectType": "application",
@@ -60,7 +60,7 @@
     },
     "docker-build": {
       "dependsOn": ["build"],
-      "command": "docker build -f apps/services/storage-server/Dockerfile . -t services--storage-server"
+      "command": "docker build --build-arg PACKAGE_SOURCE=dist/apps/services/storage-server -f cloud/api/Dockerfile . -t storage-server"
     }
   },
   "tags": []

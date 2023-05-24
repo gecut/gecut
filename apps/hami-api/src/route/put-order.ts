@@ -6,7 +6,7 @@ import { storageClient } from '../lib/storage';
 import { requireSignedIn } from '../util/require-signed-in';
 
 nanoServer.route('PUT', '/order/', async (connection) => {
-  logger.logMethod('put-order');
+  logger.logMethod?.('put-order');
 
   await requireSignedIn(connection);
 

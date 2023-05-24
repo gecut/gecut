@@ -9,7 +9,7 @@ nanoServer.route(
   'POST',
   '/sign-in/',
   async (connection): Promise<Projects.Hami.Routes['sign-in']> => {
-    logger.logMethod('user-sign-in');
+    logger.logMethod?.('user-sign-in');
 
     const bodyJson = await connection.requireJsonBody<{
       data: Projects.Hami.SignInRequest;

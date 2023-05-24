@@ -8,7 +8,7 @@ import type { Projects } from '@gecut/types';
 export const requireAdmin = async (
   connection: AlwatrConnection
 ): Promise<Projects.Hami.User> => {
-  logger.logMethod('require-admin');
+  logger.logMethod?.('require-admin');
 
   const user = await requireSignedIn(connection);
 

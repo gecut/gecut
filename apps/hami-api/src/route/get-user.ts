@@ -9,7 +9,7 @@ nanoServer.route(
   'GET',
   '/user/',
   async (connection): Promise<Projects.Hami.Routes['user']> => {
-    logger.logMethod('get-user');
+    logger.logMethod?.('get-user');
 
     const user = await requireSignedIn(connection);
 

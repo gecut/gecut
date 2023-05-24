@@ -13,7 +13,7 @@ nanoServer.route('GET', '/', getDocument);
 function getDocument(
   connection: AlwatrConnection
 ): AlwatrServiceResponse<StringifyableRecord, StringifyableRecord> {
-  logger.logMethod('getDocument');
+  logger.logMethod?.('getDocument');
 
   if (!connection.url.search) {
     return {

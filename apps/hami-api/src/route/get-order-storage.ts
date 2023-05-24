@@ -9,7 +9,7 @@ nanoServer.route(
   'GET',
   '/order-storage/',
   async (connection): Promise<Projects.Hami.Routes['order-storage']> => {
-    logger.logMethod('get-order-storage');
+    logger.logMethod?.('get-order-storage');
 
     const user = await requireSignedIn(connection);
     const orderStorage =

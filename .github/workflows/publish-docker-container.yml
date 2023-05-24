@@ -34,10 +34,20 @@ jobs:
             source: dist/apps/hami-pwa
             dockerfile: cloud/pwa/Dockerfile
             description: Hami Project Progressive Web Application
+          - image: hami-api
+            source: dist/apps/hami-api
+            dockerfile: cloud/api/Dockerfile
+            description: Hami Project API Server
+
           - image: survey-pwa
             source: dist/apps/survey-pwa
             dockerfile: cloud/pwa/Dockerfile
             description: Survey Progressive Web Application
+
+          - image: storage-server
+            source: dist/apps/services/storage-server
+            dockerfile: cloud/api/Dockerfile
+            description: Storage Server Micro-service
 
     permissions:
       contents: read
@@ -59,7 +69,7 @@ jobs:
       - name: 🏗 Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: 🚀 Build All Projects
+      - name: 🚀 Build `${{ matrix.image }}` Projects
         run: yarn nx run ${{ matrix.image }}:build
 
       - name: 🏗 Setup Docker Buildx

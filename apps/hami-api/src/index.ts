@@ -17,4 +17,4 @@ import './route/patch-supplier-storage';
 import './route/patch-user-storage';
 import './route/put-order';
 
-logger.logOther('..:: Gecut Hami API ::..');
+logger.logOther?.('..:: Gecut Hami API ::..');
