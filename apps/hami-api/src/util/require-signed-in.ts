@@ -15,7 +15,7 @@ import type { Projects } from '@gecut/types';
 export const requireSignedIn = async (
   connection: AlwatrConnection
 ): Promise<Projects.Hami.User> => {
-  logger.logMethod('require-signed-in');
+  logger.logMethod?.('require-signed-in');
 
   const params = connection.requireQueryParams<{ uid: string }>({
     uid: 'string',

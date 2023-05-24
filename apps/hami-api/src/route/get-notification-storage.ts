@@ -9,7 +9,7 @@ nanoServer.route(
   'GET',
   '/notification-storage/',
   async (connection): Promise<Projects.Hami.Routes['notification-storage']> => {
-    logger.logMethod('get-notification-storage');
+    logger.logMethod?.('get-notification-storage');
 
     await requireSignedIn(connection);
 

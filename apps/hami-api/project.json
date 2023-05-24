@@ -54,7 +54,7 @@
     },
     "docker-build": {
       "dependsOn": ["build"],
-      "command": "docker build -f apps/hami-api/Dockerfile . -t hami-api"
+      "command": "docker build --build-arg PACKAGE_SOURCE=dist/apps/hami-api -f cloud/api/Dockerfile . -t hami-api"
     }
   },
   "tags": []

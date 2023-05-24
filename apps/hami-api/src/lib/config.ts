@@ -38,4 +38,4 @@ export const config = {
   orderStorage: 'hami/public/order-storage',
 } as const;
 
-logger.logProperty('config', config);
+logger.logProperty?.('config', config);

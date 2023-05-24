@@ -11,7 +11,7 @@ nanoServer.route(
   async (
     connection
   ): Promise<Projects.Hami.Routes['product-price-storage']> => {
-    logger.logMethod('get-product-price-storage');
+    logger.logMethod?.('get-product-price-storage');
 
     await requireSignedIn(connection);
 

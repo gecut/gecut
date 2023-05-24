@@ -9,7 +9,7 @@ nanoServer.route(
   'GET',
   '/user-storage/',
   async (connection): Promise<Projects.Hami.Routes['user-storage']> => {
-    logger.logMethod('get-user-storage');
+    logger.logMethod?.('get-user-storage');
 
     await requireAdmin(connection);
 
