@@ -5,7 +5,7 @@
 
 
 ### PATCH Users Demo
-PATCH {{apiUrl}}/user-list/
+PATCH {{apiUrl}}/user-storage/
 Authorization: Bearer {{adminToken}}
 Content-Type: application/json
 
