@@ -12,31 +12,35 @@ import type {
 export function renderTextField(
   content: TextFieldContent
 ): TextFieldRendererReturn {
-  const textField = createElementByContent(`md-${content.type}-text-field`, content, [
-    'name',
-    'label',
-    'placeholder',
-    'supportingText',
-    'textDirection',
-    'value',
-    'defaultValue',
-    'role',
-    'required',
-    'pattern',
-    'errorText',
-    'error',
-    'prefixText',
-    'suffixText',
-    'max',
-    'maxLength',
-    'min',
-    'minLength',
-    'step',
-    'disabled',
-    'readOnly',
-    'hasLeadingIcon',
-    'hasTrailingIcon',
-  ]);
+  const textField = createElementByContent(
+    `md-${content.type}-text-field`,
+    content,
+    [
+      'name',
+      'label',
+      'placeholder',
+      'supportingText',
+      'textDirection',
+      'value',
+      'defaultValue',
+      'role',
+      'required',
+      'pattern',
+      'errorText',
+      'error',
+      'prefixText',
+      'suffixText',
+      'max',
+      'maxLength',
+      'min',
+      'minLength',
+      'step',
+      'disabled',
+      'readOnly',
+      'hasLeadingIcon',
+      'hasTrailingIcon',
+    ]
+  );
 
   textField.type = content.inputType;
 
