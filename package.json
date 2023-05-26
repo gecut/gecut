@@ -53,6 +53,7 @@
     "unplugin-fonts": "1.0.3",
     "unplugin-icons": "0.16.1",
     "vite": "^4.0.1",
+    "vite-imagetools": "5.0.4",
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-pwa": "0.14.7",
     "vite-tsconfig-paths": "^4.0.2"
