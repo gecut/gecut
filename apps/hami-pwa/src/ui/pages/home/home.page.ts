@@ -1,7 +1,13 @@
+import { requireSignIn } from '#hami/controllers/require-sign-in';
+import '#hami/ui/components/product-price-card/product-price-card';
+import i18n from '#hami/ui/i18n';
+import { urlForName } from '#hami/ui/router';
+import elementStyle from '#hami/ui/stylesheets/element.scss?inline';
+import pageStyle from '#hami/ui/stylesheets/page.scss?inline';
+
 import { scheduleSignalElement } from '@gecut/mixins';
 import { dispatch, getValue, request } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
-import '@lit-labs/virtualizer';
 import { flow } from '@lit-labs/virtualizer/layouts/flow.js';
 import { virtualize } from '@lit-labs/virtualizer/virtualize.js';
 import { html, nothing, unsafeCSS } from 'lit';
@@ -11,13 +17,6 @@ import IconErrorOutlineRounded from 'virtual:icons/material-symbols/error-outlin
 import IconSearchOutlineRounded from 'virtual:icons/material-symbols/search-rounded';
 import IconStarOutlineRounded from 'virtual:icons/material-symbols/star-outline-rounded';
 import IconWarningOutlineRounded from 'virtual:icons/material-symbols/warning-outline-rounded';
-
-import { requireSignIn } from '../../../controllers/require-sign-in';
-import '../../components/product-price-card/product-price-card';
-import i18n from '../../i18n';
-import { urlForName } from '../../router';
-import elementStyle from '../../stylesheets/element.scss?inline';
-import pageStyle from '../../stylesheets/page.scss?inline';
 
 import styles from './home.page.scss?inline';
 

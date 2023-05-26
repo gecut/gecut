@@ -1,7 +1,7 @@
+import config from '#hami/config';
+
 import { request } from '@gecut/signal';
 import ky from 'ky';
-
-import config from '../config';
 
 import type { AlwatrServiceResponseFailed } from '@alwatr/type';
 

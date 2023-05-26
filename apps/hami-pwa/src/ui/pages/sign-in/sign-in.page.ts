@@ -1,4 +1,11 @@
-import '@gecut/form-builder';
+import { requireSignIn } from '#hami/controllers/require-sign-in';
+import gecutLogo from '#hami/ui/assets/gecut-logo.png?inline';
+import hamiLogo from '#hami/ui/assets/hami-logo.png?inline';
+import i18n from '#hami/ui/i18n';
+import { routerGo, urlForName } from '#hami/ui/router';
+import elementStyle from '#hami/ui/stylesheets/element.scss?inline';
+import pageStyle from '#hami/ui/stylesheets/page.scss?inline';
+
 import { loggerElement } from '@gecut/mixins';
 import { dispatch, request } from '@gecut/signal';
 import { html, unsafeCSS } from 'lit';
@@ -6,14 +13,6 @@ import { customElement } from 'lit/decorators.js';
 import IconCallOutlineRounded from 'virtual:icons/material-symbols/call-outline-rounded';
 import IconPasswordOutline from 'virtual:icons/material-symbols/lock-outline';
 import IconLoginOutlineRounded from 'virtual:icons/material-symbols/login-rounded';
-
-import { requireSignIn } from '../../../controllers/require-sign-in';
-import gecutLogo from '../../assets/gecut-logo.png?inline';
-import hamiLogo from '../../assets/hami-logo.png?inline';
-import i18n from '../../i18n';
-import { routerGo, urlForName } from '../../router';
-import elementStyle from '../../stylesheets/element.scss?inline';
-import pageStyle from '../../stylesheets/page.scss?inline';
 
 import styles from './sign-in.page.scss?inline';
 
