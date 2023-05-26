@@ -43,7 +43,7 @@ nanoServer.route(
         ...customer,
       };
 
-      customerStorage[customerId] = customerModel;
+      customerStorage.data[customerId] = customerModel;
     }
 
     return customerStorage as AlwatrDocumentStorage<Projects.Hami.CustomerModel>;
