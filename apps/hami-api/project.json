@@ -35,12 +35,18 @@
     },
     "serve": {
       "executor": "nx:run-commands",
-      "options": {
-        "commands": [
-          "nx run hami-api:build --watch",
-          "nodemon dist/apps/hami-api/index.mjs"
-        ],
-        "parallel": true
+      "defaultConfiguration": "development",
+      "configurations": {
+        "development": {
+          "commands": [
+            "nx run hami-api:build --watch",
+            "nodemon dist/apps/hami-api/index.mjs"
+          ],
+          "parallel": true
+        },
+        "production": {
+          "command": "NODE_OPTIONS=--enable-source-maps NODE_ENV=production ALWATR_DEBUG=1 node dist/apps/hami-api/index.mjs"
+        }
       },
       "dependsOn": ["build"]
     },
