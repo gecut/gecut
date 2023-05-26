@@ -1,11 +1,11 @@
-import type { CustomConfigFunction, SlotsComponentsContent } from '../types';
+import type { CustomConfigFunction, AllComponentsContent } from '../types';
 
 export interface BaseContent<
   TCustomConfig extends HTMLElement,
   TSlotList = string
 > {
   slot?: string;
-  slotList?: (SlotsComponentsContent & { slot?: TSlotList })[];
+  slotList?: (AllComponentsContent & { slot?: TSlotList })[];
   classes?: string[];
   customConfig?: CustomConfigFunction<TCustomConfig>;
 }
