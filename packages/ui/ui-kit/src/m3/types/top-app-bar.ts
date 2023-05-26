@@ -1,4 +1,4 @@
-import type { SlotsComponentsContent } from './types';
+import type { AllComponentsContent } from './types';
 
 export type TopAppBarContent = {
   component: 'top-app-bar';
@@ -7,9 +7,9 @@ export type TopAppBarContent = {
 
   headline: string;
 
-  leadingSlot?: SlotsComponentsContent;
+  leadingSlot?: AllComponentsContent;
 
-  trailingSlotList?: SlotsComponentsContent[];
+  trailingSlotList?: AllComponentsContent[];
 
   mode?: 'flat' | 'on-scroll';
 };

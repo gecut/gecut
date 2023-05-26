@@ -9,7 +9,7 @@ import { when } from 'lit/directives/when.js';
 import { renderer } from '../renderers/renderers';
 import { TopAppBarContent } from '../types/top-app-bar';
 
-import type { SlotsComponentsContent } from '../types/types';
+import type { AllComponentsContent } from '../types/types';
 import type { RenderResult } from '@gecut/types';
 
 declare global {
@@ -149,7 +149,7 @@ export class TopAppBar extends loggerElement {
       <div class="row">
         <div class="leading-icon">
           ${when(this.content != null && this.content.leadingSlot != null, () =>
-    renderer(this.content?.leadingSlot as SlotsComponentsContent)
+    renderer(this.content?.leadingSlot as AllComponentsContent)
   )}
         </div>
 
