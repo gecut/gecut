@@ -28,7 +28,17 @@ export interface User extends AlwatrDocumentObjectActive {
 
 export type SignInRequest = Pick<User, 'phoneNumber' | 'password'>;
 export type SignInResponse = User & { token: string };
-export type UserResponse = Omit<User, 'password'>;
+// everything without `password`
+export type UserResponse = Pick<
+  User,
+  | 'firstName'
+  | 'lastName'
+  | 'phoneNumber'
+  | 'score'
+  | 'role'
+  | 'gender'
+  | 'email'
+>;
 
 /**
  * This is a TypeScript function that takes in a partial user object and returns a complete user object

@@ -11,7 +11,7 @@ export interface DialogContent
   /**
    * Opens the dialog when set to `true` and closes it when set to `false`.
    */
-  open: boolean;
+  open?: boolean;
   /**
    * Setting fullscreen displays the dialog fullscreen on small screens.
    * This can be customized via the `fullscreenBreakpoint` property.
@@ -29,7 +29,7 @@ export interface DialogContent
    * These are typically configured via media queries and are independent of the
    * fullscreen setting.
    */
-  fullscreen: boolean;
+  fullscreen?: boolean;
   /**
    * A media query string specifying the breakpoint at which the dialog
    * should be shown fullscreen. Note, this only applies when the `fullscreen`
@@ -38,17 +38,17 @@ export interface DialogContent
    * By default, the dialog is shown fullscreen on screens less than 600px wide
    * or 400px tall.
    */
-  fullscreenBreakpoint: string;
+  fullscreenBreakpoint?: string;
   /**
    * Hides the dialog footer, making any content slotted into the footer
    * inaccessible.
    */
-  footerHidden: boolean;
+  footerHidden?: boolean;
   /**
    * Renders footer content in a vertically stacked alignment rather than the
    * normal horizontal alignment.
    */
-  stacked: boolean;
+  stacked?: boolean;
   /**
    * When the dialog is closed it dispatches `closing` and `closed` events.
    * These events have an action property which has a default value of
@@ -59,7 +59,7 @@ export interface DialogContent
    *
    * Defaults to `close`.
    */
-  defaultAction: string;
+  defaultAction?: string;
   /**
    * The name of an attribute which can be placed on any element slotted into
    * the dialog. If an element has an action attribute set, clicking it will
@@ -74,7 +74,7 @@ export interface DialogContent
    *     </md-filled-button>
    *   </md-dialog>
    */
-  actionAttribute: string;
+  actionAttribute?: string;
   /**
    * When the dialog is opened, it will focus the first element which has
    * an attribute name matching this property. The default value is
@@ -88,27 +88,27 @@ export interface DialogContent
    *    </md-filled-text-field>
    *  </md-dialog>
    */
-  focusAttribute: string;
+  focusAttribute?: string;
   /**
    * Clicking on the scrim surrounding the dialog closes the dialog.
    * The `closing` and `closed` events this produces have an `action` property
    * which is the value of this property and defaults to `close`.
    */
-  scrimClickAction: string;
+  scrimClickAction?: string;
   /**
    * Pressing the `escape` key while the dialog is open closes the dialog.
    * The `closing` and `closed` events this produces have an `action` property
    * which is the value of this property and defaults to `close`.
    */
-  escapeKeyAction: string;
+  escapeKeyAction?: string;
   /**
    * When opened, the dialog is displayed modeless or non-modal. This
    * allows users to interact with content outside the dialog without
    * closing the dialog and does not display the scrim around the dialog.
    */
-  modeless: boolean;
+  modeless?: boolean;
   /**
    * Set to make the dialog position draggable.
    */
-  draggable: boolean;
+  draggable?: boolean;
 }

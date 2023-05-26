@@ -74,7 +74,7 @@ export class SnackBar extends loggerElement {
 
       :host([closing]) {
         opacity: 0;
-        transform: translateY(-150%) scale(.9);
+        transform: translateY(-150%) scale(0.9);
         transform-timing-function: cubic-bezier(0.46, 0.03, 0.52, 0.96);
       }
 

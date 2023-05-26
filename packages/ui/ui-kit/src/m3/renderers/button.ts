@@ -18,7 +18,7 @@ export function renderButton(content: ButtonContent): ButtonRendererReturn {
     'preventClickDefault',
   ]);
 
-  button.append(content.label)
+  button.append(content.label);
 
   return button;
 }

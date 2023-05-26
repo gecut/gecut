@@ -83,9 +83,21 @@
               "order": "asc",
               "caseInsensitive": false
             },
+            "pathGroups": [
+              {
+                "pattern": "#hami/**",
+                "group": "builtin",
+                "position": "before"
+              },
+              {
+                "pattern": "virtual:icons/**",
+                "group": "internal",
+                "position": "after"
+              }
+            ],
             "warnOnUnassignedImports": true,
             "newlines-between": "always",
-            "distinctGroup": true
+            "distinctGroup": false
           }
         ],
         "import/no-unresolved": "off",
