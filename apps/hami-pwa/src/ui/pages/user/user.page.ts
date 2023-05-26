@@ -1,3 +1,10 @@
+import { requireSignIn } from '#hami/controllers/require-sign-in';
+import '#hami/ui/components/surface-card/surface-card';
+import i18n from '#hami/ui/i18n';
+import { urlForName } from '#hami/ui/router';
+import elementStyle from '#hami/ui/stylesheets/element.scss?inline';
+import pageStyle from '#hami/ui/stylesheets/page.scss?inline';
+
 import { scheduleSignalElement } from '@gecut/mixins';
 import { dispatch } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
@@ -9,13 +16,6 @@ import IconAwardStarRounded from 'virtual:icons/material-symbols/award-star-roun
 import IconCallOutlineRounded from 'virtual:icons/material-symbols/call-outline-rounded';
 import IconLockOutline from 'virtual:icons/material-symbols/lock-outline';
 import IconPersonOutlineRounded from 'virtual:icons/material-symbols/person-outline-rounded';
-
-import { requireSignIn } from '../../../controllers/require-sign-in';
-import '../../components/surface-card/surface-card';
-import i18n from '../../i18n';
-import { urlForName } from '../../router';
-import elementStyle from '../../stylesheets/element.scss?inline';
-import pageStyle from '../../stylesheets/page.scss?inline';
 
 import styles from './user.page.scss?inline';
 

@@ -1,4 +1,4 @@
-import { routerGo } from '../ui/router';
+import { routerGo } from '#hami/ui/router';
 
 import { isSignIn } from './is-sign-in';
 
