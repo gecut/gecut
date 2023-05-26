@@ -1,7 +1,6 @@
 import type { AlwatrDocumentObjectActive } from './document-object-active.js';
 import type { RequireFunc } from './require-functions.js';
 
-
 export interface Product extends AlwatrDocumentObjectActive {
   code: string;
   name: string;

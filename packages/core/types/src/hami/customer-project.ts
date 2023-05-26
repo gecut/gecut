@@ -1,4 +1,4 @@
-import type { AlwatrDocumentObjectActive } from "./document-object-active";
+import type { AlwatrDocumentObjectActive } from './document-object-active';
 
 export interface CustomerProject extends AlwatrDocumentObjectActive {
   id: string;
