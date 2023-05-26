@@ -16,6 +16,9 @@
 
   --md-sys-color-surface-container: var(--md-ref-palette-neutral95);
   --md-sys-color-surface-container-low: var(--md-ref-palette-neutral-variant98);
+  --md-sys-color-surface-container-high: var(
+    --md-ref-palette-neutral-variant98
+  );
   --md-sys-color-surface-container-highest: var(
     --md-ref-palette-neutral-variant95
   );
@@ -33,6 +36,9 @@
     --md-sys-color-success: #43c739;
 
     --md-sys-color-surface-container: var(--md-ref-palette-neutral-variant20);
+    --md-sys-color-surface-container-high: var(
+      --md-ref-palette-neutral-variant20
+    );
     --md-sys-color-surface-container-highest: var(
       --md-ref-palette-neutral-variant20
     );
