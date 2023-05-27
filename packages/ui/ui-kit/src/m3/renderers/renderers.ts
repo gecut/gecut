@@ -1,6 +1,8 @@
 import { renderButton } from './button';
 import { renderCircularProgress } from './circular-progress';
 import { renderDialog } from './dialog';
+import { renderDivider } from './divider';
+import { renderDivision } from './division';
 import { renderIcon } from './icon';
 import { renderIconButton } from './icon-button';
 import { renderList } from './list';
@@ -13,13 +15,16 @@ import type { AllComponentsContent } from '../types/types';
 
 export * from './button';
 export * from './circular-progress';
-export * from './icon';
-export * from './icon-button';
-export * from './list';
-export * from './list-item';
-export * from './text-field';
-export * from './snack-bar';
 export * from './dialog';
+export * from './divider';
+export * from './division';
+export * from './icon-button';
+export * from './icon';
+export * from './list-item';
+export * from './list';
+export * from './snack-bar';
+export * from './surface-card';
+export * from './text-field';
 
 export function renderer(content: AllComponentsContent) {
   switch (content.component) {
@@ -29,6 +34,10 @@ export function renderer(content: AllComponentsContent) {
     return renderCircularProgress(content);
   case 'dialog':
     return renderDialog(content);
+  case 'divider':
+    return renderDivider(content);
+  case 'division':
+    return renderDivision(content);
   case 'icon-button':
     return renderIconButton(content);
   case 'icon':

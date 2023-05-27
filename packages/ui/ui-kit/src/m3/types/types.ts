@@ -1,6 +1,8 @@
 import type { ButtonContent } from './button';
 import type { CircularProgressContent } from './circular-progress';
 import type { DialogContent } from './dialog';
+import type { DividerContent } from './divider';
+import type { DivisionContent } from './division';
 import type { IconContent } from './icon';
 import type { IconButtonContent } from './icon-button';
 import type { ListContent } from './list';
@@ -13,6 +15,8 @@ export type * from './base/custom-config-function';
 export type * from './button';
 export type * from './circular-progress';
 export type * from './dialog';
+export type * from './divider';
+export type * from './division';
 export type * from './icon-button';
 export type * from './icon';
 export type * from './list-item';
@@ -25,12 +29,14 @@ export type * from './top-app-bar';
 
 export type AllComponentsContent =
   | ButtonContent
-  | IconContent
-  | IconButtonContent
   | CircularProgressContent
-  | ListItemContent
-  | ListContent
   | DialogContent
-  | TextFieldContent
+  | DividerContent
+  | DivisionContent
+  | IconButtonContent
+  | IconContent
+  | ListContent
+  | ListItemContent
   | SnackBarContent
-  | SurfaceCardContent;
+  | SurfaceCardContent
+  | TextFieldContent;
