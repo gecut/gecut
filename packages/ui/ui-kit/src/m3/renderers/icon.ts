@@ -8,6 +8,13 @@ type renderIconReturnType = MdIcon;
 export function renderIcon(content: IconContent): renderIconReturnType {
   const icon = createElementByContent('md-icon', content, []);
 
+  if (icon.slot === 'start') {
+    icon.style.setProperty(
+      'margin-inline-start',
+      'calc(2 * var(--sys-spacing-track, 8px))'
+    );
+  }
+
   icon.innerHTML = content.SVG;
 
   return icon;

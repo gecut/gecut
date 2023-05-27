@@ -18,6 +18,8 @@ export function createElementByContent<
     }
   }
 
+  element.hidden = content.hidden === true;
+
   if (content.customConfig != null) {
     element = content.customConfig(element);
   }

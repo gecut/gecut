@@ -15,11 +15,22 @@ declare global {
 export class SurfaceCard extends loggerElement {
   static override styles = css`
     :host {
+      --md-elevation-level: 0;
+
       display: flex;
       flex-direction: column;
+      border-radius: var(--sys-radius-medium, 16px);
+      position: relative;
+    }
+
+    .slots {
+      border-radius: inherit;
+      overflow: hidden;
     }
 
     :host([type='elevated']) {
+      --md-elevation-level: 1;
+
       background: var(
         --md-sys-color-surface-container-low,
         var(--md-sys-color-surface-container, #f0f1ec)
