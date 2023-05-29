@@ -20,11 +20,13 @@
   "cSpell.words": [
     "alertdialog",
     "Alwatr",
+    "circularprogress",
     "fontsource",
     "gecut",
     "hami",
     "iconbutton",
     "iconify",
+    "modeless",
     "nrwl",
     "Roboto",
     "tslog",
@@ -32,6 +34,7 @@
     "Unfonts",
     "unkown",
     "unplugin",
+    "vaadin",
     "Vazirmatn",
     "zamanian"
   ],
@@ -44,5 +47,8 @@
   },
   "[nginx]": {
     "editor.defaultFormatter": "raynigon.nginx-formatter"
-  }
+  },
+  "githubPullRequests.ignoredPullRequestBranches": [
+    "next"
+  ]
 }
