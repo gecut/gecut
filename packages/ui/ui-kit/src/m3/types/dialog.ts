@@ -12,6 +12,20 @@ export interface DialogContent
    * Opens the dialog when set to `true` and closes it when set to `false`.
    */
   open?: boolean;
+
+  /**
+   * Transition kind. Supported options include: grow, shrink, grow-down,
+   * grow-up, grow-left, and grow-right.
+   *
+   * Defaults to grow-down.
+   */
+  transition?:
+    | 'grow'
+    | 'shrink'
+    | 'grow-down'
+    | 'grow-up'
+    | 'grow-left'
+    | 'grow-right';
   /**
    * Setting fullscreen displays the dialog fullscreen on small screens.
    * This can be customized via the `fullscreenBreakpoint` property.
