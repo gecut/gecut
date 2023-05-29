@@ -1795,7 +1795,7 @@
   dependencies:
     "@nx/js" "16.1.0"
 
-"@nrwl/js@16.1.4", "@nrwl/js@^16.1.0":
+"@nrwl/js@16.1.4":
   version "16.1.4"
   resolved "https://registry.yarnpkg.com/@nrwl/js/-/js-16.1.4.tgz#56ce4b21961ee85763bcc9e2918023ab2b1cc35d"
   integrity sha512-U5R61b4CBo65xt2pOGYz0POZ4Xqq5vifdKzzrD/vYycak28tTHlhAkZLexXhzLJiUJh94Dack0Osb+FuZmbYWQ==
@@ -1809,7 +1809,7 @@
   dependencies:
     "@nx/js" "16.2.1"
 
-"@nrwl/js@16.2.2":
+"@nrwl/js@16.2.2", "@nrwl/js@^16.1.0":
   version "16.2.2"
   resolved "https://registry.yarnpkg.com/@nrwl/js/-/js-16.2.2.tgz#3eab7f81ae230dc0d511a1a84bf3127465c768ac"
   integrity sha512-UBcrwd+84EkZxi5YWRlvhz2+Sg7Nsl3CopwnO5JpxU0oGySZnpvN6umI9aHuBJ4yh1dkyqvaXJuAX3slT1pjvw==
