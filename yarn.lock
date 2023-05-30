@@ -1685,11 +1685,11 @@
     "@lit-labs/ssr-dom-shim" "^1.1.2-pre.0"
 
 "@material/web@^1.0.0-pre.6":
-  version "1.0.0-pre.8"
-  resolved "https://registry.yarnpkg.com/@material/web/-/web-1.0.0-pre.8.tgz#f158dd58a0c0ce6f65791de5d477ecc6ccfa62bd"
-  integrity sha512-CafOQw/C23SP1DlJVYDbs2Cm9Ct4QV7RxjxMBiWhaqlhqfDyXVpnZnKlTVzD5dVDKZyUu3vHsWK7Y/N8P66DYQ==
+  version "1.0.0-pre.9"
+  resolved "https://registry.yarnpkg.com/@material/web/-/web-1.0.0-pre.9.tgz#5b8b96c4015897f7af1c3c4e47b934416c8696b1"
+  integrity sha512-rq2TBVp3yc3YEptyIIbBtemjPuP9eyvi6p1ASAD/oFSguENQ1ZPNv9SMq1uA4ZJf+bH4kxh6ir3qyxV6AAh0PQ==
   dependencies:
-    lit "^2.3.0"
+    lit "^2.7.4"
     safevalues "^0.4.3"
     tslib "^2.4.0"
 
@@ -6093,7 +6093,7 @@ lit-html@^3.0.0-pre.0:
   dependencies:
     "@types/trusted-types" "^2.0.2"
 
-lit@2.7.4, lit@^2.3.0, lit@^2.7.0:
+lit@2.7.4, lit@^2.7.0, lit@^2.7.4:
   version "2.7.4"
   resolved "https://registry.yarnpkg.com/lit/-/lit-2.7.4.tgz#ca63d27fda178dbffae0faf2c882b9910e40842c"
   integrity sha512-cgD7xrZoYr21mbrkZIuIrj98YTMw/snJPg52deWVV4A8icLyNHI3bF70xsJeAgwTuiq5Kkd+ZR8gybSJDCPB7g==
