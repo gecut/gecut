@@ -3,6 +3,7 @@ import type { CircularProgressContent } from './circular-progress';
 import type { DialogContent } from './dialog';
 import type { DividerContent } from './divider';
 import type { DivisionContent } from './division';
+import type { FormBuilderContent } from './form-builder';
 import type { IconContent } from './icon';
 import type { IconButtonContent } from './icon-button';
 import type { ListContent } from './list';
@@ -26,6 +27,7 @@ export type * from './snack-bar';
 export type * from './surface-card';
 export type * from './text-field';
 export type * from './top-app-bar';
+export type * from './form-builder';
 
 export type AllComponentsContent =
   | ButtonContent
@@ -39,4 +41,5 @@ export type AllComponentsContent =
   | ListItemContent
   | SnackBarContent
   | SurfaceCardContent
-  | TextFieldContent;
+  | TextFieldContent
+  | FormBuilderContent;

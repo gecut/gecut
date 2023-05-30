@@ -3,6 +3,7 @@ import { renderCircularProgress } from './circular-progress';
 import { renderDialog } from './dialog';
 import { renderDivider } from './divider';
 import { renderDivision } from './division';
+import { renderFormBuilder } from './form-builder';
 import { renderIcon } from './icon';
 import { renderIconButton } from './icon-button';
 import { renderList } from './list';
@@ -25,6 +26,7 @@ export * from './list';
 export * from './snack-bar';
 export * from './surface-card';
 export * from './text-field';
+export * from './form-builder';
 
 export function renderer(content: AllComponentsContent) {
   switch (content.component) {
@@ -42,6 +44,8 @@ export function renderer(content: AllComponentsContent) {
     return renderIconButton(content);
   case 'icon':
     return renderIcon(content);
+  case 'form-builder':
+    return renderFormBuilder(content);
   case 'list-item':
     return renderListItem(content);
   case 'list':
