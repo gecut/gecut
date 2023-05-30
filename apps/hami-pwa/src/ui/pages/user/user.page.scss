@@ -22,8 +22,8 @@
 }
 
 md-list {
-  md-icon {
-    margin-inline-start: calc(2 * var(--sys-spacing-track));
+  md-list-item {
+    display: block;
   }
 }
 
@@ -36,4 +36,5 @@ md-list {
   flex-direction: column;
   gap: calc(1.5 * var(--sys-spacing-track));
   padding: calc(1.5 * var(--sys-spacing-track));
+  padding-bottom: calc(.5 * var(--sys-spacing-track));
 }

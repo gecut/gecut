@@ -1,5 +1,4 @@
 import { requireSignIn } from '#hami/controllers/require-sign-in';
-import '#hami/ui/components/surface-card/surface-card';
 import i18n from '#hami/ui/i18n';
 import { urlForName } from '#hami/ui/router';
 import elementStyle from '#hami/ui/stylesheets/element.scss?inline';
@@ -62,129 +61,134 @@ export class PageUser extends scheduleSignalElement {
   private renderUserInformationCard(): RenderResult {
     if (this.user == null) return nothing;
 
-    const userInformationListTemplate = [
-      M3.Renderers.renderListItem({
-        component: 'list-item',
-        type: 'list-item',
-        headline: [
-          this.user.gender != null ? i18n.message(this.user.gender) : '',
-          this.user.firstName,
-          this.user.lastName,
-          `(${i18n.message(this.user.role)})`,
-        ].join(' '),
-        slotList: [
-          {
-            component: 'icon',
-            type: 'svg',
-            slot: 'start',
-            SVG: IconPersonOutlineRounded,
-          },
-        ],
-      }),
-      M3.Renderers.renderListItem({
-        component: 'list-item',
-        type: 'list-item',
-        headline: `${i18n.phoneNumber(this.user.phoneNumber)}`,
-        slotList: [
-          {
-            component: 'icon',
-            type: 'svg',
-            slot: 'start',
-            SVG: IconCallOutlineRounded,
-          },
-        ],
-      }),
-      this.renderInformationCardEmailItem(),
-      M3.Renderers.renderListItem({
-        component: 'list-item',
-        type: 'list-item',
-        headline: `${i18n
-          .message('user_information_box_score_title')
-          .replace('{{score}}', i18n.numberFormat(this.user.score))}`,
-        classes: ['icon-gold'],
-        slotList: [
-          {
-            component: 'icon',
-            type: 'svg',
-            slot: 'start',
-            SVG: IconAwardStarRounded,
-          },
-        ],
-      }),
-    ];
-
     return html`
       <div class="card-box">
         <h3 class="title">${i18n.message('user_information_box_title')}</h3>
 
-        <surface-card type="elevated">
-          <md-list>${userInformationListTemplate}</md-list>
-          
-          <div class="buttons-list">${this.renderButtonsList()}</div>
-        </surface-md>
+        ${this.renderUserInformationCardElement()}
       </div>
     `;
   }
 
-  private renderInformationCardEmailItem():
-    | M3.Types.ItemRendererReturn
-    | undefined {
-    if (this.user?.email != null) {
-      return M3.Renderers.renderListItem({
-        component: 'list-item',
-        type: 'list-item',
-        headline: `${this.user.email}`,
-        slotList: [
-          {
-            component: 'icon',
-            type: 'svg',
-            slot: 'start',
-            SVG: IconAlternateEmailRounded,
-          },
-        ],
-      });
-    }
+  private renderUserInformationCardElement():
+    | M3.Components.SurfaceCard
+    | typeof nothing {
+    if (this.user == null) return nothing;
 
-    return undefined;
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  private renderButtonsList(): RenderResult {
-    const buttonsListTemplate = [
-      M3.Renderers.renderButton({
-        component: 'button',
-        type: 'tonal',
-        label: i18n.message('user_information_box_add_score_button_label'),
-        hasIcon: true,
-        trailingIcon: true,
-        slotList: [
-          {
-            component: 'icon',
-            type: 'svg',
-            SVG: IconStarOutlineRounded,
-            slot: 'icon',
-          },
-        ],
-      }),
-      M3.Renderers.renderButton({
-        component: 'button',
-        type: 'tonal',
-        label: i18n.message(
-          'user_information_box_change_password_button_label'
-        ),
-        hasIcon: true,
-        trailingIcon: true,
-        slotList: [
-          {
-            component: 'icon',
-            type: 'svg',
-            SVG: IconLockOutline,
-            slot: 'icon',
-          },
-        ],
-      }),
-    ];
-
-    return html`${buttonsListTemplate}`;
+    return M3.Renderers.renderSurfaceCard({
+      component: 'surface-card',
+      type: 'elevated',
+      slotList: [
+        {
+          component: 'list',
+          type: '',
+          slotList: [
+            {
+              component: 'list-item',
+              type: 'list-item',
+              headline: [
+                this.user.gender != null ? i18n.message(this.user.gender) : '',
+                this.user.firstName,
+                this.user.lastName,
+                `(${i18n.message(this.user.role)})`,
+              ].join(' '),
+              slotList: [
+                {
+                  component: 'icon',
+                  type: 'svg',
+                  slot: 'start',
+                  SVG: IconPersonOutlineRounded,
+                },
+              ],
+            },
+            {
+              component: 'list-item',
+              type: 'list-item',
+              headline: `${i18n.phoneNumber(this.user.phoneNumber)}`,
+              slotList: [
+                {
+                  component: 'icon',
+                  type: 'svg',
+                  slot: 'start',
+                  SVG: IconCallOutlineRounded,
+                },
+              ],
+            },
+            {
+              component: 'list-item',
+              type: 'list-item',
+              headline: `${this.user.email}`,
+              hidden: this.user.email == null,
+              slotList: [
+                {
+                  component: 'icon',
+                  type: 'svg',
+                  slot: 'start',
+                  SVG: IconAlternateEmailRounded,
+                },
+              ],
+            },
+            {
+              component: 'list-item',
+              type: 'list-item',
+              headline: `${i18n
+                .message('user_information_box_score_title')
+                .replace('{{score}}', i18n.numberFormat(this.user.score))}`,
+              slotList: [
+                {
+                  component: 'icon',
+                  type: 'svg',
+                  slot: 'start',
+                  SVG: IconAwardStarRounded,
+                  classes: ['icon-gold'],
+                },
+              ],
+            },
+            { component: 'divider', type: 'divider' },
+            {
+              component: 'division',
+              type: 'div',
+              classes: ['buttons-list'],
+              slotList: [
+                {
+                  component: 'button',
+                  type: 'tonal',
+                  label: i18n.message(
+                    'user_information_box_add_score_button_label'
+                  ),
+                  hasIcon: true,
+                  trailingIcon: true,
+                  slotList: [
+                    {
+                      component: 'icon',
+                      type: 'svg',
+                      SVG: IconStarOutlineRounded,
+                      slot: 'icon',
+                    },
+                  ],
+                },
+                {
+                  component: 'button',
+                  type: 'tonal',
+                  label: i18n.message(
+                    'user_information_box_change_password_button_label'
+                  ),
+                  hasIcon: true,
+                  trailingIcon: true,
+                  slotList: [
+                    {
+                      component: 'icon',
+                      type: 'svg',
+                      SVG: IconLockOutline,
+                      slot: 'icon',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    });
   }
 }
