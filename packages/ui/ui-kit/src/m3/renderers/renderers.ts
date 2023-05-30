@@ -11,6 +11,7 @@ import { renderListItem } from './list-item';
 import { renderSnackBar } from './snack-bar';
 import { renderSurfaceCard } from './surface-card';
 import { renderTextField } from './text-field';
+import { renderTypoGraphy } from './typography';
 
 import type { AllComponentsContent } from '../types/types';
 
@@ -27,6 +28,7 @@ export * from './snack-bar';
 export * from './surface-card';
 export * from './text-field';
 export * from './form-builder';
+export * from './typography';
 
 export function renderer(content: AllComponentsContent) {
   switch (content.component) {
@@ -34,6 +36,8 @@ export function renderer(content: AllComponentsContent) {
     return renderButton(content);
   case 'circular-progress':
     return renderCircularProgress(content);
+  case 'typography':
+    return renderTypoGraphy(content);
   case 'dialog':
     return renderDialog(content);
   case 'divider':

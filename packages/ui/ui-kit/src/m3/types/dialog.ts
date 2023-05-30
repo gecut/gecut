@@ -4,7 +4,10 @@ import type { MdDialog } from '@material/web/dialog/dialog';
 export type DialogRendererReturn = MdDialog;
 
 export interface DialogContent
-  extends BaseContent<DialogRendererReturn, 'header' | 'footer'> {
+  extends BaseContent<
+    DialogRendererReturn,
+    'header' | 'headline-prefix' | 'headline' | 'headline-suffix' | 'footer'
+  > {
   component: 'dialog';
   type: 'dialog';
 
