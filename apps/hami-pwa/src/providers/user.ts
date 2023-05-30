@@ -1,9 +1,10 @@
 import { dispatch, getValue, setProvider } from '@gecut/signal';
 
-import { kyInstance } from './request-base';
+import { fetchJSON } from './request-base';
 
 import type { Projects } from '@gecut/types';
 
+// TODO: create internal cache and reload strategy for all providers
 setProvider('user', async () => {
   const user = getValue('user');
 
@@ -20,15 +21,11 @@ setProvider('user', async () => {
 
 async function fetchUser() {
   return (
-    await kyInstance
-      .get('user/', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('USER_TOKEN')}`,
-        },
-        searchParams: {
-          uid: Number(localStorage.getItem('USER_ID')),
-        },
-      })
-      .json<Projects.Hami.Routes['user']>()
+    await fetchJSON<Projects.Hami.Routes['user']>('user/', {
+      method: 'get',
+      searchParams: {
+        uid: Number(localStorage.getItem('USER_ID')),
+      },
+    })
   ).data;
 }

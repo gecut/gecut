@@ -75,7 +75,16 @@ md-list-item {
   width: 100%;
 }
 
+md-dialog {
+  md-list {
+    --md-list-container-color: var(--md-sys-color-surface-container-high);
+    --md-list-item-list-item-container-color: var(--md-list-container-color);
+  }
+}
+
 md-list {
+  display: block;
+  position: relative;
   overflow-y: scroll;
 
   &::-webkit-scrollbar {

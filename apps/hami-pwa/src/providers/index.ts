@@ -1,3 +1,4 @@
+import './customer-storage';
 import './notification-storage';
 import './product-price-storage';
 import './promises-list';

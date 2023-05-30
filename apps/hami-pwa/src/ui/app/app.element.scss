@@ -57,3 +57,7 @@ md-navigation-tab {
     margin-bottom: calc(-1 * 10 * var(--sys-spacing-track));
   }
 }
+
+md-navigation-drawer-modal {
+  z-index: var(--sys-zindex-modal);
+}

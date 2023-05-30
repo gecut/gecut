@@ -1,16 +1,17 @@
 import { request, setProvider } from '@gecut/signal';
 
-import { kyInstance } from './request-base';
+import { fetchJSON } from './request-base';
 
 import type { Projects } from '@gecut/types';
 
 setProvider('sign-in', async (signInData) => {
-  const response = await kyInstance
-    .post('sign-in/', {
-      headers: {},
+  const response = await fetchJSON<Projects.Hami.Routes['sign-in']>(
+    'sign-in/',
+    {
+      method: 'post',
       json: { data: signInData },
-    })
-    .json<Projects.Hami.Routes['sign-in']>();
+    }
+  );
 
   if (response.ok === true) {
     const user = response.data;

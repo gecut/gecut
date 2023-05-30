@@ -90,6 +90,7 @@ export default defineConfig({
       autoInstall: true,
       compiler: 'raw',
       defaultStyle: 'display:block;margin:auto;width:100%;height:100%;',
+      scale: 1,
     }),
 
     Unfonts({
