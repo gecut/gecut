@@ -2,7 +2,7 @@
 import { validator } from '@gecut/form-validator';
 import { loggerElement } from '@gecut/mixins';
 import { M3 } from '@gecut/ui-kit';
-import { animate, flyBelow } from '@lit-labs/motion';
+import { animate } from '@lit-labs/motion';
 import { html, css, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
@@ -58,16 +58,17 @@ export class FormBuilder extends loggerElement {
       .slides {
         display: flex;
 
-        width: 100%;
+        flex: 1 0 auto;
+
+        width: max-content;
+        min-width: 100%;
       }
 
       .slides .slide {
         display: flex;
         flex-direction: column;
 
-        flex-grow: 1;
-        flex-shrink: 0;
-        width: 100%;
+        flex: 1 1 auto;
 
         gap: var(--gap);
         row-gap: var(--column-gap);
@@ -124,6 +125,7 @@ export class FormBuilder extends loggerElement {
 
     if (this.data == null || this.activeSlide == null) return nothing;
 
+    const slidesSize = Object.keys(this.data.slides).length;
     const activeSlideIndex = Object.keys(this.data.slides).indexOf(
       this.activeSlide
     );
@@ -134,15 +136,18 @@ export class FormBuilder extends loggerElement {
       return this.renderFormSlide(name, form);
     });
 
+    const slidesTranslate = Math.round(
+      (FormBuilder.translateXDirection / slidesSize) * activeSlideIndex
+    );
+
     return html`<div
       class="slides"
       style=${styleMap({
-        transform: `translateX(${activeSlideIndex * -100}%)`,
+        width: slidesSize * 100 + '%',
+        transform: `translateX(${slidesTranslate}%)`,
       })}
       ${animate({
         properties: ['transform'],
-        in: flyBelow,
-        stabilizeOut: true,
       })}
     >
       ${slides}
@@ -179,14 +184,7 @@ export class FormBuilder extends loggerElement {
   ): RenderResult {
     const slideRowsTemplate = slideForm.map((row) => this.renderRow(row));
 
-    return html`<div
-      class="slide ${slideName}"
-      style=${styleMap({
-        width: this.getBoundingClientRect().width + 'px',
-      })}
-    >
-      ${slideRowsTemplate}
-    </div>`;
+    return html`<div class="slide ${slideName}">${slideRowsTemplate}</div>`;
   }
 
   private renderRow(row: FormRow): RenderResult {
@@ -333,5 +331,15 @@ export class FormBuilder extends loggerElement {
       )
       .flat()
       .reduce((p, c) => p || c, false);
+  }
+
+  static get translateXDirection(): number {
+    const dir = document.dir ?? 'ltr';
+
+    if (dir === 'rtl') {
+      return 100;
+    }
+
+    return -100;
   }
 }
