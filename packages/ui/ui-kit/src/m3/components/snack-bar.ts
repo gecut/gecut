@@ -151,12 +151,13 @@ export class SnackBar extends loggerElement {
     `;
   }
 
-  closeSnackBar(): void {
+  close(): void {
     this.closing = true;
     this.opened = false;
 
     setTimeout(() => {
       requestAnimationFrame(() => {
+        this.dispatchEvent(new CustomEvent('closed'));
         this.remove();
       });
     }, 400);
@@ -172,7 +173,7 @@ export class SnackBar extends loggerElement {
     });
 
     setTimeout(() => {
-      this.closeSnackBar();
+      this.close();
     }, this.duration);
   }
 
@@ -182,7 +183,7 @@ export class SnackBar extends loggerElement {
       type: 'svg',
       SVG: SnackBar.closeIcon,
       customConfig: (target) => {
-        target.addEventListener('click', () => this.closeSnackBar());
+        target.addEventListener('click', () => this.close());
 
         return target;
       },
