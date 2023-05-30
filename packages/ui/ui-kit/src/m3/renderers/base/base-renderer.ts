@@ -34,10 +34,14 @@ export function createElementByContent<
 
   if (content.slotList != null) {
     for (const slotContent of content.slotList) {
-      const slotElement = renderer(slotContent);
+      if (typeof slotContent === 'string') {
+        element.innerHTML += slotContent;
+      } else {
+        const slotElement = renderer(slotContent);
 
-      if (slotElement != null) {
-        element.appendChild(slotElement);
+        if (slotElement != null) {
+          element.appendChild(slotElement);
+        }
       }
     }
   }

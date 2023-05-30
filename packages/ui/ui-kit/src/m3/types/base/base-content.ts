@@ -2,11 +2,12 @@ import type { CustomConfigFunction, AllComponentsContent } from '../types';
 
 export interface BaseContent<
   TCustomConfig extends HTMLElement,
-  TSlotList = string
+  TSlot = string,
+  TSlotList = string | (AllComponentsContent & { slot?: TSlot })
 > {
   hidden?: boolean;
   slot?: string;
-  slotList?: (AllComponentsContent & { slot?: TSlotList })[];
+  slotList?: TSlotList[];
   classes?: string[];
   customConfig?: CustomConfigFunction<TCustomConfig>;
 }
