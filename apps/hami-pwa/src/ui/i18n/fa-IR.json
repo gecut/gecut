@@ -9,8 +9,11 @@
   "male": "آقای",
   "female": "خانم",
 
+  "error_in_connection_to_server": "خطا در برقرار ارتباط با سرور",
+
   "bottom_bar_home_label": "خانه",
   "bottom_bar_user_label": "کاربر",
+  "bottom_bar_customers_label": "مشتریان",
 
   "home_page_notification_box_title": "اعلانات",
 
@@ -28,5 +31,16 @@
   "user_information_box_title": "اطلاعات",
   "user_information_box_score_title": "شما {{score}} امتیاز دارید",
   "user_information_box_add_score_button_label": "افزودن امتیاز",
-  "user_information_box_change_password_button_label": "تغییر گذرواژه"
+  "user_information_box_change_password_button_label": "تغییر گذرواژه",
+
+  "customers_information_box_title": "اطلاعات",
+  "customers_information_box_item_description": "توضیحات",
+  "customers_information_box_item_order": "سفارش",
+  "customers_information_box_dialog_profile_label": "پروفایل",
+  "customers_information_box_dialog_close_label": "بستن",
+  "customers_information_box_dialog_order": "سفارش",
+  "customers_information_box_dialog_description": "توضیحات",
+  "customers_information_box_dialog_add_project": "افزودن پروژه",
+  "customers_information_box_dialog_edit_customer": "ویرایش مشتری",
+  "customers_information_box_dialog_created_by": "ساخته شده توسط"
 }
