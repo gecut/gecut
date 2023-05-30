@@ -1,3 +1,5 @@
+import '@material/web/circularprogress/circular-progress';
+
 import { createElementByContent } from './base/base-renderer';
 
 import type {
