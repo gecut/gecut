@@ -2,8 +2,10 @@
 import { validator } from '@gecut/form-validator';
 import { loggerElement } from '@gecut/mixins';
 import { M3 } from '@gecut/ui-kit';
+import { animate, flyBelow } from '@lit-labs/motion';
 import { html, css, nothing } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
+import { styleMap } from 'lit/directives/style-map.js';
 
 import { Form } from './type';
 
@@ -39,6 +41,10 @@ declare global {
 export class FormBuilder extends loggerElement {
   static override styles = [
     css`
+      * {
+        box-sizing: border-box;
+      }
+
       :host {
         --gap: calc(1.5 * var(--sys-spacing-track, 8px));
         --row-gap: var(--gap);
@@ -46,12 +52,12 @@ export class FormBuilder extends loggerElement {
         --padding-side: var(--gap);
 
         display: flex;
+        overflow: hidden;
       }
 
       .slides {
         display: flex;
 
-        flex-grow: 1;
         width: 100%;
       }
 
@@ -60,6 +66,7 @@ export class FormBuilder extends loggerElement {
         flex-direction: column;
 
         flex-grow: 1;
+        flex-shrink: 0;
         width: 100%;
 
         gap: var(--gap);
@@ -115,13 +122,31 @@ export class FormBuilder extends loggerElement {
   override render(): RenderResult {
     super.render();
 
-    if (this.data == null) return nothing;
+    if (this.data == null || this.activeSlide == null) return nothing;
+
+    const activeSlideIndex = Object.keys(this.data.slides).indexOf(
+      this.activeSlide
+    );
+
+    if (activeSlideIndex === -1) return nothing;
 
     const slides = Object.entries(this.data.slides).map(([name, form]) => {
       return this.renderFormSlide(name, form);
     });
 
-    return html`<div class="slides">${slides}</div>`;
+    return html`<div
+      class="slides"
+      style=${styleMap({
+        transform: `translateX(${activeSlideIndex * -100}%)`,
+      })}
+      ${animate({
+        properties: ['transform'],
+        in: flyBelow,
+        stabilizeOut: true,
+      })}
+    >
+      ${slides}
+    </div>`;
   }
 
   static textFieldValidator(
@@ -152,11 +177,16 @@ export class FormBuilder extends loggerElement {
     slideName: string,
     slideForm: FormSlide
   ): RenderResult {
-    if (slideName !== this.activeSlide) return nothing;
-
     const slideRowsTemplate = slideForm.map((row) => this.renderRow(row));
 
-    return html`<div class="slide ${slideName}">${slideRowsTemplate}</div>`;
+    return html`<div
+      class="slide ${slideName}"
+      style=${styleMap({
+        width: this.getBoundingClientRect().width + 'px',
+      })}
+    >
+      ${slideRowsTemplate}
+    </div>`;
   }
 
   private renderRow(row: FormRow): RenderResult {
