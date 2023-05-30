@@ -41,10 +41,6 @@
         md-list-item {
           --_list-item-container-color: var(--_background-color);
 
-          md-icon {
-            margin-inline-start: calc(2 * var(--sys-spacing-track));
-          }
-
           md-icon.icon-normal {
             color: var(--md-sys-color-gold);
           }

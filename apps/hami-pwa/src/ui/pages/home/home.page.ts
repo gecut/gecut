@@ -6,7 +6,12 @@ import elementStyle from '#hami/ui/stylesheets/element.scss?inline';
 import pageStyle from '#hami/ui/stylesheets/page.scss?inline';
 
 import { scheduleSignalElement } from '@gecut/mixins';
-import { dispatch, getValue, request } from '@gecut/signal';
+import {
+  createSignalProvider,
+  dispatch,
+  getValue,
+  request,
+} from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
 import { flow } from '@lit-labs/virtualizer/layouts/flow.js';
 import { virtualize } from '@lit-labs/virtualizer/virtualize.js';
@@ -37,11 +42,22 @@ export class PageHome extends scheduleSignalElement {
     unsafeCSS(pageStyle),
   ];
 
-  @state()
-  protected notifications: Projects.Hami.Notification[] = [];
+  static notificationStorageSignal = createSignalProvider(
+    'notification-storage'
+  );
+  static productPriceStorageSignal = createSignalProvider(
+    'product-price-storage'
+  );
 
   @state()
-  protected productsPrice: Projects.Hami.ProductPrice[] = [];
+  protected notifications: Projects.Hami.Notification[] = Object.values(
+      PageHome.notificationStorageSignal.value?.data ?? {}
+    );
+
+  @state()
+  protected productsPrice: Projects.Hami.ProductPrice[] = Object.values(
+      PageHome.productPriceStorageSignal.value?.data ?? {}
+    );
 
   private topAppBarChangeModeDebounce?: NodeJS.Timeout;
   private productsPriceSearchBoxComponent = M3.Renderers.renderTextField({
@@ -162,8 +178,8 @@ export class PageHome extends scheduleSignalElement {
     super.firstUpdated(changedProperties);
 
     requestIdleCallback(() => {
-      request('notification-storage', {});
-      request('product-price-storage', {});
+      PageHome.notificationStorageSignal.request({});
+      PageHome.productPriceStorageSignal.request({});
     });
   }
 
