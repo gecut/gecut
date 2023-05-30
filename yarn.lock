@@ -74,13 +74,13 @@
     "@alwatr/logger" "^0.32.0"
     tslib "^2.5.0"
 
-"@alwatr/nano-server@^0.31.0":
-  version "0.31.0"
-  resolved "https://registry.yarnpkg.com/@alwatr/nano-server/-/nano-server-0.31.0.tgz#6398cc4a10e076a4fc14e011e635dfedf618ecab"
-  integrity sha512-LrZsMcjwJdJeVLz+uSadvFRj2/f9G8eAcN7iq+ww3vFo8iPgtCpFZaQ+cc+e5Ao/qZB4CCVjm42nnQN7Z4r/Zg==
+"@alwatr/nano-server@^0.32.0":
+  version "0.32.0"
+  resolved "https://registry.yarnpkg.com/@alwatr/nano-server/-/nano-server-0.32.0.tgz#afa2d08d9f99d1119d2c9ec6380fdbbf9aa3f471"
+  integrity sha512-HMjulSAEMkrV8UVPc20EqIlSoNi+ejuIUUZmyvrTCqLLqXksocU/72NNt7PwBOig/fh1sfZ9IbwOwqmKt4UltA==
   dependencies:
-    "@alwatr/logger" "^0.31.0"
-    "@alwatr/math" "^0.31.0"
+    "@alwatr/logger" "^0.32.0"
+    "@alwatr/math" "^0.32.0"
     tslib "^2.5.0"
 
 "@alwatr/signal@^0.31.0":
