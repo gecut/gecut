@@ -1,19 +1,18 @@
+import config from '#hami/config';
+import i18n from '#hami/ui/i18n';
+import { attachRouter } from '#hami/ui/router';
+
 import { signalElement } from '@gecut/mixins';
 import { dispatch } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
-import '@gecut/ui-kit/m3';
 import '@material/web/icon/icon';
 import '@material/web/navigationbar/navigation-bar';
 import '@material/web/navigationtab/navigation-tab';
 import { html, unsafeCSS } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
+import { customElement, query, state } from 'lit/decorators.js';
 import { unsafeSVG } from 'lit/directives/unsafe-svg.js';
 import IconLanguageRounded from 'virtual:icons/material-symbols/language';
 import IconMenuRounded from 'virtual:icons/material-symbols/menu-rounded';
-
-import config from '../../config';
-import i18n from '../i18n';
-import { attachRouter } from '../router/index';
 
 import styles from './app.element.scss?inline';
 
@@ -43,8 +42,12 @@ export class AppRoot extends signalElement {
   static topAppBarLoadingSlot: M3.Types.CircularProgressContent = {
     component: 'circular-progress',
     type: 'circular-progress',
-    fourColor: true,
     indeterminate: true,
+    customConfig: (target) => {
+      target.style.setProperty('--_size', '40px');
+
+      return target;
+    },
   };
   static topAppBarTrailingSlot: M3.Types.IconButtonContent = {
     component: 'icon-button',
@@ -71,6 +74,9 @@ export class AppRoot extends signalElement {
   @state()
   private bottomAppBarHidden = false;
 
+  @query('div.fixed')
+  private fixedDivision?: HTMLDivElement;
+
   override connectedCallback(): void {
     super.connectedCallback();
 
@@ -84,19 +90,33 @@ export class AppRoot extends signalElement {
     });
 
     this.addSignalListener('promises-list', (value) => {
-      const oldValue = this.topAppBarContent;
+      if (
+        this.topAppBarContent.trailingSlotList != null &&
+        this.topAppBarContent.trailingSlotList[0] != null
+      ) {
+        if (
+          value.length > 0 &&
+          this.topAppBarContent.trailingSlotList[0].component !==
+            'circular-progress'
+        ) {
+          dispatch('top-app-bar', {
+            trailingSlotList: [AppRoot.topAppBarLoadingSlot],
+          });
+        }
 
-      if (value.length > 0) {
+        if (
+          value.length === 0 &&
+          this.topAppBarContent.trailingSlotList[0].component !== 'icon-button'
+        ) {
+          dispatch('top-app-bar', {
+            trailingSlotList: [AppRoot.topAppBarTrailingSlot],
+          });
+        }
+      } else {
         dispatch('top-app-bar', {
           trailingSlotList: [AppRoot.topAppBarLoadingSlot],
         });
-      } else {
-        dispatch('top-app-bar', {
-          trailingSlotList: [AppRoot.topAppBarTrailingSlot],
-        });
       }
-
-      this.requestUpdate('topAppBarContent', oldValue);
     });
 
     this.addSignalListener('top-app-bar-hidden', (hidden) => {
@@ -108,11 +128,8 @@ export class AppRoot extends signalElement {
     });
 
     this.addSignalListener('snack-bar', (content) => {
-      const fixedBox =
-        this.renderRoot.querySelector<HTMLDivElement>('div.fixed');
-
-      if (fixedBox != null) {
-        const oldSnackBar = fixedBox.querySelector('snack-bar');
+      if (this.fixedDivision != null) {
+        const oldSnackBar = this.fixedDivision.querySelector('snack-bar');
         let waiting = 0;
 
         if (oldSnackBar != null) {
@@ -122,9 +139,39 @@ export class AppRoot extends signalElement {
 
         setTimeout(() => {
           requestAnimationFrame(() => {
-            fixedBox.appendChild(M3.Renderers.renderSnackBar(content));
+            this.fixedDivision?.appendChild(
+              M3.Renderers.renderSnackBar(content)
+            );
           });
         }, waiting);
+      }
+    });
+
+    this.addSignalListener('dialog', async (content) => {
+      if (this.fixedDivision != null) {
+        const oldDialog = this.fixedDivision.querySelector('md-dialog');
+
+        if (oldDialog != null) {
+          await new Promise<void>((resolve) => {
+            oldDialog?.addEventListener('closed', () => {
+              oldDialog.remove();
+
+              resolve();
+            });
+
+            oldDialog.close();
+          });
+        }
+
+        requestAnimationFrame(() => {
+          const newDialog = M3.Renderers.renderDialog(content);
+
+          this.fixedDivision?.appendChild(newDialog);
+
+          requestAnimationFrame(() => {
+            newDialog.open = true;
+          });
+        });
       }
     });
   }
@@ -168,11 +215,7 @@ export class AppRoot extends signalElement {
     const navigationTabsTemplate = navigationTabs.map(this.renderNavigationTab);
 
     return html`
-      <md-navigation-bar
-        ?hidden=${bottomAppBarHidden}
-        .activeIndex=${0}
-        hideInactiveLabel
-      >
+      <md-navigation-bar ?hidden=${bottomAppBarHidden} .activeIndex=${0}>
         ${navigationTabsTemplate}
       </md-navigation-bar>
     `;
@@ -186,6 +229,7 @@ export class AppRoot extends signalElement {
           .badgeValue=${tab.badgeValue}
           ?active=${tab.link === location.pathname}
           ?showBadge=${tab.showBadge}
+          hideInactiveLabel
         >
           <md-icon slot="activeIcon">
             ${unsafeSVG(String(tab.icons.active))}
