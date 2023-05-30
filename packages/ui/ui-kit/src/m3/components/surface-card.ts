@@ -23,6 +23,10 @@ export class SurfaceCard extends loggerElement {
       position: relative;
     }
 
+    :host([hidden]) {
+      display: none;
+    }
+
     .slots {
       border-radius: inherit;
       overflow: hidden;
