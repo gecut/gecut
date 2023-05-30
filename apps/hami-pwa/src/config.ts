@@ -1,3 +1,5 @@
+import IconGroupOutlineRounded from 'virtual:icons/material-symbols/group-outline-rounded';
+import IconGroupRounded from 'virtual:icons/material-symbols/group-rounded';
 import IconHomeOutlineRounded from 'virtual:icons/material-symbols/home-outline-rounded';
 import IconHomeRounded from 'virtual:icons/material-symbols/home-rounded';
 import IconPersonOutlineRounded from 'virtual:icons/material-symbols/person-outline-rounded';
@@ -21,6 +23,7 @@ declare global {
     readonly 'sign-in': Record<string, never>;
     readonly 'top-app-bar': Partial<M3.Types.TopAppBarContent>;
     readonly 'snack-bar': M3.Types.SnackBarContent;
+    readonly dialog: M3.Types.DialogContent;
     readonly 'promises-list': string[];
   }
   interface Providers
@@ -48,6 +51,14 @@ const navigationTabs: M3.Types.NavigationTabContent[] = [
     icons: {
       active: IconPersonRounded,
       inActive: IconPersonOutlineRounded,
+    },
+  },
+  {
+    label: i18n.message('bottom_bar_customers_label'),
+    link: urlForName('Customers'),
+    icons: {
+      active: IconGroupRounded,
+      inActive: IconGroupOutlineRounded,
     },
   },
 ];

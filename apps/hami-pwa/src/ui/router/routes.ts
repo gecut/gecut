@@ -1,13 +1,15 @@
-import '../pages/home/home.page';
-import '../pages/landing/landing.page';
-import '../pages/sign-in/sign-in.page';
-import '../pages/user/user.page';
+import '#hami/ui/pages/customers/customers.page';
+import '#hami/ui/pages/home/home.page';
+import '#hami/ui/pages/landing/landing.page';
+import '#hami/ui/pages/sign-in/sign-in.page';
+import '#hami/ui/pages/user/user.page';
 
 import type { Route } from '@vaadin/router';
 
 export const routes: Route[] = [
   { path: '/', name: 'Landing', component: 'page-landing' },
   { path: '/home', name: 'Home', component: 'page-home' },
+  { path: '/customers', name: 'Customers', component: 'page-customers' },
   {
     path: '/user',
     component: 'page-user',
