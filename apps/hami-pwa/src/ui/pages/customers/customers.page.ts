@@ -1,4 +1,4 @@
-import {Content} from '#hami/content';
+import { Customer } from '#hami/content';
 import { requireSignIn } from '#hami/controllers/require-sign-in';
 import '#hami/ui/components/product-price-card/product-price-card';
 import i18n from '#hami/ui/i18n';
@@ -98,11 +98,7 @@ export class PageCustomers extends scheduleSignalElement {
   override render(): RenderResult {
     super.render();
 
-    return html`${this.renderNotificationCard()}`;
-  }
-
-  static dispatchDetailDialog(customer: Projects.Hami.CustomerModel): void {
-    dispatch('dialog', Content.customerProfileDialog(customer));
+    return html`${this.renderCustomersCard()}`;
   }
 
   static renderCustomerItem(
@@ -121,7 +117,7 @@ export class PageCustomers extends scheduleSignalElement {
       classes: ['customer-item'],
       customConfig: (target) => {
         target.addEventListener('click', () => {
-          PageCustomers.dispatchDetailDialog(customer);
+          dispatch('dialog', Customer.customerProfileDialog(customer));
         });
 
         return target;
@@ -137,13 +133,13 @@ export class PageCustomers extends scheduleSignalElement {
     });
   }
 
-  private renderNotificationCard(): RenderResult {
+  private renderCustomersCard(): RenderResult {
     if (this.customers.length === 0) return nothing;
 
     return html`
       <div class="card-box">
         <h3 class="title">
-          ${i18n.message('home_page_notification_box_title')}
+          ${i18n.message('customers_information_box_title')}
         </h3>
 
         <div class="search-box">${this.productsPriceSearchBoxComponent}</div>
@@ -151,7 +147,7 @@ export class PageCustomers extends scheduleSignalElement {
         <div class="card">
           <div class="card-scroll">
             <md-list
-              style="min-height:min(50vh,${72 * this.filteredCustomers.length +
+              style="min-height:min(58vh,${72 * this.filteredCustomers.length +
               1}px);"
             >
               ${virtualize({

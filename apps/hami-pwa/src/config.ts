@@ -1,3 +1,4 @@
+import IconGradingRounded from 'virtual:icons/material-symbols/grading-rounded';
 import IconGroupOutlineRounded from 'virtual:icons/material-symbols/group-outline-rounded';
 import IconGroupRounded from 'virtual:icons/material-symbols/group-rounded';
 import IconHomeOutlineRounded from 'virtual:icons/material-symbols/home-outline-rounded';
@@ -43,6 +44,14 @@ const navigationTabs: M3.Types.NavigationTabContent[] = [
     icons: {
       active: IconHomeRounded,
       inActive: IconHomeOutlineRounded,
+    },
+  },
+  {
+    label: i18n.message('bottom_bar_orders_label'),
+    link: urlForName('Orders'),
+    icons: {
+      active: IconGradingRounded,
+      inActive: IconGradingRounded,
     },
   },
   {

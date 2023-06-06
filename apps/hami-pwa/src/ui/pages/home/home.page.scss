@@ -75,7 +75,7 @@ md-list-item {
   width: 100%;
 }
 
-md-list {
+lit-virtualizer {
   overflow-y: scroll;
 
   &::-webkit-scrollbar {
