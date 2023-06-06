@@ -9,7 +9,7 @@ import IconLocationOnOutlineRounded from 'virtual:icons/material-symbols/locatio
 import IconPersonOutlineRounded from 'virtual:icons/material-symbols/person-outline-rounded';
 import IconShoppingCardOutlineRounded from 'virtual:icons/material-symbols/shopping-cart-outline-rounded';
 
-import { customerAddProjectDialog } from './customer-add-project-dialog';
+import { customerAddProjectDialog } from './add-project-dialog';
 
 import type { Projects } from '@gecut/types';
 import type { M3 } from '@gecut/ui-kit';
@@ -178,6 +178,7 @@ export function customerProfileDialog(
       {
         component: 'surface-card',
         type: 'elevated',
+        hidden: customer.projectList.length === 0,
         slotList: [
           {
             component: 'list',

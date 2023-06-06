@@ -1,10 +1,10 @@
-import { Content } from '#hami/content';
+import { apiServerErrorMessage } from '#hami/content';
 import i18n from '#hami/ui/i18n';
 
 export function getByErrorCode(errorCode: string): string {
-  if (Object.keys(Content.apiServerErrorMessage).includes(errorCode) === true) {
-    return Content.apiServerErrorMessage[
-      errorCode as keyof typeof Content.apiServerErrorMessage
+  if (Object.keys(apiServerErrorMessage).includes(errorCode) === true) {
+    return apiServerErrorMessage[
+      errorCode as keyof typeof apiServerErrorMessage
     ];
   }
 
