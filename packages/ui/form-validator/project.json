@@ -1,5 +1,5 @@
 {
-  "name": "ui-form-validator",
+  "name": "form-validator",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/ui/form-validator/src",
   "projectType": "library",
