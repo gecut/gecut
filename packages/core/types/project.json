@@ -1,5 +1,5 @@
 {
-  "name": "core-types",
+  "name": "types",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/core/types/src",
   "projectType": "library",
