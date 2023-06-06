@@ -1,5 +1,5 @@
 {
-  "name": "core-logger",
+  "name": "logger",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/core/logger/src",
   "projectType": "library",
@@ -9,7 +9,7 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "rootDir": ".",
-        "outputPath": "dist/packages/core//logger",
+        "outputPath": "dist/packages/core/logger",
         "main": "packages/core/logger/src/index.ts",
         "tsConfig": "packages/core/logger/tsconfig.lib.json",
         "assets": ["packages/core/logger/*.md"]
