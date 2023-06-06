@@ -1,5 +1,5 @@
 {
-  "name": "core-signal",
+  "name": "signal",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/core/signal/src",
   "projectType": "library",
