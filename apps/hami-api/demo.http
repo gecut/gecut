@@ -1,4 +1,4 @@
-@apiUrl = http://127.0.0.1:3000/api/v0
+@apiUrl = https://api.hami-app.ir/v0
 @accessToken = YOUR_SECRET_TOKEN
 @userAdminToken = g6y6OMr9DuRYHpoAyH2iJ-WddGUKqE-UTsym013-o8I
 @adminToken = ADMIN_SECRET_TOKEN
@@ -40,5 +40,10 @@ Authorization: Bearer {{userAdminToken}}
 
 ### GET Supplier Demo
 GET {{apiUrl}}/supplier-storage/?uid=0
+Authorization: Bearer {{userAdminToken}}
+Content-Type: application/json
+
+### GET Order Demo
+GET {{apiUrl}}/order-storage/?uid=0
 Authorization: Bearer {{userAdminToken}}
 Content-Type: application/json

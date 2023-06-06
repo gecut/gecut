@@ -1,4 +1,4 @@
-@apiUrl = http://127.0.0.1:3000/api/v0
+@apiUrl = https://api.hami-app.ir/v0
 @accessToken = YOUR_SECRET_TOKEN
 @userAdminToken = g6y6OMr9DuRYHpoAyH2iJ-WddGUKqE-UTsym013-o8I
 @adminToken = ADMIN_SECRET_TOKEN
@@ -154,7 +154,7 @@ Content-Type: application/json
 }
 
 ### PATCH Customer Project Demo
-PATCH {{apiUrl}}/customer-project-storage/?uid=0&customer-id=0
+PATCH {{apiUrl}}/customer-project-storage/?uid=0&customer-id=1
 Authorization: Bearer {{userAdminToken}}
 Content-Type: application/json
 
@@ -222,9 +222,24 @@ Content-Type: application/json
   "status": "awaitingConfirmation",
   "productList": [
     {
-      "productId": "0",
+      "productId": "2",
       "salesPrice": "1000",
       "purchasePrice": "1200",
+      "quantity": 10,
+      "unit": "TON",
+      "supplierId": "0"
+    },
+    {
+      "productId": "1",
+      "salesPrice": "10000",
+      "purchasePrice": "1234",
+      "quantity": 10,
+      "unit": "KG",
+      "supplierId": "0"
+    },    {
+      "productId": "3",
+      "salesPrice": "12345",
+      "purchasePrice": "132",
       "quantity": 10,
       "unit": "TON",
       "supplierId": "1"

@@ -2,6 +2,7 @@ import { logger } from './lib/config';
 import './route/authentication/sign-in';
 import './route/get-customer-storage';
 import './route/get-notification-storage';
+import './route/get-order-storage';
 import './route/get-product-price-storage';
 import './route/get-product-storage';
 import './route/get-supplier-storage';
