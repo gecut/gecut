@@ -1,5 +1,5 @@
 {
-  "name": "ui-form-builder",
+  "name": "form-builder",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "packages/ui/form-builder/src",
   "projectType": "library",
