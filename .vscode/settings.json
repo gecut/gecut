@@ -48,7 +48,5 @@
   "[nginx]": {
     "editor.defaultFormatter": "raynigon.nginx-formatter"
   },
-  "githubPullRequests.ignoredPullRequestBranches": [
-    "next"
-  ]
+  "githubPullRequests.ignoredPullRequestBranches": ["next"]
 }
