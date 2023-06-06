@@ -19,7 +19,7 @@ export interface ListItemContent extends BaseContent<ItemRendererReturn> {
   /**
    * The primary, headline text of the list item.
    */
-  headline: string;
+  headline?: string;
   /**
    * The one-line supporting text below the headline. Set
    * `multiLineSupportingText` to `true` to support multiple lines in the

@@ -12,6 +12,7 @@ import type { SnackBarContent } from './snack-bar';
 import type { SurfaceCardContent } from './surface-card';
 import type { TextFieldContent } from './text-field';
 import type { TypoGraphyContent } from './typography';
+import type { LitVirtualizerContent } from '../../lit/types/virtualize';
 
 export type * from './base/custom-config-function';
 export type * from './button';
@@ -31,7 +32,7 @@ export type * from './top-app-bar';
 export type * from './form-builder';
 export type * from './typography';
 
-export type AllComponentsContent =
+export type AllComponentsContent<T = unknown> =
   | ButtonContent
   | CircularProgressContent
   | DialogContent
@@ -45,4 +46,5 @@ export type AllComponentsContent =
   | SurfaceCardContent
   | TextFieldContent
   | FormBuilderContent
-  | TypoGraphyContent;
+  | TypoGraphyContent
+  | LitVirtualizerContent<T>;

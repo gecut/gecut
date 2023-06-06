@@ -1,4 +1,5 @@
 import apiServerErrorMessage from './api-server-error-message.json';
-import { customerProfileDialog } from './customer-profile-dialog';
 
-export const Content = { customerProfileDialog, apiServerErrorMessage };
+export { apiServerErrorMessage };
+export * as Customer from './customer/index';
+export * as Orders from './orders/index';

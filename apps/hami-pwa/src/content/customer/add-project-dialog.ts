@@ -1,19 +1,27 @@
 import i18n from '#hami/ui/i18n';
 
-import { dispatch } from '@gecut/signal';
-
-import { customerProfileDialog } from './customer-profile-dialog';
+import { addProjectForm } from './add-project-form';
 
 import type { Projects } from '@gecut/types';
 import type { M3 } from '@gecut/ui-kit';
 
 export function customerAddProjectDialog(
-  customer: Projects.Hami.CustomerModel
+  _customer: Projects.Hami.CustomerModel
 ): M3.Types.DialogContent {
   return {
     component: 'dialog',
     type: 'dialog',
+    fullscreen: true,
     slotList: [
+      addProjectForm,
+      {
+        component: 'button',
+        type: 'text',
+        label: i18n.message(
+          'customers_information_box_dialog_send_to_server_label'
+        ),
+        slot: 'footer',
+      },
       {
         component: 'button',
         type: 'text',
@@ -26,12 +34,5 @@ export function customerAddProjectDialog(
         },
       },
     ],
-    customConfig: (target) => {
-      target.addEventListener('closing', () => {
-        dispatch('dialog', customerProfileDialog(customer));
-      });
-
-      return target;
-    },
   };
 }

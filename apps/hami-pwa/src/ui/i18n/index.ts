@@ -40,6 +40,8 @@ function numberFormat(
   _number: number,
   options?: Intl.NumberFormatOptions
 ): string {
+  _number = Number(_number);
+
   return _number.toLocaleString(getConfig().code, options);
 }
 
@@ -53,12 +55,26 @@ function phoneNumber(phoneNumber: string): string {
   return x.join('-');
 }
 
+function date(
+  _date: number,
+  options: Intl.DateTimeFormatOptions = {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+  }
+): string {
+  const __date = new Date(_date);
+
+  return __date.toLocaleString(getConfig().code, options);
+}
+
 const i18n = {
   init,
   message,
   getConfig,
   numberFormat,
   phoneNumber,
+  date,
 };
 
 export default i18n;

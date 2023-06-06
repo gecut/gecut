@@ -1,3 +1,5 @@
+import { renderLitVirtualizer } from '../../lit/renderers/virtualize';
+
 import { renderButton } from './button';
 import { renderCircularProgress } from './circular-progress';
 import { renderDialog } from './dialog';
@@ -30,7 +32,7 @@ export * from './text-field';
 export * from './form-builder';
 export * from './typography';
 
-export function renderer(content: AllComponentsContent) {
+export function renderer<T>(content: AllComponentsContent<T>) {
   switch (content.component) {
   case 'button':
     return renderButton(content);
@@ -60,5 +62,7 @@ export function renderer(content: AllComponentsContent) {
     return renderSurfaceCard(content);
   case 'text-field':
     return renderTextField(content);
+  case 'lit-virtualizer':
+    return renderLitVirtualizer(content);
   }
 }

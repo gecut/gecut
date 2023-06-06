@@ -3,7 +3,7 @@ import type { CustomConfigFunction, AllComponentsContent } from '../types';
 export interface BaseContent<
   TCustomConfig extends HTMLElement,
   TSlot = string,
-  TSlotList = string | (AllComponentsContent & { slot?: TSlot })
+  TSlotList = string | (AllComponentsContent<unknown> & { slot?: TSlot })
 > {
   hidden?: boolean;
   slot?: string;

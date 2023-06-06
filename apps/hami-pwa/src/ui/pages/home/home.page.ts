@@ -1,3 +1,4 @@
+import { notificationListCard } from '#hami/content/cards/notification-list-card';
 import { requireSignIn } from '#hami/controllers/require-sign-in';
 import '#hami/ui/components/product-price-card/product-price-card';
 import i18n from '#hami/ui/i18n';
@@ -13,15 +14,9 @@ import {
   request,
 } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
-import { flow } from '@lit-labs/virtualizer/layouts/flow.js';
-import { virtualize } from '@lit-labs/virtualizer/virtualize.js';
 import { html, nothing, unsafeCSS } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import IconDoneRounded from 'virtual:icons/material-symbols/done-rounded';
-import IconErrorOutlineRounded from 'virtual:icons/material-symbols/error-outline-rounded';
 import IconSearchOutlineRounded from 'virtual:icons/material-symbols/search-rounded';
-import IconStarOutlineRounded from 'virtual:icons/material-symbols/star-outline-rounded';
-import IconWarningOutlineRounded from 'virtual:icons/material-symbols/warning-outline-rounded';
 
 import styles from './home.page.scss?inline';
 
@@ -42,17 +37,12 @@ export class PageHome extends scheduleSignalElement {
     unsafeCSS(pageStyle),
   ];
 
-  static notificationStorageSignal = createSignalProvider(
-    'notification-storage'
-  );
   static productPriceStorageSignal = createSignalProvider(
     'product-price-storage'
   );
 
   @state()
-  protected notifications: Projects.Hami.Notification[] = Object.values(
-      PageHome.notificationStorageSignal.value?.data ?? {}
-    );
+  protected notificationStorage = getValue('notification-storage')?.data ?? {};
 
   @state()
   protected productsPrice: Projects.Hami.ProductPrice[] = Object.values(
@@ -66,7 +56,7 @@ export class PageHome extends scheduleSignalElement {
 
     inputType: 'search',
     name: 'productPriceSearch',
-    placeholder: i18n.message('home_page_product_price_box_search_placeholder'),
+    label: i18n.message('home_page_product_price_box_search_placeholder'),
     hasLeadingIcon: true,
     slotList: [
       {
@@ -102,7 +92,7 @@ export class PageHome extends scheduleSignalElement {
     this.addSignalListener('notification-storage', (value) => {
       this.log.property?.('notification-storage', value);
 
-      this.notifications = Object.values(value.data);
+      this.notificationStorage = value.data ?? {};
     });
     this.addSignalListener('product-price-storage', (value) => {
       this.log.property?.('product-price-storage', value);
@@ -125,66 +115,17 @@ export class PageHome extends scheduleSignalElement {
     `;
   }
 
-  static renderNotificationItem(
-    notification: Projects.Hami.Notification
-  ): HTMLElement {
-    let icon = '';
-
-    const messageWords = notification.message.split(' ');
-    const messageLength = messageWords.length;
-    const messageHeadlineBreakIndex = Math.round(messageLength / 3);
-    const messageHeadline = messageWords
-      .slice(0, messageHeadlineBreakIndex)
-      .join(' ');
-    const messageSupportingText = messageWords
-      .slice(messageHeadlineBreakIndex, messageLength)
-      .join(' ');
-
-    switch (notification.status) {
-    case 'danger':
-      icon = IconErrorOutlineRounded;
-      break;
-    case 'warning':
-      icon = IconWarningOutlineRounded;
-      break;
-    case 'normal':
-      icon = IconStarOutlineRounded;
-      break;
-    case 'success':
-      icon = IconDoneRounded;
-      break;
-    }
-
-    return M3.Renderers.renderListItem({
-      component: 'list-item',
-      type: 'list-item',
-      headline: messageHeadline,
-      supportingText: messageSupportingText,
-      multiLineSupportingText: true,
-      classes: ['notification-item'],
-      slotList: [
-        {
-          component: 'icon',
-          type: 'svg',
-          slot: 'start',
-          SVG: icon,
-          classes: [`icon-${notification.status}`],
-        },
-      ],
-    });
-  }
-
   protected firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
 
     requestIdleCallback(() => {
-      PageHome.notificationStorageSignal.request({});
+      request('notification-storage', {});
       PageHome.productPriceStorageSignal.request({});
     });
   }
 
   private renderNotificationCard(): RenderResult {
-    if (this.notifications.length === 0) return nothing;
+    if (Object.keys(this.notificationStorage).length === 0) return nothing;
 
     return html`
       <div class="card-box">
@@ -192,22 +133,7 @@ export class PageHome extends scheduleSignalElement {
           ${i18n.message('home_page_notification_box_title')}
         </h3>
 
-        <div class="card">
-          <div class="card-scroll">
-            <md-list>
-              ${virtualize({
-    scroller: true,
-    items: this.notifications,
-    layout: flow({ direction: 'vertical' }),
-    renderItem: (notification) => {
-      return html`${PageHome.renderNotificationItem(notification)}`;
-    },
-  })}
-            </md-list>
-          </div>
-
-          <md-elevation></md-elevation>
-        </div>
+        ${notificationListCard(Object.values(this.notificationStorage))}
       </div>
     `;
   }
