@@ -81,7 +81,7 @@ export class PageUser extends scheduleSignalElement {
       slotList: [
         {
           component: 'list',
-          type: '',
+          type: 'list',
           slotList: [
             {
               component: 'list-item',

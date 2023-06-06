@@ -37,7 +37,7 @@ export function orderDetailDialog(
         slotList: [
           {
             component: 'list',
-            type: 'dialog',
+            type: 'list',
             slotList: [
               {
                 component: 'list-item',
