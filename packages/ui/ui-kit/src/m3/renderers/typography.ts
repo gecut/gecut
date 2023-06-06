@@ -11,7 +11,8 @@ import { createElementByContent } from './base/base-renderer';
 import type {
   TypoGraphyContent,
   TypoGraphyRendererReturn,
-  TypoGraphyStylesProperties} from '../types/typography';
+  TypoGraphyStylesProperties,
+} from '../types/typography';
 
 export function renderTypoGraphy(
   content: TypoGraphyContent
@@ -19,7 +20,8 @@ export function renderTypoGraphy(
   const typography = createElementByContent(content.type, content, []);
 
   if (content.style != null) {
-    typography.style.margin = '0';
+    typography.style.marginTop = '1em';
+    typography.style.marginBottom = '.8em';
 
     const selectedStyle = typographyStyles[content.style];
 

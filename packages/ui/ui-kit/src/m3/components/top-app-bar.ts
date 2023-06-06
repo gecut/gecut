@@ -60,15 +60,16 @@ export class TopAppBar extends loggerElement {
       :host([type='small']) .title,
       :host([type='center']) .title {
         padding: 0 var(--sys-spacing-track);
-        font-family: var(--md-sys-typescale-title-large-font-family-name);
-        font-weight: var(--md-sys-typescale-title-large-font-weight);
-        font-size: var(--md-sys-typescale-title-large-font-size);
-        letter-spacing: var(--md-sys-typescale-title-large-letter-spacing);
+        font-family: var(--md-sys-typescale-title-medium-font-family-name);
+        font-weight: var(--md-sys-typescale-title-medium-font-weight);
+        font-size: var(--md-sys-typescale-title-medium-font-size);
+        letter-spacing: var(--md-sys-typescale-title-medium-letter-spacing);
         /* line-height: var(--md-sys-typescale-title-large-line-height); */
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
         overflow: clip;
+        opacity: 0.7;
       }
 
       :host([type='small']) .title {
