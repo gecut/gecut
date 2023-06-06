@@ -34,7 +34,7 @@ export function customerProfileDialog(
         slotList: [
           {
             component: 'list',
-            type: 'dialog',
+            type: 'list',
             slotList: [
               {
                 component: 'list-item',
@@ -182,7 +182,7 @@ export function customerProfileDialog(
         slotList: [
           {
             component: 'list',
-            type: 'dialog',
+            type: 'list',
             slotList: customer.projectList.map((project) => ({
               component: 'list-item',
               type: 'list-item',
