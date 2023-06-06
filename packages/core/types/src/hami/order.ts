@@ -1,7 +1,9 @@
 import type { CustomerProject } from './customer-project.js';
 import type { Customer } from './customer.js';
 import type { AlwatrDocumentObjectActive } from './document-object-active.js';
+import type { Product } from './product.js';
 import type { RequireFunc } from './require-functions.js';
+import type { Supplier } from './supplier.js';
 import type { User } from './user.js';
 import type { ArrayValues, StringifyableRecord } from '../type-helper.js';
 
@@ -9,6 +11,7 @@ export interface OrderModel extends Order {
   creator: User;
   customer: Customer;
   customerProject: CustomerProject;
+  productList: (OrderProduct & { product: Product; supplier: Supplier })[];
 }
 
 export const orderStatusList = [
