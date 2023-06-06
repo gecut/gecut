@@ -5,12 +5,16 @@ import { attachRouter } from '#hami/ui/router';
 import { signalElement } from '@gecut/mixins';
 import { dispatch } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
+import '@material/web/fab/branded-fab';
+import '@material/web/fab/fab';
 import '@material/web/icon/icon';
 import '@material/web/navigationbar/navigation-bar';
 import '@material/web/navigationtab/navigation-tab';
 import { html, unsafeCSS } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 import { unsafeSVG } from 'lit/directives/unsafe-svg.js';
+import { renderIcon } from 'packages/ui/ui-kit/src/m3/renderers/icon';
+import IconAdd from 'virtual:icons/material-symbols/add';
 import IconLanguageRounded from 'virtual:icons/material-symbols/language';
 import IconMenuRounded from 'virtual:icons/material-symbols/menu-rounded';
 
@@ -130,46 +134,40 @@ export class AppRoot extends signalElement {
     this.addSignalListener('snack-bar', (content) => {
       if (this.fixedDivision != null) {
         const oldSnackBar = this.fixedDivision.querySelector('snack-bar');
-        let waiting = 0;
 
         if (oldSnackBar != null) {
-          oldSnackBar.closeSnackBar();
-          waiting = 200;
-        }
+          oldSnackBar.addEventListener('closed', () => {
+            requestAnimationFrame(() => {
+              this.fixedDivision?.appendChild(
+                M3.Renderers.renderSnackBar(content)
+              );
+            });
+          });
 
-        setTimeout(() => {
+          oldSnackBar.close();
+        } else {
           requestAnimationFrame(() => {
             this.fixedDivision?.appendChild(
               M3.Renderers.renderSnackBar(content)
             );
           });
-        }, waiting);
+        }
       }
     });
 
     this.addSignalListener('dialog', async (content) => {
       if (this.fixedDivision != null) {
-        const oldDialog = this.fixedDivision.querySelector('md-dialog');
-
-        if (oldDialog != null) {
-          await new Promise<void>((resolve) => {
-            oldDialog?.addEventListener('closed', () => {
-              oldDialog.remove();
-
-              resolve();
-            });
-
-            oldDialog.close();
-          });
-        }
-
         requestAnimationFrame(() => {
-          const newDialog = M3.Renderers.renderDialog(content);
+          const dialog = M3.Renderers.renderDialog(content);
 
-          this.fixedDivision?.appendChild(newDialog);
+          dialog.addEventListener('closed', () => {
+            dialog.remove();
+          });
+
+          this.fixedDivision?.appendChild(dialog);
 
           requestAnimationFrame(() => {
-            newDialog.open = true;
+            dialog.open = true;
           });
         });
       }
@@ -184,7 +182,16 @@ export class AppRoot extends signalElement {
       ></top-app-bar>
 
       <main role="main">
-        <div class="fixed"></div>
+        <div class="fixed">
+          <md-branded-fab style="position:absolute;bottom: 16px;right: 16px;z-index:50;">${renderIcon(
+    {
+      component: 'icon',
+      type: 'svg',
+      SVG: IconAdd,
+      slot: 'icon',
+    }
+  )}<md-branded-fab>
+        </div>
       </main>
 
       ${AppRoot.renderNavigationBar(

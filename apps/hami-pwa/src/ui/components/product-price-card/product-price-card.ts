@@ -30,7 +30,7 @@ export class ProductPriceCard extends loggerElement {
     return html`
       <div class="card">
         <div class="card-scroll">
-          <md-list>
+          <md-list style="min-height:220px;">
             ${virtualize({
     scroller: true,
     items: this.content.data,

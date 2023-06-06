@@ -1,4 +1,4 @@
-import { Customer } from '#hami/content';
+import { Orders } from '#hami/content';
 import { requireSignIn } from '#hami/controllers/require-sign-in';
 import '#hami/ui/components/product-price-card/product-price-card';
 import i18n from '#hami/ui/i18n';
@@ -15,18 +15,18 @@ import { html, nothing, unsafeCSS } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import IconSearchRounded from 'virtual:icons/material-symbols/search-rounded';
 
-import styles from './customers.page.scss?inline';
+import styles from './orders.page.scss?inline';
 
 import type { Projects, RenderResult } from '@gecut/types';
 import type { PropertyValues } from 'lit';
 
 declare global {
   interface HTMLElementTagNameMap {
-    'page-customers': PageCustomers;
+    'page-orders': PageCustomers;
   }
 }
 
-@customElement('page-customers')
+@customElement('page-orders')
 export class PageCustomers extends scheduleSignalElement {
   static override styles = [
     unsafeCSS(styles),
@@ -35,9 +35,9 @@ export class PageCustomers extends scheduleSignalElement {
   ];
 
   @state()
-  private filteredCustomers: Projects.Hami.CustomerModel[] = [];
+  private filteredOrders: Projects.Hami.OrderModel[] = [];
 
-  private customers: Projects.Hami.CustomerModel[] = [];
+  private orders: Projects.Hami.OrderModel[] = [];
   private query = '';
 
   private topAppBarChangeModeDebounce?: NodeJS.Timeout;
@@ -63,7 +63,7 @@ export class PageCustomers extends scheduleSignalElement {
       target.addEventListener('input', () => {
         this.query = target.value;
 
-        this.requestUpdateCustomers();
+        this.requestUpdateOrder();
       });
 
       return target;
@@ -80,12 +80,12 @@ export class PageCustomers extends scheduleSignalElement {
 
     this.addEventListener('scroll', this.topAppBarChangeMode);
 
-    this.addSignalListener('customer-storage', (value) => {
-      this.log.property?.('customer-storage', value);
+    this.addSignalListener('order-storage', (value) => {
+      this.log.property?.('order-storage', value);
 
-      this.customers = Object.values(value.data);
+      this.orders = Object.values(value.data);
 
-      this.requestUpdateCustomers();
+      this.requestUpdateOrder();
     });
   }
 
@@ -101,23 +101,16 @@ export class PageCustomers extends scheduleSignalElement {
     return html`${this.renderCustomersCard()}`;
   }
 
-  static renderCustomerItem(
-    customer: Projects.Hami.CustomerModel
-  ): HTMLElement {
+  static renderOrderItem(order: Projects.Hami.OrderModel): HTMLElement {
     return M3.Renderers.renderListItem({
       component: 'list-item',
       type: 'list-item',
-      headline: `${customer.firstName} ${customer.lastName}`,
-      supportingText: `${i18n.message(
-        'customers_information_box_item_description'
-      )}: ${customer.description}`,
-      trailingSupportingText: `${customer.orderList.length} ${i18n.message(
-        'customers_information_box_item_order'
-      )}`,
-      classes: ['customer-item'],
+      headline: `${order.customer.firstName} ${order.customer.lastName}`,
+      supportingText: i18n.date(order.registrationDate),
+      classes: ['order-item'],
       customConfig: (target) => {
         target.addEventListener('click', () => {
-          dispatch('dialog', Customer.customerProfileDialog(customer));
+          dispatch('dialog', Orders.orderDetailDialog(order));
         });
 
         return target;
@@ -129,33 +122,31 @@ export class PageCustomers extends scheduleSignalElement {
     super.firstUpdated(changedProperties);
 
     requestIdleCallback(() => {
-      request('customer-storage', {});
+      request('order-storage', {});
     });
   }
 
   private renderCustomersCard(): RenderResult {
-    if (this.customers.length === 0) return nothing;
+    if (this.orders.length === 0) return nothing;
 
     return html`
       <div class="card-box">
-        <h3 class="title">
-          ${i18n.message('customers_information_box_title')}
-        </h3>
+        <h3 class="title">${i18n.message('orders_information_box_title')}</h3>
 
         <div class="search-box">${this.productsPriceSearchBoxComponent}</div>
 
         <div class="card">
           <div class="card-scroll">
             <md-list
-              style="min-height:min(58vh,${72 * this.filteredCustomers.length +
+              style="min-height:min(58vh,${72 * this.filteredOrders.length +
               1}px);"
             >
               ${virtualize({
     scroller: true,
-    items: this.filteredCustomers,
+    items: this.filteredOrders,
     layout: flow({ direction: 'vertical' }),
-    renderItem: (customer) => {
-      return html`${PageCustomers.renderCustomerItem(customer)}`;
+    renderItem: (order) => {
+      return html`${PageCustomers.renderOrderItem(order)}`;
     },
   })}
             </md-list>
@@ -189,17 +180,17 @@ export class PageCustomers extends scheduleSignalElement {
     }, 100);
   }
 
-  private requestUpdateCustomers(): void {
+  private requestUpdateOrder(): void {
     requestAnimationFrame(() => {
       if (this.query.trim() !== '') {
-        this.filteredCustomers = this.customers.filter(
-          (customer) =>
-            String(
-              customer.firstName + customer.lastName + customer.phoneNumber
-            ).indexOf(this.query.trim()) !== -1
+        this.filteredOrders = this.orders.filter(
+          (order) =>
+            String(order.customer.firstName + order.customer.firstName).indexOf(
+              this.query.trim()
+            ) !== -1
         );
       } else {
-        this.filteredCustomers = this.customers;
+        this.filteredOrders = this.orders;
       }
     });
   }
