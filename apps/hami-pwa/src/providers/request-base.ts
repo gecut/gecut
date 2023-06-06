@@ -39,7 +39,7 @@ export const requestBase = ky.create({
     ],
   },
   retry: {
-    limit: 2,
+    limit: 5,
   },
 });
 
