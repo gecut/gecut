@@ -137,7 +137,7 @@ export class PageSignIn extends loggerElement {
     super.render();
 
     return html`
-      <img class="hami-logo" src=${hamiLogo} />
+      <img class="hami-logo" src=${hamiLogo} alt="hami-logo" />
 
       <div class="form-box">
         <form class="form">
@@ -149,7 +149,7 @@ export class PageSignIn extends loggerElement {
         </form>
       </div>
 
-      <img class="gecut-logo" src=${gecutLogo} />
+      <img class="gecut-logo" src=${gecutLogo} alt="gecut-logo" />
     `;
   }
 
