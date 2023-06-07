@@ -1823,13 +1823,6 @@
   dependencies:
     "@nx/jest" "16.1.4"
 
-"@nrwl/jest@16.2.2":
-  version "16.2.2"
-  resolved "https://registry.yarnpkg.com/@nrwl/jest/-/jest-16.2.2.tgz#3db47788be4eb23a3189d15f2c78e3c118af8ed1"
-  integrity sha512-UEd6Vgcrr/IPG+lJBCoKgPtYwbYe1qiUM5bfP96i0eX3aPqKpzTR3WmHND9AMU6agNBO7r/24rfwPaUG1yx+9A==
-  dependencies:
-    "@nx/jest" "16.2.2"
-
 "@nrwl/jest@16.3.2":
   version "16.3.2"
   resolved "https://registry.yarnpkg.com/@nrwl/jest/-/jest-16.3.2.tgz#5e7a3cd23861d7aa31b52262e6dabc6ee2fa9206"
@@ -2083,26 +2076,6 @@
     "@nrwl/jest" "16.1.4"
     "@nx/devkit" "16.1.4"
     "@nx/js" "16.1.4"
-    "@phenomnomnominal/tsquery" "~5.0.1"
-    chalk "^4.1.0"
-    dotenv "~10.0.0"
-    identity-obj-proxy "3.0.0"
-    jest-config "^29.4.1"
-    jest-resolve "^29.4.1"
-    jest-util "^29.4.1"
-    resolve.exports "1.1.0"
-    tslib "^2.3.0"
-
-"@nx/jest@16.2.2":
-  version "16.2.2"
-  resolved "https://registry.yarnpkg.com/@nx/jest/-/jest-16.2.2.tgz#1bdac4d1f91d151db8f0a2e770d47dc4341bc8d3"
-  integrity sha512-njlzS3/Xupej43E0X3i+60/52tRa97bgO/THwXkqDb3m68peKlAlHrgGnyHcSjJ/9tA+USOcZfH1czTnGLM9mA==
-  dependencies:
-    "@jest/reporters" "^29.4.1"
-    "@jest/test-result" "^29.4.1"
-    "@nrwl/jest" "16.2.2"
-    "@nx/devkit" "16.2.2"
-    "@nx/js" "16.2.2"
     "@phenomnomnominal/tsquery" "~5.0.1"
     chalk "^4.1.0"
     dotenv "~10.0.0"
