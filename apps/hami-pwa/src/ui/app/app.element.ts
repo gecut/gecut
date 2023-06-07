@@ -17,6 +17,7 @@ import { renderIcon } from 'packages/ui/ui-kit/src/m3/renderers/icon';
 import IconAdd from 'virtual:icons/material-symbols/add';
 import IconLanguageRounded from 'virtual:icons/material-symbols/language';
 import IconMenuRounded from 'virtual:icons/material-symbols/menu-rounded';
+import { registerSW } from 'virtual:pwa-register';
 
 import styles from './app.element.scss?inline';
 
@@ -47,11 +48,7 @@ export class AppRoot extends signalElement {
     component: 'circular-progress',
     type: 'circular-progress',
     indeterminate: true,
-    customConfig: (target) => {
-      target.style.setProperty('--_size', '40px');
-
-      return target;
-    },
+    styleVars: { '--_size': '40px' },
   };
   static topAppBarTrailingSlot: M3.Types.IconButtonContent = {
     component: 'icon-button',
@@ -83,6 +80,8 @@ export class AppRoot extends signalElement {
 
   override connectedCallback(): void {
     super.connectedCallback();
+
+    registerSW({});
 
     i18n.init();
 

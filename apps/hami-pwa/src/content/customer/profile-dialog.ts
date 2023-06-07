@@ -25,11 +25,9 @@ export function customerProfileDialog(
       {
         component: 'surface-card',
         type: 'elevated',
-        customConfig: (target) => {
-          target.style.marginTop = 'var(--sys-spacing-track,8px)';
-          target.style.marginBottom = 'calc(2*var(--sys-spacing-track,8px))';
-
-          return target;
+        styles: {
+          marginTop: 'var(--sys-spacing-track,8px)',
+          marginBottom: 'calc(2*var(--sys-spacing-track,8px))',
         },
         slotList: [
           {
@@ -140,28 +138,26 @@ export function customerProfileDialog(
                     },
                   },
                 ],
-                customConfig: (target) => {
-                  target.style.display = 'flex';
-                  target.style.flexDirection = 'column';
-                  target.style.gap = 'calc(1.5 * var(--sys-spacing-track))';
-                  target.style.padding = 'calc(1.5 * var(--sys-spacing-track))';
-
-                  return target;
+                styles: {
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 'calc(1.5 * var(--sys-spacing-track))',
+                  padding: 'calc(1.5 * var(--sys-spacing-track))',
                 },
               },
               { component: 'divider', type: 'divider' },
               {
                 component: 'division',
                 type: 'span',
+                styles: {
+                  display: 'flex',
+                  justifyContent: 'center',
+                  paddingTop: 'var(--sys-spacing-track)',
+                  fontSize: 'var(--md-sys-typescale-body-small-font-size)',
+                  fontWeight: 'var(--md-sys-typescale-body-small-font-weight)',
+                  color: 'var(--md-sys-color-on-surface-variant)',
+                },
                 customConfig: (target) => {
-                  target.style.display = 'flex';
-                  target.style.justifyContent = 'center';
-                  target.style.paddingTop = 'var(--sys-spacing-track)';
-                  target.style.fontSize =
-                    'var(--md-sys-typescale-body-small-font-size)';
-                  target.style.fontWeight =
-                    'var(--md-sys-typescale-body-small-font-weight)';
-                  target.style.color = 'var(--md-sys-color-on-surface-variant)';
                   target.innerHTML = [
                     i18n.message('customers_information_box_dialog_created_by'),
                     customer.creator.firstName,

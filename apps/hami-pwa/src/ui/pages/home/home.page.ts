@@ -66,9 +66,8 @@ export class PageHome extends scheduleSignalElement {
         slot: 'leadingicon',
       },
     ],
-
+    styles: { width: '100%' },
     customConfig: (target) => {
-      target.style.width = '100%';
       target.addEventListener('input', () => {
         requestAnimationFrame(() => {
           this.searchProductPrice(target.value.trim());

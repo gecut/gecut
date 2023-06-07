@@ -6,6 +6,7 @@
     "types": [
       "node",
       "vite/client",
+      "vite-plugin-pwa/client",
       "unplugin-fonts/client",
       "unplugin-icons/types/raw"
     ]
