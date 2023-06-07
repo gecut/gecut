@@ -19,11 +19,14 @@ nanoServer.route(
 
     for await (const orderId of Object.keys(orderStorage.data)) {
       const order = orderStorage.data[orderId];
-      console.log(order);
 
       const creator = await storageClient.get<Projects.Hami.User>(
         order.creatorId,
         config.userStorage
+      );
+      const supplier = await storageClient.get<Projects.Hami.Supplier>(
+        order.supplierId,
+        config.supplierStorage
       );
       const customer = await storageClient.get<Projects.Hami.Customer>(
         order.customerId,
@@ -41,19 +44,15 @@ nanoServer.route(
           orderProduct.productId,
           config.productStorage
         );
-        const supplier = await storageClient.get<Projects.Hami.Supplier>(
-          orderProduct.supplierId,
-          config.supplierStorage
-        );
 
         productList[index].product = product;
-        productList[index].supplier = supplier;
       }
 
       orderStorage.data[orderId] = {
         creator,
         customer,
         customerProject,
+        supplier,
         productList: Object.values(productList),
 
         ...order,
