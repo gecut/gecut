@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../../dist/out-tsc",
+    "target": "ESNext",
+    "declaration": true,
+    "inlineSources": true,
+    "useDefineForClassFields": false,
+    "lib": ["DOM", "ESNext"]
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"]
+}

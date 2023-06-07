@@ -1,0 +1,31 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    open-pull-requests-limit: 5
+    assignees:
+      - dependabot
+    reviewers:
+      - MM25Zamanian
+    schedule:
+      interval: daily
+    labels:
+      - ci
+      - priority-low
+      - maintenance
+
+  - package-ecosystem: npm
+    directory: /
+    versioning-strategy: increase-if-necessary
+    open-pull-requests-limit: 5
+    assignees:
+      - dependabot
+    reviewers:
+      - MM25Zamanian
+    schedule:
+      interval: daily
+    labels:
+      - dependencies
+      - ci
+      - priority-low
+      - maintenance

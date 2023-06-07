@@ -1,0 +1,9 @@
+{
+  "name": "@gecut/mixins",
+  "version": "0.0.1",
+  "type": "module",
+  "dependencies": {
+    "lit": "^2.7.0",
+    "tslog": "^4.8.2"
+  }
+}

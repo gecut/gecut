@@ -1,0 +1,33 @@
+documentation:
+  - any:
+      - '**/*.md'
+
+enhancement:
+  - any:
+      - '**/*.ts'
+
+test:
+  - any:
+      - '**/*.spec.ts'
+
+demo:
+  - apps/demo/*
+  - apps/demo/**/*
+
+ui:
+  - packages/ui/*
+  - packages/ui/**/*
+core:
+  - packages/core/*
+  - packages/core/**/*
+
+apps:
+  - apps/*
+  - apps/**/*
+  - apps/**/**/*
+api:
+  - apps/*-api/*
+  - apps/*-api/**/*
+pwa:
+  - apps/*pwa/*
+  - apps/*pwa/**/*

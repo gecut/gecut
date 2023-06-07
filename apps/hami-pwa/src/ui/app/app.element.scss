@@ -1,0 +1,63 @@
+@import '../stylesheets/element.scss';
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  padding: 0 calc(var(--sys-spacing-side-padding) / 2);
+  position: relative;
+
+  .fixed {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+.navigation-tab {
+  flex: 1 1 auto;
+  text-decoration: none;
+}
+
+top-app-bar,
+md-navigation-bar {
+  transition-property: margin;
+  transition-duration: var(--sys-motion-duration-medium);
+  transition-timing-function: var(--sys-motion-easing-in-out);
+}
+
+top-app-bar[hidden] {
+  margin-top: calc(-1 * 8 * var(--sys-spacing-track));
+}
+
+md-navigation-bar[hidden] {
+  display: inherit;
+  margin-bottom: calc(-1 * 10 * var(--sys-spacing-track));
+}
+
+md-navigation-tab {
+  height: 100%;
+}
+
+@media (max-height: 450px) {
+  top-app-bar {
+    margin-top: calc(-1 * 8 * var(--sys-spacing-track));
+  }
+
+  md-navigation-bar {
+    display: inherit;
+    margin-bottom: calc(-1 * 10 * var(--sys-spacing-track));
+  }
+}
+
+md-navigation-drawer-modal {
+  z-index: var(--sys-zindex-modal);
+}

@@ -1,0 +1,73 @@
+{
+  "name": "storage-server",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/services/storage-server/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "platform": "node",
+        "outputPath": "dist/apps/services/storage-server",
+        "format": ["esm"],
+        "bundle": false,
+        "main": "apps/services/storage-server/src/index.ts",
+        "tsConfig": "apps/services/storage-server/tsconfig.app.json",
+        "assets": [],
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "target": "node19",
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".mjs"
+          }
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "bundle": true,
+          "minify": true,
+          "generateLockfile": true,
+          "esbuildOptions": {
+            "outExtension": {
+              ".js": ".mjs"
+            }
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "defaultConfiguration": "development",
+      "configurations": {
+        "development": {
+          "commands": [
+            "nx run storage-server:build --watch",
+            "nodemon dist/apps/services/storage-server/index.mjs"
+          ],
+          "parallel": true
+        },
+        "production": {
+          "command": "NODE_OPTIONS=--enable-source-maps NODE_ENV=production ALWATR_DEBUG=1 node dist/apps/services/storage-server/index.mjs"
+        }
+      },
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/services/storage-server/**/*.ts"],
+        "fix": true
+      }
+    },
+    "docker-build": {
+      "dependsOn": ["build"],
+      "command": "docker build --build-arg PACKAGE_SOURCE=dist/apps/services/storage-server -f cloud/api/Dockerfile . -t storage-server"
+    }
+  },
+  "tags": []
+}

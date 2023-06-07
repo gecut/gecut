@@ -1,0 +1,33 @@
+name: Telegram Message
+
+on: push
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: read
+      checks: read
+
+    steps:
+      - name: Push
+        if: github.event_name == 'push'
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: markdown
+          message: |
+            🟩 Push Notification On *${{ github.repository }}*
+
+
+            👉 Actor: `${{ github.actor }}`
+            👉 Target ${{ github.ref_type }}: `${{ github.ref_name }}`
+            👉 Commit: 
+            ```
+            ${{ github.event.commits[0].message }}
+            ```
+
+
+            🔗 [See Changes](https://github.com/${{ github.repository }}/commit/${{github.sha}})

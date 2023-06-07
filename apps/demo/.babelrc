@@ -1,0 +1,7 @@
+{
+  "presets": ["@nrwl/js/babel"],
+  "assumptions": {
+    "setPublicClassFields": true
+  },
+  "plugins": [["@babel/plugin-proposal-class-properties"]]
+}

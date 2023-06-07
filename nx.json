@@ -3,9 +3,12 @@
     "default": {
       "runner": "nx/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
+        "cacheableOperations": ["build", "test", "lint"]
       }
     }
+  },
+  "cli": {
+    "packageManager": "yarn"
   },
   "extends": "nx/presets/npm.json",
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
@@ -20,5 +23,19 @@
         "{workspaceRoot}/.eslintignore"
       ]
     }
-  }
+  },
+  "generators": {
+    "@nrwl/web:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "none",
+      "e2eTestRunner": "none"
+    },
+    "@nrwl/web:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "none"
+    }
+  },
+  "defaultBase": "main"
 }

@@ -1,0 +1,25 @@
+{
+  "$code": "fa-IR",
+  "$direction": "rtl",
+  "$language": "فارسی",
+
+  "survey-page-title": "نظرسنجی",
+
+  "survey-page-form-first-name-label": "نام",
+  "survey-page-form-last-name-label": "نام خانوادگی",
+  "survey-page-form-age-label": "سن",
+  "survey-page-form-phone-number-label": "شماره تماس",
+  "survey-page-form-teacher-first-name-label": "نام مدرس",
+  "survey-page-form-teacher-last-name-label": "نام خانوادگی مدرس",
+  "survey-page-form-teacher-phone-number-label": "شماره تماس مدرس",
+
+  "survey-page-form-required-error": "اجباری است",
+  "survey-page-form-numeric-error": "باید عددی باشد",
+  "survey-page-form-phone-number-error": "نا معتبر است",
+
+  "survey-page-form-next-button": "بعدی",
+  "survey-page-form-previous-button": "قبلی",
+  "survey-page-form-submit-button": "ذخیره",
+
+  "survey-page-form-submit": "ثبت"
+}

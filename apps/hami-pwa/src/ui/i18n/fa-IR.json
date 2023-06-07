@@ -1,0 +1,79 @@
+{
+  "$code": "fa-IR",
+  "$direction": "rtl",
+  "$language": "فارسی",
+
+  "admin": "مدیریت",
+  "seller": "فروشنده",
+
+  "male": "آقای",
+  "female": "خانم",
+
+  "canceled": "لغو شده",
+  "evacuated": "تحویل شده",
+  "accepted": "تایید شده",
+  "failed": "رد شده",
+  "awaitingConfirmation": "در انتظار تایید",
+
+  "text_field_error_message_rule_required": "اجباری است",
+  "text_field_error_message_rule_numeric": "باید کاملا عدد باشد",
+  "text_field_error_message_rule_phone": "شماره تلفن نا معتبر است",
+  "text_field_error_message_rule_email": "ایمیل نا معتبر است",
+
+  "error_in_connection_to_server": "خطا در برقرار ارتباط با سرور",
+
+  "bottom_bar_home_label": "خانه",
+  "bottom_bar_user_label": "کاربر",
+  "bottom_bar_orders_label": "سفارشات",
+  "bottom_bar_customers_label": "مشتریان",
+
+  "home_page_notification_box_title": "اعلانات",
+
+  "home_page_product_price_box_title": "لیست قیمت",
+  "home_page_product_price_box_search_placeholder": "جستجو",
+
+  "sign_in_page_title": "ورود",
+  "sign_in_page_form_required_error": "اجباری است",
+  "sign_in_page_form_numeric_error": "باید عددی باشد",
+  "sign_in_page_form_phone-number_error": "نا معتبر است",
+  "sign_in_page_form_phone-number_label": "شماره تماس",
+  "sign_in_page_form_password_label": "گذرواژه",
+  "sign_in_page_form_submit": "ورود",
+
+  "user_information_box_title": "کاربر",
+  "user_information_box_score_title": "شما {{score}} امتیاز دارید",
+  "user_information_box_add_score_button_label": "افزودن امتیاز",
+  "user_information_box_change_password_button_label": "تغییر گذرواژه",
+
+  "customers_information_box_title": "مشتریان",
+  "customers_information_box_item_description": "توضیحات",
+  "customers_information_box_item_order": "سفارش",
+  "customers_information_box_dialog_profile_label": "پروفایل",
+  "customers_information_box_dialog_send_to_server_label": "ارسال به سرور",
+  "customers_information_box_dialog_close_label": "بستن",
+  "customers_information_box_dialog_order": "سفارش",
+  "customers_information_box_dialog_description": "توضیحات",
+  "customers_information_box_dialog_add_project": "افزودن پروژه",
+  "customers_information_box_dialog_edit_customer": "ویرایش مشتری",
+  "customers_information_box_dialog_created_by": "ساخته شده توسط",
+
+  "add_project_dialog_project_name": "نام پروژه",
+  "add_project_dialog_project_address": "آدرس پروژه",
+  "add_project_dialog_supervisor_name": "نام سرپرست",
+  "add_project_dialog_supervisor_phone_number": "شماره تلفن سرپرست",
+  "add_project_dialog_guard_name": "نام نگهبان",
+  "add_project_dialog_guard_phone_number": "شماره تلفن نگهبان",
+
+  "orders_information_box_title": "سفارشات",
+
+  "order_dialog_information_title": "اطلاعات سفارش",
+  "order_dialog_information_customer_name": "نام مشتری:",
+  "order_dialog_information_customer_project": "پروژه: ",
+  "order_dialog_information_customer_registration_date": "تاریخ ثبت: ",
+  "order_dialog_information_customer_evacuation_date": "تاریخ تحویل: ",
+  "order_dialog_information_customer_status": "وضعیت: ",
+  "order_dialog_products_title": "محصولات",
+  "order_dialog_products_sales_price": "فروش: ",
+  "order_dialog_products_purchase_price": "خرید: ",
+  "order_dialog_products_supplier": "نام تامین کننده:"
+}

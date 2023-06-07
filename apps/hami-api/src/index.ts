@@ -1,0 +1,21 @@
+import { logger } from './lib/config';
+import './route/authentication/sign-in';
+import './route/get-customer-storage';
+import './route/get-notification-storage';
+import './route/get-order-storage';
+import './route/get-product-price-storage';
+import './route/get-product-storage';
+import './route/get-supplier-storage';
+import './route/get-user';
+import './route/get-user-storage';
+import './route/home';
+import './route/patch-customer-project-storage';
+import './route/patch-customer-storage';
+import './route/patch-notification-storage';
+import './route/patch-product-price-storage';
+import './route/patch-product-storage';
+import './route/patch-supplier-storage';
+import './route/patch-user-storage';
+import './route/put-order';
+
+logger.logOther?.('..:: Gecut Hami API ::..');

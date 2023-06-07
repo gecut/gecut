@@ -1,0 +1,67 @@
+{
+  "name": "hami-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/hami-api/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "platform": "node",
+        "outputPath": "dist/apps/hami-api",
+        "format": ["esm"],
+        "bundle": true,
+        "main": "apps/hami-api/src/index.ts",
+        "tsConfig": "apps/hami-api/tsconfig.app.json",
+        "assets": [],
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "target": "node19",
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".mjs"
+          }
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "minify": true,
+          "generateLockfile": true
+        }
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "defaultConfiguration": "development",
+      "configurations": {
+        "development": {
+          "commands": [
+            "nx run hami-api:build --watch",
+            "nodemon dist/apps/hami-api/index.mjs"
+          ],
+          "parallel": true
+        },
+        "production": {
+          "command": "NODE_OPTIONS=--enable-source-maps NODE_ENV=production ALWATR_DEBUG=1 node dist/apps/hami-api/index.mjs"
+        }
+      },
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/hami-api/**/*.ts"],
+        "fix": true
+      }
+    },
+    "docker-build": {
+      "dependsOn": ["build"],
+      "command": "docker build --build-arg PACKAGE_SOURCE=dist/apps/hami-api -f cloud/api/Dockerfile . -t hami-api"
+    }
+  },
+  "tags": []
+}
