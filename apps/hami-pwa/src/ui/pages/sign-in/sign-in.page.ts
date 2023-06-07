@@ -1,6 +1,6 @@
 import { requireSignIn } from '#hami/controllers/require-sign-in';
-import gecutLogo from '#hami/ui/assets/gecut-logo.png?inline';
-import hamiLogo from '#hami/ui/assets/hami-logo.png?inline';
+import gecutLogo from '#hami/ui/assets/gecut-logo.webp?inline';
+import hamiLogo from '#hami/ui/assets/hami-logo.webp?inline';
 import i18n from '#hami/ui/i18n';
 import { urlForName } from '#hami/ui/router';
 import elementStyle from '#hami/ui/stylesheets/element.scss?inline';

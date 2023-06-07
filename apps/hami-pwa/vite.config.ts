@@ -17,7 +17,7 @@ const serviceWorker: Partial<GenerateSWOptions> = {
   cleanupOutdatedCaches: true,
   swDest: `${DIST_PATH}/sw.js`,
   globDirectory: DIST_PATH,
-  globPatterns: ['**/*.{html,js,css,woff,png,ico,svg}'],
+  globPatterns: ['**/*.{html,js,css,woff,png,ico,svg,webp}'],
 };
 const manifestJson: Partial<ManifestOptions> = {
   /* url */
