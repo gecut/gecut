@@ -12,7 +12,7 @@
   "devDependencies": {
     "@alwatr/storage-engine": "0.32.0",
     "@iconify-json/material-symbols": "1.1.42",
-    "@iconify/json": "2.2.60",
+    "@iconify/json": "2.2.75",
     "@nrwl/cli": "^15.9.2",
     "@nrwl/esbuild": "16.2.2",
     "@nrwl/eslint-plugin-nx": "^16.1.0",
