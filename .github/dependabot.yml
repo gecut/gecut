@@ -2,7 +2,6 @@ version: 2
 updates:
   - package-ecosystem: github-actions
     directory: /
-    open-pull-requests-limit: 5
     assignees:
       - dependabot
     reviewers:
@@ -17,7 +16,6 @@ updates:
   - package-ecosystem: npm
     directory: /
     versioning-strategy: increase-if-necessary
-    open-pull-requests-limit: 5
     assignees:
       - dependabot
     reviewers:
