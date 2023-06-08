@@ -112,7 +112,7 @@ async function request<T extends keyof Signals>(
     );
   }
 
-  requestAnimationFrame(() => {
+  requestAnimationFrame(async () => {
     if (strategy === 'staleWhileRevalidate') {
       const value = getValue(name);
 
@@ -121,20 +121,18 @@ async function request<T extends keyof Signals>(
       }
     }
 
-    requestIdleCallback(async () => {
-      const value = await signalsObject[name]?.provider?.(args);
+    const value = await signalsObject[name]?.provider?.(args);
 
-      if (value == null) {
-        return logger.warning(
-          'request',
-          'provider_return_empty',
-          'Provider must be return a value, not empty',
-          { name, args }
-        );
-      }
+    if (value == null) {
+      return logger.warning(
+        'request',
+        'provider_return_empty',
+        'Provider must be return a value, not empty',
+        { name, args }
+      );
+    }
 
-      dispatch(name, value);
-    });
+    dispatch(name, value);
   });
 }
 
