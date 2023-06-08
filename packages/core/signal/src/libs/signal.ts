@@ -97,7 +97,8 @@ function getValue<T extends keyof Signals>(name: T): Signals[T] | undefined {
 
 async function request<T extends keyof Signals>(
   name: T,
-  args: Providers[T]
+  args: Providers[T],
+  strategy: 'staleWhileRevalidate' | 'newData' = 'newData'
 ): Promise<void> {
   logger.methodArgs?.('request', { name, args });
   __initSignal(name);
@@ -111,19 +112,29 @@ async function request<T extends keyof Signals>(
     );
   }
 
-  requestAnimationFrame(async () => {
-    const value = await signalsObject[name]?.provider?.(args);
+  requestAnimationFrame(() => {
+    if (strategy === 'staleWhileRevalidate') {
+      const value = getValue(name);
 
-    if (value == null) {
-      return logger.warning(
-        'request',
-        'provider_return_empty',
-        'Provider must be return a value, not empty',
-        { name, args }
-      );
+      if (value != null) {
+        dispatch(name, value);
+      }
     }
 
-    dispatch(name, value);
+    requestIdleCallback(async () => {
+      const value = await signalsObject[name]?.provider?.(args);
+
+      if (value == null) {
+        return logger.warning(
+          'request',
+          'provider_return_empty',
+          'Provider must be return a value, not empty',
+          { name, args }
+        );
+      }
+
+      dispatch(name, value);
+    });
   });
 }
 
