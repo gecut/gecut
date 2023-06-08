@@ -43,17 +43,23 @@ export const requestBase = ky.create({
   },
 });
 
-const requestBaseGET = requestBase.extend({
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem('USER_TOKEN')}`,
-  },
-});
-
 export async function fetchJSON<TJson extends StringifyableRecord>(
   url: string,
   options?: Options | undefined
 ): Promise<TJson> {
-  const response: ResponsePromise = await requestBaseGET(url, options).catch(
+  options = {
+    method: 'get',
+    searchParams: {
+      uid: localStorage.getItem('USER_ID') ?? '',
+    },
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('USER_TOKEN')}`,
+    },
+
+    ...options,
+  };
+
+  const response: ResponsePromise = await requestBase(url, options).catch(
     async (error) => {
       let message = getByErrorCode('');
 

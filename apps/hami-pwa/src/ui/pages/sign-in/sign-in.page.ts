@@ -2,7 +2,7 @@ import { requireSignIn } from '#hami/controllers/require-sign-in';
 import gecutLogo from '#hami/ui/assets/gecut-logo.webp?inline';
 import hamiLogo from '#hami/ui/assets/hami-logo.webp?inline';
 import i18n from '#hami/ui/i18n';
-import { urlForName } from '#hami/ui/router';
+import { routerGo, urlForName } from '#hami/ui/router';
 import elementStyle from '#hami/ui/stylesheets/element.scss?inline';
 import pageStyle from '#hami/ui/stylesheets/page.scss?inline';
 
@@ -157,9 +157,7 @@ export class PageSignIn extends loggerElement {
       try {
         await request('sign-in', values);
 
-        setTimeout(() => {
-          location.reload();
-        }, 1000);
+        routerGo('/');
       } catch (error) {
         this.log.error('onSignInButtonClick', 'sign_in_request_failed', error);
       }

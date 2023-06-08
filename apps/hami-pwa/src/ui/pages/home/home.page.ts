@@ -118,7 +118,7 @@ export class PageHome extends scheduleSignalElement {
     super.firstUpdated(changedProperties);
 
     requestIdleCallback(() => {
-      request('notification-storage', {});
+      request('notification-storage', {}, 'staleWhileRevalidate');
       PageHome.productPriceStorageSignal.request({});
     });
   }
