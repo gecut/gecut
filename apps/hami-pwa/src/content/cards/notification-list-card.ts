@@ -36,11 +36,7 @@ export function notificationItemIcon(
     type: 'svg',
     slot: 'start',
     SVG: icon,
-    customConfig: (target) => {
-      target.style.color = cssColorVariable;
-
-      return target;
-    },
+    styles: { color: cssColorVariable },
   };
 }
 

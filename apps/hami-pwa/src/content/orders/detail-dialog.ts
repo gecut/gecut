@@ -6,7 +6,6 @@ import IconEventOutlineRounded from 'virtual:icons/material-symbols/event-outlin
 import IconInventory2OutlineRounded from 'virtual:icons/material-symbols/inventory-2-outline-rounded';
 import IconLocationOnOutlineRounded from 'virtual:icons/material-symbols/location-on-outline-rounded';
 import IconPersonOutlineRounded from 'virtual:icons/material-symbols/person-outline-rounded';
-import IconRecentPatientOutlineRounded from 'virtual:icons/material-symbols/recent-patient-outline-rounded';
 import IconWorkspacesOutline from 'virtual:icons/material-symbols/workspaces-outline';
 
 import type { Projects } from '@gecut/types';
@@ -29,11 +28,7 @@ export function orderDetailDialog(
       {
         component: 'surface-card',
         type: 'elevated',
-        customConfig: (target) => {
-          target.style.marginBottom = 'calc(3*var(--sys-spacing-track,8px))';
-
-          return target;
-        },
+        styles: { marginBottom: 'calc(3*var(--sys-spacing-track,8px))' },
         slotList: [
           {
             component: 'list',
@@ -136,12 +131,8 @@ export function orderDetailDialog(
       {
         component: 'list',
         type: 'list',
-        customConfig: (target) => {
-          target.style.marginBottom = 'calc(3*var(--sys-spacing-track,8px))';
-          target.style.setProperty('--_container-color', 'transparent');
-
-          return target;
-        },
+        styles: { marginBottom: 'calc(3*var(--sys-spacing-track,8px))' },
+        styleVars: { '--_container-color': 'transparent' },
         slotList: order.productList.map((product) => ({
           component: 'surface-card',
           type: 'elevated',
@@ -178,28 +169,8 @@ export function orderDetailDialog(
                 },
               ],
             },
-            {
-              component: 'list-item',
-              type: 'list-item',
-              headline: `${i18n.message('order_dialog_products_supplier')} ${
-                product.supplier.firstName
-              } ${product.supplier.lastName}`,
-              slotList: [
-                {
-                  component: 'icon',
-                  type: 'svg',
-                  slot: 'start',
-                  SVG: IconRecentPatientOutlineRounded,
-                },
-              ],
-            },
           ],
-          customConfig: (target) => {
-            target.style.marginBottom =
-              'calc(1.5*var(--sys-spacing-track,8px))';
-
-            return target;
-          },
+          styles: { marginBottom: 'calc(1.5*var(--sys-spacing-track,8px))' },
           // headline: product.product.name,
           // supportingText: [
           //   [

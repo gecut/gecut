@@ -107,12 +107,7 @@ export class PageSignIn extends loggerElement {
                 slot: 'icon',
               },
             ],
-            customConfig: (target) => {
-              target.style.flexGrow = '0';
-              target.style.marginInlineStart = 'auto';
-
-              return target;
-            },
+            styles: { flexGrow: '0', marginInlineStart: 'auto' },
           },
         ],
       ],

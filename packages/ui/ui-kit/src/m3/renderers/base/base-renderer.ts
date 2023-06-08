@@ -1,6 +1,6 @@
 import { renderer } from '../renderers';
 
-import type { BaseContent } from '../../types/base/base-content';
+import type { BaseContent, CSSProperty } from '../../types/base/base-content';
 
 export function createElementByContent<
   T extends keyof HTMLElementTagNameMap,
@@ -26,6 +26,25 @@ export function createElementByContent<
 
   if (content.classes != null) {
     element.className = content.classes.join(' ');
+  }
+
+  if (content.styles != null) {
+    for (const _property of Object.keys(content.styles)) {
+      const property = _property as CSSProperty;
+      const value = content.styles[property];
+
+      if (value != null) {
+        element.style[property] = value;
+      }
+    }
+  }
+
+  if (content.styleVars != null) {
+    for (const property of Object.keys(content.styleVars)) {
+      const value = content.styleVars[property];
+
+      element.style.setProperty(property, value);
+    }
   }
 
   if (content.slot != null) {
