@@ -1,6 +1,6 @@
 import { request, setProvider } from '@gecut/signal';
 
-import { fetchJSON } from './request-base';
+import { fetchJSON } from '../controllers/request-base';
 
 import type { Projects } from '@gecut/types';
 
@@ -9,6 +9,8 @@ setProvider('sign-in', async (signInData) => {
     'sign-in/',
     {
       method: 'post',
+      searchParams: {},
+      headers: {},
       json: { data: signInData },
     }
   );
@@ -19,7 +21,7 @@ setProvider('sign-in', async (signInData) => {
     localStorage.setItem('USER_ID', user.id);
     localStorage.setItem('USER_TOKEN', user.token);
 
-    request('user', {});
+    request('user', {}, 'staleWhileRevalidate');
   }
 
   return {};

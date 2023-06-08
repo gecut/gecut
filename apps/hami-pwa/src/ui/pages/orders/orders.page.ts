@@ -121,7 +121,7 @@ export class PageCustomers extends scheduleSignalElement {
     super.firstUpdated(changedProperties);
 
     requestIdleCallback(() => {
-      request('order-storage', {});
+      request('order-storage', {}, 'staleWhileRevalidate');
     });
   }
 
