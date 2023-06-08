@@ -1809,6 +1809,13 @@
   dependencies:
     "@nx/esbuild" "16.2.2"
 
+"@nrwl/esbuild@16.3.2":
+  version "16.3.2"
+  resolved "https://registry.yarnpkg.com/@nrwl/esbuild/-/esbuild-16.3.2.tgz#c519c9a40c30ce8df8b6677154e3951be2726d12"
+  integrity sha512-WaE6BC8hIB/GgSPVIp3u+HndTbE4JDlMl/bpuSUye/YHf8VNO0H1IYWg55LV1zp5YgS/U9ktf+rO3z73ExEVLw==
+  dependencies:
+    "@nx/esbuild" "16.3.2"
+
 "@nrwl/eslint-plugin-nx@16.2.2", "@nrwl/eslint-plugin-nx@^16.1.0":
   version "16.2.2"
   resolved "https://registry.yarnpkg.com/@nrwl/eslint-plugin-nx/-/eslint-plugin-nx-16.2.2.tgz#be3b6cbef1f11274c901a3b29366cd81db95e414"
@@ -2045,6 +2052,21 @@
     "@nrwl/esbuild" "16.2.2"
     "@nx/devkit" "16.2.2"
     "@nx/js" "16.2.2"
+    chalk "^4.1.0"
+    dotenv "~10.0.0"
+    fast-glob "3.2.7"
+    fs-extra "^11.1.0"
+    tsconfig-paths "^4.1.2"
+    tslib "^2.3.0"
+
+"@nx/esbuild@16.3.2":
+  version "16.3.2"
+  resolved "https://registry.yarnpkg.com/@nx/esbuild/-/esbuild-16.3.2.tgz#c9903ad5c494f29d2ccfa3ff31c80e2ca444eaed"
+  integrity sha512-VR6nHsDAW2/fZ5/xlJ+JrQtSpLOUWJdTrMSsDR0ewlr+V2avXiSlUD59psc+nKvORy+qW2qf1jsLw2e1wLilCA==
+  dependencies:
+    "@nrwl/esbuild" "16.3.2"
+    "@nx/devkit" "16.3.2"
+    "@nx/js" "16.3.2"
     chalk "^4.1.0"
     dotenv "~10.0.0"
     fast-glob "3.2.7"
