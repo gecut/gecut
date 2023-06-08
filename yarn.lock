@@ -1318,10 +1318,10 @@
   resolved "https://registry.yarnpkg.com/@fontsource/roboto/-/roboto-4.5.8.tgz#56347764786079838faf43f0eeda22dd7328437f"
   integrity sha512-CnD7zLItIzt86q4Sj3kZUiLcBk1dSk81qcqgMGaZe7SQ1P8hFNxhMl5AZthK1zrDM5m74VVhaOpuMGIL4gagaA==
 
-"@fontsource/vazirmatn@4.5.5":
-  version "4.5.5"
-  resolved "https://registry.yarnpkg.com/@fontsource/vazirmatn/-/vazirmatn-4.5.5.tgz#1d62dfe71a3988061ceeea019c356e55aa899a8a"
-  integrity sha512-2OW2vd1+idDVnz3srEVm4VHd53W4cOAHIg2lnZWF0VPX/yPUpJiDi+5a2j/Z5e9xsbsoAmpD589gXX4Du0YMnw==
+"@fontsource/vazirmatn@5.0.2":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@fontsource/vazirmatn/-/vazirmatn-5.0.2.tgz#eb2025f3d3c04cb0e9c2b1bddab4d1984b55f7e4"
+  integrity sha512-anHjXU0dIVL34Y+2OUVPNJrrXaX9Ul3+NvDKD0UZp15vDRUJMroxEEm1NXTKoWoEiqB0ZyvqplDqLW1eEsU78A==
 
 "@gar/promisify@^1.0.1":
   version "1.1.3"
