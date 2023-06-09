@@ -129,7 +129,7 @@ export class AppRoot extends signalElement {
     this.addSignalListener('snack-bar', this.snackBarSignalListener);
 
     this.addSignalListener('dialog', this.dialogSignalListener);
-    
+
     this.addSignalListener('fab', this.fabSignalListener);
   }
 
@@ -214,7 +214,16 @@ export class AppRoot extends signalElement {
 
     oldFAB?.remove();
 
-    this.fixedDivision.appendChild(M3.Renderers.renderFAB(content));
+    this.fixedDivision.appendChild(
+      M3.Renderers.renderFAB({
+        styles: {
+          bottom: '16px',
+          insetInlineStart: '16px',
+        },
+
+        ...content,
+      })
+    );
   }
 
   private snackBarSignalListener(content: M3.Types.SnackBarContent) {
