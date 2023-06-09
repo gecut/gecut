@@ -126,47 +126,11 @@ export class AppRoot extends signalElement {
       this.bottomAppBarHidden = hidden;
     });
 
-    this.addSignalListener('snack-bar', (content) => {
-      if (this.fixedDivision != null) {
-        const oldSnackBar = this.fixedDivision.querySelector('snack-bar');
+    this.addSignalListener('snack-bar', this.snackBarSignalListener);
 
-        if (oldSnackBar != null) {
-          oldSnackBar.addEventListener('closed', () => {
-            requestAnimationFrame(() => {
-              this.fixedDivision?.appendChild(
-                M3.Renderers.renderSnackBar(content)
-              );
-            });
-          });
-
-          oldSnackBar.close();
-        } else {
-          requestAnimationFrame(() => {
-            this.fixedDivision?.appendChild(
-              M3.Renderers.renderSnackBar(content)
-            );
-          });
-        }
-      }
-    });
-
-    this.addSignalListener('dialog', async (content) => {
-      if (this.fixedDivision != null) {
-        requestAnimationFrame(() => {
-          const dialog = M3.Renderers.renderDialog(content);
-
-          dialog.addEventListener('closed', () => {
-            dialog.remove();
-          });
-
-          this.fixedDivision?.appendChild(dialog);
-
-          requestAnimationFrame(() => {
-            dialog.open = true;
-          });
-        });
-      }
-    });
+    this.addSignalListener('dialog', this.dialogSignalListener);
+    
+    this.addSignalListener('fab', this.fabSignalListener);
   }
 
   override render(): RenderResult {
@@ -241,5 +205,49 @@ export class AppRoot extends signalElement {
         </md-navigation-tab>
       </a>
     `;
+  }
+
+  private fabSignalListener(content: M3.Types.FABContent) {
+    if (this.fixedDivision == null) return;
+
+    const oldFAB = this.fixedDivision.querySelector('md-fab');
+
+    oldFAB?.remove();
+
+    this.fixedDivision.appendChild(M3.Renderers.renderFAB(content));
+  }
+
+  private snackBarSignalListener(content: M3.Types.SnackBarContent) {
+    if (this.fixedDivision == null) return;
+
+    const oldSnackBar = this.fixedDivision.querySelector('snack-bar');
+
+    if (content.message === oldSnackBar?.message) return;
+
+    if (oldSnackBar != null) {
+      oldSnackBar.addEventListener('closed', () => {
+        this.fixedDivision?.appendChild(M3.Renderers.renderSnackBar(content));
+      });
+
+      oldSnackBar.close();
+    } else {
+      this.fixedDivision.appendChild(M3.Renderers.renderSnackBar(content));
+    }
+  }
+
+  private dialogSignalListener(content: M3.Types.DialogContent) {
+    if (this.fixedDivision == null) return;
+
+    const dialog = M3.Renderers.renderDialog(content);
+
+    dialog.addEventListener('closed', () => {
+      dialog.remove();
+    });
+
+    this.fixedDivision.appendChild(dialog);
+
+    requestAnimationFrame(() => {
+      dialog.open = true;
+    });
   }
 }

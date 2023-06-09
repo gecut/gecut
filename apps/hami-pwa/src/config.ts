@@ -29,6 +29,7 @@ declare global {
     readonly 'top-app-bar': Partial<M3.Types.TopAppBarContent>;
     readonly 'snack-bar': M3.Types.SnackBarContent;
     readonly dialog: M3.Types.DialogContent;
+    readonly fab: M3.Types.FABContent;
     readonly 'promises-list': string[];
   }
   interface Providers
