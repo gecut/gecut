@@ -32,7 +32,7 @@ function createSignalProvider<T extends keyof Signals>(name: T) {
     setProvider: (provider: SignalProvider<T>): void => {
       return setProvider(name, provider);
     },
-    request: async (args: Providers[T]): Promise<void> => {
+    request: async (args: Providers[T]): Promise<Signals[T]> => {
       return await request(name, args);
     },
     dispatch: (value: Signals[T]): void => {
@@ -98,13 +98,16 @@ function getValue<T extends keyof Signals>(name: T): Signals[T] | undefined {
 async function request<T extends keyof Signals>(
   name: T,
   args: Providers[T],
-  strategy: 'staleWhileRevalidate' | 'newData' = 'newData'
-): Promise<void> {
+  strategy:
+    | 'staleWhileRevalidate'
+    | 'cacheFirst'
+    | 'provideOnly' = 'provideOnly'
+): Promise<Signals[T]> {
   logger.methodArgs?.('request', { name, args });
   __initSignal(name);
 
   if (signalsObject[name]?.provider == null) {
-    return logger.warning(
+    throw logger.warning(
       'request',
       'provider_not_exists',
       'Before run request, set Provider',
@@ -112,28 +115,36 @@ async function request<T extends keyof Signals>(
     );
   }
 
-  requestAnimationFrame(async () => {
-    if (strategy === 'staleWhileRevalidate') {
-      const value = getValue(name);
+  if (strategy === 'cacheFirst') {
+    const value = getValue(name);
 
-      if (value != null) {
-        dispatch(name, value);
-      }
+    if (value != null) {
+      dispatch(name, value);
+
+      return value;
     }
+  } else if (strategy === 'staleWhileRevalidate') {
+    const value = getValue(name);
 
-    const value = await signalsObject[name]?.provider?.(args);
-
-    if (value == null) {
-      return logger.warning(
-        'request',
-        'provider_return_empty',
-        'Provider must be return a value, not empty',
-        { name, args }
-      );
+    if (value != null) {
+      dispatch(name, value);
     }
+  }
 
-    dispatch(name, value);
-  });
+  const value = await signalsObject[name]?.provider?.(args);
+
+  if (value == null) {
+    throw logger.warning(
+      'request',
+      'provider_return_empty',
+      'Provider must be return a value, not empty',
+      { name, args }
+    );
+  }
+
+  dispatch(name, value);
+
+  return value;
 }
 
 export {
