@@ -5,7 +5,7 @@ export async function isSignIn(): Promise<boolean> {
     localStorage.getItem('USER_ID') != null &&
     localStorage.getItem('USER_TOKEN') != null
   ) {
-    return await request('user', {}, 'staleWhileRevalidate')
+    return await request('user', {}, 'cacheFirst')
       .then(() => true)
       .catch(() => false);
   }
