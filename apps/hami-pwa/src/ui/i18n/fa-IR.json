@@ -21,6 +21,9 @@
   "text_field_error_message_rule_email": "ایمیل نا معتبر است",
 
   "error_in_connection_to_server": "خطا در برقرار ارتباط با سرور",
+  "user_not_found": "کاربر مورد نظر یافت نشد",
+  "user_forbidden": "کاربر مورد نظر دسترسی ندارد",
+  "user_greeting_message": "به نسخه {{}} خوش آمدید جناب {{}}",
 
   "bottom_bar_home_label": "خانه",
   "bottom_bar_user_label": "کاربر",
