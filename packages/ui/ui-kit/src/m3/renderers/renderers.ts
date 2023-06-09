@@ -5,6 +5,7 @@ import { renderCircularProgress } from './circular-progress';
 import { renderDialog } from './dialog';
 import { renderDivider } from './divider';
 import { renderDivision } from './division';
+import { renderFAB } from './fab';
 import { renderFormBuilder } from './form-builder';
 import { renderIcon } from './icon';
 import { renderIconButton } from './icon-button';
@@ -22,6 +23,7 @@ export * from './circular-progress';
 export * from './dialog';
 export * from './divider';
 export * from './division';
+export * from './fab';
 export * from './icon-button';
 export * from './icon';
 export * from './list-item';
@@ -46,6 +48,8 @@ export function renderer<T>(content: AllComponentsContent<T>) {
     return renderDivider(content);
   case 'division':
     return renderDivision(content);
+  case 'fab':
+    return renderFAB(content);
   case 'icon-button':
     return renderIconButton(content);
   case 'icon':

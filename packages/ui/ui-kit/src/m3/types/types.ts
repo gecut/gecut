@@ -3,6 +3,7 @@ import type { CircularProgressContent } from './circular-progress';
 import type { DialogContent } from './dialog';
 import type { DividerContent } from './divider';
 import type { DivisionContent } from './division';
+import type { FABContent } from './fab';
 import type { FormBuilderContent } from './form-builder';
 import type { IconContent } from './icon';
 import type { IconButtonContent } from './icon-button';
@@ -20,6 +21,7 @@ export type * from './circular-progress';
 export type * from './dialog';
 export type * from './divider';
 export type * from './division';
+export type * from './fab';
 export type * from './icon-button';
 export type * from './icon';
 export type * from './list-item';
@@ -39,6 +41,7 @@ export type AllComponentsContent<T = unknown> =
   | DividerContent
   | DivisionContent
   | IconButtonContent
+  | FABContent
   | IconContent
   | ListContent
   | ListItemContent
