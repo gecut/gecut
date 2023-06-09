@@ -1,5 +1,6 @@
 import { requireSignIn } from '#hami/controllers/require-sign-in';
 import i18n from '#hami/ui/i18n';
+import icons from '#hami/ui/icons';
 import { urlForName } from '#hami/ui/router';
 import elementStyle from '#hami/ui/stylesheets/element.scss?inline';
 import pageStyle from '#hami/ui/stylesheets/page.scss?inline';
@@ -9,12 +10,6 @@ import { dispatch } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
 import { html, nothing, unsafeCSS } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import IconStarOutlineRounded from 'virtual:icons/material-symbols/add-rounded';
-import IconAlternateEmailRounded from 'virtual:icons/material-symbols/alternate-email-rounded';
-import IconAwardStarRounded from 'virtual:icons/material-symbols/award-star-rounded';
-import IconCallOutlineRounded from 'virtual:icons/material-symbols/call-outline-rounded';
-import IconLockOutline from 'virtual:icons/material-symbols/lock-outline';
-import IconPersonOutlineRounded from 'virtual:icons/material-symbols/person-outline-rounded';
 
 import styles from './user.page.scss?inline';
 
@@ -97,7 +92,7 @@ export class PageUser extends scheduleSignalElement {
                   component: 'icon',
                   type: 'svg',
                   slot: 'start',
-                  SVG: IconPersonOutlineRounded,
+                  SVG: icons.outlineRounded.person,
                 },
               ],
             },
@@ -110,7 +105,7 @@ export class PageUser extends scheduleSignalElement {
                   component: 'icon',
                   type: 'svg',
                   slot: 'start',
-                  SVG: IconCallOutlineRounded,
+                  SVG: icons.outlineRounded.call,
                 },
               ],
             },
@@ -124,7 +119,7 @@ export class PageUser extends scheduleSignalElement {
                   component: 'icon',
                   type: 'svg',
                   slot: 'start',
-                  SVG: IconAlternateEmailRounded,
+                  SVG: icons.filledRounded.alternateEmail,
                 },
               ],
             },
@@ -139,7 +134,7 @@ export class PageUser extends scheduleSignalElement {
                   component: 'icon',
                   type: 'svg',
                   slot: 'start',
-                  SVG: IconAwardStarRounded,
+                  SVG: icons.filledRounded.awardStar,
                   classes: ['icon-gold'],
                 },
               ],
@@ -162,7 +157,7 @@ export class PageUser extends scheduleSignalElement {
                     {
                       component: 'icon',
                       type: 'svg',
-                      SVG: IconStarOutlineRounded,
+                      SVG: icons.filledRounded.add,
                       slot: 'icon',
                     },
                   ],
@@ -179,7 +174,7 @@ export class PageUser extends scheduleSignalElement {
                     {
                       component: 'icon',
                       type: 'svg',
-                      SVG: IconLockOutline,
+                      SVG: icons.outline.lock,
                       slot: 'icon',
                     },
                   ],

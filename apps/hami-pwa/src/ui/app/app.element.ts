@@ -1,5 +1,6 @@
 import config from '#hami/config';
 import i18n from '#hami/ui/i18n';
+import icons from '#hami/ui/icons';
 import { attachRouter } from '#hami/ui/router';
 
 import { signalElement } from '@gecut/mixins';
@@ -11,8 +12,6 @@ import '@material/web/labs/navigationtab/navigation-tab';
 import { html, nothing, unsafeCSS } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 import { unsafeSVG } from 'lit/directives/unsafe-svg.js';
-import IconLanguageRounded from 'virtual:icons/material-symbols/language';
-import IconMenuRounded from 'virtual:icons/material-symbols/menu-rounded';
 import { registerSW } from 'virtual:pwa-register';
 
 import styles from './app.element.scss?inline';
@@ -49,7 +48,7 @@ export class AppRoot extends signalElement {
   static topAppBarTrailingSlot: M3.Types.IconButtonContent = {
     component: 'icon-button',
     type: 'standard',
-    iconSVG: IconLanguageRounded,
+    iconSVG: icons.filled.language,
   };
 
   @state()
@@ -60,7 +59,7 @@ export class AppRoot extends signalElement {
       leadingSlot: <M3.Types.IconButtonContent>{
         component: 'icon-button',
         type: 'standard',
-        iconSVG: IconMenuRounded,
+        iconSVG: icons.filledRounded.menu,
       },
       trailingSlotList: [AppRoot.topAppBarTrailingSlot],
     };

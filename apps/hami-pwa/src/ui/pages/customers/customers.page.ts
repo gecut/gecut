@@ -2,6 +2,7 @@ import { Customer } from '#hami/content';
 import { requireSignIn } from '#hami/controllers/require-sign-in';
 import '#hami/ui/components/product-price-card/product-price-card';
 import i18n from '#hami/ui/i18n';
+import icons from '#hami/ui/icons';
 import { urlForName } from '#hami/ui/router';
 import elementStyle from '#hami/ui/stylesheets/element.scss?inline';
 import pageStyle from '#hami/ui/stylesheets/page.scss?inline';
@@ -13,7 +14,6 @@ import { flow } from '@lit-labs/virtualizer/layouts/flow.js';
 import { virtualize } from '@lit-labs/virtualizer/virtualize.js';
 import { html, nothing, unsafeCSS } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import IconSearchRounded from 'virtual:icons/material-symbols/search-rounded';
 
 import styles from './customers.page.scss?inline';
 
@@ -53,7 +53,7 @@ export class PageCustomers extends scheduleSignalElement {
       {
         component: 'icon',
         type: 'svg',
-        SVG: IconSearchRounded,
+        SVG: icons.filledRounded.search,
         slot: 'leadingicon',
       },
     ],

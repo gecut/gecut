@@ -1,12 +1,5 @@
 import i18n from '#hami/ui/i18n';
-
-import IconAttachMoneyRounded from 'virtual:icons/material-symbols/attach-money-rounded';
-import IconEventAvailableOutlineRounded from 'virtual:icons/material-symbols/event-available-outline-rounded';
-import IconEventOutlineRounded from 'virtual:icons/material-symbols/event-outline-rounded';
-import IconInventory2OutlineRounded from 'virtual:icons/material-symbols/inventory-2-outline-rounded';
-import IconLocationOnOutlineRounded from 'virtual:icons/material-symbols/location-on-outline-rounded';
-import IconPersonOutlineRounded from 'virtual:icons/material-symbols/person-outline-rounded';
-import IconWorkspacesOutline from 'virtual:icons/material-symbols/workspaces-outline';
+import icons from '#hami/ui/icons';
 
 import type { Projects } from '@gecut/types';
 import type { M3 } from '@gecut/ui-kit';
@@ -45,7 +38,7 @@ export function orderDetailDialog(
                     component: 'icon',
                     type: 'svg',
                     slot: 'start',
-                    SVG: IconPersonOutlineRounded,
+                    SVG: icons.outlineRounded.person,
                   },
                 ],
               },
@@ -63,7 +56,7 @@ export function orderDetailDialog(
                     component: 'icon',
                     type: 'svg',
                     slot: 'start',
-                    SVG: IconLocationOnOutlineRounded,
+                    SVG: icons.outlineRounded.locationOn,
                   },
                 ],
               },
@@ -82,7 +75,7 @@ export function orderDetailDialog(
                     component: 'icon',
                     type: 'svg',
                     slot: 'start',
-                    SVG: IconEventOutlineRounded,
+                    SVG: icons.outlineRounded.event,
                   },
                 ],
               },
@@ -101,7 +94,7 @@ export function orderDetailDialog(
                     component: 'icon',
                     type: 'svg',
                     slot: 'start',
-                    SVG: IconEventAvailableOutlineRounded,
+                    SVG: icons.outlineRounded.eventAvailable,
                   },
                 ],
               },
@@ -114,7 +107,7 @@ export function orderDetailDialog(
                     component: 'icon',
                     type: 'svg',
                     slot: 'start',
-                    SVG: IconWorkspacesOutline,
+                    SVG: icons.outline.workspaces,
                   },
                 ],
               },
@@ -147,7 +140,7 @@ export function orderDetailDialog(
                   component: 'icon',
                   type: 'svg',
                   slot: 'start',
-                  SVG: IconInventory2OutlineRounded,
+                  SVG: icons.outlineRounded.inventory2,
                 },
               ],
             },
@@ -165,7 +158,7 @@ export function orderDetailDialog(
                   component: 'icon',
                   type: 'svg',
                   slot: 'start',
-                  SVG: IconAttachMoneyRounded,
+                  SVG: icons.filledRounded.attachMoney,
                 },
               ],
             },
