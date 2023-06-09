@@ -1,18 +1,13 @@
 import { notificationListCard } from '#hami/content/cards/notification-list-card';
+import { productPriceListCard } from '#hami/content/cards/product-price-list-card';
 import { requireSignIn } from '#hami/controllers/require-sign-in';
-import '#hami/ui/components/product-price-card/product-price-card';
 import i18n from '#hami/ui/i18n';
 import { urlForName } from '#hami/ui/router';
 import elementStyle from '#hami/ui/stylesheets/element.scss?inline';
 import pageStyle from '#hami/ui/stylesheets/page.scss?inline';
 
 import { scheduleSignalElement } from '@gecut/mixins';
-import {
-  createSignalProvider,
-  dispatch,
-  getValue,
-  request,
-} from '@gecut/signal';
+import { dispatch, getValue, request } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
 import { html, nothing, unsafeCSS } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
@@ -37,17 +32,14 @@ export class PageHome extends scheduleSignalElement {
     unsafeCSS(pageStyle),
   ];
 
-  static productPriceStorageSignal = createSignalProvider(
-    'product-price-storage'
-  );
+  @state()
+  private notificationStorage: Record<string, Projects.Hami.Notification> = {};
 
   @state()
-  protected notificationStorage = getValue('notification-storage')?.data ?? {};
+  private productsPriceStorage: Record<string, Projects.Hami.ProductPrice> = {};
 
   @state()
-  protected productsPrice: Projects.Hami.ProductPrice[] = Object.values(
-      PageHome.productPriceStorageSignal.value?.data ?? {}
-    );
+  private productsPriceQuery = '';
 
   private topAppBarChangeModeDebounce?: NodeJS.Timeout;
   private productsPriceSearchBoxComponent = M3.Renderers.renderTextField({
@@ -69,9 +61,7 @@ export class PageHome extends scheduleSignalElement {
     styles: { width: '100%' },
     customConfig: (target) => {
       target.addEventListener('input', () => {
-        requestAnimationFrame(() => {
-          this.searchProductPrice(target.value.trim());
-        });
+        this.productsPriceQuery = target.value;
       });
 
       return target;
@@ -96,7 +86,7 @@ export class PageHome extends scheduleSignalElement {
     this.addSignalListener('product-price-storage', (value) => {
       this.log.property?.('product-price-storage', value);
 
-      this.productsPrice = Object.values(value.data);
+      this.productsPriceStorage = value.data ?? {};
     });
   }
 
@@ -119,7 +109,7 @@ export class PageHome extends scheduleSignalElement {
 
     requestIdleCallback(() => {
       request('notification-storage', {}, 'staleWhileRevalidate');
-      PageHome.productPriceStorageSignal.request({});
+      request('product-price-storage', {}, 'staleWhileRevalidate');
     });
   }
 
@@ -138,7 +128,7 @@ export class PageHome extends scheduleSignalElement {
   }
 
   private renderProductPriceCard(): RenderResult {
-    if (this.productsPrice.length === 0) return nothing;
+    if (Object.keys(this.productsPriceStorage).length === 0) return nothing;
 
     return html`
       <div class="card-box">
@@ -148,9 +138,10 @@ export class PageHome extends scheduleSignalElement {
 
         <div class="search-box">${this.productsPriceSearchBoxComponent}</div>
 
-        <product-price-card
-          .content=${{ data: this.productsPrice }}
-        ></product-price-card>
+        ${productPriceListCard(
+    Object.values(this.productsPriceStorage),
+    this.productsPriceQuery
+  )}
       </div>
     `;
   }
@@ -175,24 +166,5 @@ export class PageHome extends scheduleSignalElement {
         });
       }
     }, 100);
-  }
-
-  private searchProductPrice(query: string): void {
-    this.log.methodArgs?.('searchProductPrice', { query });
-
-    const productPriceCard =
-      this.renderRoot.querySelector('product-price-card');
-
-    if (productPriceCard != null) {
-      if (query !== '') {
-        productPriceCard.content = {
-          data: this.productsPrice.filter((productPrice) =>
-            productPrice.name.includes(query)
-          ),
-        };
-      } else {
-        productPriceCard.content = { data: this.productsPrice };
-      }
-    }
   }
 }
