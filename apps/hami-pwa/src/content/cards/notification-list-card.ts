@@ -1,5 +1,5 @@
 import { M3 } from '@gecut/ui-kit';
-import { grid } from '@lit-labs/virtualizer/layouts/grid.js';
+import { flow } from '@lit-labs/virtualizer/layouts/flow.js';
 import { html } from 'lit';
 import IconDoneRounded from 'virtual:icons/material-symbols/done-rounded';
 import IconErrorOutlineRounded from 'virtual:icons/material-symbols/error-outline-rounded';
@@ -62,12 +62,8 @@ export function notificationList(
 
     scroller: true,
     items: notifications,
-    layout: grid({
+    layout: flow({
       direction: 'vertical',
-      itemSize: {
-        height: '88px',
-        width: '400px',
-      },
     }),
     renderItem: (notification) => {
       return html`${notificationItem(notification)}`;

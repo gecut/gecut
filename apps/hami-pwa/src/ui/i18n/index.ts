@@ -11,18 +11,26 @@ function init() {
   document.documentElement.dir = fa.$direction;
 }
 
-function message(key: LanguageKeys<typeof fa>) {
+function message(key: string, ...replacement: string[]) {
   logger.methodArgs?.('message', { key });
 
-  const value = fa[key];
+  let value = 'key_not_defined';
 
-  if (value == null) {
+  if (Object.keys(fa).includes(key) === true) {
+    value = fa[key as LanguageKeys<typeof fa>];
+  }
+
+  if (value === 'key_not_defined') {
     logger.warning(
       'message',
       'key_not_defined',
       `'${key}' not have any value`,
       key
     );
+  }
+
+  for (const str of replacement) {
+    value = value.replace('{{}}', str);
   }
 
   return value;

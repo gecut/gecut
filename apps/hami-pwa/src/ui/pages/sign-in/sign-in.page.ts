@@ -8,8 +8,9 @@ import pageStyle from '#hami/ui/stylesheets/page.scss?inline';
 
 import { loggerElement } from '@gecut/mixins';
 import { dispatch, request } from '@gecut/signal';
+import { M3 } from '@gecut/ui-kit';
 import { html, unsafeCSS } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, state } from 'lit/decorators.js';
 import IconCallOutlineRounded from 'virtual:icons/material-symbols/call-outline-rounded';
 import IconPasswordOutline from 'virtual:icons/material-symbols/lock-outline';
 import IconLoginOutlineRounded from 'virtual:icons/material-symbols/login-rounded';
@@ -93,26 +94,30 @@ export class PageSignIn extends loggerElement {
             },
           ],
         },
-        [
-          {
-            component: 'button',
-            type: 'filled',
-            label: i18n.message('sign_in_page_form_submit'),
-            action: 'form_submit',
-            slotList: [
-              {
-                component: 'icon',
-                type: 'svg',
-                SVG: IconLoginOutlineRounded,
-                slot: 'icon',
-              },
-            ],
-            styles: { flexGrow: '0', marginInlineStart: 'auto' },
-          },
-        ],
       ],
     },
   };
+
+  @state()
+  private submitButton: M3.Types.ButtonContent = {
+      component: 'button',
+      type: 'filled',
+      label: i18n.message('sign_in_page_form_submit'),
+      slotList: [
+        {
+          component: 'icon',
+          type: 'svg',
+          SVG: IconLoginOutlineRounded,
+          slot: 'icon',
+        },
+      ],
+      styles: { marginInlineStart: 'auto' },
+      customConfig: (target) => {
+        target.addEventListener('click', () => this.submitForm());
+
+        return target;
+      },
+    };
 
   override connectedCallback() {
     super.connectedCallback();
@@ -121,11 +126,6 @@ export class PageSignIn extends loggerElement {
 
     dispatch('top-app-bar-hidden', true);
     dispatch('bottom-app-bar-hidden', true);
-
-    document
-      .querySelector('app-root')
-      ?.renderRoot?.querySelector('md-branded-fab')
-      ?.remove();
   }
 
   override render(): RenderResult {
@@ -137,10 +137,11 @@ export class PageSignIn extends loggerElement {
       <div class="form-box">
         <form class="form">
           <h2>${i18n.message('sign_in_page_title')}</h2>
-          <form-builder
-            .data=${this.form}
-            @submit=${this.onSubmit}
-          ></form-builder>
+          <form-builder .data=${this.form}></form-builder>
+
+          <div class="button">
+            ${M3.Renderers.renderButton(this.submitButton)}
+          </div>
         </form>
       </div>
 
@@ -148,19 +149,37 @@ export class PageSignIn extends loggerElement {
     `;
   }
 
-  private async onSubmit(event: HTMLElementEventMap['submit']) {
-    if (event.detail.values != null) {
-      const values = event.detail.values[
+  private async submitForm() {
+    const formBuilder = this.renderRoot.querySelector('form-builder');
+
+    if (
+      formBuilder != null &&
+      formBuilder.validate === true &&
+      formBuilder.values != null
+    ) {
+      const values = formBuilder.values[
         'sign-in'
       ] as unknown as Projects.Hami.SignInRequest;
 
-      try {
-        await request('sign-in', values);
+      this.submitButton = {
+        ...this.submitButton,
 
-        routerGo('/');
-      } catch (error) {
-        this.log.error('onSignInButtonClick', 'sign_in_request_failed', error);
-      }
+        disabled: true,
+      };
+
+      const response = await request('sign-in', values).finally(() => {
+        this.submitButton = {
+          ...this.submitButton,
+
+          disabled: false,
+        };
+      });
+
+      requestIdleCallback(() => {
+        if (response.ok === true) {
+          routerGo('/');
+        }
+      });
     }
   }
 }

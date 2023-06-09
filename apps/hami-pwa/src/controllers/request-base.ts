@@ -59,21 +59,33 @@ export async function fetchJSON<TJson extends StringifyableRecord>(
     ...options,
   };
 
+  if (options.searchParams != null) {
+    const searchParams = new URLSearchParams(
+      options.searchParams as Record<string, string>
+    );
+
+    if (searchParams.get('uid') === '') {
+      throw new Error('uid_empty');
+    }
+  }
+
   const response: ResponsePromise = await requestBase(url, options).catch(
     async (error) => {
-      let message = getByErrorCode('');
+      let message = '';
 
       if (error != null && error.response != null) {
         const response =
           (await error.response.json()) as AlwatrServiceResponseFailed;
 
         message = getByErrorCode(response.errorCode);
+      } else {
+        message = getByErrorCode();
       }
 
       dispatch('snack-bar', {
         component: 'snack-bar',
         type: 'ellipsis-message',
-        message: getByErrorCode(message),
+        message: message,
         closeButton: true,
       });
 

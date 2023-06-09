@@ -11,7 +11,8 @@ import proxyConfig from '../proxy.conf.json';
 import i18n from './ui/i18n';
 import { urlForName } from './ui/router';
 
-import type { Projects } from '@gecut/types';
+import type { AlwatrServiceResponse } from '@alwatr/type';
+import type { Projects, StringifyableRecord } from '@gecut/types';
 import type { M3 } from '@gecut/ui-kit';
 
 declare global {
@@ -21,7 +22,10 @@ declare global {
 
     readonly user: Projects.Hami.SignInResponse;
     readonly 'search-product-price-query': string;
-    readonly 'sign-in': Record<string, never>;
+    readonly 'sign-in': AlwatrServiceResponse<
+      Projects.Hami.SignInResponse,
+      StringifyableRecord
+    >;
     readonly 'top-app-bar': Partial<M3.Types.TopAppBarContent>;
     readonly 'snack-bar': M3.Types.SnackBarContent;
     readonly dialog: M3.Types.DialogContent;
@@ -75,6 +79,7 @@ const navigationTabs: M3.Types.NavigationTabContent[] = [
 const config = {
   apiUrl: proxyConfig['/api/v0'].target,
   navigationTabs,
+  version: '0.0.1',
 };
 
 export default config;

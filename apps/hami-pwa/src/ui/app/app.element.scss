@@ -34,15 +34,6 @@ md-navigation-bar {
   transition-timing-function: var(--sys-motion-easing-in-out);
 }
 
-top-app-bar[hidden] {
-  margin-top: calc(-1 * 8 * var(--sys-spacing-track));
-}
-
-md-navigation-bar[hidden] {
-  display: inherit;
-  margin-bottom: calc(-1 * 10 * var(--sys-spacing-track));
-}
-
 md-navigation-tab {
   height: 100%;
 }

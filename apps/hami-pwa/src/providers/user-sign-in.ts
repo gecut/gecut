@@ -24,5 +24,5 @@ setProvider('sign-in', async (signInData) => {
     request('user', {}, 'staleWhileRevalidate');
   }
 
-  return {};
+  return response;
 });

@@ -5,16 +5,12 @@ import { attachRouter } from '#hami/ui/router';
 import { signalElement } from '@gecut/mixins';
 import { dispatch } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
-import '@material/web/fab/branded-fab';
-import '@material/web/fab/fab';
 import '@material/web/icon/icon';
 import '@material/web/labs/navigationbar/navigation-bar';
 import '@material/web/labs/navigationtab/navigation-tab';
-import { html, unsafeCSS } from 'lit';
+import { html, nothing, unsafeCSS } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 import { unsafeSVG } from 'lit/directives/unsafe-svg.js';
-import { renderIcon } from 'packages/ui/ui-kit/src/m3/renderers/icon';
-import IconAdd from 'virtual:icons/material-symbols/add';
 import IconLanguageRounded from 'virtual:icons/material-symbols/language';
 import IconMenuRounded from 'virtual:icons/material-symbols/menu-rounded';
 import { registerSW } from 'virtual:pwa-register';
@@ -175,22 +171,10 @@ export class AppRoot extends signalElement {
 
   override render(): RenderResult {
     return html`
-      <top-app-bar
-        .content=${this.topAppBarContent}
-        ?hidden=${this.topAppBarHidden}
-      ></top-app-bar>
+      ${AppRoot.renderTopAppBar(this.topAppBarContent, this.topAppBarHidden)}
 
       <main role="main">
-        <div class="fixed">
-          <md-branded-fab style="position:absolute;bottom: 16px;right: 16px;z-index:50;">${renderIcon(
-    {
-      component: 'icon',
-      type: 'svg',
-      SVG: IconAdd,
-      slot: 'icon',
-    }
-  )}<md-branded-fab>
-        </div>
+        <div class="fixed"></div>
       </main>
 
       ${AppRoot.renderNavigationBar(
@@ -214,14 +198,25 @@ export class AppRoot extends signalElement {
     );
   }
 
+  static renderTopAppBar(
+    content: M3.Types.TopAppBarContent,
+    hidden = false
+  ): RenderResult {
+    if (hidden === true) return nothing;
+
+    return html`<top-app-bar .content=${content}></top-app-bar>`;
+  }
+
   static renderNavigationBar(
     navigationTabs: M3.Types.NavigationTabContent[],
-    bottomAppBarHidden: boolean
+    hidden = false
   ): RenderResult {
+    if (hidden === true) return nothing;
+
     const navigationTabsTemplate = navigationTabs.map(this.renderNavigationTab);
 
     return html`
-      <md-navigation-bar ?hidden=${bottomAppBarHidden} .activeIndex=${0}>
+      <md-navigation-bar .activeIndex=${0}>
         ${navigationTabsTemplate}
       </md-navigation-bar>
     `;
