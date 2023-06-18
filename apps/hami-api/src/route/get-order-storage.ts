@@ -18,45 +18,7 @@ nanoServer.route(
       );
 
     for await (const orderId of Object.keys(orderStorage.data)) {
-      const order = orderStorage.data[orderId];
-
-      const creator = await storageClient.get<Projects.Hami.User>(
-        order.creatorId,
-        config.userStorage
-      );
-      const supplier = await storageClient.get<Projects.Hami.Supplier>(
-        order.supplierId,
-        config.supplierStorage
-      );
-      const customer = await storageClient.get<Projects.Hami.Customer>(
-        order.customerId,
-        config.customerStorage
-      );
-      const customerProject =
-        await storageClient.get<Projects.Hami.CustomerProject>(
-          order.customerProjectId,
-          config.customerProjectStoragePrefix + order.customerId
-        );
-      const productList = Object.fromEntries(order.productList.entries());
-
-      for await (const [index, orderProduct] of Object.entries(productList)) {
-        const product = await storageClient.get<Projects.Hami.Product>(
-          orderProduct.productId,
-          config.productStorage
-        );
-
-        productList[index].product = product;
-      }
-
-      orderStorage.data[orderId] = {
-        creator,
-        customer,
-        customerProject,
-        supplier,
-        productList: Object.values(productList),
-
-        ...order,
-      };
+      orderStorage.data[orderId] = await orderModel(orderStorage.data[orderId]);
     }
 
     if (user.role === 'admin') {
@@ -73,3 +35,46 @@ nanoServer.route(
     };
   }
 );
+
+export async function orderModel(
+  order: Projects.Hami.Order
+): Promise<Projects.Hami.OrderModel> {
+  const creator = await storageClient.get<Projects.Hami.User>(
+    order.creatorId,
+    config.userStorage
+  );
+  const supplier = await storageClient.get<Projects.Hami.Supplier>(
+    order.supplierId,
+    config.supplierStorage
+  );
+  const customer = await storageClient.get<Projects.Hami.Customer>(
+    order.customerId,
+    config.customerStorage
+  );
+  const customerProject =
+    await storageClient.get<Projects.Hami.CustomerProject>(
+      order.customerProjectId,
+      config.customerProjectStoragePrefix + order.customerId
+    );
+  const productStorage = await storageClient.getStorage<Projects.Hami.Product>(
+    config.productStorage
+  );
+  const productList: Projects.Hami.OrderProductModel[] = [];
+
+  for await (const orderProduct of order.productList) {
+    productList.push({
+      ...orderProduct,
+      product: productStorage.data[orderProduct.productId],
+    });
+  }
+
+  return {
+    ...order,
+
+    creator,
+    customer,
+    customerProject,
+    supplier,
+    productList,
+  };
+}

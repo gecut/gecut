@@ -3,6 +3,8 @@ import { nanoServer } from '../lib/server';
 import { storageClient } from '../lib/storage';
 import { requireSignedIn } from '../util/require-signed-in';
 
+import { orderModel } from './get-order-storage';
+
 import type { AlwatrDocumentStorage } from '@alwatr/type/storage';
 import type { Projects } from '@gecut/types';
 
@@ -32,14 +34,30 @@ nanoServer.route(
         await storageClient.getStorage<Projects.Hami.CustomerProject>(
           config.customerProjectStoragePrefix + customerId
         );
+      const projectList: Projects.Hami.CustomerProjectModel[] = [];
+      const orderList: Projects.Hami.OrderModel[] = [];
+
+      for await (const order of Object.values(orderStorage.data).filter(
+        (order) => order.customerId === customerId
+      )) {
+        orderList.push(await orderModel(order));
+      }
+
+      for await (const project of Object.values(customerProjectStorage.data)) {
+        projectList.push({
+          ...project,
+
+          ordersCount: orderList.filter(
+            (order) => order.customerProjectId === project.id
+          ).length,
+        });
+      }
 
       delete creator['password'];
       const customerModel: Projects.Hami.CustomerModel = {
         creator,
-        orderList: Object.values(orderStorage.data).filter(
-          (order) => order.customerId === customerId
-        ),
-        projectList: Object.values(customerProjectStorage.data),
+        orderList,
+        projectList,
         ...customer,
       };
 

@@ -8,7 +8,7 @@ import { requireAdmin } from '../util/require-admin';
 nanoServer.route('PATCH', '/customer-storage/', async (connection) => {
   logger.logMethod?.('patch-customer-storage');
 
-  await requireAdmin(connection);
+  const user = await requireAdmin(connection);
 
   const bodyJson = await connection.requireJsonBody<{
     data: Array<Partial<Projects.Hami.Customer>>;
@@ -16,7 +16,10 @@ nanoServer.route('PATCH', '/customer-storage/', async (connection) => {
 
   for (let customer of bodyJson.data) {
     customer = await storageClient.set(
-      Projects.Hami.customerRequire(customer),
+      Projects.Hami.customerRequire({
+        creatorId: user.id,
+        ...customer,
+      }),
       config.customerStorage
     );
   }

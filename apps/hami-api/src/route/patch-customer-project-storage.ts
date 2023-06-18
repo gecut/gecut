@@ -10,10 +10,10 @@ nanoServer.route('PATCH', '/customer-project-storage/', async (connection) => {
 
   await requireAdmin(connection);
 
-  const params = connection.requireQueryParams<{ 'customer-id': string }>({
-    'customer-id': 'string',
+  const params = connection.requireQueryParams<{ 'customerId': string }>({
+    'customerId': 'string',
   });
-  const customerId = params['customer-id'];
+  const customerId = params['customerId'];
   const bodyJson = await connection.requireJsonBody<{
     data: Array<Partial<Projects.Hami.CustomerProject>>;
   }>();
