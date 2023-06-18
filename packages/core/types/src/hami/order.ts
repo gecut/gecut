@@ -12,7 +12,11 @@ export interface OrderModel extends Order {
   customer: Customer;
   customerProject: CustomerProject;
   supplier: Supplier;
-  productList: (OrderProduct & { product: Product })[];
+  productList: OrderProductModel[];
+}
+
+export interface OrderProductModel extends OrderProduct {
+  product: Product;
 }
 
 export const orderStatusList = [
