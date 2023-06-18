@@ -1,7 +1,10 @@
 import './customer-storage';
 import './notification-storage';
 import './order-storage';
+import './patch-customer-storage';
 import './product-price-storage';
 import './promises-list';
+import './put-order';
+import './supplier-storage';
 import './user';
 import './user-sign-in';
