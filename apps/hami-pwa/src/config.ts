@@ -11,6 +11,10 @@ import type { M3 } from '@gecut/ui-kit';
 
 declare global {
   interface Signals extends Projects.Hami.Routes {
+    readonly 'patch-customer-storage': Record<string, never>;
+    readonly 'patch-customer-project-storage': Record<string, never>;
+    readonly 'put-order': Record<string, never>;
+
     readonly 'top-app-bar-hidden': boolean;
     readonly 'bottom-app-bar-hidden': boolean;
 
@@ -22,12 +26,16 @@ declare global {
     >;
     readonly 'top-app-bar': Partial<M3.Types.TopAppBarContent>;
     readonly 'snack-bar': M3.Types.SnackBarContent;
-    readonly dialog: M3.Types.DialogContent;
-    readonly fab: M3.Types.FABContent;
+    readonly dialog: M3.Types.DialogContent | null;
+    readonly fab: M3.Types.FABContent[];
     readonly 'promises-list': string[];
   }
   interface Providers
     extends Record<keyof Projects.Hami.Routes, Record<string, never>> {
+    readonly 'patch-customer-storage': Projects.Hami.PatchRoutes['patch-customer-storage'];
+    readonly 'patch-customer-project-storage': Projects.Hami.PatchRoutes['patch-customer-project-storage'];
+    readonly 'put-order': Projects.Hami.PatchRoutes['put-order'];
+
     readonly 'sign-in': Projects.Hami.SignInRequest;
     readonly 'promises-list': {
       key: string;

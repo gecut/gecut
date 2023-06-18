@@ -1,17 +1,12 @@
-import { Customer } from '#hami/content';
-import { requireSignIn } from '#hami/controllers/require-sign-in';
-import '#hami/ui/components/product-price-card/product-price-card';
+import { customersListCard } from '#hami/content/cards/customers-list-card';
+import { newCustomerFAB } from '#hami/content/fabs/new-customer-fab';
+import { headingPageTypography } from '#hami/content/typographies/heading-page-typography';
+import { PageBase } from '#hami/ui/helpers/page-base';
 import i18n from '#hami/ui/i18n';
 import icons from '#hami/ui/icons';
-import { urlForName } from '#hami/ui/router';
-import elementStyle from '#hami/ui/stylesheets/element.scss?inline';
-import pageStyle from '#hami/ui/stylesheets/page.scss?inline';
 
-import { scheduleSignalElement } from '@gecut/mixins';
-import { dispatch, getValue, request } from '@gecut/signal';
+import { dispatch, request } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
-import { flow } from '@lit-labs/virtualizer/layouts/flow.js';
-import { virtualize } from '@lit-labs/virtualizer/virtualize.js';
 import { html, nothing, unsafeCSS } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
@@ -27,20 +22,15 @@ declare global {
 }
 
 @customElement('page-customers')
-export class PageCustomers extends scheduleSignalElement {
-  static override styles = [
-    unsafeCSS(styles),
-    unsafeCSS(elementStyle),
-    unsafeCSS(pageStyle),
-  ];
+export class PageCustomers extends PageBase {
+  static override styles = [unsafeCSS(styles), ...PageBase.styles];
 
   @state()
-  private filteredCustomers: Projects.Hami.CustomerModel[] = [];
+  private customers: Record<string, Projects.Hami.CustomerModel> = {};
 
-  private customers: Projects.Hami.CustomerModel[] = [];
+  @state()
   private query = '';
 
-  private topAppBarChangeModeDebounce?: NodeJS.Timeout;
   private productsPriceSearchBoxComponent = M3.Renderers.renderTextField({
     component: 'text-field',
     type: 'outlined',
@@ -61,8 +51,6 @@ export class PageCustomers extends scheduleSignalElement {
     customConfig: (target) => {
       target.addEventListener('input', () => {
         this.query = target.value;
-
-        this.requestUpdateCustomers();
       });
 
       return target;
@@ -72,27 +60,15 @@ export class PageCustomers extends scheduleSignalElement {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    requireSignIn({ catchUrl: urlForName('Landing') });
-
-    dispatch('top-app-bar-hidden', false);
-    dispatch('bottom-app-bar-hidden', false);
-
-    this.addEventListener('scroll', this.topAppBarChangeMode);
+    dispatch('fab', [newCustomerFAB()]);
 
     this.addSignalListener('customer-storage', (value) => {
       this.log.property?.('customer-storage', value);
 
-      this.customers = Object.values(value.data);
-
-      this.requestUpdateCustomers();
+      this.customers = value.data;
     });
   }
 
-  override disconnectedCallback(): void {
-    super.disconnectedCallback();
-
-    this.removeEventListener('scroll', this.topAppBarChangeMode);
-  }
 
   override render(): RenderResult {
     super.render();
@@ -100,106 +76,27 @@ export class PageCustomers extends scheduleSignalElement {
     return html`${this.renderCustomersCard()}`;
   }
 
-  static renderCustomerItem(
-    customer: Projects.Hami.CustomerModel
-  ): HTMLElement {
-    return M3.Renderers.renderListItem({
-      component: 'list-item',
-      type: 'list-item',
-      headline: `${customer.firstName} ${customer.lastName}`,
-      supportingText: `${i18n.message(
-        'customers_information_box_item_description'
-      )}: ${customer.description}`,
-      trailingSupportingText: `${customer.orderList.length} ${i18n.message(
-        'customers_information_box_item_order'
-      )}`,
-      classes: ['customer-item'],
-      customConfig: (target) => {
-        target.addEventListener('click', () => {
-          dispatch('dialog', Customer.customerProfileDialog(customer));
-        });
-
-        return target;
-      },
-    });
-  }
-
   protected firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
 
-    requestIdleCallback(() => {
-      request('customer-storage', {}, 'staleWhileRevalidate');
-    });
+    request('customer-storage', {}, 'staleWhileRevalidate');
   }
 
   private renderCustomersCard(): RenderResult {
-    if (this.customers.length === 0) return nothing;
+    if (Object.keys(this.customers).length === 0) return nothing;
+
+    const titleTemplate = M3.Renderers.renderTypoGraphy(
+      headingPageTypography(i18n.message('customers_information_box_title'))
+    );
 
     return html`
       <div class="card-box">
-        <h3 class="title">
-          ${i18n.message('customers_information_box_title')}
-        </h3>
+        ${titleTemplate}
 
         <div class="search-box">${this.productsPriceSearchBoxComponent}</div>
 
-        <div class="card">
-          <div class="card-scroll">
-            <md-list
-              style="min-height:min(58vh,${72 * this.filteredCustomers.length +
-              1}px);"
-            >
-              ${virtualize({
-    scroller: true,
-    items: this.filteredCustomers,
-    layout: flow({ direction: 'vertical' }),
-    renderItem: (customer) => {
-      return html`${PageCustomers.renderCustomerItem(customer)}`;
-    },
-  })}
-            </md-list>
-          </div>
-
-          <md-elevation></md-elevation>
-        </div>
+        ${customersListCard(Object.values(this.customers), this.query)}
       </div>
     `;
-  }
-
-  private topAppBarChangeMode(): void {
-    if (this.topAppBarChangeModeDebounce != null) {
-      clearTimeout(this.topAppBarChangeModeDebounce);
-    }
-
-    this.topAppBarChangeModeDebounce = setTimeout(() => {
-      const scrollY = Math.floor(this.scrollTop / 10);
-
-      if (scrollY > 0 && getValue('top-app-bar')?.mode !== 'on-scroll') {
-        dispatch('top-app-bar', {
-          mode: 'on-scroll',
-        });
-      }
-
-      if (scrollY == 0 && getValue('top-app-bar')?.mode !== 'flat') {
-        dispatch('top-app-bar', {
-          mode: 'flat',
-        });
-      }
-    }, 100);
-  }
-
-  private requestUpdateCustomers(): void {
-    requestAnimationFrame(() => {
-      if (this.query.trim() !== '') {
-        this.filteredCustomers = this.customers.filter(
-          (customer) =>
-            String(
-              customer.firstName + customer.lastName + customer.phoneNumber
-            ).indexOf(this.query.trim()) !== -1
-        );
-      } else {
-        this.filteredCustomers = this.customers;
-      }
-    });
   }
 }

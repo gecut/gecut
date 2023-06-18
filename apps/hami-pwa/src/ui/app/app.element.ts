@@ -125,11 +125,15 @@ export class AppRoot extends signalElement {
       this.bottomAppBarHidden = hidden;
     });
 
-    this.addSignalListener('snack-bar', this.snackBarSignalListener);
+    this.addSignalListener('snack-bar', (content) =>
+      this.snackBarSignalListener(content)
+    );
 
-    this.addSignalListener('dialog', this.dialogSignalListener);
+    this.addSignalListener('dialog', (content) =>
+      this.dialogSignalListener(content)
+    );
 
-    this.addSignalListener('fab', this.fabSignalListener);
+    this.addSignalListener('fab', (content) => this.fabSignalListener(content));
   }
 
   override render(): RenderResult {
@@ -206,23 +210,33 @@ export class AppRoot extends signalElement {
     `;
   }
 
-  private fabSignalListener(content: M3.Types.FABContent) {
+  private fabSignalListener(contents: M3.Types.FABContent[]) {
     if (this.fixedDivision == null) return;
 
-    const oldFAB = this.fixedDivision.querySelector('md-fab');
+    const oldFABs = this.fixedDivision.querySelectorAll('md-fab');
 
-    oldFAB?.remove();
+    oldFABs.forEach((oldFAB) => {
+      oldFAB.remove();
+    });
 
-    this.fixedDivision.appendChild(
-      M3.Renderers.renderFAB({
-        styles: {
-          bottom: '16px',
-          insetInlineStart: '16px',
-        },
+    let bottom = 16;
 
-        ...content,
-      })
-    );
+    for (const content of contents) {
+      const fab = this.fixedDivision.appendChild(
+        M3.Renderers.renderFAB({
+          styles: {
+            position: 'absolute',
+            bottom: bottom + 'px',
+            insetInlineEnd: '16px',
+            zIndex: 'var(--sys-zindex-sticky)',
+          },
+
+          ...content,
+        })
+      );
+
+      bottom += fab.getBoundingClientRect().height;
+    }
   }
 
   private snackBarSignalListener(content: M3.Types.SnackBarContent) {
@@ -243,8 +257,14 @@ export class AppRoot extends signalElement {
     }
   }
 
-  private dialogSignalListener(content: M3.Types.DialogContent) {
+  private dialogSignalListener(content: Signals['dialog']) {
     if (this.fixedDivision == null) return;
+
+    if (content == null) {
+      return this.fixedDivision
+        .querySelectorAll('md-dialog')
+        .forEach((dialog) => dialog.remove());
+    }
 
     const dialog = M3.Renderers.renderDialog(content);
 

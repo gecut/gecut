@@ -9,6 +9,7 @@ import home from 'virtual:icons/material-symbols/home-rounded';
 import login from 'virtual:icons/material-symbols/login-rounded';
 import menu from 'virtual:icons/material-symbols/menu-rounded';
 import person from 'virtual:icons/material-symbols/person-rounded';
+import searchOff from 'virtual:icons/material-symbols/search-off-rounded';
 import search from 'virtual:icons/material-symbols/search-rounded';
 
 export const filledRounded = {
@@ -24,4 +25,5 @@ export const filledRounded = {
   menu,
   person,
   search,
+  searchOff,
 };

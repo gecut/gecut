@@ -1,12 +1,7 @@
-import { requireSignIn } from '#hami/controllers/require-sign-in';
+import { PageBase } from '#hami/ui/helpers/page-base';
 import i18n from '#hami/ui/i18n';
 import icons from '#hami/ui/icons';
-import { urlForName } from '#hami/ui/router';
-import elementStyle from '#hami/ui/stylesheets/element.scss?inline';
-import pageStyle from '#hami/ui/stylesheets/page.scss?inline';
 
-import { scheduleSignalElement } from '@gecut/mixins';
-import { dispatch } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
 import { html, nothing, unsafeCSS } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
@@ -22,11 +17,10 @@ declare global {
 }
 
 @customElement('page-user')
-export class PageUser extends scheduleSignalElement {
+export class PageUser extends PageBase {
   static override styles = [
     unsafeCSS(styles),
-    unsafeCSS(elementStyle),
-    unsafeCSS(pageStyle),
+    ...PageBase.styles
   ];
 
   @state()
@@ -34,11 +28,6 @@ export class PageUser extends scheduleSignalElement {
 
   override connectedCallback() {
     super.connectedCallback();
-
-    requireSignIn({ catchUrl: urlForName('Landing') });
-
-    dispatch('top-app-bar-hidden', false);
-    dispatch('bottom-app-bar-hidden', false);
 
     this.addSignalListener('user', (value) => {
       this.user = value;
