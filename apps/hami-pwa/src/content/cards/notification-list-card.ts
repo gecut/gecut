@@ -1,10 +1,8 @@
+import icons from '#hami/ui/icons';
+
 import { M3 } from '@gecut/ui-kit';
 import { flow } from '@lit-labs/virtualizer/layouts/flow.js';
 import { html } from 'lit';
-import IconDoneRounded from 'virtual:icons/material-symbols/done-rounded';
-import IconErrorOutlineRounded from 'virtual:icons/material-symbols/error-outline-rounded';
-import IconStarOutlineRounded from 'virtual:icons/material-symbols/star-outline-rounded';
-import IconWarningOutlineRounded from 'virtual:icons/material-symbols/warning-outline-rounded';
 
 import type { Projects } from '@gecut/types';
 import type { Lit } from '@gecut/ui-kit';
@@ -13,20 +11,20 @@ export function notificationItemIcon(
   status: Projects.Hami.Notification['status']
 ): M3.Types.IconContent {
   // * normal
-  let icon = IconStarOutlineRounded;
+  let icon = icons.outlineRounded.star;
   let cssColorVariable = 'var(--md-sys-color-gold)';
 
   switch (status) {
   case 'danger':
-    icon = IconErrorOutlineRounded;
+    icon = icons.outlineRounded.error;
     cssColorVariable = 'var(--md-sys-color-danger)';
     break;
   case 'warning':
-    icon = IconWarningOutlineRounded;
+    icon = icons.outlineRounded.warning;
     cssColorVariable = 'var(--md-sys-color-warning)';
     break;
   case 'success':
-    icon = IconDoneRounded;
+    icon = icons.filledRounded.done;
     cssColorVariable = 'var(--md-sys-color-success)';
     break;
   }

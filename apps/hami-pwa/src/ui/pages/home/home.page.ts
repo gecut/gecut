@@ -2,6 +2,7 @@ import { notificationListCard } from '#hami/content/cards/notification-list-card
 import { productPriceListCard } from '#hami/content/cards/product-price-list-card';
 import { requireSignIn } from '#hami/controllers/require-sign-in';
 import i18n from '#hami/ui/i18n';
+import icons from '#hami/ui/icons';
 import { urlForName } from '#hami/ui/router';
 import elementStyle from '#hami/ui/stylesheets/element.scss?inline';
 import pageStyle from '#hami/ui/stylesheets/page.scss?inline';
@@ -11,7 +12,6 @@ import { dispatch, getValue, request } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
 import { html, nothing, unsafeCSS } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import IconSearchOutlineRounded from 'virtual:icons/material-symbols/search-rounded';
 
 import styles from './home.page.scss?inline';
 
@@ -54,7 +54,7 @@ export class PageHome extends scheduleSignalElement {
       {
         component: 'icon',
         type: 'svg',
-        SVG: IconSearchOutlineRounded,
+        SVG: icons.filledRounded.search,
         slot: 'leadingicon',
       },
     ],

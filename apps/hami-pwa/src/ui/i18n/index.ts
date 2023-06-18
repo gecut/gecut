@@ -14,13 +14,13 @@ function init() {
 function message(key: string, ...replacement: string[]) {
   logger.methodArgs?.('message', { key });
 
-  let value = 'key_not_defined';
+  let value = key;
 
   if (Object.keys(fa).includes(key) === true) {
     value = fa[key as LanguageKeys<typeof fa>];
   }
 
-  if (value === 'key_not_defined') {
+  if (value === key) {
     logger.warning(
       'message',
       'key_not_defined',
@@ -53,12 +53,16 @@ function numberFormat(
   return _number.toLocaleString(getConfig().code, options);
 }
 
-function phoneNumber(phoneNumber: string): string {
-  const x = [
+function phoneNumber(phoneNumber: string, reverse = false): string {
+  let x = [
     phoneNumber.substring(0, 4),
     phoneNumber.substring(4, 7),
     phoneNumber.substring(7, 11),
   ];
+
+  if (reverse === true) {
+    x = x.reverse();
+  }
 
   return x.join('-');
 }

@@ -1,5 +1,6 @@
 import config from '#hami/config';
 import i18n from '#hami/ui/i18n';
+import icons from '#hami/ui/icons';
 import { attachRouter } from '#hami/ui/router';
 
 import { signalElement } from '@gecut/mixins';
@@ -11,8 +12,6 @@ import '@material/web/labs/navigationtab/navigation-tab';
 import { html, nothing, unsafeCSS } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 import { unsafeSVG } from 'lit/directives/unsafe-svg.js';
-import IconLanguageRounded from 'virtual:icons/material-symbols/language';
-import IconMenuRounded from 'virtual:icons/material-symbols/menu-rounded';
 import { registerSW } from 'virtual:pwa-register';
 
 import styles from './app.element.scss?inline';
@@ -49,7 +48,7 @@ export class AppRoot extends signalElement {
   static topAppBarTrailingSlot: M3.Types.IconButtonContent = {
     component: 'icon-button',
     type: 'standard',
-    iconSVG: IconLanguageRounded,
+    iconSVG: icons.filled.language,
   };
 
   @state()
@@ -60,7 +59,7 @@ export class AppRoot extends signalElement {
       leadingSlot: <M3.Types.IconButtonContent>{
         component: 'icon-button',
         type: 'standard',
-        iconSVG: IconMenuRounded,
+        iconSVG: icons.filledRounded.menu,
       },
       trailingSlotList: [AppRoot.topAppBarTrailingSlot],
     };
@@ -126,47 +125,15 @@ export class AppRoot extends signalElement {
       this.bottomAppBarHidden = hidden;
     });
 
-    this.addSignalListener('snack-bar', (content) => {
-      if (this.fixedDivision != null) {
-        const oldSnackBar = this.fixedDivision.querySelector('snack-bar');
+    this.addSignalListener('snack-bar', (content) =>
+      this.snackBarSignalListener(content)
+    );
 
-        if (oldSnackBar != null) {
-          oldSnackBar.addEventListener('closed', () => {
-            requestAnimationFrame(() => {
-              this.fixedDivision?.appendChild(
-                M3.Renderers.renderSnackBar(content)
-              );
-            });
-          });
+    this.addSignalListener('dialog', (content) =>
+      this.dialogSignalListener(content)
+    );
 
-          oldSnackBar.close();
-        } else {
-          requestAnimationFrame(() => {
-            this.fixedDivision?.appendChild(
-              M3.Renderers.renderSnackBar(content)
-            );
-          });
-        }
-      }
-    });
-
-    this.addSignalListener('dialog', async (content) => {
-      if (this.fixedDivision != null) {
-        requestAnimationFrame(() => {
-          const dialog = M3.Renderers.renderDialog(content);
-
-          dialog.addEventListener('closed', () => {
-            dialog.remove();
-          });
-
-          this.fixedDivision?.appendChild(dialog);
-
-          requestAnimationFrame(() => {
-            dialog.open = true;
-          });
-        });
-      }
-    });
+    this.addSignalListener('fab', (content) => this.fabSignalListener(content));
   }
 
   override render(): RenderResult {
@@ -241,5 +208,74 @@ export class AppRoot extends signalElement {
         </md-navigation-tab>
       </a>
     `;
+  }
+
+  private fabSignalListener(contents: M3.Types.FABContent[]) {
+    if (this.fixedDivision == null) return;
+
+    const oldFABs = this.fixedDivision.querySelectorAll('md-fab');
+
+    oldFABs.forEach((oldFAB) => {
+      oldFAB.remove();
+    });
+
+    let bottom = 16;
+
+    for (const content of contents) {
+      const fab = this.fixedDivision.appendChild(
+        M3.Renderers.renderFAB({
+          styles: {
+            position: 'absolute',
+            bottom: bottom + 'px',
+            insetInlineEnd: '16px',
+            zIndex: 'var(--sys-zindex-sticky)',
+          },
+
+          ...content,
+        })
+      );
+
+      bottom += fab.getBoundingClientRect().height;
+    }
+  }
+
+  private snackBarSignalListener(content: M3.Types.SnackBarContent) {
+    if (this.fixedDivision == null) return;
+
+    const oldSnackBar = this.fixedDivision.querySelector('snack-bar');
+
+    if (content.message === oldSnackBar?.message) return;
+
+    if (oldSnackBar != null) {
+      oldSnackBar.addEventListener('closed', () => {
+        this.fixedDivision?.appendChild(M3.Renderers.renderSnackBar(content));
+      });
+
+      oldSnackBar.close();
+    } else {
+      this.fixedDivision.appendChild(M3.Renderers.renderSnackBar(content));
+    }
+  }
+
+  private dialogSignalListener(content: Signals['dialog']) {
+    if (this.fixedDivision == null) return;
+
+    if (content == null) {
+      return this.fixedDivision
+        .querySelectorAll('md-dialog')
+        .forEach((dialog) => dialog.remove());
+    }
+
+    const dialog = M3.Renderers.renderDialog(content);
+
+    dialog.addEventListener('closed', () => {
+      dialog.remove();
+    });
+
+    this.fixedDivision.appendChild(dialog);
+
+    requestAnimationFrame(() => {
+      dialog.open = true;
+    });
   }
 }

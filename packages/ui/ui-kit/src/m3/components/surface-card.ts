@@ -28,8 +28,13 @@ export class SurfaceCard extends loggerElement {
     }
 
     .slots {
+      display: contents;
       border-radius: inherit;
       overflow: hidden;
+    }
+
+    md-elevation {
+      z-index: var(--sys-zindex-below);
     }
 
     :host([type='elevated']) {

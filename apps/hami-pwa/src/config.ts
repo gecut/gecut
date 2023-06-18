@@ -1,10 +1,4 @@
-import IconGradingRounded from 'virtual:icons/material-symbols/grading-rounded';
-import IconGroupOutlineRounded from 'virtual:icons/material-symbols/group-outline-rounded';
-import IconGroupRounded from 'virtual:icons/material-symbols/group-rounded';
-import IconHomeOutlineRounded from 'virtual:icons/material-symbols/home-outline-rounded';
-import IconHomeRounded from 'virtual:icons/material-symbols/home-rounded';
-import IconPersonOutlineRounded from 'virtual:icons/material-symbols/person-outline-rounded';
-import IconPersonRounded from 'virtual:icons/material-symbols/person-rounded';
+import icons from '#hami/ui/icons';
 
 import proxyConfig from '../proxy.conf.json';
 
@@ -17,6 +11,10 @@ import type { M3 } from '@gecut/ui-kit';
 
 declare global {
   interface Signals extends Projects.Hami.Routes {
+    readonly 'patch-customer-storage': Record<string, never>;
+    readonly 'patch-customer-project-storage': Record<string, never>;
+    readonly 'put-order': Record<string, never>;
+
     readonly 'top-app-bar-hidden': boolean;
     readonly 'bottom-app-bar-hidden': boolean;
 
@@ -28,11 +26,16 @@ declare global {
     >;
     readonly 'top-app-bar': Partial<M3.Types.TopAppBarContent>;
     readonly 'snack-bar': M3.Types.SnackBarContent;
-    readonly dialog: M3.Types.DialogContent;
+    readonly dialog: M3.Types.DialogContent | null;
+    readonly fab: M3.Types.FABContent[];
     readonly 'promises-list': string[];
   }
   interface Providers
     extends Record<keyof Projects.Hami.Routes, Record<string, never>> {
+    readonly 'patch-customer-storage': Projects.Hami.PatchRoutes['patch-customer-storage'];
+    readonly 'patch-customer-project-storage': Projects.Hami.PatchRoutes['patch-customer-project-storage'];
+    readonly 'put-order': Projects.Hami.PatchRoutes['put-order'];
+
     readonly 'sign-in': Projects.Hami.SignInRequest;
     readonly 'promises-list': {
       key: string;
@@ -46,32 +49,32 @@ const navigationTabs: M3.Types.NavigationTabContent[] = [
     label: i18n.message('bottom_bar_home_label'),
     link: urlForName('Home'),
     icons: {
-      active: IconHomeRounded,
-      inActive: IconHomeOutlineRounded,
+      active: icons.filledRounded.home,
+      inActive: icons.outlineRounded.home,
     },
   },
   {
     label: i18n.message('bottom_bar_orders_label'),
     link: urlForName('Orders'),
     icons: {
-      active: IconGradingRounded,
-      inActive: IconGradingRounded,
+      active: icons.filledRounded.grading,
+      inActive: icons.filledRounded.grading,
     },
   },
   {
     label: i18n.message('bottom_bar_user_label'),
     link: urlForName('User'),
     icons: {
-      active: IconPersonRounded,
-      inActive: IconPersonOutlineRounded,
+      active: icons.filledRounded.person,
+      inActive: icons.outlineRounded.person,
     },
   },
   {
     label: i18n.message('bottom_bar_customers_label'),
     link: urlForName('Customers'),
     icons: {
-      active: IconGroupRounded,
-      inActive: IconGroupOutlineRounded,
+      active: icons.filledRounded.group,
+      inActive: icons.outlineRounded.group,
     },
   },
 ];

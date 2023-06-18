@@ -1,6 +1,10 @@
 import type { AlwatrDocumentObjectActive } from './document-object-active';
 import type { RequireFunc } from './require-functions';
 
+export interface CustomerProjectModel extends CustomerProject {
+  ordersCount?: number;
+}
+
 export interface CustomerProject extends AlwatrDocumentObjectActive {
   id: string;
 

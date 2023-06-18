@@ -8,7 +8,7 @@ import type {
 } from '../types/surface-card';
 
 export function renderSurfaceCard(
-  content: SurfaceCardContent
+  content: SurfaceCardContent,
 ): SurfaceCardRendererReturn {
   const card = createElementByContent('surface-card', content, ['type']);
 

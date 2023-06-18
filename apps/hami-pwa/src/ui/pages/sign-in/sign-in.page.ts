@@ -2,6 +2,7 @@ import { requireSignIn } from '#hami/controllers/require-sign-in';
 import gecutLogo from '#hami/ui/assets/gecut-logo.webp?inline';
 import hamiLogo from '#hami/ui/assets/hami-logo.webp?inline';
 import i18n from '#hami/ui/i18n';
+import icons from '#hami/ui/icons';
 import { routerGo, urlForName } from '#hami/ui/router';
 import elementStyle from '#hami/ui/stylesheets/element.scss?inline';
 import pageStyle from '#hami/ui/stylesheets/page.scss?inline';
@@ -11,9 +12,6 @@ import { dispatch, request } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
 import { html, unsafeCSS } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import IconCallOutlineRounded from 'virtual:icons/material-symbols/call-outline-rounded';
-import IconPasswordOutline from 'virtual:icons/material-symbols/lock-outline';
-import IconLoginOutlineRounded from 'virtual:icons/material-symbols/login-rounded';
 
 import styles from './sign-in.page.scss?inline';
 
@@ -49,7 +47,7 @@ export class PageSignIn extends loggerElement {
             {
               component: 'icon',
               type: 'svg',
-              SVG: IconCallOutlineRounded,
+              SVG: icons.outlineRounded.call,
               slot: 'leadingicon',
             },
           ],
@@ -82,7 +80,7 @@ export class PageSignIn extends loggerElement {
             {
               component: 'icon',
               type: 'svg',
-              SVG: IconPasswordOutline,
+              SVG: icons.outline.lock,
               slot: 'leadingicon',
             },
           ],
@@ -107,7 +105,7 @@ export class PageSignIn extends loggerElement {
         {
           component: 'icon',
           type: 'svg',
-          SVG: IconLoginOutlineRounded,
+          SVG: icons.filledRounded.login,
           slot: 'icon',
         },
       ],

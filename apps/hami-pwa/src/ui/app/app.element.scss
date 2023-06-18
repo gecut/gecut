@@ -27,28 +27,6 @@ main {
   text-decoration: none;
 }
 
-top-app-bar,
-md-navigation-bar {
-  transition-property: margin;
-  transition-duration: var(--sys-motion-duration-medium);
-  transition-timing-function: var(--sys-motion-easing-in-out);
-}
-
 md-navigation-tab {
   height: 100%;
-}
-
-@media (max-height: 450px) {
-  top-app-bar {
-    margin-top: calc(-1 * 8 * var(--sys-spacing-track));
-  }
-
-  md-navigation-bar {
-    display: inherit;
-    margin-bottom: calc(-1 * 10 * var(--sys-spacing-track));
-  }
-}
-
-md-navigation-drawer-modal {
-  z-index: var(--sys-zindex-modal);
 }

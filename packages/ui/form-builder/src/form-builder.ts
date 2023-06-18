@@ -4,7 +4,7 @@ import { loggerElement } from '@gecut/mixins';
 import { M3 } from '@gecut/ui-kit';
 import { animate } from '@lit-labs/motion';
 import { html, css, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property, state } from 'lit/decorators.js';
 import { styleMap } from 'lit/directives/style-map.js';
 
 import { Form } from './type';
@@ -15,6 +15,9 @@ import type {
   FormSlide,
   FormValues,
   FormTextFieldContent,
+  FormOnChange,
+  FormOnSubmit,
+  FormButtonContent,
 } from './type';
 import type { RenderResult } from '@gecut/types';
 import type { PropertyDeclaration } from 'lit';
@@ -26,14 +29,8 @@ declare global {
     'form-builder': FormBuilder;
   }
   interface HTMLElementEventMap {
-    change: CustomEvent<{ ev: Event; component: FormComponent; form: Form }>;
-    submit: CustomEvent<{
-      ev: Event;
-      component: FormComponent;
-      form: Form;
-      values: FormValues<Form> | undefined;
-      validate: boolean;
-    }>;
+    change: CustomEvent<FormOnChange>;
+    submit: CustomEvent<FormOnSubmit>;
   }
 }
 
@@ -52,7 +49,6 @@ export class FormBuilder extends loggerElement {
         --padding-side: var(--gap);
 
         display: flex;
-        overflow: hidden;
       }
 
       .slides {
@@ -94,6 +90,9 @@ export class FormBuilder extends loggerElement {
 
   @property({ type: String, attribute: 'active-slide' })
   activeSlide?: string;
+
+  @state()
+  private disableSubmitButtons = false;
 
   override requestUpdate(
     name?: PropertyKey | undefined,
@@ -237,11 +236,11 @@ export class FormBuilder extends loggerElement {
       });
 
       return html`${textField}`;
-    }
-
-    if (component.component === 'button') {
+    } else if (component.component === 'button') {
       const button = M3.Renderers.renderButton({
         ...component,
+        disabled: this.getDisabledForButton(component.disabled),
+
         customConfig: (target) => {
           if (component.customConfig != null) {
             target = component.customConfig(target);
@@ -269,17 +268,29 @@ export class FormBuilder extends loggerElement {
                 component.action === 'form_submit' &&
                 this.data != null
               ) {
+                const detail = {
+                  ev: event,
+                  component,
+                  form: this.data,
+                  values: this.values,
+                  validate: this.validate,
+                };
+
                 this.dispatchEvent(
                   new CustomEvent('submit', {
-                    detail: {
-                      ev: event,
-                      component,
-                      form: this.data,
-                      values: this.values,
-                      validate: this.validate,
-                    },
+                    detail,
                   })
                 );
+
+                requestAnimationFrame(async () => {
+                  this.disableSubmitButtons = true;
+
+                  if (this.data != null && this.data.onSubmit != null) {
+                    await this.data.onSubmit(detail);
+                  }
+
+                  this.disableSubmitButtons = false;
+                });
               }
             }
           });
@@ -289,6 +300,25 @@ export class FormBuilder extends loggerElement {
       });
 
       return html`${button}`;
+    } else if (component.component === 'select') {
+      const textField = M3.Renderers.renderSelect({
+        ...component,
+        customConfig: (target) => {
+          if (component.customConfig != null) {
+            target = component.customConfig(target);
+          }
+
+          target.addEventListener('input', (event) => {
+            const _target = event.target as typeof target;
+
+            component.value = _target.value;
+          });
+
+          return target;
+        },
+      });
+
+      return html`${textField}`;
     }
 
     return nothing;
@@ -302,7 +332,11 @@ export class FormBuilder extends loggerElement {
         const formRowsValues = slideForm.map((row) => {
           const rowValues = [row]
             .flat()
-            .filter((component) => component.component === 'text-field')
+            .filter(
+              (component) =>
+                component.component === 'text-field' ||
+                component.component === 'select'
+            )
             .map((component) => [
               (component as M3.Types.TextFieldContent).name ?? '',
               (component as M3.Types.TextFieldContent).value ?? '',
@@ -341,5 +375,23 @@ export class FormBuilder extends loggerElement {
     }
 
     return -100;
+  }
+
+  private getDisabledForButton(
+    disabled: FormButtonContent['disabled']
+  ): boolean {
+    if (disabled === 'auto') {
+      return this.disableSubmitButtons;
+    }
+
+    if (
+      typeof disabled === 'function' &&
+      this.data != null &&
+      this.activeSlide != null
+    ) {
+      return disabled(this.data, this.data.slides[this.activeSlide]);
+    }
+
+    return (disabled as boolean | undefined) ?? false;
   }
 }

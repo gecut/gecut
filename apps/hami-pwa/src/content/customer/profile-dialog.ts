@@ -1,13 +1,7 @@
 import i18n from '#hami/ui/i18n';
+import icons from '#hami/ui/icons';
 
 import { dispatch } from '@gecut/signal';
-import IconAddRounded from 'virtual:icons/material-symbols/add-rounded';
-import IconCallOutlineRounded from 'virtual:icons/material-symbols/call-outline-rounded';
-import IconDescriptionOutlineRounded from 'virtual:icons/material-symbols/description-outline-rounded';
-import IconEditOutlineRounded from 'virtual:icons/material-symbols/edit-outline-rounded';
-import IconLocationOnOutlineRounded from 'virtual:icons/material-symbols/location-on-outline-rounded';
-import IconPersonOutlineRounded from 'virtual:icons/material-symbols/person-outline-rounded';
-import IconShoppingCardOutlineRounded from 'virtual:icons/material-symbols/shopping-cart-outline-rounded';
 
 import { customerAddProjectDialog } from './add-project-dialog';
 
@@ -43,7 +37,7 @@ export function customerProfileDialog(
                     component: 'icon',
                     type: 'svg',
                     slot: 'start',
-                    SVG: IconPersonOutlineRounded,
+                    SVG: icons.outlineRounded.person,
                   },
                 ],
               },
@@ -56,7 +50,7 @@ export function customerProfileDialog(
                     component: 'icon',
                     type: 'svg',
                     slot: 'start',
-                    SVG: IconCallOutlineRounded,
+                    SVG: icons.outlineRounded.call,
                   },
                 ],
               },
@@ -72,7 +66,7 @@ export function customerProfileDialog(
                     component: 'icon',
                     type: 'svg',
                     slot: 'start',
-                    SVG: IconShoppingCardOutlineRounded,
+                    SVG: icons.outlineRounded.shoppingCard,
                   },
                 ],
               },
@@ -89,7 +83,7 @@ export function customerProfileDialog(
                     component: 'icon',
                     type: 'svg',
                     slot: 'start',
-                    SVG: IconDescriptionOutlineRounded,
+                    SVG: icons.outlineRounded.description,
                   },
                 ],
               },
@@ -109,7 +103,7 @@ export function customerProfileDialog(
                       {
                         component: 'icon',
                         type: 'svg',
-                        SVG: IconEditOutlineRounded,
+                        SVG: icons.outlineRounded.edit,
                         slot: 'icon',
                       },
                     ],
@@ -125,7 +119,7 @@ export function customerProfileDialog(
                       {
                         component: 'icon',
                         type: 'svg',
-                        SVG: IconAddRounded,
+                        SVG: icons.filledRounded.add,
                         slot: 'icon',
                       },
                     ],
@@ -189,7 +183,7 @@ export function customerProfileDialog(
                 {
                   component: 'icon',
                   type: 'svg',
-                  SVG: IconLocationOnOutlineRounded,
+                  SVG: icons.outlineRounded.locationOn,
                   slot: 'start',
                 },
               ],
