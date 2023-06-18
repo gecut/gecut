@@ -8,13 +8,30 @@ import type { AlwatrServiceResponseFailed } from '@alwatr/type';
 import type { StringifyableRecord } from '@gecut/types';
 import type { Options, ResponsePromise } from 'ky';
 
+const requestDebounceObject: Record<string, number> = {};
+
 const convertUrlToKey = (url: string): string => {
   const _url = new URL(url);
 
-  return _url.href
-    .replace(config.apiUrl, '')
-    .replace(_url.search, '')
-    .replaceAll('/', '-');
+  return _url.href.replace(config.apiUrl, '').replace(_url.search, '');
+};
+
+const promisesListSignalToggle = (
+  _request: Request,
+  type: 'add' | 'remove'
+) => {
+  const key = convertUrlToKey(_request.url);
+
+  if (requestDebounceObject[`${type}-${key}`] != null) {
+    cancelAnimationFrame(requestDebounceObject[`${type}-${key}`]);
+  }
+
+  requestDebounceObject[`${type}-${key}`] = requestAnimationFrame(() => {
+    request('promises-list', {
+      key,
+      type,
+    });
+  });
 };
 
 export const requestBase = ky.create({
@@ -22,19 +39,20 @@ export const requestBase = ky.create({
   cache: 'reload',
   hooks: {
     beforeRequest: [
-      (_request) => {
-        request('promises-list', {
-          key: convertUrlToKey(_request.url),
-          type: 'add',
-        });
+      (request) => {
+        promisesListSignalToggle(request, 'add');
       },
     ],
     afterResponse: [
-      (_request) => {
-        request('promises-list', {
-          key: convertUrlToKey(_request.url),
-          type: 'remove',
-        });
+      (request) => {
+        promisesListSignalToggle(request, 'remove');
+      },
+    ],
+    beforeError: [
+      (error) => {
+        promisesListSignalToggle(error.request, 'remove');
+
+        return error;
       },
     ],
   },
