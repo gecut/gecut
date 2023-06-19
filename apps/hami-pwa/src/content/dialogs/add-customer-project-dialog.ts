@@ -14,7 +14,7 @@ export function addCustomerProjectDialog(): M3.Types.DialogContent {
     type: 'dialog',
     fullscreen: true,
     slotList: [
-      headingPageTypography(i18n.msg('content_add_customer_dialog'), {
+      headingPageTypography(i18n.msg('add-customer'), {
         slot: 'headline',
       }),
       {
@@ -45,9 +45,7 @@ export function addCustomerProjectDialog(): M3.Types.DialogContent {
                     type: 'filled',
                     inputType: 'text',
                     name: 'projectName',
-                    label: i18n.msg(
-                      'content_add_customer_dialog_first_name'
-                    ),
+                    label: i18n.msg('first-name'),
                     validator: [defaultValidators.required],
                   },
                   {
@@ -55,9 +53,7 @@ export function addCustomerProjectDialog(): M3.Types.DialogContent {
                     type: 'filled',
                     inputType: 'text',
                     name: 'projectAddress',
-                    label: i18n.msg(
-                      'content_add_customer_dialog_last_name'
-                    ),
+                    label: i18n.msg('last-name'),
                     validator: [defaultValidators.required],
                   },
                   {
@@ -65,9 +61,7 @@ export function addCustomerProjectDialog(): M3.Types.DialogContent {
                     type: 'filled',
                     inputType: 'text',
                     name: 'supervisorName',
-                    label: i18n.msg(
-                      'content_add_customer_dialog_phone_number'
-                    ),
+                    label: i18n.msg('phone-number'),
                     validator: [defaultValidators.required],
                   },
                   {
@@ -75,9 +69,7 @@ export function addCustomerProjectDialog(): M3.Types.DialogContent {
                     type: 'filled',
                     inputType: 'tel',
                     name: 'supervisorPhone',
-                    label: i18n.msg(
-                      'content_add_customer_dialog_description'
-                    ),
+                    label: i18n.msg('description'),
                     textDirection: 'ltr',
                     validator: [
                       defaultValidators.required,
@@ -90,9 +82,7 @@ export function addCustomerProjectDialog(): M3.Types.DialogContent {
                     type: 'filled',
                     disabled: 'auto',
                     action: 'form_submit',
-                    label: i18n.msg(
-                      'customers_information_box_dialog_send_to_server_label'
-                    ),
+                    label: i18n.msg('add-project'),
                   },
                 ],
               },
@@ -122,7 +112,7 @@ export function addCustomerProjectDialog(): M3.Types.DialogContent {
       {
         component: 'button',
         type: 'text',
-        label: i18n.msg('customers_information_box_dialog_close_label'),
+        label: i18n.msg('close'),
         slot: 'footer',
         customConfig: (target) => {
           target.setAttribute('dialogAction', 'close');

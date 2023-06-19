@@ -6,7 +6,7 @@ import pageStyle from '#hami/ui/stylesheets/page.scss?inline';
 
 import i18n from '@gecut/i18n';
 import { loggerElement } from '@gecut/mixins';
-import { dispatch, getValue } from '@gecut/signal';
+import { dispatch, request } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
 import { html, unsafeCSS } from 'lit';
 import { customElement } from 'lit/decorators.js';
@@ -30,9 +30,17 @@ export class PageLanding extends loggerElement {
     unsafeCSS(pageStyle),
   ];
 
+  static progressTemplate = M3.Renderers.renderCircularProgress({
+    component: 'circular-progress',
+    type: 'circular-progress',
+    fourColor: true,
+    indeterminate: true,
+  });
+
   override connectedCallback() {
     super.connectedCallback();
 
+    dispatch('fab', []);
     dispatch('top-app-bar-hidden', true);
     dispatch('bottom-app-bar-hidden', true);
   }
@@ -40,14 +48,7 @@ export class PageLanding extends loggerElement {
   override render(): RenderResult {
     super.render();
 
-    return html`
-      ${M3.Renderers.renderCircularProgress({
-    component: 'circular-progress',
-    type: 'circular-progress',
-    fourColor: true,
-    indeterminate: true,
-  })}
-    `;
+    return html`${PageLanding.progressTemplate}`;
   }
 
   override async firstUpdated(
@@ -61,17 +62,13 @@ export class PageLanding extends loggerElement {
     });
 
     if (isSignIn === true) {
-      const user = getValue('user');
+      const user = await request('user', {}, 'cacheFirst');
 
       if (user != null) {
         dispatch('snack-bar', {
           component: 'snack-bar',
           type: 'ellipsis-message',
-          message: i18n.msg(
-            'user_greeting_message',
-            config.version,
-            user.lastName
-          ),
+          message: i18n.msg('welcome-message', config.version, user.lastName),
           closeButton: true,
         });
       }

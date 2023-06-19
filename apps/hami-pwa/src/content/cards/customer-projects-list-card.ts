@@ -14,7 +14,7 @@ export function customerProjectItem(
     headline: project.projectName,
     supportingText: project.projectAddress,
     trailingSupportingText: i18n.msg(
-      'customers_information_box_item_order',
+      'number-of-order',
       i18n.int(project.ordersCount ?? 0)
     ),
     styles: {

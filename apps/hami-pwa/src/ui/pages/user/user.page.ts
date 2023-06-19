@@ -18,10 +18,7 @@ declare global {
 
 @customElement('page-user')
 export class PageUser extends PageBase {
-  static override styles = [
-    unsafeCSS(styles),
-    ...PageBase.styles
-  ];
+  static override styles = [unsafeCSS(styles), ...PageBase.styles];
 
   @state()
     user?: Projects.Hami.SignInResponse;
@@ -47,7 +44,7 @@ export class PageUser extends PageBase {
 
     return html`
       <div class="card-box">
-        <h3 class="title">${i18n.msg('user_information_box_title')}</h3>
+        <h3 class="title">${i18n.msg('user')}</h3>
 
         ${this.renderUserInformationCardElement()}
       </div>
@@ -115,9 +112,10 @@ export class PageUser extends PageBase {
             {
               component: 'list-item',
               type: 'list-item',
-              headline: `${i18n
-                .message('user_information_box_score_title')
-                .replace('{{score}}', i18n.int(this.user.score))}`,
+              headline: i18n.msg(
+                'your-score',
+                i18n.int(this.user.score)
+              ),
               slotList: [
                 {
                   component: 'icon',
@@ -138,7 +136,7 @@ export class PageUser extends PageBase {
                   component: 'button',
                   type: 'tonal',
                   label: i18n.msg(
-                    'user_information_box_add_score_button_label'
+                    'add-score'
                   ),
                   hasIcon: true,
                   trailingIcon: true,
@@ -155,7 +153,7 @@ export class PageUser extends PageBase {
                   component: 'button',
                   type: 'tonal',
                   label: i18n.msg(
-                    'user_information_box_change_password_button_label'
+                    'change-password'
                   ),
                   hasIcon: true,
                   trailingIcon: true,

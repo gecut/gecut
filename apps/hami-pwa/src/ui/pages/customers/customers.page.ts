@@ -37,7 +37,7 @@ export class PageCustomers extends PageBase {
 
     inputType: 'search',
     name: 'productPriceSearch',
-    placeholder: i18n.msg('home_page_product_price_box_search_placeholder'),
+    placeholder: i18n.msg('search'),
     hasLeadingIcon: true,
     slotList: [
       {
@@ -86,7 +86,7 @@ export class PageCustomers extends PageBase {
     if (Object.keys(this.customers).length === 0) return nothing;
 
     const titleTemplate = M3.Renderers.renderTypoGraphy(
-      headingPageTypography(i18n.msg('customers_information_box_title'))
+      headingPageTypography(i18n.msg('customers'))
     );
 
     return html`
