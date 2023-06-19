@@ -28,7 +28,7 @@ nanoServer.route(
       return {
         ok: false,
         statusCode: 404,
-        errorCode: 'user_not_found',
+        errorCode: 'user-with-this-profile-was-not-found',
       };
     }
 
@@ -36,7 +36,7 @@ nanoServer.route(
       return {
         ok: false,
         statusCode: 403,
-        errorCode: 'user_forbidden',
+        errorCode: 'user-is-locked-for-this-operation',
       };
     }
 
