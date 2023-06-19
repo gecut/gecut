@@ -89,10 +89,13 @@ function setProvider<T extends keyof Signals>(
 }
 
 function getValue<T extends keyof Signals>(name: T): Signals[T] | undefined {
-  logger.methodArgs?.('getValue', { name });
   __initSignal(name);
 
-  return signalsObject[name]?.value;
+  const value = signalsObject[name]?.value;
+
+  logger.methodArgs?.('getValue', { name, value });
+
+  return value;
 }
 
 async function request<T extends keyof Signals>(
