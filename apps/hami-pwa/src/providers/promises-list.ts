@@ -13,5 +13,12 @@ promisesListSignal.setProvider((promiseItem) => {
     );
   }
 
-  return [...(promisesListSignal.value ?? []), promiseItem.key];
+  if (
+    promisesListSignal.value != null &&
+    promisesListSignal.value.includes(promiseItem.key) === false
+  ) {
+    return [...(promisesListSignal.value ?? []), promiseItem.key];
+  }
+
+  return promisesListSignal.value ?? [];
 });

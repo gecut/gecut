@@ -19,6 +19,7 @@ export abstract class PageBase extends scheduleSignalElement {
 
     requireSignIn({ catchUrl: urlForName('Landing') });
 
+    dispatch('fab', []);
     dispatch('top-app-bar-hidden', false);
     dispatch('bottom-app-bar-hidden', false);
 
