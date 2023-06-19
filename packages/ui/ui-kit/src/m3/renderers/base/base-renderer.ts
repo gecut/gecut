@@ -34,7 +34,7 @@ export function createElementByContent<
       const value = content.styles[property];
 
       if (value != null) {
-        element.style[property] = value;
+        element.style.setProperty(property, value);
       }
     }
   }
