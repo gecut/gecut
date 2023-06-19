@@ -1,6 +1,7 @@
 import './customer-storage';
 import './notification-storage';
 import './order-storage';
+import './patch-customer-project-storage';
 import './patch-customer-storage';
 import './product-price-storage';
 import './promises-list';

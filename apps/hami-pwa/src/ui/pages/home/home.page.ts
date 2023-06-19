@@ -1,6 +1,9 @@
 import { notificationListCard } from '#hami/content/cards/notification-list-card';
 import { productPriceListCard } from '#hami/content/cards/product-price-list-card';
+import { newNotificationFAB } from '#hami/content/fabs/new-notification-fab';
+import { newProductPriceFAB } from '#hami/content/fabs/new-product-price-fab';
 import { requireSignIn } from '#hami/controllers/require-sign-in';
+import { PageBase } from '#hami/ui/helpers/page-base';
 import icons from '#hami/ui/icons';
 import { urlForName } from '#hami/ui/router';
 import elementStyle from '#hami/ui/stylesheets/element.scss?inline';
@@ -25,7 +28,7 @@ declare global {
 }
 
 @customElement('page-home')
-export class PageHome extends scheduleSignalElement {
+export class PageHome extends PageBase {
   static override styles = [
     unsafeCSS(styles),
     unsafeCSS(elementStyle),
@@ -41,7 +44,6 @@ export class PageHome extends scheduleSignalElement {
   @state()
   private productsPriceQuery = '';
 
-  private topAppBarChangeModeDebounce?: NodeJS.Timeout;
   private productsPriceSearchBoxComponent = M3.Renderers.renderTextField({
     component: 'text-field',
     type: 'outlined',
@@ -70,13 +72,11 @@ export class PageHome extends scheduleSignalElement {
 
   override connectedCallback(): void {
     super.connectedCallback();
-
-    requireSignIn({ catchUrl: urlForName('Landing') });
-
-    dispatch('top-app-bar-hidden', false);
-    dispatch('bottom-app-bar-hidden', false);
-
-    this.addEventListener('scroll', this.topAppBarChangeMode);
+    request('user', {}, 'cacheFirst').then((user) => {
+      if (user.role === 'admin') {
+        dispatch('fab', [newProductPriceFAB(), newNotificationFAB()]);
+      }
+    });
 
     this.addSignalListener('notification-storage', (value) => {
       this.log.property?.('notification-storage', value);
@@ -90,12 +90,6 @@ export class PageHome extends scheduleSignalElement {
     });
   }
 
-  override disconnectedCallback(): void {
-    super.disconnectedCallback();
-
-    this.removeEventListener('scroll', this.topAppBarChangeMode);
-  }
-
   override render(): RenderResult {
     super.render();
 
@@ -107,10 +101,8 @@ export class PageHome extends scheduleSignalElement {
   protected firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
 
-    requestIdleCallback(() => {
-      request('notification-storage', {}, 'staleWhileRevalidate');
-      request('product-price-storage', {}, 'staleWhileRevalidate');
-    });
+    request('notification-storage', {}, 'staleWhileRevalidate');
+    request('product-price-storage', {}, 'staleWhileRevalidate');
   }
 
   private renderNotificationCard(): RenderResult {
@@ -118,9 +110,7 @@ export class PageHome extends scheduleSignalElement {
 
     return html`
       <div class="card-box">
-        <h3 class="title">
-          ${i18n.msg('notifications')}
-        </h3>
+        <h3 class="title">${i18n.msg('notifications')}</h3>
 
         ${notificationListCard(Object.values(this.notificationStorage))}
       </div>
@@ -132,9 +122,7 @@ export class PageHome extends scheduleSignalElement {
 
     return html`
       <div class="card-box">
-        <h3 class="title">
-          ${i18n.msg('price-list')}
-        </h3>
+        <h3 class="title">${i18n.msg('price-list')}</h3>
 
         <div class="search-box">${this.productsPriceSearchBoxComponent}</div>
 
@@ -144,27 +132,5 @@ export class PageHome extends scheduleSignalElement {
   )}
       </div>
     `;
-  }
-
-  private topAppBarChangeMode(): void {
-    if (this.topAppBarChangeModeDebounce != null) {
-      clearTimeout(this.topAppBarChangeModeDebounce);
-    }
-
-    this.topAppBarChangeModeDebounce = setTimeout(() => {
-      const scrollY = Math.floor(this.scrollTop / 10);
-
-      if (scrollY > 0 && getValue('top-app-bar')?.mode !== 'on-scroll') {
-        dispatch('top-app-bar', {
-          mode: 'on-scroll',
-        });
-      }
-
-      if (scrollY == 0 && getValue('top-app-bar')?.mode !== 'flat') {
-        dispatch('top-app-bar', {
-          mode: 'flat',
-        });
-      }
-    }, 100);
   }
 }

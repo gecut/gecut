@@ -1,14 +1,18 @@
 import icons from '#hami/ui/icons';
 
 import i18n from '@gecut/i18n';
-import { M3 } from '@gecut/ui-kit';
 
-export function notFoundListCard(): M3.Components.SurfaceCard {
-  return M3.Renderers.renderSurfaceCard({
+import type { M3 } from '@gecut/ui-kit';
+
+export function notFoundListCard(
+  text = i18n.msg('nothing-found')
+): M3.Types.SurfaceCardContent {
+  return {
     component: 'surface-card',
     type: 'elevated',
     styles: {
-      alignItems: 'center',
+      'align-items': 'center',
+      padding: 'var(--sys-spacing-track) 0',
     },
     slotList: [
       {
@@ -16,16 +20,20 @@ export function notFoundListCard(): M3.Components.SurfaceCard {
         type: 'svg',
         SVG: icons.outlineRounded.warning,
         styles: {
-          marginTop: 'calc(1.5*var(--sys-spacing-track))',
-          color: 'var(--md-sys-color-warning)',
-          fontSize: 'min(14vw, 42px)',
+          'margin-top': 'var(--sys-spacing-track)',
+          color: 'var(--md-sys-color-tertiary)',
+          'font-size': 'min(12vw, 38px)',
         },
       },
       {
         component: 'typography',
         type: 'p',
-        slotList: [i18n.msg('nothing-found')],
+        slotList: [text],
+        styles: {
+          color: 'var(--md-sys-color-tertiary)',
+        },
+        style: 'body-medium',
       },
     ],
-  });
+  };
 }

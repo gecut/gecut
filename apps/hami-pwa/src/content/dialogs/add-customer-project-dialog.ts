@@ -1,4 +1,4 @@
-import { defaultValidators } from '#hami/controllers/default-validators';
+import { validators } from '#hami/controllers/default-validators';
 
 import i18n from '@gecut/i18n';
 import { dispatch, request } from '@gecut/signal';
@@ -8,7 +8,9 @@ import { headingPageTypography } from '../typographies/heading-page-typography';
 import type { Projects } from '@gecut/types';
 import type { M3 } from '@gecut/ui-kit';
 
-export function addCustomerProjectDialog(): M3.Types.DialogContent {
+export function addCustomerProjectDialog(
+  customerId: string
+): M3.Types.DialogContent {
   return {
     component: 'dialog',
     type: 'dialog',
@@ -22,8 +24,8 @@ export function addCustomerProjectDialog(): M3.Types.DialogContent {
         type: 'elevated',
         styles: {
           position: 'relative',
-          marginTop: 'calc(.2*var(--sys-spacing-track,8px))',
-          marginBottom: 'var(--sys-spacing-track,8px)',
+          'margin-top': 'calc(.2*var(--sys-spacing-track,8px))',
+          'margin-bottom': 'var(--sys-spacing-track,8px)',
           padding:
             'var(--sys-spacing-track,8px) calc(2*var(--sys-spacing-track,8px)) calc(2*var(--sys-spacing-track,8px))',
         },
@@ -32,7 +34,7 @@ export function addCustomerProjectDialog(): M3.Types.DialogContent {
             component: 'form-builder',
             type: 'form-builder',
             styles: {
-              marginTop: '8px',
+              'margin-top': '8px',
             },
             styleVars: {
               '--padding-side': '0',
@@ -45,36 +47,33 @@ export function addCustomerProjectDialog(): M3.Types.DialogContent {
                     type: 'filled',
                     inputType: 'text',
                     name: 'projectName',
-                    label: i18n.msg('first-name'),
-                    validator: [defaultValidators.required],
+                    label: i18n.msg('project-name'),
+                    validator: validators('required'),
                   },
                   {
                     component: 'text-field',
                     type: 'filled',
                     inputType: 'text',
                     name: 'projectAddress',
-                    label: i18n.msg('last-name'),
-                    validator: [defaultValidators.required],
+                    label: i18n.msg('project-address'),
+                    validator: validators('required'),
                   },
                   {
                     component: 'text-field',
                     type: 'filled',
                     inputType: 'text',
                     name: 'supervisorName',
-                    label: i18n.msg('phone-number'),
-                    validator: [defaultValidators.required],
+                    label: i18n.msg('supervisor-name'),
+                    validator: validators('required'),
                   },
                   {
                     component: 'text-field',
                     type: 'filled',
                     inputType: 'tel',
                     name: 'supervisorPhone',
-                    label: i18n.msg('description'),
+                    label: i18n.msg('supervisor-phone'),
                     textDirection: 'ltr',
-                    validator: [
-                      defaultValidators.required,
-                      defaultValidators.phone,
-                    ],
+                    validator: validators('required', 'phone'),
                   },
 
                   {
@@ -88,19 +87,25 @@ export function addCustomerProjectDialog(): M3.Types.DialogContent {
               },
               onSubmit: async (event) => {
                 if (event.validate === true && event.values != null) {
-                  const customer = event.values[
-                    'customer'
-                  ] as unknown as Projects.Hami.Customer;
-                  const userId = localStorage.getItem('USER_ID');
+                  const project = event.values[
+                    'project'
+                  ] as unknown as Projects.Hami.CustomerProject;
 
-                  if (customer != null && userId != null) {
-                    customer.creatorId = userId;
-
-                    await request('patch-customer-storage', {
-                      data: [customer],
+                  if (project != null) {
+                    await request('patch-customer-project-storage', {
+                      data: [project],
+                      customerId,
                     });
                     request('customer-storage', {});
                     dispatch('dialog', null);
+                    dispatch('snack-bar', {
+                      component: 'snack-bar',
+                      type: 'ellipsis-message',
+                      message: i18n.msg('project-was-successfully-registered'),
+                      align: 'bottom',
+                      duration: 2_000,
+                      closeButton: true,
+                    });
                   }
                 }
               },

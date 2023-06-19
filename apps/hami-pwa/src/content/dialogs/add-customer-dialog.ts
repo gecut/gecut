@@ -1,4 +1,4 @@
-import { defaultValidators } from '#hami/controllers/default-validators';
+import { validators } from '#hami/controllers/default-validators';
 
 import i18n from '@gecut/i18n';
 import { dispatch, request } from '@gecut/signal';
@@ -22,8 +22,8 @@ export function addCustomerDialog(): M3.Types.DialogContent {
         type: 'elevated',
         styles: {
           position: 'relative',
-          marginTop: 'calc(.2*var(--sys-spacing-track,8px))',
-          marginBottom: 'var(--sys-spacing-track,8px)',
+          'margin-top': 'calc(.2*var(--sys-spacing-track,8px))',
+          'margin-bottom': 'var(--sys-spacing-track,8px)',
           padding:
             'var(--sys-spacing-track,8px) calc(2*var(--sys-spacing-track,8px)) calc(2*var(--sys-spacing-track,8px))',
         },
@@ -32,7 +32,7 @@ export function addCustomerDialog(): M3.Types.DialogContent {
             component: 'form-builder',
             type: 'form-builder',
             styles: {
-              marginTop: '8px',
+              'margin-top': '8px',
             },
             styleVars: {
               '--padding-side': '0',
@@ -46,7 +46,7 @@ export function addCustomerDialog(): M3.Types.DialogContent {
                     inputType: 'text',
                     name: 'firstName',
                     label: i18n.msg('first-name'),
-                    validator: [defaultValidators.required],
+                    validator: validators('required'),
                   },
                   {
                     component: 'text-field',
@@ -54,7 +54,7 @@ export function addCustomerDialog(): M3.Types.DialogContent {
                     inputType: 'text',
                     name: 'lastName',
                     label: i18n.msg('last-name'),
-                    validator: [defaultValidators.required],
+                    validator: validators('required'),
                   },
                   {
                     component: 'text-field',
@@ -63,10 +63,7 @@ export function addCustomerDialog(): M3.Types.DialogContent {
                     name: 'phoneNumber',
                     textDirection: 'ltr',
                     label: i18n.msg('phone-number'),
-                    validator: [
-                      defaultValidators.required,
-                      defaultValidators.phone,
-                    ],
+                    validator: validators('required', 'phone'),
                   },
                   {
                     component: 'text-field',
@@ -99,6 +96,14 @@ export function addCustomerDialog(): M3.Types.DialogContent {
                     });
                     request('customer-storage', {});
                     dispatch('dialog', null);
+                    dispatch('snack-bar', {
+                      component: 'snack-bar',
+                      type: 'ellipsis-message',
+                      message: i18n.msg('customer-successfully-registered'),
+                      align: 'bottom',
+                      duration: 2_000,
+                      closeButton: true,
+                    });
                   }
                 }
               },

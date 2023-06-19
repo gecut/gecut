@@ -12,6 +12,8 @@ import type { LocaleFileType } from '@gecut/i18n';
 import type { Projects, StringifyableRecord } from '@gecut/types';
 import type { M3 } from '@gecut/ui-kit';
 
+i18n.register(fa as LocaleFileType);
+
 declare global {
   interface Signals extends Projects.Hami.Routes {
     readonly 'patch-customer-storage': Record<string, never>;
@@ -47,9 +49,6 @@ declare global {
   }
 }
 
-i18n.register(fa as LocaleFileType);
-i18n.set("fa-IR");
-
 const navigationTabs: M3.Types.NavigationTabContent[] = [
   {
     label: i18n.msg('home'),
@@ -68,11 +67,11 @@ const navigationTabs: M3.Types.NavigationTabContent[] = [
     },
   },
   {
-    label: i18n.msg('user'),
-    link: urlForName('User'),
+    label: i18n.msg('suppliers'),
+    link: urlForName('Suppliers'),
     icons: {
-      active: icons.filledRounded.person,
-      inActive: icons.outlineRounded.person,
+      active: icons.filledRounded.supervisorAccount,
+      inActive: icons.outlineRounded.supervisorAccount,
     },
   },
   {

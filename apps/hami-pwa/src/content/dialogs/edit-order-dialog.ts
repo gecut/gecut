@@ -29,8 +29,8 @@ export function editOrderDialog(
         type: 'elevated',
         styles: {
           position: 'relative',
-          marginTop: 'calc(.2*var(--sys-spacing-track,8px))',
-          marginBottom: 'var(--sys-spacing-track,8px)',
+          "margin-top": 'calc(.2*var(--sys-spacing-track,8px))',
+          "margin-bottom": 'var(--sys-spacing-track,8px)',
           padding:
             'var(--sys-spacing-track,8px) calc(2*var(--sys-spacing-track,8px)) calc(2*var(--sys-spacing-track,8px))',
         },
@@ -151,7 +151,7 @@ export function editOrderDialog(
             type: 'form-builder',
             activeSlide: 'initial',
             styles: {
-              marginTop: '16px',
+              "margin-top": '16px',
             },
             styleVars: {
               '--padding-side': '0',
