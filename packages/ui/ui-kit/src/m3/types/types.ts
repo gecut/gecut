@@ -8,6 +8,7 @@ import type { FABContent } from './fab';
 import type { FormBuilderContent } from './form-builder';
 import type { IconContent } from './icon';
 import type { IconButtonContent } from './icon-button';
+import type { IMGContent } from './img';
 import type { ListContent } from './list';
 import type { ListItemContent } from './list-item';
 import type { RadioContent } from './radio';
@@ -36,6 +37,7 @@ export type * from './navigation-tab';
 export type * from './radio';
 export type * from './select-option';
 export type * from './select';
+export type * from './img';
 export type * from './snack-bar';
 export type * from './surface-card';
 export type * from './text-field';
@@ -62,4 +64,5 @@ export type AllComponentsContent<T = unknown> =
   | SurfaceCardContent
   | TextFieldContent
   | TypoGraphyContent
+  | IMGContent
   | LitVirtualizerContent<T>;

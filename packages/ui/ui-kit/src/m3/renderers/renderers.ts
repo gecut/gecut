@@ -10,6 +10,7 @@ import { renderFAB } from './fab';
 import { renderFormBuilder } from './form-builder';
 import { renderIcon } from './icon';
 import { renderIconButton } from './icon-button';
+import { renderIMG } from './img';
 import { renderList } from './list';
 import { renderListItem } from './list-item';
 import { renderRadio } from './radio';
@@ -32,6 +33,7 @@ export * from './fab';
 export * from './form-builder';
 export * from './icon-button';
 export * from './icon';
+export * from './img';
 export * from './list-item';
 export * from './list';
 export * from './radio';
@@ -50,6 +52,8 @@ export function renderer<T>(content: AllComponentsContent<T>) {
     return renderCircularProgress(content);
   case 'checkbox':
     return renderCheckbox(content);
+  case 'img':
+    return renderIMG(content);
   case 'typography':
     return renderTypoGraphy(content);
   case 'dialog':
