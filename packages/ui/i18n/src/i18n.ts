@@ -30,9 +30,9 @@ export function set(code: LanguageCode) {
 }
 
 export function msg(key: string, ...replacement: string[]): string {
-  logger.methodArgs?.('msg', { key });
-
   let _msg = _translations[_activeLang][key];
+
+  logger.methodArgs?.('msg', { key, _msg });
 
   if (_msg != null) {
     for (const str of replacement) {

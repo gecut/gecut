@@ -18,8 +18,8 @@ export function orderCard(
     type: 'elevated',
     styles: {
       position: 'relative',
-      marginTop: 'calc(.2*var(--sys-spacing-track,8px))',
-      marginBottom: 'var(--sys-spacing-track,8px)',
+      'margin-top': 'calc(.2*var(--sys-spacing-track,8px))',
+      'margin-bottom': 'var(--sys-spacing-track,8px)',
       padding:
         'var(--sys-spacing-track,8px) calc(2*var(--sys-spacing-track,8px)) calc(2*var(--sys-spacing-track,8px))',
     },
@@ -41,7 +41,7 @@ export function orderCard(
         styles: {
           position: 'absolute',
           top: '16px',
-          insetInlineEnd: '16px',
+          'inset-inline-end': '16px',
         },
         customConfig: (target) => {
           target.addEventListener('click', () => {
@@ -54,11 +54,7 @@ export function orderCard(
       {
         component: 'typography',
         type: 'p',
-        slotList: [
-          i18n.msg('status'),
-          ': ',
-          i18n.msg(order.status),
-        ],
+        slotList: [i18n.msg('status'), ': ', i18n.msg(order.status)],
         styles: {
           color: 'var(--md-sys-color-surface-variant)',
           margin: '0',
@@ -124,11 +120,7 @@ export function orderCard(
         component: 'typography',
         type: 'p',
         hidden: order.description === 'no-description',
-        slotList: [
-          i18n.msg('description'),
-          ': ',
-          order.description,
-        ],
+        slotList: [i18n.msg('description'), ': ', order.description],
         styles: {
           color: 'var(--md-sys-color-surface-variant)',
           margin: '0',
@@ -166,7 +158,7 @@ export function orderCard(
         component: 'surface-card',
         type: 'filled',
         styles: {
-          marginTop: 'var(--sys-spacing-track,8px)',
+          'margin-top': 'var(--sys-spacing-track,8px)',
           background: 'var(--md-ref-palette-neutral-variant5)',
         },
         slotList: [
@@ -183,9 +175,9 @@ export function orderCard(
               supportingText: `${i18n.int(
                 orderProduct.salesPrice
               )} - ${i18n.int(orderProduct.purchasePrice)}`,
-              trailingSupportingText: `${i18n.int(
-                orderProduct.quantity
-              )} ${orderProduct.unit}`,
+              trailingSupportingText: `${i18n.int(orderProduct.quantity)} ${
+                orderProduct.unit
+              }`,
               styleVars: {
                 '--_list-item-container-color': 'transparent',
               },
@@ -199,7 +191,7 @@ export function orderCard(
         styles: {
           display: 'flex',
           gap: 'calc(2*var(--sys-spacing-track,8px))',
-          marginTop: 'calc(2*var(--sys-spacing-track,8px))',
+          'margin-top': 'calc(2*var(--sys-spacing-track,8px))',
         },
         slotList: [
           {
@@ -207,7 +199,7 @@ export function orderCard(
             type: 'tonal',
             label: i18n.msg('sales-invoice'),
             styles: {
-              flexGrow: '1',
+              'flex-grow': '1',
             },
           },
           {
@@ -215,7 +207,7 @@ export function orderCard(
             type: 'tonal',
             label: i18n.msg('purchase-invoice'),
             styles: {
-              flexGrow: '1',
+              'flex-grow': '1',
             },
           },
         ],

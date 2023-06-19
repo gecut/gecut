@@ -11,6 +11,7 @@ import menu from 'virtual:icons/material-symbols/menu-rounded';
 import person from 'virtual:icons/material-symbols/person-rounded';
 import searchOff from 'virtual:icons/material-symbols/search-off-rounded';
 import search from 'virtual:icons/material-symbols/search-rounded';
+import supervisorAccount from 'virtual:icons/material-symbols/supervisor-account-rounded';
 
 export const filledRounded = {
   add,
@@ -26,4 +27,5 @@ export const filledRounded = {
   person,
   search,
   searchOff,
+  supervisorAccount,
 };

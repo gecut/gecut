@@ -1,8 +1,8 @@
 import config from '#hami/config';
+import gecutLogo from '#hami/ui/assets/gecut-logo.webp?inline';
 import icons from '#hami/ui/icons';
 import { attachRouter } from '#hami/ui/router';
 
-import i18n from '@gecut/i18n';
 import { signalElement } from '@gecut/mixins';
 import { dispatch } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
@@ -28,7 +28,7 @@ declare global {
 const getDate = () => {
   const now = new Date();
 
-  return now.toLocaleDateString(i18n.config().$code, {
+  return now.toLocaleDateString('fa-IR', {
     weekday: 'long',
     day: 'numeric',
     month: 'long',
@@ -45,10 +45,28 @@ export class AppRoot extends signalElement {
     indeterminate: true,
     styleVars: { '--_size': '40px' },
   };
-  static topAppBarTrailingSlot: M3.Types.IconButtonContent = {
-    component: 'icon-button',
-    type: 'standard',
-    iconSVG: icons.filled.language,
+  static topAppBarTrailingSlot: M3.Types.DivisionContent = {
+    component: 'division',
+    type: 'div',
+    styles: {
+      display: 'flex',
+      'align-content': 'center',
+      'justify-content': 'center',
+      width: '40px',
+      height: '40px',
+    },
+    slotList: [
+      {
+        component: 'img',
+        type: 'img',
+        src: gecutLogo,
+        alt: 'gecut-logo',
+        styles: {
+          height: '24px',
+          margin: 'auto',
+        },
+      },
+    ],
   };
 
   @state()
@@ -208,7 +226,7 @@ export class AppRoot extends signalElement {
     `;
   }
 
-  private fabSignalListener(contents: M3.Types.FABContent[]) {
+  private async fabSignalListener(contents: M3.Types.FABContent[]) {
     if (this.fixedDivision == null) return;
 
     const oldFABs = this.fixedDivision.querySelectorAll('md-fab');
@@ -219,21 +237,25 @@ export class AppRoot extends signalElement {
 
     let bottom = 16;
 
-    for (const content of contents) {
+    for await (const content of contents) {
       const fab = this.fixedDivision.appendChild(
         M3.Renderers.renderFAB({
           styles: {
             position: 'absolute',
             bottom: bottom + 'px',
-            insetInlineEnd: '16px',
-            zIndex: 'var(--sys-zindex-sticky)',
+            'inset-inline-end': '16px',
+            'z-index': 'var(--sys-zindex-sticky)',
           },
 
           ...content,
         })
       );
 
-      bottom += fab.getBoundingClientRect().height;
+      await new Promise<void>((resolve) =>
+        requestAnimationFrame(() => resolve())
+      );
+
+      bottom += fab.getBoundingClientRect().height + 16;
     }
   }
 

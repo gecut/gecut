@@ -19,6 +19,7 @@ export interface PatchRoutes {
   };
   'patch-customer-project-storage': {
     data: Array<Partial<CustomerProject>>;
+    customerId: string;
   };
   'put-order': Partial<Order>;
 }

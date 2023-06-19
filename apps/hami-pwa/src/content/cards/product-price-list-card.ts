@@ -3,6 +3,8 @@ import { M3 } from '@gecut/ui-kit';
 import { flow } from '@lit-labs/virtualizer/layouts/flow.js';
 import { html } from 'lit';
 
+import { notFoundListCard } from './not-found-list-card';
+
 import type { Projects } from '@gecut/types';
 import type { Lit } from '@gecut/ui-kit';
 
@@ -48,6 +50,10 @@ export function productPriceListCard(
     productPrices = productPrices.filter((productPrice) =>
       productPrice.name.includes(query)
     );
+  }
+
+  if (productPrices.length === 0) {
+    return M3.Renderers.renderSurfaceCard(notFoundListCard());
   }
 
   return M3.Renderers.renderSurfaceCard({

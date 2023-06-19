@@ -77,7 +77,7 @@ form.data = {
           label: 'Previous Slide',
 
           action: 'previous_slide',
-          styles: { flexGrow: '0' },
+          styles: { "flex-grow": '0' },
         },
         {
           component: 'button',

@@ -2,6 +2,8 @@ import icons from '#hami/ui/icons';
 
 import i18n from '@gecut/i18n';
 
+import { notFoundListCard } from './not-found-list-card';
+
 import type { Projects } from '@gecut/types';
 import type { M3 } from '@gecut/ui-kit';
 
@@ -39,7 +41,7 @@ export function customerProjectList(
     component: 'list',
     type: 'list',
     styles: {
-      borderRadius: '12px',
+      'border-radius': '12px',
       overflow: 'hidden',
     },
     slotList: projects.map((project) => customerProjectItem(project)),
@@ -49,10 +51,14 @@ export function customerProjectList(
 export function customerProjectListCard(
   projects: Projects.Hami.CustomerProjectModel[]
 ): M3.Types.SurfaceCardContent {
+  if (projects.length === 0) {
+    return notFoundListCard(i18n.msg('project-not-found'));
+  }
+
   return {
     component: 'surface-card',
     type: 'elevated',
-    styles: { marginBottom: 'calc(2*var(--sys-spacing-track,8px))' },
+    styles: { 'margin-bottom': 'calc(2*var(--sys-spacing-track,8px))' },
     slotList: [customerProjectList(projects)],
   };
 }

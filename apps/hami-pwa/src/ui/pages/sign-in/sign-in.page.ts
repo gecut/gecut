@@ -109,7 +109,7 @@ export class PageSignIn extends loggerElement {
           slot: 'icon',
         },
       ],
-      styles: { marginInlineStart: 'auto' },
+      styles: { "margin-inline-start": 'auto' },
       customConfig: (target) => {
         target.addEventListener('click', () => this.submitForm());
 

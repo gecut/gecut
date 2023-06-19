@@ -1,3 +1,4 @@
+import { isFieldExits } from '#hami/controllers/is-field-exists';
 import icons from '#hami/ui/icons';
 
 import i18n from '@gecut/i18n';
@@ -15,10 +16,10 @@ export function customerCard(
     component: 'surface-card',
     type: 'elevated',
     styles: {
-      marginTop: 'var(--sys-spacing-track,8px)',
-      marginBottom: 'calc(2*var(--sys-spacing-track,8px))',
+      'margin-top': 'var(--sys-spacing-track,8px)',
+      'margin-bottom': 'calc(2*var(--sys-spacing-track,8px))',
       padding: 'calc(2*var(--sys-spacing-track,8px))',
-      paddingTop: 'var(--sys-spacing-track,8px)',
+      'padding-top': 'var(--sys-spacing-track,8px)',
     },
     slotList: [
       {
@@ -87,11 +88,8 @@ export function customerCard(
       {
         component: 'typography',
         type: 'p',
-        slotList: [
-          i18n.msg('description'),
-          ': ',
-          customer.description,
-        ],
+        hidden: isFieldExits(customer.description) === false,
+        slotList: [i18n.msg('description'), ': ', customer.description],
         styles: {
           color: 'var(--md-sys-color-surface-variant)',
           margin: '0',
@@ -102,8 +100,8 @@ export function customerCard(
         type: 'filled',
         label: i18n.msg('add-project'),
         styles: {
-          marginInlineStart: 'auto',
-          marginTop: 'calc(2*var(--sys-spacing-track,8px))',
+          'margin-inline-start': 'auto',
+          'margin-top': 'calc(2*var(--sys-spacing-track,8px))',
         },
         slotList: [
           {
@@ -115,7 +113,7 @@ export function customerCard(
         ],
         customConfig: (target) => {
           target.addEventListener('click', () => {
-            dispatch('dialog', addCustomerProjectDialog());
+            dispatch('dialog', addCustomerProjectDialog(customer.id));
           });
 
           return target;

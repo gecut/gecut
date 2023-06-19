@@ -80,7 +80,7 @@ export function customersListCard(
   }
 
   if (customers.length === 0) {
-    return notFoundListCard();
+    return M3.Renderers.renderSurfaceCard(notFoundListCard());
   }
 
   return M3.Renderers.renderSurfaceCard({
