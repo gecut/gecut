@@ -16,7 +16,7 @@ export function customerDialog(
     type: 'dialog',
     fullscreen: true,
     slotList: [
-      headingPageTypography(i18n.msg('content_customer_dialog'), {
+      headingPageTypography(i18n.msg('customer-profile'), {
         slot: 'headline',
       }),
       customerCard(customer),
@@ -25,7 +25,7 @@ export function customerDialog(
       {
         component: 'button',
         type: 'text',
-        label: i18n.msg('customers_information_box_dialog_close_label'),
+        label: i18n.msg('close'),
         slot: 'footer',
         customConfig: (target) => {
           target.setAttribute('dialogAction', 'close');

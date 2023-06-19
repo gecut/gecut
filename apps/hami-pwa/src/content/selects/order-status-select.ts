@@ -9,7 +9,7 @@ export function orderStatusSelect(
   return {
     component: 'select',
     type: 'filled',
-    label: i18n.msg('content_order_card_status'),
+    label: i18n.msg('status'),
     value,
     name: 'status',
     styles: {

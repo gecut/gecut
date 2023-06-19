@@ -34,7 +34,7 @@ export function customerCard(
         component: 'typography',
         type: 'p',
         slotList: [
-          i18n.msg('content_customer_dialog_phone_number'),
+          i18n.msg('phone-number'),
           ': ',
           i18n.phone(customer.phoneNumber, true),
         ],
@@ -47,7 +47,7 @@ export function customerCard(
         component: 'typography',
         type: 'p',
         slotList: [
-          i18n.msg('content_customer_dialog_projects_count'),
+          i18n.msg('number-of-projects'),
           ': ',
           i18n.int(customer.projectList.length),
         ],
@@ -60,7 +60,7 @@ export function customerCard(
         component: 'typography',
         type: 'p',
         slotList: [
-          i18n.msg('content_customer_dialog_orders_count'),
+          i18n.msg('number-of-orders'),
           ': ',
           i18n.int(customer.orderList.length),
         ],
@@ -73,7 +73,7 @@ export function customerCard(
         component: 'typography',
         type: 'p',
         slotList: [
-          i18n.msg('content_customer_dialog_creator'),
+          i18n.msg('creator'),
           ': ',
           customer.creator.firstName,
           ' ',
@@ -88,7 +88,7 @@ export function customerCard(
         component: 'typography',
         type: 'p',
         slotList: [
-          i18n.msg('content_customer_dialog_description'),
+          i18n.msg('description'),
           ': ',
           customer.description,
         ],
@@ -100,7 +100,7 @@ export function customerCard(
       {
         component: 'button',
         type: 'filled',
-        label: i18n.msg('customers_information_box_dialog_add_project'),
+        label: i18n.msg('add-project'),
         styles: {
           marginInlineStart: 'auto',
           marginTop: 'calc(2*var(--sys-spacing-track,8px))',

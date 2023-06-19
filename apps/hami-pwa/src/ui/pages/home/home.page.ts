@@ -48,7 +48,7 @@ export class PageHome extends scheduleSignalElement {
 
     inputType: 'search',
     name: 'productPriceSearch',
-    label: i18n.msg('home_page_product_price_box_search_placeholder'),
+    label: i18n.msg('search'),
     hasLeadingIcon: true,
     slotList: [
       {
@@ -119,7 +119,7 @@ export class PageHome extends scheduleSignalElement {
     return html`
       <div class="card-box">
         <h3 class="title">
-          ${i18n.msg('home_page_notification_box_title')}
+          ${i18n.msg('notifications')}
         </h3>
 
         ${notificationListCard(Object.values(this.notificationStorage))}
@@ -133,7 +133,7 @@ export class PageHome extends scheduleSignalElement {
     return html`
       <div class="card-box">
         <h3 class="title">
-          ${i18n.msg('home_page_product_price_box_title')}
+          ${i18n.msg('price-list')}
         </h3>
 
         <div class="search-box">${this.productsPriceSearchBoxComponent}</div>

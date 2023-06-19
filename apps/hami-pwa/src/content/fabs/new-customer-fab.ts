@@ -13,7 +13,7 @@ export function newCustomerFAB(): M3.Types.FABContent {
     type: 'fab',
     size: 'medium',
     variant: 'primary',
-    label: i18n.msg('customers_information_fab_new'),
+    label: i18n.msg('new-customer'),
     slotList: [
       {
         component: 'icon',

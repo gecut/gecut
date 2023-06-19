@@ -39,7 +39,7 @@ export class PageSignIn extends loggerElement {
           component: 'text-field',
           type: 'filled',
           name: 'phoneNumber',
-          label: i18n.msg('sign_in_page_form_phone-number_label'),
+          label: i18n.msg('phone-number'),
           inputType: 'tel',
           minLength: 11,
           maxLength: 11,
@@ -55,17 +55,17 @@ export class PageSignIn extends loggerElement {
           validator: [
             {
               rule: 'required',
-              errorMessage: i18n.msg('sign_in_page_form_required_error'),
+              errorMessage: i18n.msg('it-is-required'),
             },
             {
               rule: 'numeric',
-              errorMessage: i18n.msg('sign_in_page_form_numeric_error'),
+              errorMessage: i18n.msg('must-be-numeric'),
             },
             {
               rule: 'phone',
               country: 'IR',
               errorMessage: i18n.msg(
-                'sign_in_page_form_phone-number_error'
+                'phone-number-is-invalid'
               ),
             },
           ],
@@ -75,7 +75,7 @@ export class PageSignIn extends loggerElement {
           type: 'filled',
           inputType: 'password',
           name: 'password',
-          label: i18n.msg('sign_in_page_form_password_label'),
+          label: i18n.msg('password'),
           slotList: [
             {
               component: 'icon',
@@ -88,7 +88,7 @@ export class PageSignIn extends loggerElement {
           validator: [
             {
               rule: 'required',
-              errorMessage: i18n.msg('sign_in_page_form_required_error'),
+              errorMessage: i18n.msg('it-is-required'),
             },
           ],
         },
@@ -100,7 +100,7 @@ export class PageSignIn extends loggerElement {
   private submitButton: M3.Types.ButtonContent = {
       component: 'button',
       type: 'filled',
-      label: i18n.msg('sign_in_page_form_submit'),
+      label: i18n.msg('sign-in'),
       slotList: [
         {
           component: 'icon',
@@ -134,7 +134,7 @@ export class PageSignIn extends loggerElement {
 
       <div class="form-box">
         <form class="form">
-          <h2>${i18n.msg('sign_in_page_title')}</h2>
+          <h2>${i18n.msg('sign-in')}</h2>
           <form-builder .data=${this.form}></form-builder>
 
           <div class="button">

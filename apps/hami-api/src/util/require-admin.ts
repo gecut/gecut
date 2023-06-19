@@ -17,7 +17,7 @@ export const requireAdmin = async (
     throw {
       ok: false,
       statusCode: 403,
-      errorCode: 'user_forbidden',
+      errorCode: 'user-is-locked-for-this-operation',
     };
   }
 

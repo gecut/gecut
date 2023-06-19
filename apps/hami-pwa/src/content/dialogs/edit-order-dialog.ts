@@ -19,7 +19,7 @@ export function editOrderDialog(
     fullscreen: true,
     slotList: [
       headingPageTypography(
-        i18n.msg('content_order_card_id') + ': ' + order.id,
+        i18n.msg('order-code') + ': ' + order.id,
         {
           slot: 'headline',
         }
@@ -39,7 +39,7 @@ export function editOrderDialog(
             component: 'typography',
             type: 'p',
             slotList: [
-              i18n.msg('content_order_card_status'),
+              i18n.msg('status'),
               ': ',
               i18n.msg(order.status),
             ],
@@ -52,7 +52,7 @@ export function editOrderDialog(
             component: 'typography',
             type: 'p',
             slotList: [
-              i18n.msg('content_order_card_evacuation_date'),
+              i18n.msg('evacuation-date'),
               ': ',
               i18n.date(order.evacuationDate),
             ],
@@ -65,7 +65,7 @@ export function editOrderDialog(
             component: 'typography',
             type: 'p',
             slotList: [
-              i18n.msg('content_order_card_registration_date'),
+              i18n.msg('registration-date'),
               ': ',
               i18n.date(order.registrationDate),
             ],
@@ -78,7 +78,7 @@ export function editOrderDialog(
             component: 'typography',
             type: 'p',
             slotList: [
-              i18n.msg('content_order_card_customer_name'),
+              i18n.msg('customer-name'),
               ': ',
               order.customer.firstName,
               ' ',
@@ -93,7 +93,7 @@ export function editOrderDialog(
             component: 'typography',
             type: 'p',
             slotList: [
-              i18n.msg('content_order_card_supplier_name'),
+              i18n.msg('supplier-name'),
               ': ',
               order.supplier.firstName,
               ' ',
@@ -109,7 +109,7 @@ export function editOrderDialog(
             type: 'p',
             hidden: order.description === 'no-description',
             slotList: [
-              i18n.msg('content_order_card_description'),
+              i18n.msg('description'),
               ': ',
               order.description,
             ],
@@ -122,7 +122,7 @@ export function editOrderDialog(
             component: 'typography',
             type: 'p',
             slotList: [
-              i18n.msg('content_order_card_creator'),
+              i18n.msg('creator'),
               ': ',
               order.creator.firstName,
               ' ',
@@ -137,7 +137,7 @@ export function editOrderDialog(
             component: 'typography',
             type: 'p',
             slotList: [
-              i18n.msg('content_order_card_project_address'),
+              i18n.msg('project-address'),
               ': ',
               i18n.msg(order.customerProject.projectAddress),
             ],
@@ -191,7 +191,7 @@ export function editOrderDialog(
                     type: 'tonal',
                     action: 'form_submit',
                     disabled: 'auto',
-                    label: i18n.msg('content_order_card_submit_button'),
+                    label: i18n.msg('edit-order'),
                   },
                 ],
               },
@@ -229,7 +229,7 @@ export function editOrderDialog(
       {
         component: 'button',
         type: 'text',
-        label: i18n.msg('customers_information_box_dialog_close_label'),
+        label: i18n.msg('close'),
         slot: 'footer',
         customConfig: (target) => {
           target.setAttribute('dialogAction', 'close');

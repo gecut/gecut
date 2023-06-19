@@ -27,7 +27,7 @@ export function orderCard(
       {
         component: 'typography',
         type: 'h1',
-        slotList: [i18n.msg('content_order_card_id'), ': ', order.id],
+        slotList: [i18n.msg('order-code'), ': ', order.id],
         style: 'title-large',
         styles: {
           color: 'var(--md-sys-color-primary)',
@@ -55,7 +55,7 @@ export function orderCard(
         component: 'typography',
         type: 'p',
         slotList: [
-          i18n.msg('content_order_card_status'),
+          i18n.msg('status'),
           ': ',
           i18n.msg(order.status),
         ],
@@ -68,7 +68,7 @@ export function orderCard(
         component: 'typography',
         type: 'p',
         slotList: [
-          i18n.msg('content_order_card_evacuation_date'),
+          i18n.msg('evacuation-date'),
           ': ',
           i18n.date(order.evacuationDate),
         ],
@@ -81,7 +81,7 @@ export function orderCard(
         component: 'typography',
         type: 'p',
         slotList: [
-          i18n.msg('content_order_card_registration_date'),
+          i18n.msg('registration-date'),
           ': ',
           i18n.date(order.registrationDate),
         ],
@@ -94,7 +94,7 @@ export function orderCard(
         component: 'typography',
         type: 'p',
         slotList: [
-          i18n.msg('content_order_card_customer_name'),
+          i18n.msg('customer-name'),
           ': ',
           order.customer.firstName,
           ' ',
@@ -109,7 +109,7 @@ export function orderCard(
         component: 'typography',
         type: 'p',
         slotList: [
-          i18n.msg('content_order_card_supplier_name'),
+          i18n.msg('supplier-name'),
           ': ',
           order.supplier.firstName,
           ' ',
@@ -125,7 +125,7 @@ export function orderCard(
         type: 'p',
         hidden: order.description === 'no-description',
         slotList: [
-          i18n.msg('content_order_card_description'),
+          i18n.msg('description'),
           ': ',
           order.description,
         ],
@@ -138,7 +138,7 @@ export function orderCard(
         component: 'typography',
         type: 'p',
         slotList: [
-          i18n.msg('content_order_card_creator'),
+          i18n.msg('creator'),
           ': ',
           order.creator.firstName,
           ' ',
@@ -153,7 +153,7 @@ export function orderCard(
         component: 'typography',
         type: 'p',
         slotList: [
-          i18n.msg('content_order_card_project_address'),
+          i18n.msg('project-address'),
           ': ',
           i18n.msg(order.customerProject.projectAddress),
         ],
@@ -205,7 +205,7 @@ export function orderCard(
           {
             component: 'button',
             type: 'tonal',
-            label: i18n.msg('content_order_card_sales_button'),
+            label: i18n.msg('sales-invoice'),
             styles: {
               flexGrow: '1',
             },
@@ -213,7 +213,7 @@ export function orderCard(
           {
             component: 'button',
             type: 'tonal',
-            label: i18n.msg('content_order_card_purchase_button'),
+            label: i18n.msg('purchase-invoice'),
             styles: {
               flexGrow: '1',
             },

@@ -12,7 +12,7 @@ export function orderSupplierSelect(
   return {
     component: 'select',
     type: 'filled',
-    label: i18n.msg('content_order_card_supplier'),
+    label: i18n.msg('supplier'),
     value: supplierId,
     name: 'supplierId',
     slotList: [
@@ -20,7 +20,7 @@ export function orderSupplierSelect(
         component: 'select-option',
         type: 'select-option',
         value: 'no-supplier-id',
-        headline: i18n.msg('content_order_card_no_supplier'),
+        headline: i18n.msg('undetermined'),
       },
       ...suppliers.map(
         (supplier): M3.Types.SelectOptionContent => ({

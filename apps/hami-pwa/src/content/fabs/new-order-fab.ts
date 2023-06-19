@@ -10,7 +10,7 @@ export function newOrderFAB(): M3.Types.FABContent {
     type: 'fab',
     size: 'medium',
     variant: 'primary',
-    label: i18n.msg('content_order_fab_new'),
+    label: i18n.msg('new-order'),
     slotList: [
       {
         component: 'icon',

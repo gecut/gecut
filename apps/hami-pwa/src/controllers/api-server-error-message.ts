@@ -6,7 +6,7 @@ export function getByErrorCode(errorCode = ''): string {
   const error = i18n.msg(errorCode);
 
   if (error === 'key_not_defined') {
-    return i18n.msg('error_in_connection_to_server');
+    return i18n.msg('error-communicating-with-the-server');
   }
 
   return error;

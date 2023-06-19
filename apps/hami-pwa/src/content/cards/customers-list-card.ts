@@ -23,7 +23,7 @@ export function customerItem(
     supportingText: customer.description,
     multiLineSupportingText: true,
     trailingSupportingText: i18n.msg(
-      'customers_information_box_item_order',
+      'number-of-order',
       i18n.int(customer.orderList.length)
     ),
     classes: ['notification-item'],

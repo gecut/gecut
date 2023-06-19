@@ -52,7 +52,7 @@ i18n.set("fa-IR");
 
 const navigationTabs: M3.Types.NavigationTabContent[] = [
   {
-    label: i18n.msg('bottom_bar_home_label'),
+    label: i18n.msg('home'),
     link: urlForName('Home'),
     icons: {
       active: icons.filledRounded.home,
@@ -60,7 +60,7 @@ const navigationTabs: M3.Types.NavigationTabContent[] = [
     },
   },
   {
-    label: i18n.msg('bottom_bar_orders_label'),
+    label: i18n.msg('orders'),
     link: urlForName('Orders'),
     icons: {
       active: icons.filledRounded.grading,
@@ -68,7 +68,7 @@ const navigationTabs: M3.Types.NavigationTabContent[] = [
     },
   },
   {
-    label: i18n.msg('bottom_bar_user_label'),
+    label: i18n.msg('user'),
     link: urlForName('User'),
     icons: {
       active: icons.filledRounded.person,
@@ -76,7 +76,7 @@ const navigationTabs: M3.Types.NavigationTabContent[] = [
     },
   },
   {
-    label: i18n.msg('bottom_bar_customers_label'),
+    label: i18n.msg('customers'),
     link: urlForName('Customers'),
     icons: {
       active: icons.filledRounded.group,

@@ -24,7 +24,7 @@ export function notFoundListCard(): M3.Components.SurfaceCard {
       {
         component: 'typography',
         type: 'p',
-        slotList: [i18n.msg('content_not_found_list_card_label')],
+        slotList: [i18n.msg('nothing-found')],
       },
     ],
   });
