@@ -10,18 +10,12 @@ nanoServer.route('PATCH', '/customer-project-storage/', async (connection) => {
 
   await requireAdmin(connection);
 
-  const params = connection.requireQueryParams<{ 'customerId': string }>({
-    'customerId': 'string',
-  });
-  const customerId = params['customerId'];
-  const bodyJson = await connection.requireJsonBody<{
-    data: Array<Partial<Projects.Hami.CustomerProject>>;
-  }>();
+  const bodyJson = await connection.requireJsonBody<Projects.Hami.PatchRoutes['patch-customer-project-storage']>();
 
   for (let customer of bodyJson.data) {
     customer = await storageClient.set(
       Projects.Hami.customerProjectRequire(customer),
-      config.customerProjectStoragePrefix + customerId
+      config.customerProjectStoragePrefix + bodyJson.customerId
     );
   }
 
