@@ -1,5 +1,4 @@
-import i18n from '#hami/ui/i18n';
-
+import i18n from '@gecut/i18n';
 import { Projects } from '@gecut/types';
 
 import type { FormSelectContent } from '@gecut/form-builder';
@@ -10,7 +9,7 @@ export function orderStatusSelect(
   return {
     component: 'select',
     type: 'filled',
-    label: i18n.message('content_order_card_status'),
+    label: i18n.msg('content_order_card_status'),
     value,
     name: 'status',
     styles: {
@@ -20,7 +19,7 @@ export function orderStatusSelect(
       component: 'select-option',
       type: 'select-option',
       value: status,
-      headline: i18n.message(status),
+      headline: i18n.msg(status),
     })),
   };
 }

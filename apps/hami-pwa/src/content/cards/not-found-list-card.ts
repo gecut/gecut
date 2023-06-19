@@ -1,6 +1,6 @@
-import i18n from '#hami/ui/i18n';
 import icons from '#hami/ui/icons';
 
+import i18n from '@gecut/i18n';
 import { M3 } from '@gecut/ui-kit';
 
 export function notFoundListCard(): M3.Components.SurfaceCard {
@@ -24,7 +24,7 @@ export function notFoundListCard(): M3.Components.SurfaceCard {
       {
         component: 'typography',
         type: 'p',
-        slotList: [i18n.message('content_not_found_list_card_label')],
+        slotList: [i18n.msg('content_not_found_list_card_label')],
       },
     ],
   });

@@ -2,9 +2,9 @@ import { customersListCard } from '#hami/content/cards/customers-list-card';
 import { newCustomerFAB } from '#hami/content/fabs/new-customer-fab';
 import { headingPageTypography } from '#hami/content/typographies/heading-page-typography';
 import { PageBase } from '#hami/ui/helpers/page-base';
-import i18n from '#hami/ui/i18n';
 import icons from '#hami/ui/icons';
 
+import i18n from '@gecut/i18n';
 import { dispatch, request } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
 import { html, nothing, unsafeCSS } from 'lit';
@@ -37,7 +37,7 @@ export class PageCustomers extends PageBase {
 
     inputType: 'search',
     name: 'productPriceSearch',
-    placeholder: i18n.message('home_page_product_price_box_search_placeholder'),
+    placeholder: i18n.msg('home_page_product_price_box_search_placeholder'),
     hasLeadingIcon: true,
     slotList: [
       {
@@ -86,7 +86,7 @@ export class PageCustomers extends PageBase {
     if (Object.keys(this.customers).length === 0) return nothing;
 
     const titleTemplate = M3.Renderers.renderTypoGraphy(
-      headingPageTypography(i18n.message('customers_information_box_title'))
+      headingPageTypography(i18n.msg('customers_information_box_title'))
     );
 
     return html`

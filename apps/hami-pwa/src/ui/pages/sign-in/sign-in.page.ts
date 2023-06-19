@@ -1,12 +1,12 @@
 import { requireSignIn } from '#hami/controllers/require-sign-in';
 import gecutLogo from '#hami/ui/assets/gecut-logo.webp?inline';
 import hamiLogo from '#hami/ui/assets/hami-logo.webp?inline';
-import i18n from '#hami/ui/i18n';
 import icons from '#hami/ui/icons';
 import { routerGo, urlForName } from '#hami/ui/router';
 import elementStyle from '#hami/ui/stylesheets/element.scss?inline';
 import pageStyle from '#hami/ui/stylesheets/page.scss?inline';
 
+import i18n from '@gecut/i18n';
 import { loggerElement } from '@gecut/mixins';
 import { dispatch, request } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
@@ -39,7 +39,7 @@ export class PageSignIn extends loggerElement {
           component: 'text-field',
           type: 'filled',
           name: 'phoneNumber',
-          label: i18n.message('sign_in_page_form_phone-number_label'),
+          label: i18n.msg('sign_in_page_form_phone-number_label'),
           inputType: 'tel',
           minLength: 11,
           maxLength: 11,
@@ -55,16 +55,16 @@ export class PageSignIn extends loggerElement {
           validator: [
             {
               rule: 'required',
-              errorMessage: i18n.message('sign_in_page_form_required_error'),
+              errorMessage: i18n.msg('sign_in_page_form_required_error'),
             },
             {
               rule: 'numeric',
-              errorMessage: i18n.message('sign_in_page_form_numeric_error'),
+              errorMessage: i18n.msg('sign_in_page_form_numeric_error'),
             },
             {
               rule: 'phone',
               country: 'IR',
-              errorMessage: i18n.message(
+              errorMessage: i18n.msg(
                 'sign_in_page_form_phone-number_error'
               ),
             },
@@ -75,7 +75,7 @@ export class PageSignIn extends loggerElement {
           type: 'filled',
           inputType: 'password',
           name: 'password',
-          label: i18n.message('sign_in_page_form_password_label'),
+          label: i18n.msg('sign_in_page_form_password_label'),
           slotList: [
             {
               component: 'icon',
@@ -88,7 +88,7 @@ export class PageSignIn extends loggerElement {
           validator: [
             {
               rule: 'required',
-              errorMessage: i18n.message('sign_in_page_form_required_error'),
+              errorMessage: i18n.msg('sign_in_page_form_required_error'),
             },
           ],
         },
@@ -100,7 +100,7 @@ export class PageSignIn extends loggerElement {
   private submitButton: M3.Types.ButtonContent = {
       component: 'button',
       type: 'filled',
-      label: i18n.message('sign_in_page_form_submit'),
+      label: i18n.msg('sign_in_page_form_submit'),
       slotList: [
         {
           component: 'icon',
@@ -134,7 +134,7 @@ export class PageSignIn extends loggerElement {
 
       <div class="form-box">
         <form class="form">
-          <h2>${i18n.message('sign_in_page_title')}</h2>
+          <h2>${i18n.msg('sign_in_page_title')}</h2>
           <form-builder .data=${this.form}></form-builder>
 
           <div class="button">

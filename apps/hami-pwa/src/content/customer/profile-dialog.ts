@@ -1,6 +1,6 @@
-import i18n from '#hami/ui/i18n';
 import icons from '#hami/ui/icons';
 
+import i18n from '@gecut/i18n';
 import { dispatch } from '@gecut/signal';
 
 import { customerAddProjectDialog } from './add-project-dialog';
@@ -44,7 +44,7 @@ export function customerProfileDialog(
               {
                 component: 'list-item',
                 type: 'list-item',
-                headline: `${i18n.phoneNumber(customer.phoneNumber)}`,
+                headline: `${i18n.phone(customer.phoneNumber)}`,
                 slotList: [
                   {
                     component: 'icon',
@@ -58,8 +58,8 @@ export function customerProfileDialog(
                 component: 'list-item',
                 type: 'list-item',
                 headline: [
-                  i18n.numberFormat(customer.orderList.length),
-                  i18n.message('customers_information_box_dialog_order'),
+                  i18n.int(customer.orderList.length),
+                  i18n.msg('customers_information_box_dialog_order'),
                 ].join(' '),
                 slotList: [
                   {
@@ -73,7 +73,7 @@ export function customerProfileDialog(
               {
                 component: 'list-item',
                 type: 'list-item',
-                headline: i18n.message(
+                headline: i18n.msg(
                   'customers_information_box_dialog_description'
                 ),
                 supportingText: customer.description,
@@ -95,7 +95,7 @@ export function customerProfileDialog(
                   {
                     component: 'button',
                     type: 'tonal',
-                    label: i18n.message(
+                    label: i18n.msg(
                       'customers_information_box_dialog_edit_customer'
                     ),
                     slot: 'footer',
@@ -111,7 +111,7 @@ export function customerProfileDialog(
                   {
                     component: 'button',
                     type: 'tonal',
-                    label: i18n.message(
+                    label: i18n.msg(
                       'customers_information_box_dialog_add_project'
                     ),
                     slot: 'footer',
@@ -153,7 +153,7 @@ export function customerProfileDialog(
                 },
                 customConfig: (target) => {
                   target.innerHTML = [
-                    i18n.message('customers_information_box_dialog_created_by'),
+                    i18n.msg('customers_information_box_dialog_created_by'),
                     customer.creator.firstName,
                     customer.creator.lastName,
                   ].join(' ');
@@ -194,7 +194,7 @@ export function customerProfileDialog(
       {
         component: 'button',
         type: 'text',
-        label: i18n.message('customers_information_box_dialog_close_label'),
+        label: i18n.msg('customers_information_box_dialog_close_label'),
         slot: 'footer',
         customConfig: (target) => {
           target.setAttribute('dialogAction', 'close');

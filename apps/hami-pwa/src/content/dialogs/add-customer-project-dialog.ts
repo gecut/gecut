@@ -1,6 +1,6 @@
 import { defaultValidators } from '#hami/controllers/default-validators';
-import i18n from '#hami/ui/i18n';
 
+import i18n from '@gecut/i18n';
 import { dispatch, request } from '@gecut/signal';
 
 import { headingPageTypography } from '../typographies/heading-page-typography';
@@ -14,7 +14,7 @@ export function addCustomerProjectDialog(): M3.Types.DialogContent {
     type: 'dialog',
     fullscreen: true,
     slotList: [
-      headingPageTypography(i18n.message('content_add_customer_dialog'), {
+      headingPageTypography(i18n.msg('content_add_customer_dialog'), {
         slot: 'headline',
       }),
       {
@@ -45,7 +45,7 @@ export function addCustomerProjectDialog(): M3.Types.DialogContent {
                     type: 'filled',
                     inputType: 'text',
                     name: 'projectName',
-                    label: i18n.message(
+                    label: i18n.msg(
                       'content_add_customer_dialog_first_name'
                     ),
                     validator: [defaultValidators.required],
@@ -55,7 +55,7 @@ export function addCustomerProjectDialog(): M3.Types.DialogContent {
                     type: 'filled',
                     inputType: 'text',
                     name: 'projectAddress',
-                    label: i18n.message(
+                    label: i18n.msg(
                       'content_add_customer_dialog_last_name'
                     ),
                     validator: [defaultValidators.required],
@@ -65,7 +65,7 @@ export function addCustomerProjectDialog(): M3.Types.DialogContent {
                     type: 'filled',
                     inputType: 'text',
                     name: 'supervisorName',
-                    label: i18n.message(
+                    label: i18n.msg(
                       'content_add_customer_dialog_phone_number'
                     ),
                     validator: [defaultValidators.required],
@@ -75,7 +75,7 @@ export function addCustomerProjectDialog(): M3.Types.DialogContent {
                     type: 'filled',
                     inputType: 'tel',
                     name: 'supervisorPhone',
-                    label: i18n.message(
+                    label: i18n.msg(
                       'content_add_customer_dialog_description'
                     ),
                     textDirection: 'ltr',
@@ -90,7 +90,7 @@ export function addCustomerProjectDialog(): M3.Types.DialogContent {
                     type: 'filled',
                     disabled: 'auto',
                     action: 'form_submit',
-                    label: i18n.message(
+                    label: i18n.msg(
                       'customers_information_box_dialog_send_to_server_label'
                     ),
                   },
@@ -122,7 +122,7 @@ export function addCustomerProjectDialog(): M3.Types.DialogContent {
       {
         component: 'button',
         type: 'text',
-        label: i18n.message('customers_information_box_dialog_close_label'),
+        label: i18n.msg('customers_information_box_dialog_close_label'),
         slot: 'footer',
         customConfig: (target) => {
           target.setAttribute('dialogAction', 'close');

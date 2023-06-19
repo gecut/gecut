@@ -21,6 +21,7 @@
       "@gecut/common/*": ["packages/ui/common/src/*"],
       "@gecut/form-builder": ["packages/ui/form-builder/src/form-builder.ts"],
       "@gecut/form-validator": ["packages/ui/form-validator/src/index.ts"],
+      "@gecut/i18n": ["packages/ui/i18n/src/i18n.ts"],
       "@gecut/logger": ["packages/core/logger/src/index.ts"],
       "@gecut/lorem": ["packages/core/lorem/src/index.ts"],
       "@gecut/mixins": ["packages/ui/mixins/src/index.ts"],
