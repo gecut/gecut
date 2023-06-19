@@ -1,6 +1,6 @@
-import i18n from '#hami/ui/i18n';
 import icons from '#hami/ui/icons';
 
+import i18n from '@gecut/i18n';
 import { dispatch } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
 import { flow } from '@lit-labs/virtualizer/layouts/flow.js';
@@ -22,9 +22,9 @@ export function customerItem(
     headline: customer.firstName + ' ' + customer.lastName,
     supportingText: customer.description,
     multiLineSupportingText: true,
-    trailingSupportingText: i18n.message(
+    trailingSupportingText: i18n.msg(
       'customers_information_box_item_order',
-      i18n.numberFormat(customer.orderList.length)
+      i18n.int(customer.orderList.length)
     ),
     classes: ['notification-item'],
     styleVars: {

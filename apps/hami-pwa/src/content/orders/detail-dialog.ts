@@ -1,5 +1,6 @@
-import i18n from '#hami/ui/i18n';
 import icons from '#hami/ui/icons';
+
+import i18n from '@gecut/i18n';
 
 import type { Projects } from '@gecut/types';
 import type { M3 } from '@gecut/ui-kit';
@@ -16,7 +17,7 @@ export function orderDetailDialog(
         component: 'typography',
         type: 'h3',
         style: 'title-large',
-        slotList: [i18n.message('order_dialog_information_title')],
+        slotList: [i18n.msg('order_dialog_information_title')],
       },
       {
         component: 'surface-card',
@@ -30,7 +31,7 @@ export function orderDetailDialog(
               {
                 component: 'list-item',
                 type: 'list-item',
-                headline: `${i18n.message(
+                headline: `${i18n.msg(
                   'order_dialog_information_customer_name'
                 )} ${order.customer.firstName} ${order.customer.lastName}`,
                 slotList: [
@@ -46,7 +47,7 @@ export function orderDetailDialog(
                 component: 'list-item',
                 type: 'list-item',
                 headline: [
-                  i18n.message('order_dialog_information_customer_project'),
+                  i18n.msg('order_dialog_information_customer_project'),
                   order.customerProject.projectName,
                 ].join(' '),
                 supportingText: order.customerProject.projectAddress,
@@ -63,7 +64,7 @@ export function orderDetailDialog(
               {
                 component: 'list-item',
                 type: 'list-item',
-                headline: i18n.message(
+                headline: i18n.msg(
                   'order_dialog_information_customer_evacuation_date'
                 ),
                 supportingText: i18n.date(order.evacuationDate),
@@ -82,7 +83,7 @@ export function orderDetailDialog(
               {
                 component: 'list-item',
                 type: 'list-item',
-                headline: i18n.message(
+                headline: i18n.msg(
                   'order_dialog_information_customer_registration_date'
                 ),
                 supportingText: i18n.date(order.registrationDate),
@@ -101,7 +102,7 @@ export function orderDetailDialog(
               {
                 component: 'list-item',
                 type: 'list-item',
-                headline: i18n.message(order.status),
+                headline: i18n.msg(order.status),
                 slotList: [
                   {
                     component: 'icon',
@@ -119,7 +120,7 @@ export function orderDetailDialog(
         component: 'typography',
         type: 'h3',
         style: 'title-large',
-        slotList: [i18n.message('order_dialog_products_title')],
+        slotList: [i18n.msg('order_dialog_products_title')],
       },
       {
         component: 'list',
@@ -147,12 +148,12 @@ export function orderDetailDialog(
             {
               component: 'list-item',
               type: 'list-item',
-              headline: `${i18n.message(
+              headline: `${i18n.msg(
                 'order_dialog_products_sales_price'
-              )} ${i18n.numberFormat(product.salesPrice)}`,
-              trailingSupportingText: `${i18n.message(
+              )} ${i18n.int(product.salesPrice)}`,
+              trailingSupportingText: `${i18n.msg(
                 'order_dialog_products_purchase_price'
-              )} ${i18n.numberFormat(product.purchasePrice)}`,
+              )} ${i18n.int(product.purchasePrice)}`,
               slotList: [
                 {
                   component: 'icon',
@@ -167,25 +168,25 @@ export function orderDetailDialog(
           // headline: product.product.name,
           // supportingText: [
           //   [
-          //     i18n.message('order_dialog_products_purchase_price'),
-          //     i18n.numberFormat(product.purchasePrice),
+          //     i18n.msg('order_dialog_products_purchase_price'),
+          //     i18n.int(product.purchasePrice),
           //   ].join(': '),
           //   [
-          //     i18n.message('order_dialog_products_sales_price'),
-          //     i18n.numberFormat(product.salesPrice),
+          //     i18n.msg('order_dialog_products_sales_price'),
+          //     i18n.int(product.salesPrice),
           //   ].join(': '),
-          //   [i18n.message('order_dialog_products_unit'), product.unit].join(
+          //   [i18n.msg('order_dialog_products_unit'), product.unit].join(
           //     ': '
           //   ),
           // ].join('  '),
           // multiLineSupportingText: true,
-          // trailingSupportingText: i18n.numberFormat(product.quantity),
+          // trailingSupportingText: i18n.int(product.quantity),
         })),
       },
       {
         component: 'button',
         type: 'text',
-        label: i18n.message('customers_information_box_dialog_close_label'),
+        label: i18n.msg('customers_information_box_dialog_close_label'),
         slot: 'footer',
         customConfig: (target) => {
           target.setAttribute('dialogAction', 'close');

@@ -1,5 +1,6 @@
-import i18n from '#hami/ui/i18n';
 import icons from '#hami/ui/icons';
+
+import i18n from '@gecut/i18n';
 
 import type { M3 } from '@gecut/ui-kit';
 
@@ -9,7 +10,7 @@ export function newOrderFAB(): M3.Types.FABContent {
     type: 'fab',
     size: 'medium',
     variant: 'primary',
-    label: i18n.message('content_order_fab_new'),
+    label: i18n.msg('content_order_fab_new'),
     slotList: [
       {
         component: 'icon',

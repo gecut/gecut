@@ -1,5 +1,4 @@
-import i18n from '#hami/ui/i18n';
-
+import i18n from '@gecut/i18n';
 import { dispatch, request } from '@gecut/signal';
 
 import { orderStatusSelect } from '../selects/order-status-select';
@@ -20,7 +19,7 @@ export function editOrderDialog(
     fullscreen: true,
     slotList: [
       headingPageTypography(
-        i18n.message('content_order_card_id') + ': ' + order.id,
+        i18n.msg('content_order_card_id') + ': ' + order.id,
         {
           slot: 'headline',
         }
@@ -40,9 +39,9 @@ export function editOrderDialog(
             component: 'typography',
             type: 'p',
             slotList: [
-              i18n.message('content_order_card_status'),
+              i18n.msg('content_order_card_status'),
               ': ',
-              i18n.message(order.status),
+              i18n.msg(order.status),
             ],
             styles: {
               color: 'var(--md-sys-color-surface-variant)',
@@ -53,7 +52,7 @@ export function editOrderDialog(
             component: 'typography',
             type: 'p',
             slotList: [
-              i18n.message('content_order_card_evacuation_date'),
+              i18n.msg('content_order_card_evacuation_date'),
               ': ',
               i18n.date(order.evacuationDate),
             ],
@@ -66,7 +65,7 @@ export function editOrderDialog(
             component: 'typography',
             type: 'p',
             slotList: [
-              i18n.message('content_order_card_registration_date'),
+              i18n.msg('content_order_card_registration_date'),
               ': ',
               i18n.date(order.registrationDate),
             ],
@@ -79,7 +78,7 @@ export function editOrderDialog(
             component: 'typography',
             type: 'p',
             slotList: [
-              i18n.message('content_order_card_customer_name'),
+              i18n.msg('content_order_card_customer_name'),
               ': ',
               order.customer.firstName,
               ' ',
@@ -94,7 +93,7 @@ export function editOrderDialog(
             component: 'typography',
             type: 'p',
             slotList: [
-              i18n.message('content_order_card_supplier_name'),
+              i18n.msg('content_order_card_supplier_name'),
               ': ',
               order.supplier.firstName,
               ' ',
@@ -110,7 +109,7 @@ export function editOrderDialog(
             type: 'p',
             hidden: order.description === 'no-description',
             slotList: [
-              i18n.message('content_order_card_description'),
+              i18n.msg('content_order_card_description'),
               ': ',
               order.description,
             ],
@@ -123,7 +122,7 @@ export function editOrderDialog(
             component: 'typography',
             type: 'p',
             slotList: [
-              i18n.message('content_order_card_creator'),
+              i18n.msg('content_order_card_creator'),
               ': ',
               order.creator.firstName,
               ' ',
@@ -138,9 +137,9 @@ export function editOrderDialog(
             component: 'typography',
             type: 'p',
             slotList: [
-              i18n.message('content_order_card_project_address'),
+              i18n.msg('content_order_card_project_address'),
               ': ',
-              i18n.message(order.customerProject.projectAddress),
+              i18n.msg(order.customerProject.projectAddress),
             ],
             styles: {
               color: 'var(--md-sys-color-surface-variant)',
@@ -168,14 +167,14 @@ export function editOrderDialog(
                       type: 'filled',
                       inputType: 'number',
                       name: orderProduct.productId,
-                      label: `${orderProduct.product.name} (${i18n.numberFormat(
+                      label: `${orderProduct.product.name} (${i18n.int(
                         orderProduct.quantity
                       )} ${orderProduct.unit})`,
                       value: String(orderProduct.purchasePrice),
                       customConfig: (target) => {
                         target.addEventListener('input', () => {
                           if (!Number.isNaN(target.valueAsNumber)) {
-                            target.supportingText = i18n.numberFormat(
+                            target.supportingText = i18n.int(
                               target.valueAsNumber
                             );
                           } else {
@@ -192,7 +191,7 @@ export function editOrderDialog(
                     type: 'tonal',
                     action: 'form_submit',
                     disabled: 'auto',
-                    label: i18n.message('content_order_card_submit_button'),
+                    label: i18n.msg('content_order_card_submit_button'),
                   },
                 ],
               },
@@ -230,7 +229,7 @@ export function editOrderDialog(
       {
         component: 'button',
         type: 'text',
-        label: i18n.message('customers_information_box_dialog_close_label'),
+        label: i18n.msg('customers_information_box_dialog_close_label'),
         slot: 'footer',
         customConfig: (target) => {
           target.setAttribute('dialogAction', 'close');

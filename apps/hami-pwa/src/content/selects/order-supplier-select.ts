@@ -1,4 +1,4 @@
-import i18n from '#hami/ui/i18n';
+import i18n from '@gecut/i18n';
 
 
 import type { FormSelectContent } from '@gecut/form-builder';
@@ -12,7 +12,7 @@ export function orderSupplierSelect(
   return {
     component: 'select',
     type: 'filled',
-    label: i18n.message('content_order_card_supplier'),
+    label: i18n.msg('content_order_card_supplier'),
     value: supplierId,
     name: 'supplierId',
     slotList: [
@@ -20,7 +20,7 @@ export function orderSupplierSelect(
         component: 'select-option',
         type: 'select-option',
         value: 'no-supplier-id',
-        headline: i18n.message('content_order_card_no_supplier'),
+        headline: i18n.msg('content_order_card_no_supplier'),
       },
       ...suppliers.map(
         (supplier): M3.Types.SelectOptionContent => ({

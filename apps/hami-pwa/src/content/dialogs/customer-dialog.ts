@@ -1,4 +1,4 @@
-import i18n from '#hami/ui/i18n';
+import i18n from '@gecut/i18n';
 
 import { customerCard } from '../cards/customer-card';
 import { customerProjectListCard } from '../cards/customer-projects-list-card';
@@ -16,7 +16,7 @@ export function customerDialog(
     type: 'dialog',
     fullscreen: true,
     slotList: [
-      headingPageTypography(i18n.message('content_customer_dialog'), {
+      headingPageTypography(i18n.msg('content_customer_dialog'), {
         slot: 'headline',
       }),
       customerCard(customer),
@@ -25,7 +25,7 @@ export function customerDialog(
       {
         component: 'button',
         type: 'text',
-        label: i18n.message('customers_information_box_dialog_close_label'),
+        label: i18n.msg('customers_information_box_dialog_close_label'),
         slot: 'footer',
         customConfig: (target) => {
           target.setAttribute('dialogAction', 'close');

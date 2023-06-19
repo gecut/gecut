@@ -1,5 +1,6 @@
-import i18n from '#hami/ui/i18n';
 import icons from '#hami/ui/icons';
+
+import i18n from '@gecut/i18n';
 
 import type { Projects } from '@gecut/types';
 import type { M3 } from '@gecut/ui-kit';
@@ -12,9 +13,9 @@ export function customerProjectItem(
     type: 'list-item',
     headline: project.projectName,
     supportingText: project.projectAddress,
-    trailingSupportingText: i18n.message(
+    trailingSupportingText: i18n.msg(
       'customers_information_box_item_order',
-      i18n.numberFormat(project.ordersCount ?? 0)
+      i18n.int(project.ordersCount ?? 0)
     ),
     styles: {
       width: '100%',

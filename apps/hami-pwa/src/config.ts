@@ -1,11 +1,14 @@
 import icons from '#hami/ui/icons';
 
+import i18n from '@gecut/i18n';
+
 import proxyConfig from '../proxy.conf.json';
 
-import i18n from './ui/i18n';
+import fa from './content/translation/fa-IR.json';
 import { urlForName } from './ui/router';
 
 import type { AlwatrServiceResponse } from '@alwatr/type';
+import type { LocaleFileType } from '@gecut/i18n';
 import type { Projects, StringifyableRecord } from '@gecut/types';
 import type { M3 } from '@gecut/ui-kit';
 
@@ -44,9 +47,12 @@ declare global {
   }
 }
 
+i18n.register(fa as LocaleFileType);
+i18n.set("fa-IR");
+
 const navigationTabs: M3.Types.NavigationTabContent[] = [
   {
-    label: i18n.message('bottom_bar_home_label'),
+    label: i18n.msg('bottom_bar_home_label'),
     link: urlForName('Home'),
     icons: {
       active: icons.filledRounded.home,
@@ -54,7 +60,7 @@ const navigationTabs: M3.Types.NavigationTabContent[] = [
     },
   },
   {
-    label: i18n.message('bottom_bar_orders_label'),
+    label: i18n.msg('bottom_bar_orders_label'),
     link: urlForName('Orders'),
     icons: {
       active: icons.filledRounded.grading,
@@ -62,7 +68,7 @@ const navigationTabs: M3.Types.NavigationTabContent[] = [
     },
   },
   {
-    label: i18n.message('bottom_bar_user_label'),
+    label: i18n.msg('bottom_bar_user_label'),
     link: urlForName('User'),
     icons: {
       active: icons.filledRounded.person,
@@ -70,7 +76,7 @@ const navigationTabs: M3.Types.NavigationTabContent[] = [
     },
   },
   {
-    label: i18n.message('bottom_bar_customers_label'),
+    label: i18n.msg('bottom_bar_customers_label'),
     link: urlForName('Customers'),
     icons: {
       active: icons.filledRounded.group,

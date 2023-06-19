@@ -1,5 +1,4 @@
-import i18n from '#hami/ui/i18n';
-
+import i18n from '@gecut/i18n';
 import { M3 } from '@gecut/ui-kit';
 import { flow } from '@lit-labs/virtualizer/layouts/flow.js';
 import { html } from 'lit';
@@ -14,8 +13,8 @@ export function productPriceItem(
     component: 'list-item',
     type: 'list-item',
     headline: productPrice.name,
-    supportingText: i18n.numberFormat(productPrice.minPrice),
-    trailingSupportingText: i18n.numberFormat(productPrice.normalPrice),
+    supportingText: i18n.int(productPrice.minPrice),
+    trailingSupportingText: i18n.int(productPrice.normalPrice),
     classes: ['notification-item'],
     styleVars: {
       '--_list-item-supporting-text-color': 'var(--md-sys-color-primary)',

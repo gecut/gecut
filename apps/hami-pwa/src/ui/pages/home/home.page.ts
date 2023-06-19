@@ -1,12 +1,12 @@
 import { notificationListCard } from '#hami/content/cards/notification-list-card';
 import { productPriceListCard } from '#hami/content/cards/product-price-list-card';
 import { requireSignIn } from '#hami/controllers/require-sign-in';
-import i18n from '#hami/ui/i18n';
 import icons from '#hami/ui/icons';
 import { urlForName } from '#hami/ui/router';
 import elementStyle from '#hami/ui/stylesheets/element.scss?inline';
 import pageStyle from '#hami/ui/stylesheets/page.scss?inline';
 
+import i18n from '@gecut/i18n';
 import { scheduleSignalElement } from '@gecut/mixins';
 import { dispatch, getValue, request } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
@@ -48,7 +48,7 @@ export class PageHome extends scheduleSignalElement {
 
     inputType: 'search',
     name: 'productPriceSearch',
-    label: i18n.message('home_page_product_price_box_search_placeholder'),
+    label: i18n.msg('home_page_product_price_box_search_placeholder'),
     hasLeadingIcon: true,
     slotList: [
       {
@@ -119,7 +119,7 @@ export class PageHome extends scheduleSignalElement {
     return html`
       <div class="card-box">
         <h3 class="title">
-          ${i18n.message('home_page_notification_box_title')}
+          ${i18n.msg('home_page_notification_box_title')}
         </h3>
 
         ${notificationListCard(Object.values(this.notificationStorage))}
@@ -133,7 +133,7 @@ export class PageHome extends scheduleSignalElement {
     return html`
       <div class="card-box">
         <h3 class="title">
-          ${i18n.message('home_page_product_price_box_title')}
+          ${i18n.msg('home_page_product_price_box_title')}
         </h3>
 
         <div class="search-box">${this.productsPriceSearchBoxComponent}</div>

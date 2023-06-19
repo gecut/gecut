@@ -1,8 +1,8 @@
 import config from '#hami/config';
-import i18n from '#hami/ui/i18n';
 import icons from '#hami/ui/icons';
 import { attachRouter } from '#hami/ui/router';
 
+import i18n from '@gecut/i18n';
 import { signalElement } from '@gecut/mixins';
 import { dispatch } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
@@ -28,7 +28,7 @@ declare global {
 const getDate = () => {
   const now = new Date();
 
-  return now.toLocaleDateString(i18n.getConfig().code, {
+  return now.toLocaleDateString(i18n.config().$code, {
     weekday: 'long',
     day: 'numeric',
     month: 'long',
@@ -77,8 +77,6 @@ export class AppRoot extends signalElement {
     super.connectedCallback();
 
     registerSW({});
-
-    i18n.init();
 
     this.addSignalListener('top-app-bar', (value) => {
       this.topAppBarContent = {
@@ -194,7 +192,7 @@ export class AppRoot extends signalElement {
       <a class="navigation-tab" href=${tab.link}>
         <md-navigation-tab
           .label=${tab.label}
-          .badgeValue=${tab.badgeValue}
+          .badgeValue=${tab.badgeValue ?? ''}
           ?active=${tab.link === location.pathname}
           ?showBadge=${tab.showBadge}
           hideInactiveLabel

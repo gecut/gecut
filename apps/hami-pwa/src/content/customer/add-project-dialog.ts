@@ -1,4 +1,4 @@
-import i18n from '#hami/ui/i18n';
+import i18n from '@gecut/i18n';
 
 import { addProjectForm } from './add-project-form';
 
@@ -17,7 +17,7 @@ export function customerAddProjectDialog(
       {
         component: 'button',
         type: 'text',
-        label: i18n.message(
+        label: i18n.msg(
           'customers_information_box_dialog_send_to_server_label'
         ),
         slot: 'footer',
@@ -25,7 +25,7 @@ export function customerAddProjectDialog(
       {
         component: 'button',
         type: 'text',
-        label: i18n.message('customers_information_box_dialog_close_label'),
+        label: i18n.msg('customers_information_box_dialog_close_label'),
         slot: 'footer',
         customConfig: (target) => {
           target.setAttribute('dialogAction', 'close');

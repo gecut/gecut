@@ -1,6 +1,6 @@
-import i18n from '#hami/ui/i18n';
 import icons from '#hami/ui/icons';
 
+import i18n from '@gecut/i18n';
 import { dispatch } from '@gecut/signal';
 
 import { addCustomerDialog } from '../dialogs/add-customer-dialog';
@@ -13,7 +13,7 @@ export function newCustomerFAB(): M3.Types.FABContent {
     type: 'fab',
     size: 'medium',
     variant: 'primary',
-    label: i18n.message('customers_information_fab_new'),
+    label: i18n.msg('customers_information_fab_new'),
     slotList: [
       {
         component: 'icon',

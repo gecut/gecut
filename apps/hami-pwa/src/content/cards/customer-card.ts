@@ -1,6 +1,6 @@
-import i18n from '#hami/ui/i18n';
 import icons from '#hami/ui/icons';
 
+import i18n from '@gecut/i18n';
 import { dispatch } from '@gecut/signal';
 
 import { addCustomerProjectDialog } from '../dialogs/add-customer-project-dialog';
@@ -34,9 +34,9 @@ export function customerCard(
         component: 'typography',
         type: 'p',
         slotList: [
-          i18n.message('content_customer_dialog_phone_number'),
+          i18n.msg('content_customer_dialog_phone_number'),
           ': ',
-          i18n.phoneNumber(customer.phoneNumber, true),
+          i18n.phone(customer.phoneNumber, true),
         ],
         styles: {
           color: 'var(--md-sys-color-surface-variant)',
@@ -47,9 +47,9 @@ export function customerCard(
         component: 'typography',
         type: 'p',
         slotList: [
-          i18n.message('content_customer_dialog_projects_count'),
+          i18n.msg('content_customer_dialog_projects_count'),
           ': ',
-          i18n.numberFormat(customer.projectList.length),
+          i18n.int(customer.projectList.length),
         ],
         styles: {
           color: 'var(--md-sys-color-surface-variant)',
@@ -60,9 +60,9 @@ export function customerCard(
         component: 'typography',
         type: 'p',
         slotList: [
-          i18n.message('content_customer_dialog_orders_count'),
+          i18n.msg('content_customer_dialog_orders_count'),
           ': ',
-          i18n.numberFormat(customer.orderList.length),
+          i18n.int(customer.orderList.length),
         ],
         styles: {
           color: 'var(--md-sys-color-surface-variant)',
@@ -73,7 +73,7 @@ export function customerCard(
         component: 'typography',
         type: 'p',
         slotList: [
-          i18n.message('content_customer_dialog_creator'),
+          i18n.msg('content_customer_dialog_creator'),
           ': ',
           customer.creator.firstName,
           ' ',
@@ -88,7 +88,7 @@ export function customerCard(
         component: 'typography',
         type: 'p',
         slotList: [
-          i18n.message('content_customer_dialog_description'),
+          i18n.msg('content_customer_dialog_description'),
           ': ',
           customer.description,
         ],
@@ -100,7 +100,7 @@ export function customerCard(
       {
         component: 'button',
         type: 'filled',
-        label: i18n.message('customers_information_box_dialog_add_project'),
+        label: i18n.msg('customers_information_box_dialog_add_project'),
         styles: {
           marginInlineStart: 'auto',
           marginTop: 'calc(2*var(--sys-spacing-track,8px))',

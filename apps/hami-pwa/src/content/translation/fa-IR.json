@@ -1,7 +1,7 @@
 {
   "$code": "fa-IR",
-  "$direction": "rtl",
-  "$language": "فارسی",
+  "$dir": "rtl",
+  "$name": "فارسی",
 
   "admin": "مدیریت",
   "seller": "فروشنده",

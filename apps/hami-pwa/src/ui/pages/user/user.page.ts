@@ -1,7 +1,7 @@
 import { PageBase } from '#hami/ui/helpers/page-base';
-import i18n from '#hami/ui/i18n';
 import icons from '#hami/ui/icons';
 
+import i18n from '@gecut/i18n';
 import { M3 } from '@gecut/ui-kit';
 import { html, nothing, unsafeCSS } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
@@ -47,7 +47,7 @@ export class PageUser extends PageBase {
 
     return html`
       <div class="card-box">
-        <h3 class="title">${i18n.message('user_information_box_title')}</h3>
+        <h3 class="title">${i18n.msg('user_information_box_title')}</h3>
 
         ${this.renderUserInformationCardElement()}
       </div>
@@ -71,10 +71,10 @@ export class PageUser extends PageBase {
               component: 'list-item',
               type: 'list-item',
               headline: [
-                this.user.gender != null ? i18n.message(this.user.gender) : '',
+                this.user.gender != null ? i18n.msg(this.user.gender) : '',
                 this.user.firstName,
                 this.user.lastName,
-                `(${i18n.message(this.user.role)})`,
+                `(${i18n.msg(this.user.role)})`,
               ].join(' '),
               slotList: [
                 {
@@ -88,7 +88,7 @@ export class PageUser extends PageBase {
             {
               component: 'list-item',
               type: 'list-item',
-              headline: `${i18n.phoneNumber(this.user.phoneNumber)}`,
+              headline: `${i18n.phone(this.user.phoneNumber)}`,
               slotList: [
                 {
                   component: 'icon',
@@ -117,7 +117,7 @@ export class PageUser extends PageBase {
               type: 'list-item',
               headline: `${i18n
                 .message('user_information_box_score_title')
-                .replace('{{score}}', i18n.numberFormat(this.user.score))}`,
+                .replace('{{score}}', i18n.int(this.user.score))}`,
               slotList: [
                 {
                   component: 'icon',
@@ -137,7 +137,7 @@ export class PageUser extends PageBase {
                 {
                   component: 'button',
                   type: 'tonal',
-                  label: i18n.message(
+                  label: i18n.msg(
                     'user_information_box_add_score_button_label'
                   ),
                   hasIcon: true,
@@ -154,7 +154,7 @@ export class PageUser extends PageBase {
                 {
                   component: 'button',
                   type: 'tonal',
-                  label: i18n.message(
+                  label: i18n.msg(
                     'user_information_box_change_password_button_label'
                   ),
                   hasIcon: true,
