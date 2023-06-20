@@ -17,6 +17,9 @@ export interface PatchRoutes {
   'patch-notification-storage': {
     data: Array<Partial<Notification>>;
   };
+  'patch-product-price-storage': {
+    data: Array<Partial<ProductPrice>>;
+  };
   'patch-customer-storage': {
     data: Array<Partial<Customer>>;
   };
