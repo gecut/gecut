@@ -222,13 +222,7 @@ export class FormBuilder extends loggerElement {
             _target.error = component.error ?? false;
             _target.errorText = component.errorText ?? '';
 
-            if (this.data != null) {
-              this.dispatchEvent(
-                new CustomEvent('change', {
-                  detail: { ev: event, component, form: this.data },
-                })
-              );
-            }
+            this.onChange(event, component);
           });
 
           return target;
@@ -308,10 +302,12 @@ export class FormBuilder extends loggerElement {
             target = component.customConfig(target);
           }
 
-          target.addEventListener('input', (event) => {
+          target.addEventListener('change', (event) => {
             const _target = event.target as typeof target;
 
             component.value = _target.value;
+
+            this.onChange(event, component);
           });
 
           return target;
@@ -393,5 +389,19 @@ export class FormBuilder extends loggerElement {
     }
 
     return (disabled as boolean | undefined) ?? false;
+  }
+
+  private onChange(event: Event, component: FormComponent) {
+    if (this.data != null) {
+      const detail = { ev: event, component, form: this.data };
+
+      this.dispatchEvent(
+        new CustomEvent('change', {
+          detail,
+        })
+      );
+
+      this.data.onChange?.(detail);
+    }
   }
 }

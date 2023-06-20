@@ -12,11 +12,14 @@ export type FormButtonContent = Omit<M3.Types.ButtonContent, 'disabled'> & {
 export type FormSelectContent = M3.Types.SelectContent & {
   name?: string;
 };
+export type FormCheckboxContent = M3.Types.CheckboxContent & {
+  label?: string;
+};
 
 export type FormComponent =
   | FormTextFieldContent
   | FormButtonContent
-  | FormSelectContent;
+  | FormSelectContent
 export type FormRow = SingleOrArray<FormComponent>;
 export type FormSlide = Array<FormRow>;
 export type Form = {
