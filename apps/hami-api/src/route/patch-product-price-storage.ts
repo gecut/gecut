@@ -10,9 +10,9 @@ nanoServer.route('PATCH', '/product-price-storage/', async (connection) => {
 
   await requireAdmin(connection);
 
-  const bodyJson = await connection.requireJsonBody<{
-    data: Array<Partial<Projects.Hami.ProductPrice>>;
-  }>();
+  const bodyJson = await connection.requireJsonBody<
+    Projects.Hami.PatchRoutes['patch-product-price-storage']
+  >();
 
   for (const productPrice of bodyJson.data) {
     await storageClient.set(
