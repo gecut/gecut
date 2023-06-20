@@ -4,6 +4,7 @@ import './order-storage';
 import './patch-customer-project-storage';
 import './patch-customer-storage';
 import './patch-notification-storage';
+import './patch-product-price-storage';
 import './product-price-storage';
 import './promises-list';
 import './put-order';
