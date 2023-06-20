@@ -1,4 +1,4 @@
-FROM nginx:latest
+FROM nginx:alpine
 
 WORKDIR /
 
@@ -15,4 +15,4 @@ COPY cloud/pwa/nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 
-CMD ["/bin/bash", "-c", "sudo nginx -g 'daemon off;'"]
+CMD ["nginx", "-g", "daemon off;"]
