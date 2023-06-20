@@ -1792,10 +1792,10 @@
   resolved "https://registry.yarnpkg.com/@lit-labs/ssr-dom-shim/-/ssr-dom-shim-1.1.2-pre.0.tgz#2cd61666d391fd2d2757a122a68edb58eedc6d74"
   integrity sha512-3FSKQV90k20guBluMFzd9paVuzZTxeL1vDuqNc8SbwpiCmZkY7CJH7HH4HVD35D4hU8d8JTKKL51eXRWzXBZXQ==
 
-"@lit-labs/virtualizer@2.0.2":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@lit-labs/virtualizer/-/virtualizer-2.0.2.tgz#7ba1435b3c88d95b7e922eda47508e2a255770b9"
-  integrity sha512-+E+UKTbEfQC5j7FNqN1xWBdGtzfREPbqPAGsNRiz7g2orXb2y+rBy6FmfTQ+Qcly2fjkei06xRg7f/yN/hS3zQ==
+"@lit-labs/virtualizer@2.0.3":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@lit-labs/virtualizer/-/virtualizer-2.0.3.tgz#9df000038ff1b4432ffcf876eea40ef3236a4473"
+  integrity sha512-/D8dYN0LmwMwXqPdKGPK7EKJjZiLHGtX1GwyNJX/dpOeztixliPrtG4KGAqzRTbVom8gXbM3N010fe7ssWrpOw==
   dependencies:
     lit "^2.7.0"
     tslib "^2.0.3"
