@@ -34,14 +34,6 @@
     "@alwatr/type" "^0.30.0"
     tslib "^2.5.0"
 
-"@alwatr/logger@^0.31.0":
-  version "0.31.0"
-  resolved "https://registry.yarnpkg.com/@alwatr/logger/-/logger-0.31.0.tgz#91ec05e81e7c4c0257e853bc17692a60b8747439"
-  integrity sha512-g0Ra2vObJXWH1Vn9wg0WYKtA7jWDy5jfyF4ab8ESZZFndOhlbTrG/8Of9CI80uBk8yQkmGW80WkpfmcK8Qeidg==
-  dependencies:
-    "@alwatr/type" "^0.31.0"
-    tslib "^2.5.0"
-
 "@alwatr/logger@^0.32.0":
   version "0.32.0"
   resolved "https://registry.yarnpkg.com/@alwatr/logger/-/logger-0.32.0.tgz#ad0ce122130e416c9cd34d16421396d01eda2364"
@@ -134,11 +126,6 @@
   version "0.30.0"
   resolved "https://registry.yarnpkg.com/@alwatr/type/-/type-0.30.0.tgz#fc6ec1cc7556571610ab034b71631910ceca0f1a"
   integrity sha512-Cnz5zku/1S2TMRJ0Pedxyh5EodJA6Nush9Br2pRqSAxY5iszolaF0/fuz85OUMZxLPJPyEJCRumDM+qpkCk/Pw==
-
-"@alwatr/type@^0.31.0":
-  version "0.31.0"
-  resolved "https://registry.yarnpkg.com/@alwatr/type/-/type-0.31.0.tgz#790b281f6258f6c4bb4617d0cbec68096aaac255"
-  integrity sha512-AyghvcXcVUheACcSYWrqa31vFAQMcOOvQabdDKPv1QjowwfYqHfprarndJSesePFf8nIFQyNZLvKQ1+b6d6IEg==
 
 "@alwatr/type@^0.32.0":
   version "0.32.0"

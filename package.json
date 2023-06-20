@@ -64,7 +64,7 @@
     "apps/*"
   ],
   "dependencies": {
-    "@alwatr/logger": "^0.31.0",
+    "@alwatr/logger": "^1.0.0",
     "@alwatr/nano-server": "^0.32.0",
     "@alwatr/storage-client": "^1.0.0",
     "@alwatr/token": "^0.30.0",
