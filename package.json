@@ -72,7 +72,7 @@
     "@fontsource/roboto": "4.5.8",
     "@fontsource/vazirmatn": "5.0.2",
     "@lit-labs/motion": "1.0.4-pre.0",
-    "@lit-labs/virtualizer": "2.0.2",
+    "@lit-labs/virtualizer": "2.0.3",
     "@material/web": "^1.0.0-pre.6",
     "@vaadin/router": "1.7.5",
     "ky": "0.33.3",
