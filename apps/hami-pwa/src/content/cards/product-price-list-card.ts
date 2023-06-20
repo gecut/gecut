@@ -1,7 +1,10 @@
 import i18n from '@gecut/i18n';
+import { dispatch } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
 import { flow } from '@lit-labs/virtualizer/layouts/flow.js';
 import { html } from 'lit';
+
+import { addProductPriceDialog } from '../dialogs/add-product-price-dialog';
 
 import { notFoundListCard } from './not-found-list-card';
 
@@ -20,6 +23,13 @@ export function productPriceItem(
     classes: ['notification-item'],
     styleVars: {
       '--_list-item-supporting-text-color': 'var(--md-sys-color-primary)',
+    },
+    customConfig: (target) => {
+      target.addEventListener('click', () => {
+        dispatch('dialog', addProductPriceDialog(productPrice));
+      });
+
+      return target;
     },
   });
 }
@@ -46,14 +56,26 @@ export function productPriceListCard(
   productPrices: Projects.Hami.ProductPrice[],
   query = ''
 ): M3.Types.SurfaceCardRendererReturn {
+  productPrices = productPrices.filter(
+    (notification) => notification.active === true
+  );
+
+  if (productPrices.length === 0) {
+    return M3.Renderers.renderSurfaceCard(
+      notFoundListCard(i18n.msg('product-price-not-found'))
+    );
+  }
+
+  productPrices = productPrices
+    .sort((a, b) => {
+      return (a.meta?.updated ?? 0) - (b.meta?.updated ?? 0);
+    })
+    .reverse();
+
   if (query.trim() !== '') {
     productPrices = productPrices.filter((productPrice) =>
       productPrice.name.includes(query)
     );
-  }
-
-  if (productPrices.length === 0) {
-    return M3.Renderers.renderSurfaceCard(notFoundListCard());
   }
 
   return M3.Renderers.renderSurfaceCard({

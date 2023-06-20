@@ -1,6 +1,9 @@
 import icons from '#hami/ui/icons';
 
 import i18n from '@gecut/i18n';
+import { dispatch } from '@gecut/signal';
+
+import { addProductPriceDialog } from '../dialogs/add-product-price-dialog';
 
 import type { M3 } from '@gecut/ui-kit';
 
@@ -19,5 +22,12 @@ export function newProductPriceFAB(): M3.Types.FABContent {
         slot: 'icon',
       },
     ],
+    customConfig: (target) => {
+      target.addEventListener('click', () => {
+        dispatch('dialog', addProductPriceDialog());
+      });
+
+      return target;
+    },
   };
 }

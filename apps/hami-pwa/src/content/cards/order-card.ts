@@ -147,7 +147,7 @@ export function orderCard(
         slotList: [
           i18n.msg('project-address'),
           ': ',
-          i18n.msg(order.customerProject.projectAddress),
+          order.customerProject.projectAddress,
         ],
         styles: {
           color: 'var(--md-sys-color-surface-variant)',
