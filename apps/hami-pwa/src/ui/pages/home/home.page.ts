@@ -2,16 +2,14 @@ import { notificationListCard } from '#hami/content/cards/notification-list-card
 import { productPriceListCard } from '#hami/content/cards/product-price-list-card';
 import { newNotificationFAB } from '#hami/content/fabs/new-notification-fab';
 import { newProductPriceFAB } from '#hami/content/fabs/new-product-price-fab';
-import { requireSignIn } from '#hami/controllers/require-sign-in';
+import { headingPageTypography } from '#hami/content/typographies/heading-page-typography';
 import { PageBase } from '#hami/ui/helpers/page-base';
 import icons from '#hami/ui/icons';
-import { urlForName } from '#hami/ui/router';
 import elementStyle from '#hami/ui/stylesheets/element.scss?inline';
 import pageStyle from '#hami/ui/stylesheets/page.scss?inline';
 
 import i18n from '@gecut/i18n';
-import { scheduleSignalElement } from '@gecut/mixins';
-import { dispatch, getValue, request } from '@gecut/signal';
+import { dispatch, request } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
 import { html, nothing, unsafeCSS } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
@@ -109,11 +107,10 @@ export class PageHome extends PageBase {
     if (Object.keys(this.notificationStorage).length === 0) return nothing;
 
     return html`
-      <div class="card-box">
-        <h3 class="title">${i18n.msg('notifications')}</h3>
-
-        ${notificationListCard(Object.values(this.notificationStorage))}
-      </div>
+      ${M3.Renderers.renderTypoGraphy(
+    headingPageTypography(i18n.msg('notifications'))
+  )}
+      ${notificationListCard(Object.values(this.notificationStorage))}
     `;
   }
 
@@ -121,16 +118,16 @@ export class PageHome extends PageBase {
     if (Object.keys(this.productsPriceStorage).length === 0) return nothing;
 
     return html`
-      <div class="card-box">
-        <h3 class="title">${i18n.msg('price-list')}</h3>
+      ${M3.Renderers.renderTypoGraphy(
+    headingPageTypography(i18n.msg('price-list'))
+  )}
 
-        <div class="search-box">${this.productsPriceSearchBoxComponent}</div>
+      <div class="search-box">${this.productsPriceSearchBoxComponent}</div>
 
-        ${productPriceListCard(
+      ${productPriceListCard(
     Object.values(this.productsPriceStorage),
     this.productsPriceQuery
   )}
-      </div>
     `;
   }
 }

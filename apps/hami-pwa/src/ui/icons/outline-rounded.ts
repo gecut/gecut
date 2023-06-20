@@ -1,5 +1,6 @@
 import addAlert from 'virtual:icons/material-symbols/add-alert-outline-rounded';
 import call from 'virtual:icons/material-symbols/call-outline-rounded';
+import _delete from 'virtual:icons/material-symbols/delete-outline-rounded';
 import description from 'virtual:icons/material-symbols/description-outline-rounded';
 import edit from 'virtual:icons/material-symbols/edit-outline-rounded';
 import error from 'virtual:icons/material-symbols/error-outline-rounded';
@@ -18,6 +19,7 @@ import warning from 'virtual:icons/material-symbols/warning-outline-rounded';
 export const outlineRounded = {
   addAlert,
   call,
+  delete: _delete,
   description,
   edit,
   error,
