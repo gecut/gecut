@@ -16,6 +16,7 @@ i18n.register(fa as LocaleFileType);
 
 declare global {
   interface Signals extends Projects.Hami.Routes {
+    readonly 'patch-notification-storage': Record<string, never>;
     readonly 'patch-customer-storage': Record<string, never>;
     readonly 'patch-customer-project-storage': Record<string, never>;
     readonly 'put-order': Record<string, never>;
@@ -37,6 +38,7 @@ declare global {
   }
   interface Providers
     extends Record<keyof Projects.Hami.Routes, Record<string, never>> {
+    readonly 'patch-notification-storage': Projects.Hami.PatchRoutes['patch-notification-storage'];
     readonly 'patch-customer-storage': Projects.Hami.PatchRoutes['patch-customer-storage'];
     readonly 'patch-customer-project-storage': Projects.Hami.PatchRoutes['patch-customer-project-storage'];
     readonly 'put-order': Projects.Hami.PatchRoutes['put-order'];

@@ -14,6 +14,9 @@ import type {
 import type { AlwatrDocumentStorage } from '@alwatr/type/storage.js';
 
 export interface PatchRoutes {
+  'patch-notification-storage': {
+    data: Array<Partial<Notification>>;
+  };
   'patch-customer-storage': {
     data: Array<Partial<Customer>>;
   };
