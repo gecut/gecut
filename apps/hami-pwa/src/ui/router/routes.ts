@@ -4,6 +4,7 @@ import '#hami/ui/pages/landing/landing.page';
 import '#hami/ui/pages/new-order/new-order.page';
 import '#hami/ui/pages/orders/orders.page';
 import '#hami/ui/pages/sign-in/sign-in.page';
+import '#hami/ui/pages/suppliers/suppliers.page';
 import '#hami/ui/pages/user/user.page';
 
 import type { Route } from '@vaadin/router';

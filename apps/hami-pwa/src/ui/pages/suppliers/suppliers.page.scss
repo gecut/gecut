@@ -1,0 +1,15 @@
+.card-box {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: calc(2.5 * var(--sys-spacing-track));
+}
+
+.search-box{
+  margin-bottom: calc(1.5 * var(--sys-spacing-track));
+}
+
+md-list-item {
+  width: 100%;
+}
+
