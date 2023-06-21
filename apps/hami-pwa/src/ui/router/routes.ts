@@ -3,6 +3,7 @@ import '#hami/ui/pages/home/home.page';
 import '#hami/ui/pages/landing/landing.page';
 import '#hami/ui/pages/new-order/new-order.page';
 import '#hami/ui/pages/orders/orders.page';
+import '#hami/ui/pages/products/products.page';
 import '#hami/ui/pages/sign-in/sign-in.page';
 import '#hami/ui/pages/suppliers/suppliers.page';
 import '#hami/ui/pages/user/user.page';
@@ -23,6 +24,11 @@ export const routes: Route[] = [
     path: '/user',
     component: 'page-user',
     name: 'User',
+  },
+  {
+    path: '/products',
+    component: 'page-products',
+    name: 'Products',
   },
   {
     path: '/suppliers',
