@@ -109,7 +109,7 @@ export default defineConfig({
         families: [
           {
             name: 'Roboto',
-            styles: 'wght@0,400;1,200',
+            styles: 'wght@300',
             defer: true,
           },
         ],
