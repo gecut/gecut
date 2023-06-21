@@ -13,6 +13,8 @@ export function renderListItem(content: ListItemContent): ItemRendererReturn {
     'trailingSupportingText',
     'disabled',
     'active',
+    'href',
+    'target',
   ]);
 
   return item;
