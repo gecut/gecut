@@ -105,13 +105,20 @@ export default defineConfig({
     }),
 
     Unfonts({
-      fontsource: {
+      google: {
         families: [
           {
             name: 'Roboto',
-
-            weights: [400],
+            styles: 'wght@0,400;1,200',
+            defer: true,
           },
+        ],
+        display: 'swap',
+        injectTo: 'head-prepend',
+        preconnect: true,
+      },
+      fontsource: {
+        families: [
           'Vazirmatn',
         ],
       },
