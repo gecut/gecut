@@ -9,7 +9,8 @@ import type { Projects } from '@gecut/types';
 import type { M3 } from '@gecut/ui-kit';
 
 export function supplierDialog(
-  supplier: Projects.Hami.SupplierModel
+  supplier: Projects.Hami.SupplierModel,
+  editable = false
 ): M3.Types.DialogContent {
   return {
     component: 'dialog',
@@ -19,7 +20,7 @@ export function supplierDialog(
       headingPageTypography(i18n.msg('supplier-profile'), {
         slot: 'headline',
       }),
-      supplierCard(supplier, true),
+      supplierCard(supplier, editable),
       supplierPhoneNumberListCard(supplier),
       ...supplier.orderList.slice(0, 15).map((order) => orderCard(order)),
       {

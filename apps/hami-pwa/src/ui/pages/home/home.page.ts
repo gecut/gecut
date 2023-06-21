@@ -3,6 +3,7 @@ import { productPriceListCard } from '#hami/content/cards/product-price-list-car
 import { newNotificationFAB } from '#hami/content/fabs/new-notification-fab';
 import { newProductPriceFAB } from '#hami/content/fabs/new-product-price-fab';
 import { headingPageTypography } from '#hami/content/typographies/heading-page-typography';
+import { ifAdmin } from '#hami/controllers/if-admin';
 import { PageBase } from '#hami/ui/helpers/page-base';
 import icons from '#hami/ui/icons';
 import elementStyle from '#hami/ui/stylesheets/element.scss?inline';
@@ -70,10 +71,9 @@ export class PageHome extends PageBase {
 
   override connectedCallback(): void {
     super.connectedCallback();
-    request('user', {}, 'cacheFirst').then((user) => {
-      if (user.role === 'admin') {
-        dispatch('fab', [newProductPriceFAB(), newNotificationFAB()]);
-      }
+
+    ifAdmin(() => {
+      dispatch('fab', [newProductPriceFAB(), newNotificationFAB()]);
     });
 
     this.addSignalListener('notification-storage', (value) => {
@@ -99,8 +99,8 @@ export class PageHome extends PageBase {
   protected firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
 
-    request('notification-storage', {}, 'staleWhileRevalidate');
-    request('product-price-storage', {}, 'staleWhileRevalidate');
+    request('notification-storage', {}, 'cacheFirst');
+    request('product-price-storage', {}, 'cacheFirst');
   }
 
   private renderNotificationCard(): RenderResult {

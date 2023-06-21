@@ -1,3 +1,4 @@
+import { ifAdmin } from '#hami/controllers/if-admin';
 import icons from '#hami/ui/icons';
 
 import i18n from '@gecut/i18n';
@@ -40,9 +41,18 @@ export function supplierItem(
       },
     ],
     customConfig: (target) => {
-      target.addEventListener('click', () => {
-        dispatch('dialog', supplierDialog(supplier));
-      });
+      ifAdmin(
+        () => {
+          target.addEventListener('click', () => {
+            dispatch('dialog', supplierDialog(supplier, true));
+          });
+        },
+        () => {
+          target.addEventListener('click', () => {
+            dispatch('dialog', supplierDialog(supplier, false));
+          });
+        }
+      );
 
       return target;
     },

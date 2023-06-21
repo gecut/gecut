@@ -21,7 +21,7 @@ setProvider('sign-in', async (signInData) => {
     localStorage.setItem('USER_ID', user.id);
     localStorage.setItem('USER_TOKEN', user.token);
 
-    request('user', {}, 'staleWhileRevalidate');
+    request('user', {});
   }
 
   return response;

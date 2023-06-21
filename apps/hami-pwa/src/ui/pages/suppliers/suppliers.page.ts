@@ -1,6 +1,7 @@
 import { suppliersListCard } from '#hami/content/cards/suppliers-list-card';
 import { newSupplierFAB } from '#hami/content/fabs/new-supplier-fab';
 import { headingPageTypography } from '#hami/content/typographies/heading-page-typography';
+import { ifAdmin } from '#hami/controllers/if-admin';
 import { PageBase } from '#hami/ui/helpers/page-base';
 import icons from '#hami/ui/icons';
 
@@ -60,7 +61,9 @@ export class PageSuppliers extends PageBase {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    dispatch('fab', [newSupplierFAB()]);
+    ifAdmin(() => {
+      dispatch('fab', [newSupplierFAB()]);
+    });
 
     this.addSignalListener('supplier-storage', (value) => {
       this.log.property?.('supplier-storage', value);
@@ -68,7 +71,6 @@ export class PageSuppliers extends PageBase {
       this.suppliers = value.data;
     });
   }
-
 
   override render(): RenderResult {
     super.render();
@@ -79,7 +81,7 @@ export class PageSuppliers extends PageBase {
   protected firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
 
-    request('supplier-storage', {}, 'staleWhileRevalidate');
+    request('supplier-storage', {}, 'cacheFirst');
   }
 
   private renderSuppliersCard(): RenderResult {

@@ -52,7 +52,7 @@ export function addSupplierDialog(
                     name: 'uniqueCode',
                     label: i18n.msg('unique-code'),
                     validator: validators('required', 'numeric'),
-                    value: supplier?.id,
+                    value: supplier?.uniqueCode,
                   },
                   [
                     {

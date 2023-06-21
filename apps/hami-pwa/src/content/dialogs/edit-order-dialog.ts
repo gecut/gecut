@@ -18,19 +18,16 @@ export function editOrderDialog(
     type: 'dialog',
     fullscreen: true,
     slotList: [
-      headingPageTypography(
-        i18n.msg('order-code') + ': ' + order.id,
-        {
-          slot: 'headline',
-        }
-      ),
+      headingPageTypography(i18n.msg('order-code') + ': ' + order.id, {
+        slot: 'headline',
+      }),
       {
         component: 'surface-card',
         type: 'elevated',
         styles: {
           position: 'relative',
-          "margin-top": 'calc(.2*var(--sys-spacing-track,8px))',
-          "margin-bottom": 'var(--sys-spacing-track,8px)',
+          'margin-top': 'calc(.2*var(--sys-spacing-track,8px))',
+          'margin-bottom': 'var(--sys-spacing-track,8px)',
           padding:
             'var(--sys-spacing-track,8px) calc(2*var(--sys-spacing-track,8px)) calc(2*var(--sys-spacing-track,8px))',
         },
@@ -38,11 +35,7 @@ export function editOrderDialog(
           {
             component: 'typography',
             type: 'p',
-            slotList: [
-              i18n.msg('status'),
-              ': ',
-              i18n.msg(order.status),
-            ],
+            slotList: [i18n.msg('status'), ': ', i18n.msg(order.status)],
             styles: {
               color: 'var(--md-sys-color-surface-variant)',
               margin: '0',
@@ -108,11 +101,7 @@ export function editOrderDialog(
             component: 'typography',
             type: 'p',
             hidden: order.description === 'no-description',
-            slotList: [
-              i18n.msg('description'),
-              ': ',
-              order.description,
-            ],
+            slotList: [i18n.msg('description'), ': ', order.description],
             styles: {
               color: 'var(--md-sys-color-surface-variant)',
               margin: '0',
@@ -151,7 +140,7 @@ export function editOrderDialog(
             type: 'form-builder',
             activeSlide: 'initial',
             styles: {
-              "margin-top": '16px',
+              'margin-top': '16px',
             },
             styleVars: {
               '--padding-side': '0',
@@ -202,10 +191,25 @@ export function editOrderDialog(
                   ] as unknown as Record<string, string> &
                     Pick<Projects.Hami.Order, 'supplierId' | 'status'>;
 
-                  order.status = formValues.status;
-                  order.supplierId = formValues.supplierId;
+                  const _order: Partial<Projects.Hami.Order> = {
+                    id: order.id,
+                    status: formValues.status,
+                    supplierId: formValues.supplierId,
+                    productList: [],
+                  };
+                  const productList = order.productList.map(
+                    (
+                      orderProduct: Projects.Hami.OrderProduct & {
+                        product?: unknown;
+                      }
+                    ) => {
+                      delete orderProduct.product;
 
-                  order.productList = order.productList.map((orderProduct) => {
+                      return orderProduct as Projects.Hami.OrderProduct;
+                    }
+                  );
+
+                  _order.productList = productList.map((orderProduct) => {
                     const purchasePrice = Number(
                       formValues[orderProduct.productId]
                     );
@@ -217,7 +221,7 @@ export function editOrderDialog(
                     return orderProduct;
                   });
 
-                  await request('put-order', order);
+                  await request('put-order', _order);
                   request('order-storage', {});
                   dispatch('dialog', null);
                 }
