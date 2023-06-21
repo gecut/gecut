@@ -16,10 +16,11 @@ i18n.register(fa as LocaleFileType);
 
 declare global {
   interface Signals extends Projects.Hami.Routes {
-    readonly 'patch-product-price-storage': Record<string, never>;
-    readonly 'patch-notification-storage': Record<string, never>;
-    readonly 'patch-customer-storage': Record<string, never>;
     readonly 'patch-customer-project-storage': Record<string, never>;
+    readonly 'patch-customer-storage': Record<string, never>;
+    readonly 'patch-notification-storage': Record<string, never>;
+    readonly 'patch-product-price-storage': Record<string, never>;
+    readonly 'patch-supplier-storage': Record<string, never>;
     readonly 'put-order': Record<string, never>;
 
     readonly 'top-app-bar-hidden': boolean;
@@ -39,10 +40,11 @@ declare global {
   }
   interface Providers
     extends Record<keyof Projects.Hami.Routes, Record<string, never>> {
-    readonly 'patch-product-price-storage': Projects.Hami.PatchRoutes['patch-product-price-storage'];
-    readonly 'patch-notification-storage': Projects.Hami.PatchRoutes['patch-notification-storage'];
-    readonly 'patch-customer-storage': Projects.Hami.PatchRoutes['patch-customer-storage'];
     readonly 'patch-customer-project-storage': Projects.Hami.PatchRoutes['patch-customer-project-storage'];
+    readonly 'patch-customer-storage': Projects.Hami.PatchRoutes['patch-customer-storage'];
+    readonly 'patch-notification-storage': Projects.Hami.PatchRoutes['patch-notification-storage'];
+    readonly 'patch-product-price-storage': Projects.Hami.PatchRoutes['patch-product-price-storage'];
+    readonly 'patch-supplier-storage': Projects.Hami.PatchRoutes['patch-supplier-storage'];
     readonly 'put-order': Projects.Hami.PatchRoutes['put-order'];
 
     readonly 'sign-in': Projects.Hami.SignInRequest;
@@ -55,19 +57,27 @@ declare global {
 
 const navigationTabs: M3.Types.NavigationTabContent[] = [
   {
-    label: i18n.msg('home'),
-    link: urlForName('Home'),
-    icons: {
-      active: icons.filledRounded.home,
-      inActive: icons.outlineRounded.home,
-    },
-  },
-  {
     label: i18n.msg('orders'),
     link: urlForName('Orders'),
     icons: {
       active: icons.filledRounded.grading,
       inActive: icons.filledRounded.grading,
+    },
+  },
+  {
+    label: i18n.msg('products'),
+    link: '',
+    icons: {
+      active: icons.filledRounded.category,
+      inActive: icons.outlineRounded.category,
+    },
+  },
+  {
+    label: i18n.msg('home'),
+    link: urlForName('Home'),
+    icons: {
+      active: icons.filledRounded.home,
+      inActive: icons.outlineRounded.home,
     },
   },
   {

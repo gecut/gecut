@@ -1,5 +1,5 @@
-import { customersListCard } from '#hami/content/cards/customers-list-card';
-import { newCustomerFAB } from '#hami/content/fabs/new-customer-fab';
+import { suppliersListCard } from '#hami/content/cards/suppliers-list-card';
+import { newSupplierFAB } from '#hami/content/fabs/new-supplier-fab';
 import { headingPageTypography } from '#hami/content/typographies/heading-page-typography';
 import { PageBase } from '#hami/ui/helpers/page-base';
 import icons from '#hami/ui/icons';
@@ -10,33 +10,33 @@ import { M3 } from '@gecut/ui-kit';
 import { html, nothing, unsafeCSS } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
-import styles from './customers.page.scss?inline';
+import styles from './suppliers.page.scss?inline';
 
 import type { Projects, RenderResult } from '@gecut/types';
 import type { PropertyValues } from 'lit';
 
 declare global {
   interface HTMLElementTagNameMap {
-    'page-customers': PageCustomers;
+    'page-suppliers': PageSuppliers;
   }
 }
 
-@customElement('page-customers')
-export class PageCustomers extends PageBase {
+@customElement('page-suppliers')
+export class PageSuppliers extends PageBase {
   static override styles = [unsafeCSS(styles), ...PageBase.styles];
 
   @state()
-  private customers: Record<string, Projects.Hami.CustomerModel> = {};
+  private suppliers: Record<string, Projects.Hami.SupplierModel> = {};
 
   @state()
   private query = '';
 
-  private customersSearchBoxComponent = M3.Renderers.renderTextField({
+  private suppliersSearchBoxComponent = M3.Renderers.renderTextField({
     component: 'text-field',
     type: 'outlined',
 
     inputType: 'search',
-    name: 'productPriceSearch',
+    name: 'suppliersSearch',
     placeholder: i18n.msg('search'),
     hasLeadingIcon: true,
     slotList: [
@@ -60,12 +60,12 @@ export class PageCustomers extends PageBase {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    dispatch('fab', [newCustomerFAB()]);
+    dispatch('fab', [newSupplierFAB()]);
 
-    this.addSignalListener('customer-storage', (value) => {
-      this.log.property?.('customer-storage', value);
+    this.addSignalListener('supplier-storage', (value) => {
+      this.log.property?.('supplier-storage', value);
 
-      this.customers = value.data;
+      this.suppliers = value.data;
     });
   }
 
@@ -73,29 +73,29 @@ export class PageCustomers extends PageBase {
   override render(): RenderResult {
     super.render();
 
-    return html`${this.renderCustomersCard()}`;
+    return html`${this.renderSuppliersCard()}`;
   }
 
   protected firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
 
-    request('customer-storage', {}, 'staleWhileRevalidate');
+    request('supplier-storage', {}, 'staleWhileRevalidate');
   }
 
-  private renderCustomersCard(): RenderResult {
-    if (Object.keys(this.customers).length === 0) return nothing;
+  private renderSuppliersCard(): RenderResult {
+    if (Object.keys(this.suppliers).length === 0) return nothing;
 
     const titleTemplate = M3.Renderers.renderTypoGraphy(
-      headingPageTypography(i18n.msg('customers'))
+      headingPageTypography(i18n.msg('suppliers'))
     );
 
     return html`
       <div class="card-box">
         ${titleTemplate}
 
-        <div class="search-box">${this.customersSearchBoxComponent}</div>
+        <div class="search-box">${this.suppliersSearchBoxComponent}</div>
 
-        ${customersListCard(Object.values(this.customers), this.query)}
+        ${suppliersListCard(Object.values(this.suppliers), this.query)}
       </div>
     `;
   }

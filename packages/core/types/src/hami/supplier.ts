@@ -1,6 +1,11 @@
 import type { AlwatrDocumentObjectActive } from './document-object-active.js';
+import type { OrderModel } from './order.js';
 import type { RequireFunc } from './require-functions.js';
 import type { StringifyableRecord } from '../type-helper.js';
+
+export interface SupplierModel extends Supplier {
+  orderList: OrderModel[];
+}
 
 export interface Supplier extends AlwatrDocumentObjectActive {
   uniqueCode: string;
