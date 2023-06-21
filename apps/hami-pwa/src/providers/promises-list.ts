@@ -3,15 +3,15 @@ import { createSignalProvider } from '@gecut/signal';
 const promisesListSignal = createSignalProvider('promises-list');
 
 promisesListSignal.setProvider((promiseItem) => {
-  if (
-    promiseItem.type == 'remove' &&
-    promisesListSignal.value != null &&
-    promisesListSignal.value.length > 0
-  ) {
-    return promisesListSignal.value.filter(
-      (_promiseKey) => _promiseKey !== promiseItem.key
-    );
+  const oldValue = promisesListSignal.value ?? [];
+
+  if (promiseItem.type == 'remove' && oldValue != null) {
+    return oldValue.filter((_promiseKey) => _promiseKey !== promiseItem.key);
   }
 
-  return [...(promisesListSignal.value ?? []), promiseItem.key];
+  if (oldValue != null && oldValue.includes(promiseItem.key) === false) {
+    return [...(oldValue ?? []), promiseItem.key];
+  }
+
+  return oldValue ?? [];
 });

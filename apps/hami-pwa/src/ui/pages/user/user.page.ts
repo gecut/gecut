@@ -1,20 +1,10 @@
-import { requireSignIn } from '#hami/controllers/require-sign-in';
-import i18n from '#hami/ui/i18n';
-import { urlForName } from '#hami/ui/router';
-import elementStyle from '#hami/ui/stylesheets/element.scss?inline';
-import pageStyle from '#hami/ui/stylesheets/page.scss?inline';
+import { PageBase } from '#hami/ui/helpers/page-base';
+import icons from '#hami/ui/icons';
 
-import { scheduleSignalElement } from '@gecut/mixins';
-import { dispatch } from '@gecut/signal';
+import i18n from '@gecut/i18n';
 import { M3 } from '@gecut/ui-kit';
 import { html, nothing, unsafeCSS } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import IconStarOutlineRounded from 'virtual:icons/material-symbols/add-rounded';
-import IconAlternateEmailRounded from 'virtual:icons/material-symbols/alternate-email-rounded';
-import IconAwardStarRounded from 'virtual:icons/material-symbols/award-star-rounded';
-import IconCallOutlineRounded from 'virtual:icons/material-symbols/call-outline-rounded';
-import IconLockOutline from 'virtual:icons/material-symbols/lock-outline';
-import IconPersonOutlineRounded from 'virtual:icons/material-symbols/person-outline-rounded';
 
 import styles from './user.page.scss?inline';
 
@@ -27,23 +17,14 @@ declare global {
 }
 
 @customElement('page-user')
-export class PageUser extends scheduleSignalElement {
-  static override styles = [
-    unsafeCSS(styles),
-    unsafeCSS(elementStyle),
-    unsafeCSS(pageStyle),
-  ];
+export class PageUser extends PageBase {
+  static override styles = [unsafeCSS(styles), ...PageBase.styles];
 
   @state()
     user?: Projects.Hami.SignInResponse;
 
   override connectedCallback() {
     super.connectedCallback();
-
-    requireSignIn({ catchUrl: urlForName('Landing') });
-
-    dispatch('top-app-bar-hidden', false);
-    dispatch('bottom-app-bar-hidden', false);
 
     this.addSignalListener('user', (value) => {
       this.user = value;
@@ -63,7 +44,7 @@ export class PageUser extends scheduleSignalElement {
 
     return html`
       <div class="card-box">
-        <h3 class="title">${i18n.message('user_information_box_title')}</h3>
+        <h3 class="title">${i18n.msg('user')}</h3>
 
         ${this.renderUserInformationCardElement()}
       </div>
@@ -87,30 +68,30 @@ export class PageUser extends scheduleSignalElement {
               component: 'list-item',
               type: 'list-item',
               headline: [
-                this.user.gender != null ? i18n.message(this.user.gender) : '',
+                this.user.gender != null ? i18n.msg(this.user.gender) : '',
                 this.user.firstName,
                 this.user.lastName,
-                `(${i18n.message(this.user.role)})`,
+                `(${i18n.msg(this.user.role)})`,
               ].join(' '),
               slotList: [
                 {
                   component: 'icon',
                   type: 'svg',
                   slot: 'start',
-                  SVG: IconPersonOutlineRounded,
+                  SVG: icons.outlineRounded.person,
                 },
               ],
             },
             {
               component: 'list-item',
               type: 'list-item',
-              headline: `${i18n.phoneNumber(this.user.phoneNumber)}`,
+              headline: `${i18n.phone(this.user.phoneNumber)}`,
               slotList: [
                 {
                   component: 'icon',
                   type: 'svg',
                   slot: 'start',
-                  SVG: IconCallOutlineRounded,
+                  SVG: icons.outlineRounded.call,
                 },
               ],
             },
@@ -124,22 +105,23 @@ export class PageUser extends scheduleSignalElement {
                   component: 'icon',
                   type: 'svg',
                   slot: 'start',
-                  SVG: IconAlternateEmailRounded,
+                  SVG: icons.filledRounded.alternateEmail,
                 },
               ],
             },
             {
               component: 'list-item',
               type: 'list-item',
-              headline: `${i18n
-                .message('user_information_box_score_title')
-                .replace('{{score}}', i18n.numberFormat(this.user.score))}`,
+              headline: i18n.msg(
+                'your-score',
+                i18n.int(this.user.score)
+              ),
               slotList: [
                 {
                   component: 'icon',
                   type: 'svg',
                   slot: 'start',
-                  SVG: IconAwardStarRounded,
+                  SVG: icons.filledRounded.awardStar,
                   classes: ['icon-gold'],
                 },
               ],
@@ -153,8 +135,8 @@ export class PageUser extends scheduleSignalElement {
                 {
                   component: 'button',
                   type: 'tonal',
-                  label: i18n.message(
-                    'user_information_box_add_score_button_label'
+                  label: i18n.msg(
+                    'add-score'
                   ),
                   hasIcon: true,
                   trailingIcon: true,
@@ -162,7 +144,7 @@ export class PageUser extends scheduleSignalElement {
                     {
                       component: 'icon',
                       type: 'svg',
-                      SVG: IconStarOutlineRounded,
+                      SVG: icons.filledRounded.add,
                       slot: 'icon',
                     },
                   ],
@@ -170,8 +152,8 @@ export class PageUser extends scheduleSignalElement {
                 {
                   component: 'button',
                   type: 'tonal',
-                  label: i18n.message(
-                    'user_information_box_change_password_button_label'
+                  label: i18n.msg(
+                    'change-password'
                   ),
                   hasIcon: true,
                   trailingIcon: true,
@@ -179,7 +161,7 @@ export class PageUser extends scheduleSignalElement {
                     {
                       component: 'icon',
                       type: 'svg',
-                      SVG: IconLockOutline,
+                      SVG: icons.outline.lock,
                       slot: 'icon',
                     },
                   ],

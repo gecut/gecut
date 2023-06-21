@@ -1,18 +1,17 @@
 import { requireSignIn } from '#hami/controllers/require-sign-in';
 import gecutLogo from '#hami/ui/assets/gecut-logo.webp?inline';
 import hamiLogo from '#hami/ui/assets/hami-logo.webp?inline';
-import i18n from '#hami/ui/i18n';
-import { urlForName } from '#hami/ui/router';
+import icons from '#hami/ui/icons';
+import { routerGo, urlForName } from '#hami/ui/router';
 import elementStyle from '#hami/ui/stylesheets/element.scss?inline';
 import pageStyle from '#hami/ui/stylesheets/page.scss?inline';
 
+import i18n from '@gecut/i18n';
 import { loggerElement } from '@gecut/mixins';
 import { dispatch, request } from '@gecut/signal';
+import { M3 } from '@gecut/ui-kit';
 import { html, unsafeCSS } from 'lit';
-import { customElement } from 'lit/decorators.js';
-import IconCallOutlineRounded from 'virtual:icons/material-symbols/call-outline-rounded';
-import IconPasswordOutline from 'virtual:icons/material-symbols/lock-outline';
-import IconLoginOutlineRounded from 'virtual:icons/material-symbols/login-rounded';
+import { customElement, state } from 'lit/decorators.js';
 
 import styles from './sign-in.page.scss?inline';
 
@@ -40,7 +39,7 @@ export class PageSignIn extends loggerElement {
           component: 'text-field',
           type: 'filled',
           name: 'phoneNumber',
-          label: i18n.message('sign_in_page_form_phone-number_label'),
+          label: i18n.msg('phone-number'),
           inputType: 'tel',
           minLength: 11,
           maxLength: 11,
@@ -48,7 +47,7 @@ export class PageSignIn extends loggerElement {
             {
               component: 'icon',
               type: 'svg',
-              SVG: IconCallOutlineRounded,
+              SVG: icons.outlineRounded.call,
               slot: 'leadingicon',
             },
           ],
@@ -56,17 +55,17 @@ export class PageSignIn extends loggerElement {
           validator: [
             {
               rule: 'required',
-              errorMessage: i18n.message('sign_in_page_form_required_error'),
+              errorMessage: i18n.msg('it-is-required'),
             },
             {
               rule: 'numeric',
-              errorMessage: i18n.message('sign_in_page_form_numeric_error'),
+              errorMessage: i18n.msg('must-be-numeric'),
             },
             {
               rule: 'phone',
               country: 'IR',
-              errorMessage: i18n.message(
-                'sign_in_page_form_phone-number_error'
+              errorMessage: i18n.msg(
+                'phone-number-is-invalid'
               ),
             },
           ],
@@ -76,12 +75,12 @@ export class PageSignIn extends loggerElement {
           type: 'filled',
           inputType: 'password',
           name: 'password',
-          label: i18n.message('sign_in_page_form_password_label'),
+          label: i18n.msg('password'),
           slotList: [
             {
               component: 'icon',
               type: 'svg',
-              SVG: IconPasswordOutline,
+              SVG: icons.outline.lock,
               slot: 'leadingicon',
             },
           ],
@@ -89,35 +88,34 @@ export class PageSignIn extends loggerElement {
           validator: [
             {
               rule: 'required',
-              errorMessage: i18n.message('sign_in_page_form_required_error'),
+              errorMessage: i18n.msg('it-is-required'),
             },
           ],
         },
-        [
-          {
-            component: 'button',
-            type: 'filled',
-            label: i18n.message('sign_in_page_form_submit'),
-            action: 'form_submit',
-            slotList: [
-              {
-                component: 'icon',
-                type: 'svg',
-                SVG: IconLoginOutlineRounded,
-                slot: 'icon',
-              },
-            ],
-            customConfig: (target) => {
-              target.style.flexGrow = '0';
-              target.style.marginInlineStart = 'auto';
-
-              return target;
-            },
-          },
-        ],
       ],
     },
   };
+
+  @state()
+  private submitButton: M3.Types.ButtonContent = {
+      component: 'button',
+      type: 'filled',
+      label: i18n.msg('sign-in'),
+      slotList: [
+        {
+          component: 'icon',
+          type: 'svg',
+          SVG: icons.filledRounded.login,
+          slot: 'icon',
+        },
+      ],
+      styles: { "margin-inline-start": 'auto' },
+      customConfig: (target) => {
+        target.addEventListener('click', () => this.submitForm());
+
+        return target;
+      },
+    };
 
   override connectedCallback() {
     super.connectedCallback();
@@ -126,48 +124,60 @@ export class PageSignIn extends loggerElement {
 
     dispatch('top-app-bar-hidden', true);
     dispatch('bottom-app-bar-hidden', true);
-
-    document
-      .querySelector('app-root')
-      ?.renderRoot?.querySelector('md-branded-fab')
-      ?.remove();
   }
 
   override render(): RenderResult {
     super.render();
 
     return html`
-      <img class="hami-logo" src=${hamiLogo} />
+      <img class="hami-logo" src=${hamiLogo} alt="hami-logo" />
 
       <div class="form-box">
         <form class="form">
-          <h2>${i18n.message('sign_in_page_title')}</h2>
-          <form-builder
-            .data=${this.form}
-            @submit=${this.onSubmit}
-          ></form-builder>
+          <h2>${i18n.msg('sign-in')}</h2>
+          <form-builder .data=${this.form}></form-builder>
+
+          <div class="button">
+            ${M3.Renderers.renderButton(this.submitButton)}
+          </div>
         </form>
       </div>
 
-      <img class="gecut-logo" src=${gecutLogo} />
+      <img class="gecut-logo" src=${gecutLogo} alt="gecut-logo" />
     `;
   }
 
-  private async onSubmit(event: HTMLElementEventMap['submit']) {
-    if (event.detail.values != null) {
-      const values = event.detail.values[
+  private async submitForm() {
+    const formBuilder = this.renderRoot.querySelector('form-builder');
+
+    if (
+      formBuilder != null &&
+      formBuilder.validate === true &&
+      formBuilder.values != null
+    ) {
+      const values = formBuilder.values[
         'sign-in'
       ] as unknown as Projects.Hami.SignInRequest;
 
-      try {
-        await request('sign-in', values);
+      this.submitButton = {
+        ...this.submitButton,
 
-        setTimeout(() => {
-          location.reload();
-        }, 1000);
-      } catch (error) {
-        this.log.error('onSignInButtonClick', 'sign_in_request_failed', error);
-      }
+        disabled: true,
+      };
+
+      const response = await request('sign-in', values).finally(() => {
+        this.submitButton = {
+          ...this.submitButton,
+
+          disabled: false,
+        };
+      });
+
+      requestIdleCallback(() => {
+        if (response.ok === true) {
+          routerGo('/');
+        }
+      });
     }
   }
 }

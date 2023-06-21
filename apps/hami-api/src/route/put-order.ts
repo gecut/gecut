@@ -13,8 +13,16 @@ nanoServer.route('PUT', '/order/', async (connection) => {
   const bodyJson = await connection.requireJsonBody<
     Partial<Projects.Hami.Order>
   >();
+
+  let oldOrder = {};
+
+  if (bodyJson.id != null) {
+    oldOrder = await storageClient.get(bodyJson.id, config.orderStorage);
+  }
+
   const order = Projects.Hami.orderRequire({
     creatorId: user.id,
+    ...oldOrder,
     ...bodyJson,
   });
 

@@ -1,5 +1,10 @@
+/* eslint-disable import/order */
+
+import i18n from '@gecut/i18n';
+
+i18n.set('fa-IR');
+
 import '@gecut/common/styles/pwa.css';
-// eslint-disable-next-line import/order
 import '@gecut/common/styles/mobile-only.css';
 import '@gecut/common/styles/theme/palettes/cadmium-green.css';
 import '@gecut/common/styles/tokens.css';

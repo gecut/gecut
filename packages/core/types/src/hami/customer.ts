@@ -1,12 +1,12 @@
-import type { CustomerProject } from './customer-project.js';
+import type { CustomerProjectModel } from './customer-project.js';
 import type { AlwatrDocumentObjectActive } from './document-object-active.js';
-import type { Order } from './order.js';
+import type { OrderModel } from './order.js';
 import type { RequireFunc } from './require-functions.js';
 import type { UserResponse } from './user.js';
 
 export interface CustomerModel extends Customer {
-  projectList: CustomerProject[];
-  orderList: Order[];
+  projectList: CustomerProjectModel[];
+  orderList: OrderModel[];
   creator: UserResponse;
 }
 

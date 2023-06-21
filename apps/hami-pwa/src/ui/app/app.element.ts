@@ -1,22 +1,19 @@
 import config from '#hami/config';
-import i18n from '#hami/ui/i18n';
+import { confirmLogoutDialog } from '#hami/content/dialogs/confirm-logout';
+import hamiLogo from '#hami/ui/assets/hami-logo.webp?inline';
+import icons from '#hami/ui/icons';
 import { attachRouter } from '#hami/ui/router';
 
 import { signalElement } from '@gecut/mixins';
 import { dispatch } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
-import '@material/web/fab/branded-fab';
-import '@material/web/fab/fab';
 import '@material/web/icon/icon';
 import '@material/web/labs/navigationbar/navigation-bar';
 import '@material/web/labs/navigationtab/navigation-tab';
-import { html, unsafeCSS } from 'lit';
+import { html, nothing, unsafeCSS } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 import { unsafeSVG } from 'lit/directives/unsafe-svg.js';
-import { renderIcon } from 'packages/ui/ui-kit/src/m3/renderers/icon';
-import IconAdd from 'virtual:icons/material-symbols/add';
-import IconLanguageRounded from 'virtual:icons/material-symbols/language';
-import IconMenuRounded from 'virtual:icons/material-symbols/menu-rounded';
+import { registerSW } from 'virtual:pwa-register';
 
 import styles from './app.element.scss?inline';
 
@@ -32,7 +29,7 @@ declare global {
 const getDate = () => {
   const now = new Date();
 
-  return now.toLocaleDateString(i18n.getConfig().code, {
+  return now.toLocaleDateString('fa-IR', {
     weekday: 'long',
     day: 'numeric',
     month: 'long',
@@ -47,16 +44,30 @@ export class AppRoot extends signalElement {
     component: 'circular-progress',
     type: 'circular-progress',
     indeterminate: true,
-    customConfig: (target) => {
-      target.style.setProperty('--_size', '40px');
-
-      return target;
-    },
+    styleVars: { '--_size': '40px' },
   };
-  static topAppBarTrailingSlot: M3.Types.IconButtonContent = {
-    component: 'icon-button',
-    type: 'standard',
-    iconSVG: IconLanguageRounded,
+  static topAppBarTrailingSlot: M3.Types.DivisionContent = {
+    component: 'division',
+    type: 'div',
+    styles: {
+      display: 'flex',
+      'align-content': 'center',
+      'justify-content': 'center',
+      width: '40px',
+      height: '40px',
+    },
+    slotList: [
+      {
+        component: 'img',
+        type: 'img',
+        src: hamiLogo,
+        alt: 'gecut-logo',
+        styles: {
+          height: '24px',
+          margin: 'auto',
+        },
+      },
+    ],
   };
 
   @state()
@@ -67,7 +78,14 @@ export class AppRoot extends signalElement {
       leadingSlot: <M3.Types.IconButtonContent>{
         component: 'icon-button',
         type: 'standard',
-        iconSVG: IconMenuRounded,
+        iconSVG: icons.filledRounded.logout,
+        customConfig: (target) => {
+          target.addEventListener('click', () => {
+            dispatch('dialog', confirmLogoutDialog());
+          });
+
+          return target;
+        },
       },
       trailingSlotList: [AppRoot.topAppBarTrailingSlot],
     };
@@ -84,7 +102,7 @@ export class AppRoot extends signalElement {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    i18n.init();
+    registerSW({});
 
     this.addSignalListener('top-app-bar', (value) => {
       this.topAppBarContent = {
@@ -131,67 +149,23 @@ export class AppRoot extends signalElement {
       this.bottomAppBarHidden = hidden;
     });
 
-    this.addSignalListener('snack-bar', (content) => {
-      if (this.fixedDivision != null) {
-        const oldSnackBar = this.fixedDivision.querySelector('snack-bar');
+    this.addSignalListener('snack-bar', (content) =>
+      this.snackBarSignalListener(content)
+    );
 
-        if (oldSnackBar != null) {
-          oldSnackBar.addEventListener('closed', () => {
-            requestAnimationFrame(() => {
-              this.fixedDivision?.appendChild(
-                M3.Renderers.renderSnackBar(content)
-              );
-            });
-          });
+    this.addSignalListener('dialog', (content) =>
+      this.dialogSignalListener(content)
+    );
 
-          oldSnackBar.close();
-        } else {
-          requestAnimationFrame(() => {
-            this.fixedDivision?.appendChild(
-              M3.Renderers.renderSnackBar(content)
-            );
-          });
-        }
-      }
-    });
-
-    this.addSignalListener('dialog', async (content) => {
-      if (this.fixedDivision != null) {
-        requestAnimationFrame(() => {
-          const dialog = M3.Renderers.renderDialog(content);
-
-          dialog.addEventListener('closed', () => {
-            dialog.remove();
-          });
-
-          this.fixedDivision?.appendChild(dialog);
-
-          requestAnimationFrame(() => {
-            dialog.open = true;
-          });
-        });
-      }
-    });
+    this.addSignalListener('fab', (content) => this.fabSignalListener(content));
   }
 
   override render(): RenderResult {
     return html`
-      <top-app-bar
-        .content=${this.topAppBarContent}
-        ?hidden=${this.topAppBarHidden}
-      ></top-app-bar>
+      ${AppRoot.renderTopAppBar(this.topAppBarContent, this.topAppBarHidden)}
 
       <main role="main">
-        <div class="fixed">
-          <md-branded-fab style="position:absolute;bottom: 16px;right: 16px;z-index:50;">${renderIcon(
-    {
-      component: 'icon',
-      type: 'svg',
-      SVG: IconAdd,
-      slot: 'icon',
-    }
-  )}<md-branded-fab>
-        </div>
+        <div class="fixed"></div>
       </main>
 
       ${AppRoot.renderNavigationBar(
@@ -215,14 +189,25 @@ export class AppRoot extends signalElement {
     );
   }
 
+  static renderTopAppBar(
+    content: M3.Types.TopAppBarContent,
+    hidden = false
+  ): RenderResult {
+    if (hidden === true) return nothing;
+
+    return html`<top-app-bar .content=${content}></top-app-bar>`;
+  }
+
   static renderNavigationBar(
     navigationTabs: M3.Types.NavigationTabContent[],
-    bottomAppBarHidden: boolean
+    hidden = false
   ): RenderResult {
+    if (hidden === true) return nothing;
+
     const navigationTabsTemplate = navigationTabs.map(this.renderNavigationTab);
 
     return html`
-      <md-navigation-bar ?hidden=${bottomAppBarHidden} .activeIndex=${0}>
+      <md-navigation-bar .activeIndex=${0}>
         ${navigationTabsTemplate}
       </md-navigation-bar>
     `;
@@ -233,7 +218,7 @@ export class AppRoot extends signalElement {
       <a class="navigation-tab" href=${tab.link}>
         <md-navigation-tab
           .label=${tab.label}
-          .badgeValue=${tab.badgeValue}
+          .badgeValue=${tab.badgeValue ?? ''}
           ?active=${tab.link === location.pathname}
           ?showBadge=${tab.showBadge}
           hideInactiveLabel
@@ -247,5 +232,78 @@ export class AppRoot extends signalElement {
         </md-navigation-tab>
       </a>
     `;
+  }
+
+  private async fabSignalListener(contents: M3.Types.FABContent[]) {
+    if (this.fixedDivision == null) return;
+
+    const oldFABs = this.fixedDivision.querySelectorAll('md-fab');
+
+    oldFABs.forEach((oldFAB) => {
+      oldFAB.remove();
+    });
+
+    let bottom = 16;
+
+    for await (const content of contents) {
+      const fab = this.fixedDivision.appendChild(
+        M3.Renderers.renderFAB({
+          styles: {
+            position: 'absolute',
+            bottom: bottom + 'px',
+            'inset-inline-end': '16px',
+            'z-index': 'var(--sys-zindex-sticky)',
+          },
+
+          ...content,
+        })
+      );
+
+      await new Promise<void>((resolve) =>
+        requestAnimationFrame(() => resolve())
+      );
+
+      bottom += fab.getBoundingClientRect().height + 16;
+    }
+  }
+
+  private snackBarSignalListener(content: M3.Types.SnackBarContent) {
+    if (this.fixedDivision == null) return;
+
+    const oldSnackBar = this.fixedDivision.querySelector('snack-bar');
+
+    if (content.message === oldSnackBar?.message) return;
+
+    if (oldSnackBar != null) {
+      oldSnackBar.addEventListener('closed', () => {
+        this.fixedDivision?.appendChild(M3.Renderers.renderSnackBar(content));
+      });
+
+      oldSnackBar.close();
+    } else {
+      this.fixedDivision.appendChild(M3.Renderers.renderSnackBar(content));
+    }
+  }
+
+  private dialogSignalListener(content: Signals['dialog']) {
+    if (this.fixedDivision == null) return;
+
+    if (content == null) {
+      return this.fixedDivision
+        .querySelectorAll('md-dialog')
+        .forEach((dialog) => dialog.remove());
+    }
+
+    const dialog = M3.Renderers.renderDialog(content);
+
+    dialog.addEventListener('closed', () => {
+      dialog.remove();
+    });
+
+    this.fixedDivision.appendChild(dialog);
+
+    requestAnimationFrame(() => {
+      dialog.open = true;
+    });
   }
 }

@@ -34,7 +34,7 @@ export const requireSignedIn = async (
     throw {
       ok: false,
       statusCode: 404,
-      errorCode: 'user_not_found',
+      errorCode: 'user-with-this-profile-was-not-found',
     };
   }
 

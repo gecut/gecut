@@ -1,9 +1,3 @@
-import '@material/web/button/elevated-button';
-import '@material/web/button/filled-button';
-import '@material/web/button/outlined-button';
-import '@material/web/button/text-button';
-import '@material/web/button/tonal-button';
-
 import { typographyStyles } from '../types/typography';
 
 import { createElementByContent } from './base/base-renderer';
@@ -20,8 +14,8 @@ export function renderTypoGraphy(
   const typography = createElementByContent(content.type, content, []);
 
   if (content.style != null) {
-    typography.style.marginTop = '1em';
-    typography.style.marginBottom = '.8em';
+    typography.style.marginTop = '.6em';
+    typography.style.marginBottom = '.6em';
 
     const selectedStyle = typographyStyles[content.style];
 

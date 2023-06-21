@@ -1,10 +1,15 @@
+import { ifAdmin } from '#hami/controllers/if-admin';
+import icons from '#hami/ui/icons';
+
+import i18n from '@gecut/i18n';
+import { dispatch } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
-import { grid } from '@lit-labs/virtualizer/layouts/grid.js';
+import { flow } from '@lit-labs/virtualizer/layouts/flow.js';
 import { html } from 'lit';
-import IconDoneRounded from 'virtual:icons/material-symbols/done-rounded';
-import IconErrorOutlineRounded from 'virtual:icons/material-symbols/error-outline-rounded';
-import IconStarOutlineRounded from 'virtual:icons/material-symbols/star-outline-rounded';
-import IconWarningOutlineRounded from 'virtual:icons/material-symbols/warning-outline-rounded';
+
+import { addNotificationDialog } from '../dialogs/add-notification-dialog';
+
+import { notFoundListCard } from './not-found-list-card';
 
 import type { Projects } from '@gecut/types';
 import type { Lit } from '@gecut/ui-kit';
@@ -13,20 +18,20 @@ export function notificationItemIcon(
   status: Projects.Hami.Notification['status']
 ): M3.Types.IconContent {
   // * normal
-  let icon = IconStarOutlineRounded;
+  let icon = icons.outlineRounded.star;
   let cssColorVariable = 'var(--md-sys-color-gold)';
 
   switch (status) {
   case 'danger':
-    icon = IconErrorOutlineRounded;
+    icon = icons.outlineRounded.error;
     cssColorVariable = 'var(--md-sys-color-danger)';
     break;
   case 'warning':
-    icon = IconWarningOutlineRounded;
+    icon = icons.outlineRounded.warning;
     cssColorVariable = 'var(--md-sys-color-warning)';
     break;
   case 'success':
-    icon = IconDoneRounded;
+    icon = icons.filledRounded.done;
     cssColorVariable = 'var(--md-sys-color-success)';
     break;
   }
@@ -36,11 +41,7 @@ export function notificationItemIcon(
     type: 'svg',
     slot: 'start',
     SVG: icon,
-    customConfig: (target) => {
-      target.style.color = cssColorVariable;
-
-      return target;
-    },
+    styles: { color: cssColorVariable },
   };
 }
 
@@ -54,6 +55,15 @@ export function notificationItem(
     multiLineSupportingText: true,
     classes: ['notification-item'],
     slotList: [notificationItemIcon(notification.status)],
+    customConfig: (target) => {
+      ifAdmin(() => {
+        target.addEventListener('click', () => {
+          dispatch('dialog', addNotificationDialog(notification));
+        });
+      });
+
+      return target;
+    },
   });
 }
 
@@ -66,12 +76,8 @@ export function notificationList(
 
     scroller: true,
     items: notifications,
-    layout: grid({
+    layout: flow({
       direction: 'vertical',
-      itemSize: {
-        height: '88px',
-        width: '400px',
-      },
     }),
     renderItem: (notification) => {
       return html`${notificationItem(notification)}`;
@@ -82,6 +88,25 @@ export function notificationList(
 export function notificationListCard(
   notifications: Projects.Hami.Notification[]
 ): M3.Types.SurfaceCardRendererReturn {
+  notifications = notifications.filter(
+    (notification) => notification.active === true
+  );
+
+  if (notifications.length === 0) {
+    return M3.Renderers.renderSurfaceCard(
+      notFoundListCard(i18n.msg('notification-not-found'))
+    );
+  }
+
+  notifications = notifications
+    .sort((a, b) => {
+      return (a.meta?.updated ?? 0) - (b.meta?.updated ?? 0);
+    })
+    .reverse()
+    .sort((a, b) => {
+      return statusPriority[a.status] - statusPriority[b.status];
+    });
+
   return M3.Renderers.renderSurfaceCard({
     component: 'surface-card',
     type: 'elevated',
@@ -92,3 +117,10 @@ export function notificationListCard(
     ],
   });
 }
+
+const statusPriority = {
+  danger: 0,
+  warning: 1_00,
+  success: 10_00,
+  normal: 100_00,
+};

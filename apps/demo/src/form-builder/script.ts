@@ -1,6 +1,4 @@
 import '@gecut/form-builder';
-import IconCallOutlineRounded from 'virtual:icons/material-symbols/call-outline-rounded';
-import IconPasswordOutline from 'virtual:icons/material-symbols/lock-outline';
 
 const form = document.createElement('form-builder');
 const formBox = document.querySelector<HTMLFormElement>('.form');
@@ -48,10 +46,6 @@ form.data = {
         inputType: 'email',
         label: 'Email',
         name: 'email',
-        leadingIconSVG: IconCallOutlineRounded,
-        hasLeadingIcon: true,
-        trailingIconSVG: IconPasswordOutline,
-        hasTrailingIcon: true,
         validator: [
           {
             rule: 'email',
@@ -83,12 +77,7 @@ form.data = {
           label: 'Previous Slide',
 
           action: 'previous_slide',
-
-          customConfig(target) {
-            target.style.flexGrow = '0';
-
-            return target;
-          },
+          styles: { "flex-grow": '0' },
         },
         {
           component: 'button',

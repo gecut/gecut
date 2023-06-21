@@ -10,9 +10,9 @@ nanoServer.route('PATCH', '/notification-storage/', async (connection) => {
 
   await requireAdmin(connection);
 
-  const bodyJson = await connection.requireJsonBody<{
-    data: Array<Partial<Projects.Hami.Notification>>;
-  }>();
+  const bodyJson = await connection.requireJsonBody<
+    Projects.Hami.PatchRoutes['patch-notification-storage']
+  >();
 
   for (const notification of bodyJson.data) {
     await storageClient.set(

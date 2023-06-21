@@ -51,3 +51,8 @@ h2 {
     opacity: 0;
   }
 }
+
+.button {
+  display: flex;
+  padding: calc(1.5 * var(--sys-spacing-track, 8px));
+}

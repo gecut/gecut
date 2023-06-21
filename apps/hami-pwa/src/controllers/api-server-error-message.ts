@@ -1,12 +1,13 @@
-import { apiServerErrorMessage } from '#hami/content';
-import i18n from '#hami/ui/i18n';
+import i18n from '@gecut/i18n';
 
-export function getByErrorCode(errorCode: string): string {
-  if (Object.keys(apiServerErrorMessage).includes(errorCode) === true) {
-    return apiServerErrorMessage[
-      errorCode as keyof typeof apiServerErrorMessage
-    ];
+export function getByErrorCode(errorCode = ''): string {
+  console.log('fuck', errorCode);
+
+  const error = i18n.msg(errorCode);
+
+  if (error === 'key_not_defined') {
+    return i18n.msg('error-communicating-with-the-server');
   }
 
-  return i18n.message('error_in_connection_to_server');
+  return error;
 }

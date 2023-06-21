@@ -1,22 +1,19 @@
 import { notificationListCard } from '#hami/content/cards/notification-list-card';
-import { requireSignIn } from '#hami/controllers/require-sign-in';
-import '#hami/ui/components/product-price-card/product-price-card';
-import i18n from '#hami/ui/i18n';
-import { urlForName } from '#hami/ui/router';
+import { productPriceListCard } from '#hami/content/cards/product-price-list-card';
+import { newNotificationFAB } from '#hami/content/fabs/new-notification-fab';
+import { newProductPriceFAB } from '#hami/content/fabs/new-product-price-fab';
+import { headingPageTypography } from '#hami/content/typographies/heading-page-typography';
+import { ifAdmin } from '#hami/controllers/if-admin';
+import { PageBase } from '#hami/ui/helpers/page-base';
+import icons from '#hami/ui/icons';
 import elementStyle from '#hami/ui/stylesheets/element.scss?inline';
 import pageStyle from '#hami/ui/stylesheets/page.scss?inline';
 
-import { scheduleSignalElement } from '@gecut/mixins';
-import {
-  createSignalProvider,
-  dispatch,
-  getValue,
-  request,
-} from '@gecut/signal';
+import i18n from '@gecut/i18n';
+import { dispatch, request } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
 import { html, nothing, unsafeCSS } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
-import IconSearchOutlineRounded from 'virtual:icons/material-symbols/search-rounded';
 
 import styles from './home.page.scss?inline';
 
@@ -30,49 +27,42 @@ declare global {
 }
 
 @customElement('page-home')
-export class PageHome extends scheduleSignalElement {
+export class PageHome extends PageBase {
   static override styles = [
     unsafeCSS(styles),
     unsafeCSS(elementStyle),
     unsafeCSS(pageStyle),
   ];
 
-  static productPriceStorageSignal = createSignalProvider(
-    'product-price-storage'
-  );
+  @state()
+  private notificationStorage: Record<string, Projects.Hami.Notification> = {};
 
   @state()
-  protected notificationStorage = getValue('notification-storage')?.data ?? {};
+  private productsPriceStorage: Record<string, Projects.Hami.ProductPrice> = {};
 
   @state()
-  protected productsPrice: Projects.Hami.ProductPrice[] = Object.values(
-      PageHome.productPriceStorageSignal.value?.data ?? {}
-    );
+  private productsPriceQuery = '';
 
-  private topAppBarChangeModeDebounce?: NodeJS.Timeout;
   private productsPriceSearchBoxComponent = M3.Renderers.renderTextField({
     component: 'text-field',
     type: 'outlined',
 
     inputType: 'search',
     name: 'productPriceSearch',
-    label: i18n.message('home_page_product_price_box_search_placeholder'),
+    label: i18n.msg('search'),
     hasLeadingIcon: true,
     slotList: [
       {
         component: 'icon',
         type: 'svg',
-        SVG: IconSearchOutlineRounded,
+        SVG: icons.filledRounded.search,
         slot: 'leadingicon',
       },
     ],
-
+    styles: { width: '100%' },
     customConfig: (target) => {
-      target.style.width = '100%';
       target.addEventListener('input', () => {
-        requestAnimationFrame(() => {
-          this.searchProductPrice(target.value.trim());
-        });
+        this.productsPriceQuery = target.value;
       });
 
       return target;
@@ -82,12 +72,9 @@ export class PageHome extends scheduleSignalElement {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    requireSignIn({ catchUrl: urlForName('Landing') });
-
-    dispatch('top-app-bar-hidden', false);
-    dispatch('bottom-app-bar-hidden', false);
-
-    this.addEventListener('scroll', this.topAppBarChangeMode);
+    ifAdmin(() => {
+      dispatch('fab', [newProductPriceFAB(), newNotificationFAB()]);
+    });
 
     this.addSignalListener('notification-storage', (value) => {
       this.log.property?.('notification-storage', value);
@@ -97,14 +84,8 @@ export class PageHome extends scheduleSignalElement {
     this.addSignalListener('product-price-storage', (value) => {
       this.log.property?.('product-price-storage', value);
 
-      this.productsPrice = Object.values(value.data);
+      this.productsPriceStorage = value.data ?? {};
     });
-  }
-
-  override disconnectedCallback(): void {
-    super.disconnectedCallback();
-
-    this.removeEventListener('scroll', this.topAppBarChangeMode);
   }
 
   override render(): RenderResult {
@@ -118,82 +99,35 @@ export class PageHome extends scheduleSignalElement {
   protected firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
 
-    requestIdleCallback(() => {
-      request('notification-storage', {});
-      PageHome.productPriceStorageSignal.request({});
-    });
+    request('notification-storage', {}, 'cacheFirst');
+    request('product-price-storage', {}, 'cacheFirst');
   }
 
   private renderNotificationCard(): RenderResult {
     if (Object.keys(this.notificationStorage).length === 0) return nothing;
 
     return html`
-      <div class="card-box">
-        <h3 class="title">
-          ${i18n.message('home_page_notification_box_title')}
-        </h3>
-
-        ${notificationListCard(Object.values(this.notificationStorage))}
-      </div>
+      ${M3.Renderers.renderTypoGraphy(
+    headingPageTypography(i18n.msg('notifications'))
+  )}
+      ${notificationListCard(Object.values(this.notificationStorage))}
     `;
   }
 
   private renderProductPriceCard(): RenderResult {
-    if (this.productsPrice.length === 0) return nothing;
+    if (Object.keys(this.productsPriceStorage).length === 0) return nothing;
 
     return html`
-      <div class="card-box">
-        <h3 class="title">
-          ${i18n.message('home_page_product_price_box_title')}
-        </h3>
+      ${M3.Renderers.renderTypoGraphy(
+    headingPageTypography(i18n.msg('price-list'))
+  )}
 
-        <div class="search-box">${this.productsPriceSearchBoxComponent}</div>
+      <div class="search-box">${this.productsPriceSearchBoxComponent}</div>
 
-        <product-price-card
-          .content=${{ data: this.productsPrice }}
-        ></product-price-card>
-      </div>
+      ${productPriceListCard(
+    Object.values(this.productsPriceStorage),
+    this.productsPriceQuery
+  )}
     `;
-  }
-
-  private topAppBarChangeMode(): void {
-    if (this.topAppBarChangeModeDebounce != null) {
-      clearTimeout(this.topAppBarChangeModeDebounce);
-    }
-
-    this.topAppBarChangeModeDebounce = setTimeout(() => {
-      const scrollY = Math.floor(this.scrollTop / 10);
-
-      if (scrollY > 0 && getValue('top-app-bar')?.mode !== 'on-scroll') {
-        dispatch('top-app-bar', {
-          mode: 'on-scroll',
-        });
-      }
-
-      if (scrollY == 0 && getValue('top-app-bar')?.mode !== 'flat') {
-        dispatch('top-app-bar', {
-          mode: 'flat',
-        });
-      }
-    }, 100);
-  }
-
-  private searchProductPrice(query: string): void {
-    this.log.methodArgs?.('searchProductPrice', { query });
-
-    const productPriceCard =
-      this.renderRoot.querySelector('product-price-card');
-
-    if (productPriceCard != null) {
-      if (query !== '') {
-        productPriceCard.content = {
-          data: this.productsPrice.filter((productPrice) =>
-            productPrice.name.includes(query)
-          ),
-        };
-      } else {
-        productPriceCard.content = { data: this.productsPrice };
-      }
-    }
   }
 }

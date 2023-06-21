@@ -11,7 +11,12 @@ export interface OrderModel extends Order {
   creator: User;
   customer: Customer;
   customerProject: CustomerProject;
-  productList: (OrderProduct & { product: Product; supplier: Supplier })[];
+  supplier: Supplier;
+  productList: OrderProductModel[];
+}
+
+export interface OrderProductModel extends OrderProduct {
+  product: Product;
 }
 
 export const orderStatusList = [
@@ -24,8 +29,10 @@ export const orderStatusList = [
 
 export interface Order extends AlwatrDocumentObjectActive {
   creatorId: string;
+  supplierId: string;
   customerId: string;
   customerProjectId: string;
+  description: string;
   registrationDate: number;
   evacuationDate: number;
   status: ArrayValues<typeof orderStatusList>;
@@ -38,7 +45,7 @@ export interface OrderProduct extends StringifyableRecord {
   purchasePrice: number;
   quantity: number;
   unit: string;
-  supplierId: string;
+  discount: number;
 }
 
 export const orderRequire: RequireFunc<Order> = (
@@ -47,7 +54,9 @@ export const orderRequire: RequireFunc<Order> = (
   id: 'auto_increment',
   creatorId: 'no-creator-id',
   customerId: 'no-customer-id',
+  supplierId: 'no-supplier-id',
   customerProjectId: 'no-customer-project-id',
+  description: 'no-description',
   evacuationDate: 0,
   registrationDate: 0,
   productList: [],
