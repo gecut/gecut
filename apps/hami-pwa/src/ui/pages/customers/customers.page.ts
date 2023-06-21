@@ -83,8 +83,6 @@ export class PageCustomers extends PageBase {
   }
 
   private renderCustomersCard(): RenderResult {
-    if (Object.keys(this.customers).length === 0) return nothing;
-
     const titleTemplate = M3.Renderers.renderTypoGraphy(
       headingPageTypography(i18n.msg('customers'))
     );

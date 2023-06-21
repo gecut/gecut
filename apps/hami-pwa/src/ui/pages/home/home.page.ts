@@ -104,8 +104,6 @@ export class PageHome extends PageBase {
   }
 
   private renderNotificationCard(): RenderResult {
-    if (Object.keys(this.notificationStorage).length === 0) return nothing;
-
     return html`
       ${M3.Renderers.renderTypoGraphy(
     headingPageTypography(i18n.msg('notifications'))
@@ -115,8 +113,6 @@ export class PageHome extends PageBase {
   }
 
   private renderProductPriceCard(): RenderResult {
-    if (Object.keys(this.productsPriceStorage).length === 0) return nothing;
-
     return html`
       ${M3.Renderers.renderTypoGraphy(
     headingPageTypography(i18n.msg('price-list'))

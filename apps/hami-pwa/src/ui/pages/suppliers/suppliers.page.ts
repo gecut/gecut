@@ -85,8 +85,6 @@ export class PageSuppliers extends PageBase {
   }
 
   private renderSuppliersCard(): RenderResult {
-    if (Object.keys(this.suppliers).length === 0) return nothing;
-
     const titleTemplate = M3.Renderers.renderTypoGraphy(
       headingPageTypography(i18n.msg('suppliers'))
     );

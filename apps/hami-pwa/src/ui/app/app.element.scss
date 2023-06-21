@@ -19,6 +19,15 @@ main {
     left: 0;
     right: 0;
     bottom: 0;
+    z-index: var(--sys-zindex-above);
+
+    snack-bar {
+      z-index: var(--sys-zindex-snackbar);
+    }
+
+    md-dialog {
+      z-index: var(--sys-zindex-modal);
+    }
   }
 }
 
