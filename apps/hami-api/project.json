@@ -40,7 +40,7 @@
         "development": {
           "commands": [
             "nx run hami-api:build --watch",
-            "nodemon dist/apps/hami-api/index.mjs"
+            "ALWATR_DEBUG=1 nodemon dist/apps/hami-api/index.mjs"
           ],
           "parallel": true
         },

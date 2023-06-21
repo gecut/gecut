@@ -1,3 +1,4 @@
+import { ifAdmin } from '#hami/controllers/if-admin';
 import icons from '#hami/ui/icons';
 
 import i18n from '@gecut/i18n';
@@ -55,8 +56,10 @@ export function notificationItem(
     classes: ['notification-item'],
     slotList: [notificationItemIcon(notification.status)],
     customConfig: (target) => {
-      target.addEventListener('click', () => {
-        dispatch('dialog', addNotificationDialog(notification));
+      ifAdmin(() => {
+        target.addEventListener('click', () => {
+          dispatch('dialog', addNotificationDialog(notification));
+        });
       });
 
       return target;

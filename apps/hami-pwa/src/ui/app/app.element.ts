@@ -1,5 +1,6 @@
 import config from '#hami/config';
-import gecutLogo from '#hami/ui/assets/gecut-logo.webp?inline';
+import { confirmLogoutDialog } from '#hami/content/dialogs/confirm-logout';
+import hamiLogo from '#hami/ui/assets/hami-logo.webp?inline';
 import icons from '#hami/ui/icons';
 import { attachRouter } from '#hami/ui/router';
 
@@ -59,7 +60,7 @@ export class AppRoot extends signalElement {
       {
         component: 'img',
         type: 'img',
-        src: gecutLogo,
+        src: hamiLogo,
         alt: 'gecut-logo',
         styles: {
           height: '24px',
@@ -77,7 +78,14 @@ export class AppRoot extends signalElement {
       leadingSlot: <M3.Types.IconButtonContent>{
         component: 'icon-button',
         type: 'standard',
-        iconSVG: icons.filledRounded.menu,
+        iconSVG: icons.filledRounded.logout,
+        customConfig: (target) => {
+          target.addEventListener('click', () => {
+            dispatch('dialog', confirmLogoutDialog());
+          });
+
+          return target;
+        },
       },
       trailingSlotList: [AppRoot.topAppBarTrailingSlot],
     };

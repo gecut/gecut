@@ -8,11 +8,11 @@ import { headingPageTypography } from '../typographies/heading-page-typography';
 import type { Projects } from '@gecut/types';
 import type { M3 } from '@gecut/ui-kit';
 
-export function addSupplierDialog(
-  supplier?: Projects.Hami.SupplierModel
+export function addProductDialog(
+  product?: Projects.Hami.Product
 ): M3.Types.DialogContent {
-  const isEdit = supplier != null;
-  const title = isEdit ? i18n.msg('edit-supplier') : i18n.msg('add-supplier');
+  const isEdit = product != null;
+  const title = isEdit ? i18n.msg('edit-product') : i18n.msg('add-product');
 
   return {
     component: 'dialog',
@@ -44,54 +44,53 @@ export function addSupplierDialog(
             },
             data: {
               slides: {
-                supplier: [
+                product: [
                   {
                     component: 'text-field',
                     type: 'filled',
                     inputType: 'text',
                     name: 'uniqueCode',
-                    label: i18n.msg('unique-code'),
+                    label: i18n.msg('code'),
                     validator: validators('required', 'numeric'),
-                    value: supplier?.uniqueCode,
+                    value: product?.code,
+                  },
+                  {
+                    component: 'text-field',
+                    type: 'filled',
+                    inputType: 'text',
+                    name: 'name',
+                    label: i18n.msg('name'),
+                    validator: validators('required'),
+                    value: product?.name,
                   },
                   [
                     {
                       component: 'text-field',
                       type: 'filled',
                       inputType: 'text',
-                      name: 'firstName',
-                      label: i18n.msg('first-name'),
+                      name: 'category',
+                      label: i18n.msg('category'),
                       validator: validators('required'),
-                      value: supplier?.firstName,
+                      value: product?.category,
                     },
                     {
                       component: 'text-field',
                       type: 'filled',
                       inputType: 'text',
-                      name: 'lastName',
-                      label: i18n.msg('last-name'),
+                      name: 'brand',
+                      label: i18n.msg('brand'),
                       validator: validators('required'),
-                      value: supplier?.lastName,
+                      value: product?.brand,
                     },
                   ],
                   {
                     component: 'text-field',
                     type: 'filled',
-                    inputType: 'tel',
-                    name: 'phoneNumber',
-                    textDirection: 'ltr',
-                    label: i18n.msg('phone-number'),
-                    validator: validators('required', 'phone'),
-                    value: supplier?.phoneNumber,
-                  },
-                  {
-                    component: 'text-field',
-                    type: 'filled',
                     inputType: 'text',
-                    name: 'address',
-                    label: i18n.msg('address'),
+                    name: 'unit',
+                    label: i18n.msg('unit'),
                     validator: validators('required'),
-                    value: supplier?.address,
+                    value: product?.unit,
                   },
                   {
                     component: 'text-field',
@@ -99,7 +98,7 @@ export function addSupplierDialog(
                     inputType: 'text',
                     name: 'description',
                     label: i18n.msg('description'),
-                    value: supplier?.description,
+                    value: product?.description,
                   },
                   {
                     component: 'button',
@@ -113,23 +112,23 @@ export function addSupplierDialog(
               onSubmit: async (event) => {
                 if (event.validate === true && event.values != null) {
                   const data = event.values[
-                    'supplier'
-                  ] as unknown as Projects.Hami.Supplier;
+                    'product'
+                  ] as unknown as Projects.Hami.Product;
 
                   if (data != null) {
-                    if (supplier != null) {
-                      data.id = supplier.id;
+                    if (product != null) {
+                      data.id = product.id;
                     }
 
-                    await request('patch-supplier-storage', {
-                      data: [data],
-                    });
-                    request('supplier-storage', {});
+                    // await request('patch-product-storage', {
+                    //   data: [data],
+                    // });
+                    request('product-storage', {});
                     dispatch('dialog', null);
                     dispatch('snack-bar', {
                       component: 'snack-bar',
                       type: 'ellipsis-message',
-                      message: i18n.msg('supplier-successfully-registered'),
+                      message: i18n.msg('product-successfully-registered'),
                       align: 'bottom',
                       duration: 2_000,
                       closeButton: true,
@@ -138,7 +137,7 @@ export function addSupplierDialog(
                 }
               },
             },
-            activeSlide: 'supplier',
+            activeSlide: 'product',
           },
         ],
       },

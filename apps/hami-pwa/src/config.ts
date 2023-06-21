@@ -20,6 +20,7 @@ declare global {
     readonly 'patch-customer-storage': Record<string, never>;
     readonly 'patch-notification-storage': Record<string, never>;
     readonly 'patch-product-price-storage': Record<string, never>;
+    readonly 'patch-product-storage': Record<string, never>;
     readonly 'patch-supplier-storage': Record<string, never>;
     readonly 'put-order': Record<string, never>;
 
@@ -44,6 +45,7 @@ declare global {
     readonly 'patch-customer-storage': Projects.Hami.PatchRoutes['patch-customer-storage'];
     readonly 'patch-notification-storage': Projects.Hami.PatchRoutes['patch-notification-storage'];
     readonly 'patch-product-price-storage': Projects.Hami.PatchRoutes['patch-product-price-storage'];
+    readonly 'patch-product-storage': Projects.Hami.PatchRoutes['patch-product-storage'];
     readonly 'patch-supplier-storage': Projects.Hami.PatchRoutes['patch-supplier-storage'];
     readonly 'put-order': Projects.Hami.PatchRoutes['put-order'];
 
@@ -66,7 +68,7 @@ const navigationTabs: M3.Types.NavigationTabContent[] = [
   },
   {
     label: i18n.msg('products'),
-    link: '',
+    link: urlForName('Products'),
     icons: {
       active: icons.filledRounded.category,
       inActive: icons.outlineRounded.category,

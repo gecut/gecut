@@ -1,3 +1,5 @@
+import { ifAdmin } from '#hami/controllers/if-admin';
+
 import i18n from '@gecut/i18n';
 import { dispatch } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
@@ -25,8 +27,10 @@ export function productPriceItem(
       '--_list-item-supporting-text-color': 'var(--md-sys-color-primary)',
     },
     customConfig: (target) => {
-      target.addEventListener('click', () => {
-        dispatch('dialog', addProductPriceDialog(productPrice));
+      ifAdmin(() => {
+        target.addEventListener('click', () => {
+          dispatch('dialog', addProductPriceDialog(productPrice));
+        });
       });
 
       return target;

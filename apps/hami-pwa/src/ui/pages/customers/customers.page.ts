@@ -79,7 +79,7 @@ export class PageCustomers extends PageBase {
   protected firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
 
-    request('customer-storage', {}, 'staleWhileRevalidate');
+    request('customer-storage', {}, 'cacheFirst');
   }
 
   private renderCustomersCard(): RenderResult {

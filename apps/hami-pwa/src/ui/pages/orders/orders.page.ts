@@ -1,7 +1,11 @@
+import { notFoundListCard } from '#hami/content/cards/not-found-list-card';
 import { orderCard } from '#hami/content/cards/order-card';
 import { newOrderFAB } from '#hami/content/fabs/new-order-fab';
+import { headingPageTypography } from '#hami/content/typographies/heading-page-typography';
+import { ifAdmin } from '#hami/controllers/if-admin';
 import { PageBase } from '#hami/ui/helpers/page-base';
 
+import i18n from '@gecut/i18n';
 import { dispatch, request } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
 import { html, unsafeCSS } from 'lit';
@@ -9,7 +13,7 @@ import { customElement, state } from 'lit/decorators.js';
 
 import styles from './orders.page.scss?inline';
 
-import type { Projects, RenderResult } from '@gecut/types';
+import type { Projects, RenderResult, SingleOrArray } from '@gecut/types';
 import type { PropertyValues } from 'lit';
 
 declare global {
@@ -28,8 +32,17 @@ export class PageCustomers extends PageBase {
   @state()
   private suppliers: Record<string, Projects.Hami.Supplier> = {};
 
+  @state()
+  private isAdmin = false;
+
   override connectedCallback(): void {
     super.connectedCallback();
+
+    ifAdmin(() => {
+      this.isAdmin = true;
+
+      dispatch('fab', [newOrderFAB()]);
+    });
 
     this.addSignalListener('order-storage', (value) => {
       this.log.property?.('order-storage', value);
@@ -41,25 +54,34 @@ export class PageCustomers extends PageBase {
 
       this.suppliers = value.data;
     });
-
-    dispatch('fab', [newOrderFAB()]);
   }
 
   override render(): RenderResult {
     super.render();
 
-    const supplierList = Object.values(this.suppliers);
-    const ordersTemplate = Object.values(this.orders).map((order) =>
-      M3.Renderers.renderSurfaceCard(orderCard(order, true, supplierList))
-    );
+    const headline = M3.Renderers.renderTypoGraphy(headingPageTypography(i18n.msg('orders')))
 
-    return html`${ordersTemplate}`;
+    return html`${headline}${this.renderOrderList()}`;
   }
 
   protected firstUpdated(changedProperties: PropertyValues<this>): void {
     super.firstUpdated(changedProperties);
 
-    request('order-storage', {}, 'staleWhileRevalidate');
-    request('supplier-storage', {}, 'staleWhileRevalidate');
+    request('order-storage', {}, 'cacheFirst');
+    request('supplier-storage', {}, 'cacheFirst');
+  }
+
+  private renderOrderList(): SingleOrArray<M3.Components.SurfaceCard> {
+    if (Object.values(this.orders).length === 0) {
+      return M3.Renderers.renderSurfaceCard(notFoundListCard());
+    }
+
+    const supplierList = Object.values(this.suppliers);
+
+    return Object.values(this.orders).map((order) =>
+      M3.Renderers.renderSurfaceCard(
+        orderCard(order, this.isAdmin, supplierList)
+      )
+    );
   }
 }
