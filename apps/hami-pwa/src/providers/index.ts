@@ -7,6 +7,7 @@ import './patch-notification-storage';
 import './patch-product-price-storage';
 import './patch-supplier-storage';
 import './product-price-storage';
+import './product-storage';
 import './promises-list';
 import './put-order';
 import './supplier-storage';
