@@ -8,6 +8,7 @@ import grading from 'virtual:icons/material-symbols/grading-rounded';
 import group from 'virtual:icons/material-symbols/group-rounded';
 import home from 'virtual:icons/material-symbols/home-rounded';
 import login from 'virtual:icons/material-symbols/login-rounded';
+import logOut from 'virtual:icons/material-symbols/logout-rounded';
 import menu from 'virtual:icons/material-symbols/menu-rounded';
 import person from 'virtual:icons/material-symbols/person-rounded';
 import searchOff from 'virtual:icons/material-symbols/search-off-rounded';
@@ -20,6 +21,7 @@ export const filledRounded = {
   attachMoney,
   awardStar,
   category,
+  logout: logOut,
   done,
   grading,
   group,
