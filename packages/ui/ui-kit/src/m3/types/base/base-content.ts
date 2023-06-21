@@ -14,6 +14,7 @@ export interface BaseContent<
   styles?: Partial<Record<CSSProperty, string>>;
   styleVars?: Record<string, string>;
   customConfig?: CustomConfigFunction<TCustomConfig>;
+  ariaLabel?: string;
 }
 
 export type CSSProperty =

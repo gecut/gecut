@@ -20,6 +20,10 @@ export function createElementByContent<
 
   element.hidden = content.hidden === true;
 
+  if (content.ariaLabel != null) {
+    element.ariaLabel = content.ariaLabel;
+  }
+
   if (content.customConfig != null) {
     element = content.customConfig(element);
   }

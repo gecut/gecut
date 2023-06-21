@@ -79,6 +79,7 @@ export class AppRoot extends signalElement {
         component: 'icon-button',
         type: 'standard',
         iconSVG: icons.filledRounded.logout,
+        ariaLabel: 'Log Out',
         customConfig: (target) => {
           target.addEventListener('click', () => {
             dispatch('dialog', confirmLogoutDialog());

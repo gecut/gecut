@@ -88,6 +88,7 @@ export default defineConfig({
   build: {
     outDir: DIST_PATH,
     reportCompressedSize: true,
+    sourcemap: true,
   },
 
   plugins: [

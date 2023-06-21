@@ -12,6 +12,7 @@ export function newNotificationFAB(): M3.Types.FABContent {
     type: 'fab',
     size: 'medium',
     variant: 'secondary',
+    ariaLabel: 'New Notification',
     slotList: [
       {
         component: 'icon',
