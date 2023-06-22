@@ -79,7 +79,6 @@ export default defineConfig({
   build: {
     outDir: DIST_PATH,
     reportCompressedSize: true,
-    sourcemap: true,
     target: ['es2017', 'chrome100', 'firefox100', 'ios15'],
     minify: 'terser',
   },
@@ -128,7 +127,7 @@ export default defineConfig({
         'iOS >= 15',
       ],
       modernPolyfills: true,
-      renderLegacyChunks: false,
+      renderLegacyChunks: true,
     }),
 
     vitePWA({
