@@ -1,4 +1,5 @@
 import legacy from '@vitejs/plugin-legacy';
+import minifyLitTemplates from 'rollup-plugin-minify-html-literals';
 import Unfonts from 'unplugin-fonts/vite';
 import Icons from 'unplugin-icons/vite';
 import { defineConfig } from 'vite';
@@ -7,6 +8,7 @@ import viteTsConfigPaths from 'vite-tsconfig-paths';
 
 import project from './project.json';
 
+import type { PluginOption } from 'vite';
 import type { ManifestOptions } from 'vite-plugin-pwa';
 import type { GenerateSWOptions } from 'workbox-build';
 
@@ -56,16 +58,6 @@ const manifestJson: Partial<ManifestOptions> = {
     { src: '/icon-512.png', type: 'image/png', sizes: '512x512' },
   ],
 };
-const banner = `
-:'######:::'########::'######::'##::::'##:'########:::'########::'##::::'##:'####:'##:::::::'########::::'########::'##::::'##:'##::: ##:'########::'##:::::::'########:
-'##... ##:: ##.....::'##... ##: ##:::: ##:... ##..:::: ##.... ##: ##:::: ##:. ##:: ##::::::: ##.... ##::: ##.... ##: ##:::: ##: ###:: ##: ##.... ##: ##::::::: ##.....::
- ##:::..::: ##::::::: ##:::..:: ##:::: ##:::: ##:::::: ##:::: ##: ##:::: ##:: ##:: ##::::::: ##:::: ##::: ##:::: ##: ##:::: ##: ####: ##: ##:::: ##: ##::::::: ##:::::::
- ##::'####: ######::: ##::::::: ##:::: ##:::: ##:::::: ########:: ##:::: ##:: ##:: ##::::::: ##:::: ##::: ########:: ##:::: ##: ## ## ##: ##:::: ##: ##::::::: ######:::
- ##::: ##:: ##...:::: ##::::::: ##:::: ##:::: ##:::::: ##.... ##: ##:::: ##:: ##:: ##::::::: ##:::: ##::: ##.... ##: ##:::: ##: ##. ####: ##:::: ##: ##::::::: ##...::::
- ##::: ##:: ##::::::: ##::: ##: ##:::: ##:::: ##:::::: ##:::: ##: ##:::: ##:: ##:: ##::::::: ##:::: ##::: ##:::: ##: ##:::: ##: ##:. ###: ##:::: ##: ##::::::: ##:::::::
-. ######::: ########:. ######::. #######::::: ##:::::: ########::. #######::'####: ########: ########:::: ########::. #######:: ##::. ##: ########:: ########: ########:
-:......::::........:::......::::.......::::::..:::::::........::::.......:::....::........::........:::::........::::.......:::..::::..::........:::........::........::
-`;
 
 export default defineConfig({
   server: {
@@ -80,8 +72,7 @@ export default defineConfig({
 
   preview: {
     host: '0.0.0.0',
-    port: 8080,
-    https: true,
+    port: 8010,
     open: true,
   },
 
@@ -89,9 +80,16 @@ export default defineConfig({
     outDir: DIST_PATH,
     reportCompressedSize: true,
     sourcemap: true,
+    target: ['es2017', 'chrome100', 'firefox100', 'ios15'],
+    minify: 'terser',
   },
 
   plugins: [
+    {
+      ...minifyLitTemplates(),
+      enforce: 'post',
+    } as unknown as PluginOption & { enforce: 'post' },
+
     viteTsConfigPaths({
       root: '../../',
       ignoreConfigErrors: true,
@@ -118,10 +116,19 @@ export default defineConfig({
         preconnect: true,
       },
       fontsource: {
-        families: [
-          'Vazirmatn',
-        ],
+        families: ['Vazirmatn'],
       },
+    }),
+
+    legacy({
+      targets: [
+        '>= 0.5% in IR',
+        'ChromeAndroid >= 100',
+        'Firefox >= 100',
+        'iOS >= 15',
+      ],
+      modernPolyfills: true,
+      renderLegacyChunks: false,
     }),
 
     vitePWA({
@@ -130,11 +137,6 @@ export default defineConfig({
       mode: 'production',
       outDir: DIST_PATH,
       useCredentials: true,
-    }),
-
-    legacy({
-      targets: ['defaults', 'not IE 11'],
-      modernPolyfills: true,
     }),
   ],
 });
