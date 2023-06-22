@@ -3,3 +3,24 @@
 
   -webkit-tap-highlight-color: transparent;
 }
+
+surface-card {
+  .surface-card__title {
+    font-family: var(--md-sys-typescale-title-large-font-family-name);
+    font-style: var(--md-sys-typescale-title-large-font-family-style);
+    font-weight: var(--md-sys-typescale-title-large-font-weight);
+    font-size: var(--md-sys-typescale-title-large-font-size);
+    letter-spacing: var(--md-sys-typescale-title-large-tracking);
+    text-transform: var(--md-sys-typescale-title-large-text-transform);
+    text-decoration: var(--md-sys-typescale-title-large-text-decoration);
+
+    line-height: calc(2.8 * var(--sys-spacing-track));
+    color: var(--md-sys-color-primary);
+    margin: calc(2 * var(--sys-spacing-track)) 0 var(--sys-spacing-track);
+  }
+
+  .surface-card__paragraph {
+    margin: 0;
+    color: var(--md-sys-color-secondary);
+  }
+}

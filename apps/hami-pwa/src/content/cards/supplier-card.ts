@@ -28,10 +28,7 @@ export function supplierCard(
         component: 'typography',
         type: 'h1',
         slotList: [supplier.firstName, ' ', supplier.lastName],
-        style: 'title-large',
-        styles: {
-          color: 'var(--md-sys-color-primary)',
-        },
+        classes: ['surface-card__title'],
       },
       {
         component: 'icon-button',
@@ -55,10 +52,7 @@ export function supplierCard(
         component: 'typography',
         type: 'p',
         slotList: [i18n.msg('unique-code'), ': ', supplier.uniqueCode],
-        styles: {
-          color: 'var(--md-sys-color-surface-variant)',
-          margin: '0',
-        },
+        classes: ['surface-card__paragraph'],
       },
       {
         component: 'typography',
@@ -68,10 +62,7 @@ export function supplierCard(
           ': ',
           i18n.phone(supplier.phoneNumber, true),
         ],
-        styles: {
-          color: 'var(--md-sys-color-surface-variant)',
-          margin: '0',
-        },
+        classes: ['surface-card__paragraph'],
       },
       {
         component: 'typography',
@@ -81,30 +72,21 @@ export function supplierCard(
           ': ',
           i18n.int(supplier.orderList.length),
         ],
-        styles: {
-          color: 'var(--md-sys-color-surface-variant)',
-          margin: '0',
-        },
+        classes: ['surface-card__paragraph'],
       },
       {
         component: 'typography',
         type: 'p',
         hidden: isFieldExits(supplier.address) === false,
         slotList: [i18n.msg('address'), ': ', supplier.address],
-        styles: {
-          color: 'var(--md-sys-color-surface-variant)',
-          margin: '0',
-        },
+        classes: ['surface-card__paragraph'],
       },
       {
         component: 'typography',
         type: 'p',
         hidden: isFieldExits(supplier.description) === false,
         slotList: [i18n.msg('description'), ': ', supplier.description],
-        styles: {
-          color: 'var(--md-sys-color-surface-variant)',
-          margin: '0',
-        },
+        classes: ['surface-card__paragraph'],
       },
       // {
       //   component: 'button',

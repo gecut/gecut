@@ -26,10 +26,7 @@ export function customerCard(
         component: 'typography',
         type: 'h1',
         slotList: [customer.firstName, ' ', customer.lastName],
-        style: 'title-large',
-        styles: {
-          color: 'var(--md-sys-color-primary)',
-        },
+        classes: ['surface-card__title'],
       },
       {
         component: 'typography',
@@ -39,10 +36,7 @@ export function customerCard(
           ': ',
           i18n.phone(customer.phoneNumber, true),
         ],
-        styles: {
-          color: 'var(--md-sys-color-surface-variant)',
-          margin: '0',
-        },
+        classes: ['surface-card__paragraph'],
       },
       {
         component: 'typography',
@@ -52,10 +46,7 @@ export function customerCard(
           ': ',
           i18n.int(customer.projectList.length),
         ],
-        styles: {
-          color: 'var(--md-sys-color-surface-variant)',
-          margin: '0',
-        },
+        classes: ['surface-card__paragraph'],
       },
       {
         component: 'typography',
@@ -65,10 +56,7 @@ export function customerCard(
           ': ',
           i18n.int(customer.orderList.length),
         ],
-        styles: {
-          color: 'var(--md-sys-color-surface-variant)',
-          margin: '0',
-        },
+        classes: ['surface-card__paragraph'],
       },
       {
         component: 'typography',
@@ -80,20 +68,14 @@ export function customerCard(
           ' ',
           customer.creator.lastName,
         ],
-        styles: {
-          color: 'var(--md-sys-color-surface-variant)',
-          margin: '0',
-        },
+        classes: ['surface-card__paragraph'],
       },
       {
         component: 'typography',
         type: 'p',
         hidden: isFieldExits(customer.description) === false,
         slotList: [i18n.msg('description'), ': ', customer.description],
-        styles: {
-          color: 'var(--md-sys-color-surface-variant)',
-          margin: '0',
-        },
+        classes: ['surface-card__paragraph'],
       },
       {
         component: 'button',

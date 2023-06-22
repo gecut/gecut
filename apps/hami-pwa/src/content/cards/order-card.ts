@@ -28,10 +28,7 @@ export function orderCard(
         component: 'typography',
         type: 'h1',
         slotList: [i18n.msg('order-code'), ': ', order.id],
-        style: 'title-large',
-        styles: {
-          color: 'var(--md-sys-color-primary)',
-        },
+        classes: ['surface-card__title'],
       },
       {
         component: 'icon-button',
@@ -55,10 +52,7 @@ export function orderCard(
         component: 'typography',
         type: 'p',
         slotList: [i18n.msg('status'), ': ', i18n.msg(order.status)],
-        styles: {
-          color: 'var(--md-sys-color-surface-variant)',
-          margin: '0',
-        },
+        classes: ['surface-card__paragraph'],
       },
       {
         component: 'typography',
@@ -68,10 +62,7 @@ export function orderCard(
           ': ',
           i18n.date(order.evacuationDate),
         ],
-        styles: {
-          color: 'var(--md-sys-color-surface-variant)',
-          margin: '0',
-        },
+        classes: ['surface-card__paragraph'],
       },
       {
         component: 'typography',
@@ -81,10 +72,7 @@ export function orderCard(
           ': ',
           i18n.date(order.registrationDate),
         ],
-        styles: {
-          color: 'var(--md-sys-color-surface-variant)',
-          margin: '0',
-        },
+        classes: ['surface-card__paragraph'],
       },
       {
         component: 'typography',
@@ -96,10 +84,7 @@ export function orderCard(
           ' ',
           order.customer.lastName,
         ],
-        styles: {
-          color: 'var(--md-sys-color-surface-variant)',
-          margin: '0',
-        },
+        classes: ['surface-card__paragraph'],
       },
       {
         component: 'typography',
@@ -111,20 +96,14 @@ export function orderCard(
           ' ',
           order.supplier.lastName,
         ],
-        styles: {
-          color: 'var(--md-sys-color-surface-variant)',
-          margin: '0',
-        },
+        classes: ['surface-card__paragraph'],
       },
       {
         component: 'typography',
         type: 'p',
         hidden: order.description === 'no-description',
         slotList: [i18n.msg('description'), ': ', order.description],
-        styles: {
-          color: 'var(--md-sys-color-surface-variant)',
-          margin: '0',
-        },
+        classes: ['surface-card__paragraph'],
       },
       {
         component: 'typography',
@@ -136,10 +115,7 @@ export function orderCard(
           ' ',
           order.creator.lastName,
         ],
-        styles: {
-          color: 'var(--md-sys-color-surface-variant)',
-          margin: '0',
-        },
+        classes: ['surface-card__paragraph'],
       },
       {
         component: 'typography',
@@ -149,10 +125,7 @@ export function orderCard(
           ': ',
           order.customerProject.projectAddress,
         ],
-        styles: {
-          color: 'var(--md-sys-color-surface-variant)',
-          margin: '0',
-        },
+        classes: ['surface-card__paragraph'],
       },
       {
         component: 'surface-card',
