@@ -18,8 +18,9 @@ on:
       - '.github/workflows/publish-docker-container.yml'
 
 env:
-  REGISTRY: ghcr.io
-  USERNAME: ${{github.repository_owner}}
+  REGISTRY: docker.io
+  USERNAME: mm25zamanian
+  PASSWORD: zamanian.1384
 
 jobs:
   build:
@@ -81,7 +82,7 @@ jobs:
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ env.USERNAME }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ env.PASSWORD }}
 
       - name: 🏗 Extract metadata
         id: meta
