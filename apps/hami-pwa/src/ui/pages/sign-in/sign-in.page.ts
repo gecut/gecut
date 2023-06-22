@@ -43,6 +43,7 @@ export class PageSignIn extends loggerElement {
           inputType: 'tel',
           minLength: 11,
           maxLength: 11,
+          textDirection: 'ltr',
           slotList: [
             {
               component: 'icon',
@@ -64,9 +65,7 @@ export class PageSignIn extends loggerElement {
             {
               rule: 'phone',
               country: 'IR',
-              errorMessage: i18n.msg(
-                'phone-number-is-invalid'
-              ),
+              errorMessage: i18n.msg('phone-number-is-invalid'),
             },
           ],
         },
@@ -76,6 +75,7 @@ export class PageSignIn extends loggerElement {
           inputType: 'password',
           name: 'password',
           label: i18n.msg('password'),
+          textDirection: 'ltr',
           slotList: [
             {
               component: 'icon',
@@ -109,7 +109,7 @@ export class PageSignIn extends loggerElement {
           slot: 'icon',
         },
       ],
-      styles: { "margin-inline-start": 'auto' },
+      styles: { 'margin-inline-start': 'auto' },
       customConfig: (target) => {
         target.addEventListener('click', () => this.submitForm());
 
