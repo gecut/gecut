@@ -127,4 +127,4 @@ jobs:
         run: |
           npm i -g @liara/cli@3
           cd ${{ matrix.source }}
-          liara deploy --detach
+          liara deploy --api-token="${{ env.LIARA_TOKEN }}" --detach
