@@ -66,6 +66,8 @@ export function productsListCard(
   products: Projects.Hami.Product[],
   query = ''
 ): M3.Types.SurfaceCardRendererReturn {
+  products = products.filter((product) => product.active === true);
+
   if (query.trim() !== '') {
     products = products.filter((product) =>
       String(Object.values(product).join(' ')).includes(query)

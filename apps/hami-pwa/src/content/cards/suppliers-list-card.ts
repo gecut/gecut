@@ -81,6 +81,8 @@ export function suppliersListCard(
   suppliers: Projects.Hami.SupplierModel[],
   query = ''
 ): M3.Types.SurfaceCardRendererReturn {
+  suppliers = suppliers.filter((supplier) => supplier.active === true);
+
   if (query.trim() !== '') {
     suppliers = suppliers.filter((supplier) =>
       String(

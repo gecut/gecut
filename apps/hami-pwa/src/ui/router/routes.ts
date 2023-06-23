@@ -1,6 +1,5 @@
 import '#hami/ui/pages/home/home.page';
 import '#hami/ui/pages/landing/landing.page';
-import '#hami/ui/pages/new-order/new-order.page';
 import '#hami/ui/pages/sign-in/sign-in.page';
 
 import type { Route } from '@vaadin/router';
@@ -28,7 +27,14 @@ export const routes: Route[] = [
       await import('#hami/ui/pages/orders/orders.page');
     },
   },
-  { path: '/orders/new', name: 'NewOrder', component: 'page-new-order' },
+  {
+    path: '/orders/new',
+    name: 'NewOrder',
+    component: 'page-new-order',
+    action: async () => {
+      await import('#hami/ui/pages/new-order/new-order.page');
+    },
+  },
   {
     path: '/products',
     component: 'page-products',

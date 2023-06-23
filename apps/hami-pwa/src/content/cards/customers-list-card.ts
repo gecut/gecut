@@ -71,6 +71,8 @@ export function customersListCard(
   customers: Projects.Hami.CustomerModel[],
   query = ''
 ): M3.Types.SurfaceCardRendererReturn {
+  customers = customers.filter((customer) => customer.active === true);
+
   if (query.trim() !== '') {
     customers = customers.filter((customer) =>
       String(
