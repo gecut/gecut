@@ -4,7 +4,6 @@
   --md-list-item-list-item-container-shape: 8px;
 }
 
-@import url('packages/ui/common/src/styles/theme/palettes/prophet-violet.css')
-(orientation: portrait);
-@import url('packages/ui/common/src/styles/theme/palettes/cadmium-green.css')
-(orientation: landscape);
+* {
+  font-family: var(--sys-font-family);
+}
