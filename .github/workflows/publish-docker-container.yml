@@ -21,6 +21,7 @@ env:
   REGISTRY: ghcr.io
   USERNAME: ${{ github.repository_owner }}
   PASSWORD: ${{ secrets.GITHUB_TOKENS }}
+  LIARA_TOKEN: ${{ secrets.LIARA_API_TOKEN }}
 
 jobs:
   build:
@@ -121,8 +122,6 @@ jobs:
 
       - name: Deploy On Lira
         continue-on-error: true
-        env:
-          LIARA_TOKEN: ${{ secrets.LIARA_API_TOKEN }}
         run: |
           npm i -g @liara/cli@3
-          liara deploy --app="${{ matrix.image }}" --image "${{ env.REGISTRY }}/${{ env.USERNAME }}/${{ matrix.image }}" --port "80" --api-token="$LIARA_TOKEN" --detach
+          liara deploy --app="${{ matrix.image }}" --image "${{ env.REGISTRY }}/${{ env.USERNAME }}/${{ matrix.image }}" --port "80" --api-token="${{ env.LIARA_TOKEN }}" --detach
