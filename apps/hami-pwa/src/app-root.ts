@@ -7,7 +7,7 @@ i18n.set('fa-IR');
 import '@gecut/common/styles/pwa.css';
 import '@gecut/common/styles/mobile-only.css';
 // // import '@gecut/common/styles/theme/palettes/cadmium-green.css';
-// import '@gecut/common/styles/theme/palettes/prophet-violet.css';
+import '@gecut/common/styles/theme/palettes/prophet-violet.css';
 import '@gecut/common/styles/tokens.css';
 import '@gecut/form-builder';
 import '@lit-labs/virtualizer';
