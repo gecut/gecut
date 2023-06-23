@@ -1,4 +1,5 @@
 import { validators } from '#hami/controllers/default-validators';
+import icons from '#hami/ui/icons';
 
 import i18n from '@gecut/i18n';
 import { dispatch, request } from '@gecut/signal';
@@ -141,6 +142,48 @@ export function addSupplierDialog(
             activeSlide: 'supplier',
           },
         ],
+      },
+      {
+        component: 'button',
+        type: 'text',
+        hasIcon: true,
+        label: i18n.msg('delete'),
+        disabled: !(isEdit === true),
+        slot: 'footer',
+        slotList: [
+          {
+            component: 'icon',
+            type: 'svg',
+            slot: 'icon',
+            SVG: icons.outlineRounded.delete,
+          },
+        ],
+        customConfig: (target) => {
+          target.addEventListener('click', async () => {
+            if (supplier == null) return;
+
+            supplier.active = false;
+
+            target.disabled = true;
+            await request('patch-supplier-storage', {
+              data: [supplier],
+            });
+            target.disabled = false;
+
+            request('supplier-storage', {});
+            dispatch('dialog', null);
+            dispatch('snack-bar', {
+              component: 'snack-bar',
+              type: 'ellipsis-message',
+              message: i18n.msg('supplier-successfully-deleted'),
+              align: 'bottom',
+              duration: 2_000,
+              closeButton: true,
+            });
+          });
+
+          return target;
+        },
       },
       {
         component: 'button',

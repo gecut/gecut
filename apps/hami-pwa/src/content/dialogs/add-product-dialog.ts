@@ -1,4 +1,5 @@
 import { validators } from '#hami/controllers/default-validators';
+import icons from '#hami/ui/icons';
 
 import i18n from '@gecut/i18n';
 import { dispatch, request } from '@gecut/signal';
@@ -49,7 +50,7 @@ export function addProductDialog(
                     component: 'text-field',
                     type: 'filled',
                     inputType: 'text',
-                    name: 'uniqueCode',
+                    name: 'code',
                     label: i18n.msg('code'),
                     validator: validators('required', 'numeric'),
                     value: product?.code,
@@ -120,9 +121,9 @@ export function addProductDialog(
                       data.id = product.id;
                     }
 
-                    // await request('patch-product-storage', {
-                    //   data: [data],
-                    // });
+                    await request('patch-product-storage', {
+                      data: [data],
+                    });
                     request('product-storage', {});
                     dispatch('dialog', null);
                     dispatch('snack-bar', {
@@ -140,6 +141,48 @@ export function addProductDialog(
             activeSlide: 'product',
           },
         ],
+      },
+      {
+        component: 'button',
+        type: 'text',
+        hasIcon: true,
+        label: i18n.msg('delete'),
+        disabled: !(isEdit === true),
+        slot: 'footer',
+        slotList: [
+          {
+            component: 'icon',
+            type: 'svg',
+            slot: 'icon',
+            SVG: icons.outlineRounded.delete,
+          },
+        ],
+        customConfig: (target) => {
+          target.addEventListener('click', async () => {
+            if (product == null) return;
+
+            product.active = false;
+
+            target.disabled = true;
+            await request('patch-product-storage', {
+              data: [product],
+            });
+            target.disabled = false;
+
+            request('product-storage', {});
+            dispatch('dialog', null);
+            dispatch('snack-bar', {
+              component: 'snack-bar',
+              type: 'ellipsis-message',
+              message: i18n.msg('product-successfully-deleted'),
+              align: 'bottom',
+              duration: 2_000,
+              closeButton: true,
+            });
+          });
+
+          return target;
+        },
       },
       {
         component: 'button',
