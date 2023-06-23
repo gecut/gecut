@@ -20,7 +20,6 @@ on:
 env:
   REGISTRY: ghcr.io
   USERNAME: ${{ github.repository_owner }}
-  PASSWORD: ${{ secrets.GITHUB_TOKENS }}
   LIARA_TOKEN: ${{ secrets.LIARA_API_TOKEN }}
 
 jobs:
@@ -83,7 +82,7 @@ jobs:
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ env.USERNAME }}
-          password: ${{ env.PASSWORD }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: 🏗 Extract metadata
         id: meta
