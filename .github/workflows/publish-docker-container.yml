@@ -118,3 +118,11 @@ jobs:
             PACKAGE_SOURCE=${{ matrix.source }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Deploy On Lira
+        continue-on-error: true
+        env:
+          LIARA_TOKEN: ${{ secrets.LIARA_API_TOKEN }}
+        run: |
+          npm i -g @liara/cli@3
+          liara deploy --app="${{ matrix.image }}" --image "${{ env.REGISTRY }}/${{ env.USERNAME }}/${{ matrix.image }}" --port "80" --api-token="$LIARA_TOKEN" --detach
