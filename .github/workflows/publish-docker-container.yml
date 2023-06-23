@@ -32,25 +32,25 @@ jobs:
       matrix:
         include:
           - image: hami-pwa
-            tag: next
-            source: dist/apps/hami-pwa
+            source: apps/hami-pwa
+            distribution: dist/apps/hami-pwa
             dockerfile: cloud/pwa/Dockerfile
             description: Hami Project Progressive Web Application
           - image: hami-api
-            tag: next
-            source: dist/apps/hami-api
+            source: apps/hami-api
+            distribution: dist/apps/hami-api
             dockerfile: cloud/api/Dockerfile
             description: Hami Project API Server
 
-          - image: survey-pwa
-            tag: next
-            source: dist/apps/survey-pwa
-            dockerfile: cloud/pwa/Dockerfile
-            description: Survey Progressive Web Application
+          # - image: survey-pwa
+          #   source: apps/survey-pwa
+          #   distribution: dist/apps/survey-pwa
+          #   dockerfile: cloud/pwa/Dockerfile
+          #   description: Survey Progressive Web Application
 
           - image: storage-server
-            tag: next
-            source: dist/apps/services/storage-server
+            source: apps/services/storage-server
+            distribution: dist/apps/services/storage-server
             dockerfile: cloud/api/Dockerfile
             description: Storage Server Micro-service
 
@@ -99,7 +99,7 @@ jobs:
             org.opencontainers.image.authors=MM25Zamanian@gmail.com
             org.opencontainers.image.title=@gecut/${{ matrix.image }}
             org.opencontainers.image.description=${{ matrix.description }}
-            org.opencontainers.image.source = "https://github.com/gecut/gecut"
+            org.opencontainers.image.distribution = "https://github.com/gecut/gecut"
 
           tags: |
             type=semver,enable=true,pattern={{major}}
@@ -119,12 +119,12 @@ jobs:
           context: .
           file: ${{ matrix.dockerfile }}
           build-args: |
-            PACKAGE_SOURCE=${{ matrix.source }}
+            PACKAGE_SOURCE=${{ matrix.distribution }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
       - name: Deploy On Lira
-        continue-on-error: true
         run: |
           npm i -g @liara/cli@3
-          liara deploy --app="${{ matrix.image }}" --image "${{ env.REGISTRY }}/${{ env.USERNAME }}/${{ matrix.image }}:${{ matrix.tag }}" --port "80" --api-token="${{ env.LIARA_TOKEN }}" --detach
+          cd ${{ matrix.source }}
+          liara deploy --detach

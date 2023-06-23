@@ -1,0 +1,6 @@
+{
+  "platform": "docker",
+  "image": "ghcr.io/gecut/hami-api",
+  "app": "hami-api",
+  "port": 80
+}

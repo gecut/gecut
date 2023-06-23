@@ -1,0 +1,6 @@
+{
+  "platform": "docker",
+  "image": "ghcr.io/gecut/hami-pwa",
+  "app": "hami-pwa",
+  "port": 80
+}

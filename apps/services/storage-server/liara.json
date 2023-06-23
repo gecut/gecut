@@ -1,0 +1,12 @@
+{
+  "platform": "docker",
+  "image": "ghcr.io/gecut/storage-server",
+  "app": "search-app",
+  "port": 7700,
+  "disks": [
+    {
+      "name": "storage-server",
+      "mountTo": "/storage-server"
+    }
+  ]
+}
