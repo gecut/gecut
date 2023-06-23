@@ -4,6 +4,10 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+* {
+  font-family: var(--sys-font-family);
+}
+
 surface-card {
   .surface-card__title {
     font-family: var(--md-sys-typescale-title-large-font-family-name);
