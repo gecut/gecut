@@ -71,7 +71,7 @@
     "@alwatr/storage-client": "^1.0.0",
     "@alwatr/token": "^0.30.0",
     "@alwatr/type": "^1.0.0",
-    "@fontsource/roboto": "4.5.8",
+    "@fontsource/roboto": "5.0.3",
     "@fontsource/vazirmatn": "5.0.2",
     "@lit-labs/motion": "1.0.4-pre.0",
     "@lit-labs/virtualizer": "2.0.3",
