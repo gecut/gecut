@@ -1,8 +1,8 @@
 {
   "platform": "docker",
-  "image": "ghcr.io/gecut/storage-server",
-  "app": "search-app",
-  "port": 7700,
+  "image": "ghcr.io/gecut/storage-server:next",
+  "app": "storage-server",
+  "port": 80,
   "disks": [
     {
       "name": "storage-server",

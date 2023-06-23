@@ -1,6 +1,6 @@
 {
   "platform": "docker",
-  "image": "ghcr.io/gecut/hami-pwa",
+  "image": "ghcr.io/gecut/hami-pwa:next",
   "app": "hami-pwa",
   "port": 80
 }
