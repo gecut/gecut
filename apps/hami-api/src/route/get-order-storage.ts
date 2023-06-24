@@ -43,10 +43,13 @@ export async function orderModel(
     order.creatorId,
     config.userStorage
   );
-  const supplier = await storageClient.get<Projects.Hami.Supplier>(
-    order.supplierId,
-    config.supplierStorage
-  );
+  const supplier =
+    order.supplierId == 'no-supplier-id'
+      ? await storageClient.get<Projects.Hami.Supplier>(
+        order.supplierId,
+        config.supplierStorage
+      )
+      : null;
   const customer = await storageClient.get<Projects.Hami.Customer>(
     order.customerId,
     config.customerStorage

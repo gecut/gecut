@@ -13,7 +13,7 @@ export function orderStatusSelect(
     value,
     name: 'status',
     styles: {
-      "z-index": 'var(--sys-zindex-dropdown)',
+      'z-index': 'var(--sys-zindex-dropdown)',
     },
     slotList: Projects.Hami.orderStatusList.map((status) => ({
       component: 'select-option',

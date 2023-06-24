@@ -169,7 +169,7 @@ export class AppRoot extends signalElement {
         <div class="fixed"></div>
       </main>
 
-      ${AppRoot.renderNavigationBar(
+      ${this.renderNavigationBar(
     config.navigationTabs,
     this.bottomAppBarHidden
   )}
@@ -199,13 +199,20 @@ export class AppRoot extends signalElement {
     return html`<top-app-bar .content=${content}></top-app-bar>`;
   }
 
-  static renderNavigationBar(
+  private renderNavigationBar(
     navigationTabs: M3.Types.NavigationTabContent[],
     hidden = false
   ): RenderResult {
+    this.log.methodArgs?.('renderNavigationBar', {
+      navigationTabs,
+      hidden,
+    });
+
     if (hidden === true) return nothing;
 
-    const navigationTabsTemplate = navigationTabs.map(this.renderNavigationTab);
+    const navigationTabsTemplate = navigationTabs.map((tab) =>
+      this.renderNavigationTab(tab)
+    );
 
     return html`
       <md-navigation-bar .activeIndex=${0}>
@@ -214,13 +221,24 @@ export class AppRoot extends signalElement {
     `;
   }
 
-  static renderNavigationTab(tab: M3.Types.NavigationTabContent): RenderResult {
+  private renderNavigationTab(
+    tab: M3.Types.NavigationTabContent
+  ): RenderResult {
+    const tabSlug = tab.link.split('/')[1];
+    const activeSlug = location.pathname.split('/')[1];
+
+    this.log.methodArgs?.('renderNavigationTab', {
+      tab,
+      tabSlug,
+      activeSlug,
+    });
+
     return html`
       <a class="navigation-tab" href=${tab.link}>
         <md-navigation-tab
           .label=${tab.label}
           .badgeValue=${tab.badgeValue ?? ''}
-          ?active=${tab.link === location.pathname}
+          ?active=${tabSlug === activeSlug}
           ?showBadge=${tab.showBadge}
           hideInactiveLabel
         >
@@ -244,21 +262,25 @@ export class AppRoot extends signalElement {
       oldFAB.remove();
     });
 
+    await new Promise<void>((resolve) =>
+      requestAnimationFrame(() => resolve())
+    );
+
     let bottom = 16;
 
-    for await (const content of contents) {
-      const fab = this.fixedDivision.appendChild(
-        M3.Renderers.renderFAB({
-          styles: {
-            position: 'absolute',
-            bottom: bottom + 'px',
-            'inset-inline-end': '16px',
-            'z-index': 'var(--sys-zindex-sticky)',
-          },
+    for (const content of contents) {
+      const fab = M3.Renderers.renderFAB({
+        styles: {
+          position: 'absolute',
+          bottom: bottom + 'px',
+          'inset-inline-end': '16px',
+          'z-index': 'var(--sys-zindex-sticky)',
+        },
 
-          ...content,
-        })
-      );
+        ...content,
+      });
+
+      this.fixedDivision.append(fab);
 
       await new Promise<void>((resolve) =>
         requestAnimationFrame(() => resolve())
