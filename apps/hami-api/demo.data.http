@@ -1,4 +1,4 @@
-@apiUrl = http://0.0.0.0:3000/api/v0
+@apiUrl = https://api.hami-app.ir
 @accessToken = YOUR_SECRET_TOKEN
 @userAdminToken = g6y6OMr9DuRYHpoAyH2iJ-WddGUKqE-UTsym013-o8I
 @adminToken = ADMIN_SECRET_TOKEN
@@ -22,17 +22,6 @@ Content-Type: application/json
 
       "gender": "male",
       "email": "mm25zamanian@gmail.com"
-    },
-    {
-      "firstName": "مهدیار",
-      "lastName": "صهبائی",
-
-      "phoneNumber": "09123456789",
-      "password": "abc1234",
-
-      "role": "seller",
-
-      "gender": "male"
     }
   ]
 }
