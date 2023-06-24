@@ -36,11 +36,14 @@ jobs:
             distribution: dist/apps/hami-pwa
             dockerfile: cloud/pwa/Dockerfile
             description: Hami Project Progressive Web Application
+            liara_deploy: true
+
           - image: hami-api
             source: apps/hami-api
             distribution: dist/apps/hami-api
             dockerfile: cloud/api/Dockerfile
             description: Hami Project API Server
+            liara_deploy: true
 
           # - image: survey-pwa
           #   source: apps/survey-pwa
@@ -53,6 +56,7 @@ jobs:
             distribution: dist/apps/services/storage-server
             dockerfile: cloud/api/Dockerfile
             description: Storage Server Micro-service
+            liara_deploy: true
 
     permissions:
       contents: read
@@ -92,7 +96,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4.6.0
         with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           images: name=${{ env.REGISTRY }}/${{ env.USERNAME }}/${{ matrix.image }},enable=true
 
           labels: |
@@ -123,8 +127,13 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Deploy On Lira
-        run: |
-          npm i -g @liara/cli@3
-          cd ${{ matrix.source }}
-          liara deploy --api-token="${{ env.LIARA_TOKEN }}" --detach
+      - name: 🚀 Deploy On Lira
+        if: ${{ matrix.liara_deploy == true }}
+        uses: nick-fields/retry@v2
+        with:
+          timeout_minutes: 2
+          max_attempts: 3
+          command: |
+            npm i -g @liara/cli@3
+            cd ${{ matrix.source }}
+            liara deploy --api-token="${{ env.LIARA_TOKEN }}" --detach
