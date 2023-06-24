@@ -1,5 +1,7 @@
 import add from 'virtual:icons/material-symbols/add-rounded';
 import alternateEmail from 'virtual:icons/material-symbols/alternate-email-rounded';
+import arrowBack from 'virtual:icons/material-symbols/arrow-back-rounded';
+import arrowForward from 'virtual:icons/material-symbols/arrow-forward-rounded';
 import attachMoney from 'virtual:icons/material-symbols/attach-money-rounded';
 import awardStar from 'virtual:icons/material-symbols/award-star-rounded';
 import category from 'virtual:icons/material-symbols/category-rounded';
@@ -19,6 +21,8 @@ export const filledRounded = {
   add,
   alternateEmail,
   attachMoney,
+  arrowBack,
+  arrowForward,
   awardStar,
   category,
   logout: logOut,

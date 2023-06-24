@@ -7,12 +7,18 @@ import proxyConfig from '../proxy.conf.json';
 import fa from './content/translation/fa-IR.json';
 import { urlForName } from './ui/router';
 
+import type { States } from './ui/pages/new-order/new-order.base';
 import type { AlwatrServiceResponse } from '@alwatr/type';
 import type { LocaleFileType } from '@gecut/i18n';
-import type { Projects, StringifyableRecord } from '@gecut/types';
+import type { PartialDeep, Projects, StringifyableRecord } from '@gecut/types';
 import type { M3 } from '@gecut/ui-kit';
 
 i18n.register(fa as LocaleFileType);
+
+export type NewOrder = PartialDeep<
+  Projects.Hami.Order,
+  { recurseIntoArrays: true }
+>;
 
 declare global {
   interface Signals extends Projects.Hami.Routes {
@@ -38,6 +44,10 @@ declare global {
     readonly dialog: M3.Types.DialogContent | null;
     readonly fab: M3.Types.FABContent[];
     readonly 'promises-list': string[];
+
+    readonly 'new-order-state': 'next' | 'previous' | States;
+    readonly 'new-order': Partial<NewOrder>;
+    readonly 'order': Projects.Hami.Order;
   }
   interface Providers
     extends Record<keyof Projects.Hami.Routes, Record<string, never>> {

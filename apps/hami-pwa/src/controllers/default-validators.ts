@@ -1,12 +1,18 @@
 import i18n from '@gecut/i18n';
 
+import { logger } from './logger';
+
 import type { Rules } from '@gecut/form-validator';
 
 export const validators = (...rules: Rules[number]['rule'][]): Rules => {
+  logger.methodArgs?.('validators', {
+    rules,
+  });
+
   return rules.map((rule) => validator(rule));
 };
 
-export const validator = (rule: Rules[number]['rule']): Rules[number] => {
+const validator = (rule: Rules[number]['rule']): Rules[number] => {
   switch (rule) {
   case 'phone':
     return {

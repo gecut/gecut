@@ -1,28 +1,26 @@
 import icons from '#hami/ui/icons';
-import { routerGo, urlForName } from '#hami/ui/router';
 
-import i18n from '@gecut/i18n';
+import { dispatch } from '@gecut/signal';
 
 import type { M3 } from '@gecut/ui-kit';
 
-export function newOrderFAB(): M3.Types.FABContent {
+export function previousPageFAB(): M3.Types.FABContent {
   return {
     component: 'fab',
     type: 'fab',
     size: 'medium',
-    variant: 'primary',
-    label: i18n.msg('new-order'),
+    variant: 'surface',
     slotList: [
       {
         component: 'icon',
         type: 'svg',
-        SVG: icons.filledRounded.add,
         slot: 'icon',
+        SVG: icons.filledRounded.arrowBack,
       },
     ],
     customConfig: (target) => {
       target.addEventListener('click', () => {
-        routerGo(urlForName('NewOrder'));
+        dispatch('new-order-state', 'previous');
       });
 
       return target;

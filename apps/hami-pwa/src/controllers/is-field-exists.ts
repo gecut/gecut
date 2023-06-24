@@ -1,7 +1,13 @@
+import { logger } from './logger';
+
 export function isFieldExits(value: string) {
   value = value.trim();
 
-  if (value === '' || value.indexOf('no') === 0) return false;
+  const isExists = !(value === '' || value.indexOf('no') === 0);
+
+  logger.methodFull?.('isFieldExits', { value }, isExists);
+
+  if (isExists === true) return false;
 
   return true;
 }

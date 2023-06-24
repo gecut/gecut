@@ -19,7 +19,7 @@ export type FormCheckboxContent = M3.Types.CheckboxContent & {
 export type FormComponent =
   | FormTextFieldContent
   | FormButtonContent
-  | FormSelectContent
+  | FormSelectContent;
 export type FormRow = SingleOrArray<FormComponent>;
 export type FormSlide = Array<FormRow>;
 export type Form = {
@@ -32,15 +32,15 @@ export type FormOnSubmit = {
   ev: Event;
   component: FormComponent;
   form: Form;
-  values: FormValues<Form> | undefined;
+  values: FormValues | undefined;
   validate: boolean;
 };
-export type FormOnChange = { ev: Event; component: FormComponent; form: Form };
+export type FormOnChange = {
+  ev: Event;
+  component: FormComponent;
+  form: Form;
+  values: FormValues | undefined;
+  validate: boolean;
+};
 
-export type FormValues<TForm extends Form | undefined> = TForm extends Form
-  ? {
-      [TSlide in keyof TForm['slides']]: {
-        [TComponent in keyof TForm['slides'][TSlide]]: TForm['slides'][TSlide][TComponent];
-      };
-    }
-  : undefined;
+export type FormValues = Record<string, Record<string, string>>;

@@ -320,13 +320,15 @@ export class FormBuilder extends loggerElement {
     return nothing;
   }
 
-  get values(): FormValues<(typeof this)['data']> | undefined {
+  get values(): FormValues | undefined {
     if (this.data?.slides == null) return undefined;
 
-    const formValues = Object.entries(this.data.slides).map(
-      ([slideName, slideForm]) => {
-        const formRowsValues = slideForm.map((row) => {
-          const rowValues = [row]
+    const formValues = Object.entries(
+      this.data.slides
+    ).map(([slideName, slideForm]): [string, Record<string, string>] => {
+      const formRowsValues = slideForm
+        .map((row) => {
+          const rowValues: [string, string][] = [row]
             .flat()
             .filter(
               (component) =>
@@ -339,11 +341,11 @@ export class FormBuilder extends loggerElement {
             ]);
 
           return rowValues;
-        });
+        })
+        .flat();
 
-        return [slideName, Object.fromEntries(formRowsValues.flat())];
-      }
-    );
+      return [slideName, Object.fromEntries(formRowsValues)];
+    });
 
     return Object.fromEntries(formValues);
   }
@@ -393,7 +395,13 @@ export class FormBuilder extends loggerElement {
 
   private onChange(event: Event, component: FormComponent) {
     if (this.data != null) {
-      const detail = { ev: event, component, form: this.data };
+      const detail = {
+        ev: event,
+        component,
+        form: this.data,
+        values: this.values,
+        validate: this.validate,
+      };
 
       this.dispatchEvent(
         new CustomEvent('change', {
