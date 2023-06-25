@@ -8,10 +8,10 @@ import type { User } from './user.js';
 import type { ArrayValues, StringifyableRecord } from '../type-helper.js';
 
 export interface OrderModel extends Order {
-  creator: User;
-  customer: Customer;
-  customerProject: CustomerProject;
-  supplier: Supplier;
+  creator?: User;
+  customer?: Customer;
+  customerProject?: CustomerProject;
+  supplier?: Supplier;
   productList: OrderProductModel[];
 }
 
@@ -28,11 +28,11 @@ export const orderStatusList = [
 ] as const;
 
 export interface Order extends AlwatrDocumentObjectActive {
-  creatorId: string;
-  supplierId: string;
-  customerId: string;
-  customerProjectId: string;
-  description: string;
+  creatorId?: string;
+  supplierId?: string;
+  customerId?: string;
+  customerProjectId?: string;
+  description?: string;
   registrationDate: number;
   evacuationDate: number;
   status: ArrayValues<typeof orderStatusList>;
@@ -52,11 +52,11 @@ export const orderRequire: RequireFunc<Order> = (
   order: Partial<Order>
 ): Order => ({
   id: 'auto_increment',
-  creatorId: 'no-creator-id',
-  customerId: 'no-customer-id',
-  supplierId: 'no-supplier-id',
-  customerProjectId: 'no-customer-project-id',
-  description: 'no-description',
+  creatorId: undefined,
+  customerId: undefined,
+  supplierId: undefined,
+  customerProjectId: undefined,
+  description: undefined,
   evacuationDate: 0,
   registrationDate: 0,
   productList: [],

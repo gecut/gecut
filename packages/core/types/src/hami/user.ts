@@ -12,18 +12,18 @@ export interface UserModel extends User {
 }
 
 export interface User extends AlwatrDocumentObjectActive {
-  firstName: string;
-  lastName: string;
+  firstName?: string;
+  lastName?: string;
 
-  phoneNumber: string;
-  password: string;
+  email?: string;
+  phoneNumber?: string;
+  password?: string;
 
   score: number;
 
   role: ArrayValues<typeof userRoleList>;
 
-  gender?: ArrayValues<typeof userGenderList>;
-  email?: string;
+  gender: ArrayValues<typeof userGenderList>;
 }
 
 export type SignInRequest = Pick<User, 'phoneNumber' | 'password'>;
@@ -49,16 +49,16 @@ export type UserResponse = Pick<
  */
 export const userRequire = (user: Partial<User>): User => ({
   id: 'auto_increment',
-  firstName: 'no-first-name',
-  lastName: 'no-last-name',
-  phoneNumber: 'no-phone-number',
-  password: 'no-password',
+  firstName: undefined,
+  lastName: undefined,
+  phoneNumber: undefined,
+  password: undefined,
+  email: undefined,
   score: 0,
   role: 'seller',
   active: true,
 
-  gender: undefined,
-  email: undefined,
+  gender: 'male',
 
   ...user,
 });

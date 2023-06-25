@@ -7,7 +7,7 @@
     "declaration": true,
     "inlineSources": true,
     "types": [],
-    "lib": ["DOM", "ESNext"]
+    "lib": ["DOM", "ESNext", "DOM.Iterable"]
   },
   "include": ["src/**/*.ts"],
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"]

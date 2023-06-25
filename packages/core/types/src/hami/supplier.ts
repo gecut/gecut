@@ -10,11 +10,11 @@ export interface SupplierModel extends Supplier {
 export interface Supplier extends AlwatrDocumentObjectActive {
   uniqueCode: string;
 
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  address: string;
-  description: string;
+  firstName?: string;
+  lastName?: string;
+  phoneNumber?: string;
+  address?: string;
+  description?: string;
 
   phoneNumberList: SupplierPhoneNumber[];
 }
@@ -29,11 +29,11 @@ export const supplierRequire: RequireFunc<Supplier> = (
 ): Supplier => ({
   id: 'auto_increment',
   uniqueCode: 'no-unique-code',
-  firstName: 'no-first-name',
-  lastName: 'no-last-name',
-  address: 'no-address',
-  description: 'no-description',
-  phoneNumber: 'no-phone-number',
+  firstName: undefined,
+  lastName: undefined,
+  address: undefined,
+  description: undefined,
+  phoneNumber: undefined,
   phoneNumberList: [],
   active: true,
 

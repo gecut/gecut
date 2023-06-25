@@ -6,23 +6,21 @@ export interface CustomerProjectModel extends CustomerProject {
 }
 
 export interface CustomerProject extends AlwatrDocumentObjectActive {
-  id: string;
+  projectName?: string;
+  projectAddress?: string;
 
-  projectName: string;
-  projectAddress: string;
-
-  supervisorName: string;
-  supervisorPhone: string;
+  supervisorName?: string;
+  supervisorPhone?: string;
 }
 
 export const customerProjectRequire: RequireFunc<CustomerProject> = (
   customerProject: Partial<CustomerProject>
 ): CustomerProject => ({
   id: 'auto_increment',
-  projectAddress: 'no-project-address',
-  projectName: 'no-project-name',
-  supervisorName: 'no-supervisor-name',
-  supervisorPhone: 'no-supervisor-phone',
+  projectAddress: undefined,
+  projectName: undefined,
+  supervisorName: undefined,
+  supervisorPhone: undefined,
   active: true,
 
   ...customerProject,
