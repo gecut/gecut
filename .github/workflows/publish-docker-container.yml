@@ -131,9 +131,7 @@ jobs:
         if: ${{ matrix.liara_deploy == true }}
         uses: nick-fields/retry@v2
         with:
-          timeout_minutes: 2
-          max_attempts: 3
+          max_attempts: 10
           command: |
-            npm i -g @liara/cli@3
             cd ${{ matrix.source }}
-            liara deploy --api-token="${{ env.LIARA_TOKEN }}" --detach
+            npx @liara/cli deploy --api-token="${{ env.LIARA_TOKEN }}" --detach
