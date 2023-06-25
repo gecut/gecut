@@ -131,6 +131,7 @@ jobs:
         if: ${{ matrix.liara_deploy == true }}
         uses: nick-fields/retry@v2
         with:
+          timeout_minutes: 3
           max_attempts: 10
           command: |
             cd ${{ matrix.source }}
