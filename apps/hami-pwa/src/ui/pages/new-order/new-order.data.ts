@@ -4,6 +4,7 @@ import { previousPageFAB } from '#hami/content/fabs/previous-page-fab';
 import { submitFAB } from '#hami/content/fabs/submit-page-fab';
 import { enterDateValuesPage } from '#hami/content/pages/enter-date-values-page';
 import { enterProductsValuesPage } from '#hami/content/pages/enter-products-values-page';
+import { reviewPage } from '#hami/content/pages/review-page';
 import { selectCustomerPage } from '#hami/content/pages/select-customer-page';
 import { selectProductsPage } from '#hami/content/pages/select-products-page';
 import { selectProjectPage } from '#hami/content/pages/select-project-page';
@@ -48,10 +49,10 @@ export class NewOrderData extends NewOrderBase<Data> {
   protected fabStates: StateManager<States, M3.Types.FABContent[]> = {
       customers: () => [nextPageFAB()],
       projects: () => [previousPageFAB(), nextPageFAB()],
-      products: () => [],
-      quantities: () => [],
-      date: () => [previousPageFAB(), submitFAB()],
-      review: () => [previousPageFAB()],
+      products: () => [previousPageFAB(), nextPageFAB()],
+      quantities: () => [previousPageFAB(), nextPageFAB()],
+      date: () => [previousPageFAB(), nextPageFAB()],
+      review: () => [previousPageFAB(), submitFAB()],
     };
 
   @state()
@@ -73,7 +74,17 @@ export class NewOrderData extends NewOrderBase<Data> {
           this.order
         ),
       date: () => enterDateValuesPage(this.order),
-      review: () => [],
+      review: () => {
+        const customer = Object.values(this.customerStorage?.data ?? {}).find(
+          (customer) => customer.id === this.order.customerId
+        );
+        const customerProject = customer?.projectList.find(
+          (project) => project.id === this.order.customerProjectId
+        );
+        const productList = Object.values(this.productStorage?.data ?? {});
+
+        return reviewPage(this.order, customer, customerProject, productList);
+      },
     };
 
   override connectedCallback(): void {
