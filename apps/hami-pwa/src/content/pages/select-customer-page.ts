@@ -4,6 +4,7 @@ import icons from '#hami/ui/icons';
 import i18n from '@gecut/i18n';
 import { dispatch } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
+import { gecutAnimationFrame } from '@gecut/utilities';
 import { flow } from '@lit-labs/virtualizer/layouts/flow.js';
 import { html } from 'lit';
 
@@ -53,7 +54,7 @@ function customerItem(
         if (radio != null) {
           radio.checked = true;
 
-          requestAnimationFrame(() => {
+          gecutAnimationFrame(() => {
             dispatch('new-order', {
               customerId: radio.value,
             });
@@ -95,7 +96,9 @@ function customersListCard(
   if (query.trim() !== '') {
     customers = customers.filter((customer) =>
       String(
-        customer.firstName + customer.lastName + customer.phoneNumber
+        customer?.firstName ??
+          '' + customer?.lastName ??
+          '' + customer.phoneNumber
       ).includes(query)
     );
   }

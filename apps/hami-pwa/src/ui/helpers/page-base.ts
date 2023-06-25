@@ -4,6 +4,7 @@ import pageStyle from '#hami/ui/stylesheets/page.scss?inline';
 
 import { scheduleSignalElement } from '@gecut/mixins';
 import { dispatch, getValue, request } from '@gecut/signal';
+import { gecutIdleCallback } from '@gecut/utilities';
 import { unsafeCSS } from 'lit';
 
 import { urlForName } from '../router';
@@ -29,7 +30,7 @@ export abstract class PageBase<
 
     this.addEventListener('scroll', this.topAppBarChangeMode);
 
-    requestIdleCallback(() => {
+    gecutIdleCallback(() => {
       this.topAppBarToggleMode();
     });
   }
@@ -79,7 +80,7 @@ export abstract class PageBase<
       cancelIdleCallback(this.topAppBarChangeModeDebounce);
     }
 
-    this.topAppBarChangeModeDebounce = requestIdleCallback(() =>
+    this.topAppBarChangeModeDebounce = gecutIdleCallback(() =>
       this.topAppBarToggleMode()
     );
   }

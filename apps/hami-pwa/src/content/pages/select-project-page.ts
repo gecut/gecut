@@ -4,6 +4,7 @@ import icons from '#hami/ui/icons';
 import i18n from '@gecut/i18n';
 import { dispatch } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
+import { gecutAnimationFrame } from '@gecut/utilities';
 import { flow } from '@lit-labs/virtualizer/layouts/flow.js';
 import { html } from 'lit';
 
@@ -51,7 +52,7 @@ function projectItem(
         if (radio != null) {
           radio.checked = true;
 
-          requestAnimationFrame(() => {
+          gecutAnimationFrame(() => {
             dispatch('new-order', {
               customerProjectId: radio.value,
             });

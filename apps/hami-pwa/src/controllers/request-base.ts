@@ -2,6 +2,7 @@ import config from '#hami/config';
 import { getByErrorCode } from '#hami/controllers/api-server-error-message';
 
 import { dispatch, request } from '@gecut/signal';
+import { gecutAnimationFrame } from '@gecut/utilities';
 import ky from 'ky';
 
 import type { AlwatrServiceResponseFailed } from '@alwatr/type';
@@ -26,7 +27,7 @@ const promisesListSignalToggle = (
     cancelAnimationFrame(requestDebounceObject[`${type}-${key}`]);
   }
 
-  requestDebounceObject[`${type}-${key}`] = requestAnimationFrame(() => {
+  requestDebounceObject[`${type}-${key}`] = gecutAnimationFrame(() => {
     request('promises-list', {
       key,
       type,

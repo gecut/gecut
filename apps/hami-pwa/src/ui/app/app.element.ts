@@ -7,6 +7,7 @@ import { attachRouter } from '#hami/ui/router';
 import { signalElement } from '@gecut/mixins';
 import { dispatch } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
+import { gecutAnimationFrame } from '@gecut/utilities';
 import '@material/web/icon/icon';
 import '@material/web/labs/navigationbar/navigation-bar';
 import '@material/web/labs/navigationtab/navigation-tab';
@@ -262,9 +263,7 @@ export class AppRoot extends signalElement {
       oldFAB.remove();
     });
 
-    await new Promise<void>((resolve) =>
-      requestAnimationFrame(() => resolve())
-    );
+    await new Promise<void>((resolve) => gecutAnimationFrame(() => resolve()));
 
     let bottom = 16;
 
@@ -283,7 +282,7 @@ export class AppRoot extends signalElement {
       this.fixedDivision.append(fab);
 
       await new Promise<void>((resolve) =>
-        requestAnimationFrame(() => resolve())
+        gecutAnimationFrame(() => resolve())
       );
 
       bottom += fab.getBoundingClientRect().height + 16;
@@ -325,7 +324,7 @@ export class AppRoot extends signalElement {
 
     this.fixedDivision.appendChild(dialog);
 
-    requestAnimationFrame(() => {
+    gecutAnimationFrame(() => {
       dialog.open = true;
     });
   }
