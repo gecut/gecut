@@ -1,3 +1,6 @@
+import { isFieldExits } from '#hami/lib/isExists';
+import { when } from '#hami/lib/when';
+
 import { config, logger } from '../lib/config';
 import { nanoServer } from '../lib/server';
 import { storageClient } from '../lib/storage';
@@ -39,26 +42,6 @@ nanoServer.route(
 export async function orderModel(
   order: Projects.Hami.Order
 ): Promise<Projects.Hami.OrderModel> {
-  const creator = await storageClient.get<Projects.Hami.User>(
-    order.creatorId,
-    config.userStorage
-  );
-  const supplier =
-    order.supplierId == 'no-supplier-id'
-      ? await storageClient.get<Projects.Hami.Supplier>(
-        order.supplierId,
-        config.supplierStorage
-      )
-      : null;
-  const customer = await storageClient.get<Projects.Hami.Customer>(
-    order.customerId,
-    config.customerStorage
-  );
-  const customerProject =
-    await storageClient.get<Projects.Hami.CustomerProject>(
-      order.customerProjectId,
-      config.customerProjectStoragePrefix + order.customerId
-    );
   const productStorage = await storageClient.getStorage<Projects.Hami.Product>(
     config.productStorage
   );
@@ -74,10 +57,38 @@ export async function orderModel(
   return {
     ...order,
 
-    creator,
-    customer,
-    customerProject,
-    supplier,
+    creator: await when(
+      isFieldExits(order.creatorId),
+      async () =>
+        await storageClient.get<Projects.Hami.User>(
+          order.creatorId,
+          config.userStorage
+        )
+    ),
+    customer: await when(
+      isFieldExits(order.customerId),
+      async () =>
+        await storageClient.get<Projects.Hami.Supplier>(
+          order.customerId,
+          config.supplierStorage
+        )
+    ),
+    customerProject: await when(
+      isFieldExits(order.customerId),
+      async () =>
+        await storageClient.get<Projects.Hami.CustomerProject>(
+          order.customerProjectId,
+          config.customerProjectStoragePrefix + order.customerId
+        )
+    ),
+    supplier: await when(
+      isFieldExits(order.supplierId),
+      async () =>
+        await storageClient.get<Projects.Hami.Supplier>(
+          order.supplierId,
+          config.supplierStorage
+        )
+    ),
     productList,
   };
 }
