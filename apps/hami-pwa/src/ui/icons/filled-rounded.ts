@@ -5,6 +5,7 @@ import arrowForward from 'virtual:icons/material-symbols/arrow-forward-rounded';
 import attachMoney from 'virtual:icons/material-symbols/attach-money-rounded';
 import awardStar from 'virtual:icons/material-symbols/award-star-rounded';
 import category from 'virtual:icons/material-symbols/category-rounded';
+import corporateFare from 'virtual:icons/material-symbols/corporate-fare-rounded';
 import done from 'virtual:icons/material-symbols/done-rounded';
 import grading from 'virtual:icons/material-symbols/grading-rounded';
 import group from 'virtual:icons/material-symbols/group-rounded';
@@ -25,6 +26,7 @@ export const filledRounded = {
   arrowForward,
   awardStar,
   category,
+  corporateFare,
   logout: logOut,
   done,
   grading,
