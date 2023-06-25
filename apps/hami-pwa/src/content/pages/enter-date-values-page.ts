@@ -22,12 +22,6 @@ function dateCard(order: Partial<NewOrder>): M3.Types.SurfaceCardContent {
     },
     slotList: [
       {
-        component: 'typography',
-        type: 'h1',
-        slotList: [i18n.msg('date')],
-        classes: ['surface-card__title'],
-      },
-      {
         component: 'form-builder',
         type: 'form-builder',
         styles: {
@@ -40,17 +34,14 @@ function dateCard(order: Partial<NewOrder>): M3.Types.SurfaceCardContent {
         data: {
           slides: {
             initial: [
-              dateSelect(
-                order.registrationDate,
-                'registrationDate',
-                i18n.msg('registration-date'),
-                1
-              ),
-              dateSelect(
-                order.evacuationDate,
-                'evacuationDate',
-                i18n.msg('evacuation-date')
-              ),
+              dateSelect(order.registrationDate, {
+                name: 'registrationDate',
+                label: i18n.msg('registration-date'),
+              }),
+              dateSelect(order.evacuationDate, {
+                name: 'evacuationDate',
+                label: i18n.msg('evacuation-date'),
+              }),
             ],
           },
           onChange: (event) => {

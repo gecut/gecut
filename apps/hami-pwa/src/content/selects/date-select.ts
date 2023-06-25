@@ -1,43 +1,27 @@
+import { rangeDates } from '#hami/controllers/range-dates';
+
 import i18n from '@gecut/i18n';
 
 import type { FormSelectContent } from '@gecut/form-builder';
 import type { M3 } from '@gecut/ui-kit';
 
-const getDatesBetween = (
-  startDate: Date,
-  endDate: Date,
-  includeEndDate?: boolean
-) => {
-  const dates = [];
-  const currentDate = startDate;
-  while (currentDate < endDate) {
-    dates.push(new Date(currentDate));
-    currentDate.setDate(currentDate.getDate() + 1);
-  }
-  if (includeEndDate) dates.push(endDate);
-  return dates;
-};
-
-const now = new Date().setDate(0);
-const now1 = new Date().setDate(30);
-const dateList = getDatesBetween(new Date(now), new Date(now1), true);
+const dateList = rangeDates();
 
 export function dateSelect(
   date = new Date().getTime(),
-  name: string,
-  title: string,
-  index = 0
+  options?: Partial<FormSelectContent>
 ): FormSelectContent {
-  const value = new Date(date).getTime().toString();
+  const _date = new Date(date);
+  const value = dateList
+    .find((__date) => _date.getDate() === __date.getDate())
+    ?.getTime()
+    .toString();
 
   return {
     component: 'select',
     type: 'filled',
-    label: title,
     value,
-    name,
     styles: {
-      'z-index': index == 0 ? 'var(--sys-zindex-dropdown)' : '1000',
       'min-width': '10vw',
     },
     slotList: dateList.map(
@@ -50,5 +34,7 @@ export function dateSelect(
         }),
       })
     ),
+
+    ...(options ?? {}),
   };
 }

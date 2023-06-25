@@ -50,12 +50,13 @@ function productItem(
         if (checkbox != null) {
           let productList = order.productList ?? [];
 
-          const isExists =
-            productList
-              .map((product) => product?.productId)
-              .includes(checkbox.value) === true;
+          const isExists = productList
+            .map((product) => {
+              console.log(product);
 
-          console.log('fuck', { productList, isExists });
+              return product?.productId == checkbox.value;
+            })
+            .reduce((p, c) => p || c, false);
 
           if (isExists) {
             productList = productList.filter(
@@ -63,16 +64,17 @@ function productItem(
             );
           } else {
             productList.push({
+              discount: 0,
+              unit: product.unit,
               productId: checkbox.value,
             });
           }
 
           checkbox.checked = !isExists;
+          order.productList = productList;
 
-          requestAnimationFrame(() => {
-            dispatch('new-order', {
-              productList,
-            });
+          dispatch('new-order', {
+            productList,
           });
         }
       });

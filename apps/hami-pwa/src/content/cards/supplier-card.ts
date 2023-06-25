@@ -1,3 +1,4 @@
+import { dataSanitize } from '#hami/controllers/data-sanitize';
 import { isFieldExits } from '#hami/controllers/is-field-exists';
 import icons from '#hami/ui/icons';
 
@@ -27,7 +28,7 @@ export function supplierCard(
       {
         component: 'typography',
         type: 'h1',
-        slotList: [supplier.firstName, ' ', supplier.lastName],
+        slotList: [dataSanitize(supplier.firstName), ' ', dataSanitize(supplier.lastName)],
         classes: ['surface-card__title'],
       },
       {
@@ -60,7 +61,7 @@ export function supplierCard(
         slotList: [
           i18n.msg('phone-number'),
           ': ',
-          i18n.phone(supplier.phoneNumber, true),
+          i18n.phone(dataSanitize(supplier.phoneNumber), true),
         ],
         classes: ['surface-card__paragraph'],
       },
@@ -78,14 +79,14 @@ export function supplierCard(
         component: 'typography',
         type: 'p',
         hidden: isFieldExits(supplier.address) === false,
-        slotList: [i18n.msg('address'), ': ', supplier.address],
+        slotList: [i18n.msg('address'), ': ', dataSanitize(supplier.address)],
         classes: ['surface-card__paragraph'],
       },
       {
         component: 'typography',
         type: 'p',
         hidden: isFieldExits(supplier.description) === false,
-        slotList: [i18n.msg('description'), ': ', supplier.description],
+        slotList: [i18n.msg('description'), ': ', dataSanitize(supplier.description)],
         classes: ['surface-card__paragraph'],
       },
       // {

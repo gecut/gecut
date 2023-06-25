@@ -35,7 +35,7 @@ function projectItem(
         component: 'icon',
         type: 'svg',
         slot: 'start',
-        SVG: icons.filled.corporateFare,
+        SVG: icons.filledRounded.corporateFare,
       },
       {
         component: 'radio',

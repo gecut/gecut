@@ -1,9 +1,12 @@
+import { dataSanitize } from '#hami/controllers/data-sanitize';
+import { isFieldExits } from '#hami/controllers/is-field-exists';
 import icons from '#hami/ui/icons';
 
 import i18n from '@gecut/i18n';
 import { dispatch } from '@gecut/signal';
 
 import { editOrderDialog } from '../dialogs/edit-order-dialog';
+import { logger } from '../logger';
 
 import type { Projects } from '@gecut/types';
 import type { M3 } from '@gecut/ui-kit';
@@ -13,6 +16,8 @@ export function orderCard(
   editable = false,
   suppliers: Projects.Hami.Supplier[] = []
 ): M3.Types.SurfaceCardContent {
+  logger.methodArgs?.('orderCard', { order, editable, suppliers });
+
   return {
     component: 'surface-card',
     type: 'elevated',
@@ -80,10 +85,13 @@ export function orderCard(
         slotList: [
           i18n.msg('customer-name'),
           ': ',
-          order.customer.firstName,
+          dataSanitize(order.customer?.firstName),
           ' ',
-          order.customer.lastName,
+          dataSanitize(order.customer?.lastName),
         ],
+        hidden:
+          isFieldExits(order.customer?.firstName, order.customer?.lastName) ===
+          false,
         classes: ['surface-card__paragraph'],
       },
       {
@@ -92,17 +100,24 @@ export function orderCard(
         slotList: [
           i18n.msg('supplier-name'),
           ': ',
-          order.supplier.firstName,
+          dataSanitize(order.supplier?.firstName),
           ' ',
-          order.supplier.lastName,
+          dataSanitize(order.supplier?.lastName),
         ],
+        hidden:
+          isFieldExits(order.supplier?.firstName, order.supplier?.lastName) ===
+          false,
         classes: ['surface-card__paragraph'],
       },
       {
         component: 'typography',
         type: 'p',
-        hidden: order.description === 'no-description',
-        slotList: [i18n.msg('description'), ': ', order.description],
+        slotList: [
+          i18n.msg('description'),
+          ': ',
+          dataSanitize(order.description),
+        ],
+        hidden: isFieldExits(order.description) === false,
         classes: ['surface-card__paragraph'],
       },
       {
@@ -111,10 +126,13 @@ export function orderCard(
         slotList: [
           i18n.msg('creator'),
           ': ',
-          order.creator.firstName,
+          dataSanitize(order.creator?.firstName),
           ' ',
-          order.creator.lastName,
+          dataSanitize(order.creator?.lastName),
         ],
+        hidden:
+          isFieldExits(order.creator?.firstName, order.creator?.lastName) ===
+          false,
         classes: ['surface-card__paragraph'],
       },
       {
@@ -123,8 +141,9 @@ export function orderCard(
         slotList: [
           i18n.msg('project-address'),
           ': ',
-          order.customerProject.projectAddress,
+          dataSanitize(order.customerProject?.projectAddress),
         ],
+        hidden: isFieldExits(order.customerProject?.projectAddress) === false,
         classes: ['surface-card__paragraph'],
       },
       {

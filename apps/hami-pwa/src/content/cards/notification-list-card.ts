@@ -8,6 +8,7 @@ import { flow } from '@lit-labs/virtualizer/layouts/flow.js';
 import { html } from 'lit';
 
 import { addNotificationDialog } from '../dialogs/add-notification-dialog';
+import { logger } from '../logger';
 
 import { notFoundListCard } from './not-found-list-card';
 
@@ -17,6 +18,8 @@ import type { Lit } from '@gecut/ui-kit';
 export function notificationItemIcon(
   status: Projects.Hami.Notification['status']
 ): M3.Types.IconContent {
+  logger.methodArgs?.('notificationItemIcon', { status });
+
   // * normal
   let icon = icons.outlineRounded.star;
   let cssColorVariable = 'var(--md-sys-color-gold)';
@@ -48,6 +51,8 @@ export function notificationItemIcon(
 export function notificationItem(
   notification: Projects.Hami.Notification
 ): M3.Types.ItemRendererReturn {
+  logger.methodArgs?.('notificationItem', { notification });
+
   return M3.Renderers.renderListItem({
     component: 'list-item',
     type: 'list-item',
@@ -70,6 +75,8 @@ export function notificationItem(
 export function notificationList(
   notifications: Projects.Hami.Notification[]
 ): Lit.Types.LitVirtualizerContent<Projects.Hami.Notification> {
+  logger.methodArgs?.('notificationList', { notifications });
+
   return {
     component: 'lit-virtualizer',
     type: 'lit-virtualizer',
@@ -88,6 +95,8 @@ export function notificationList(
 export function notificationListCard(
   notifications: Projects.Hami.Notification[]
 ): M3.Types.SurfaceCardRendererReturn {
+  logger.methodArgs?.('notificationListCard', { notifications });
+
   notifications = notifications.filter(
     (notification) => notification.active === true
   );
