@@ -6,7 +6,7 @@ export function isFieldExits(...values: (string | null | undefined)[]) {
 function _isFieldExits(value: string | null | undefined): boolean {
   value = (value ?? '').trim();
 
-  const isExists = !(value === '' || value.indexOf('no') === 0);
+  const isExists = !(!value || value.indexOf('no') === 0);
 
   if (isExists === true) return false;
 

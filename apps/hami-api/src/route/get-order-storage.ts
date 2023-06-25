@@ -57,37 +57,26 @@ export async function orderModel(
   return {
     ...order,
 
-    creator: await when(
-      isFieldExits(order.creatorId),
-      async () =>
-        await storageClient.get<Projects.Hami.User>(
-          order.creatorId,
-          config.userStorage
-        )
+    creator: await when(isFieldExits(order.creatorId), () =>
+      storageClient.get<Projects.Hami.User>(order.creatorId, config.userStorage)
     ),
-    customer: await when(
-      isFieldExits(order.customerId),
-      async () =>
-        await storageClient.get<Projects.Hami.Supplier>(
-          order.customerId,
-          config.supplierStorage
-        )
+    customer: await when(isFieldExits(order.customerId), () =>
+      storageClient.get<Projects.Hami.Supplier>(
+        order.customerId,
+        config.supplierStorage
+      )
     ),
-    customerProject: await when(
-      isFieldExits(order.customerId),
-      async () =>
-        await storageClient.get<Projects.Hami.CustomerProject>(
-          order.customerProjectId,
-          config.customerProjectStoragePrefix + order.customerId
-        )
+    customerProject: await when(isFieldExits(order.customerId), () =>
+      storageClient.get<Projects.Hami.CustomerProject>(
+        order.customerProjectId,
+        config.customerProjectStoragePrefix + order.customerId
+      )
     ),
-    supplier: await when(
-      isFieldExits(order.supplierId),
-      async () =>
-        await storageClient.get<Projects.Hami.Supplier>(
-          order.supplierId,
-          config.supplierStorage
-        )
+    supplier: await when(isFieldExits(order.supplierId), () =>
+      storageClient.get<Projects.Hami.Supplier>(
+        order.supplierId,
+        config.supplierStorage
+      )
     ),
     productList,
   };
