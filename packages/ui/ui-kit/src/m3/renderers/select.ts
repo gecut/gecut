@@ -1,3 +1,4 @@
+import { gecutAnimationFrame } from '@gecut/utilities';
 import '@material/web/select/filled-select';
 import '@material/web/select/outlined-select';
 
@@ -23,7 +24,7 @@ export function renderSelect(content: SelectContent): SelectRendererReturn {
     'selectedIndex',
   ]);
 
-  requestAnimationFrame(() => {
+  gecutAnimationFrame(() => {
     const mdMenu = select?.renderRoot?.querySelector?.('md-menu');
 
     if (mdMenu != null) {

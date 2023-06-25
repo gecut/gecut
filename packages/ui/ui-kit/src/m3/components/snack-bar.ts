@@ -1,4 +1,5 @@
 import { loggerElement } from '@gecut/mixins';
+import { gecutAnimationFrame } from '@gecut/utilities';
 import '@material/web/elevation/elevation';
 import { html, nothing, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
@@ -156,7 +157,7 @@ export class SnackBar extends loggerElement {
     this.opened = false;
 
     setTimeout(() => {
-      requestAnimationFrame(() => {
+      gecutAnimationFrame(() => {
         this.dispatchEvent(new CustomEvent('closed'));
         this.remove();
       });
@@ -168,7 +169,7 @@ export class SnackBar extends loggerElement {
   ): void {
     super.firstUpdated(changedProperties);
 
-    requestAnimationFrame(() => {
+    gecutAnimationFrame(() => {
       this.opened = true;
     });
 

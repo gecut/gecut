@@ -1,4 +1,5 @@
 import { createLogger } from '@gecut/logger';
+import { gecutAnimationFrame } from '@gecut/utilities';
 
 import type {
   SignalsObject,
@@ -73,7 +74,7 @@ function dispatch<T extends keyof Signals>(name: T, value: Signals[T]): void {
 
   for (const listener of signalsObject[name]?.listeners ?? []) {
     if (typeof listener === 'function') {
-      requestAnimationFrame(() => listener(value));
+      gecutAnimationFrame(() => listener(value));
     }
   }
 }
