@@ -26,7 +26,8 @@ export const config = {
     headersTimeout: 40_000,
     keepAliveTimeout: 30_000,
   },
-
+  logger: process.env.ALWATR_DEBUG ?? '1',
+  
   userStorage: 'hami/private/user-storage',
 
   customerStorage: 'hami/public/customer-storage',
