@@ -3,8 +3,6 @@ import { createLogger } from '@alwatr/logger';
 import type { NanoServerConfig } from '@alwatr/nano-server';
 import type { TokenGeneratorConfig } from '@alwatr/token';
 
-export const logger = createLogger('hami-api');
-
 export const config = {
   storageClient: {
     host: process.env.STORAGE_HOST ?? '127.0.0.1',
@@ -26,8 +24,8 @@ export const config = {
     headersTimeout: 40_000,
     keepAliveTimeout: 30_000,
   },
-  logger: process.env.ALWATR_DEBUG ?? '1',
-  
+  logger: (process.env.ALWATR_DEBUG ?? '1') === '1',
+
   userStorage: 'hami/private/user-storage',
 
   customerStorage: 'hami/public/customer-storage',
@@ -38,5 +36,7 @@ export const config = {
   supplierStorage: 'hami/public/supplier-storage',
   orderStorage: 'hami/public/order-storage',
 } as const;
+
+export const logger = createLogger('hami-api', config.logger);
 
 logger.logProperty?.('config', config);
