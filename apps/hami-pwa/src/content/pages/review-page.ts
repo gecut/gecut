@@ -25,7 +25,9 @@ export function productItem(
     component: 'list-item',
     type: 'list-item',
     headline: product.code + ' - ' + product.name,
-    supportingText: i18n.int(orderProduct?.salesPrice ?? 0),
+    supportingText: `${i18n.int(orderProduct?.salesPrice ?? 0)} - ${i18n.int(
+      orderProduct?.purchasePrice ?? 0
+    )}`,
     multiLineSupportingText: true,
     trailingSupportingText:
       i18n.int(orderProduct?.quantity ?? 0) + ' ' + orderProduct?.unit,
@@ -77,7 +79,7 @@ export function productsListCard(
     type: 'elevated',
     styles: {
       'margin-top': 'var(--sys-spacing-track,8px)',
-      'margin-bottom': 'var(--sys-spacing-track,8px)',
+      'margin-bottom': 'calc(3*var(--sys-spacing-track,8px))',
     },
     slotList: [
       productList(order, products) as Lit.Types.LitVirtualizerContent<unknown>,
