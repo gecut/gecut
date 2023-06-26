@@ -47,6 +47,15 @@ export async function orderModel(
   );
   const productList: Projects.Hami.OrderProductModel[] = [];
 
+  let supplier = undefined;
+
+  if (isFieldExits(order.supplierId)) {
+    supplier = await storageClient.get<Projects.Hami.Supplier>(
+      order.supplierId,
+      config.supplierStorage
+    );
+  }
+
   for await (const orderProduct of order.productList) {
     productList.push({
       ...orderProduct,
@@ -66,18 +75,15 @@ export async function orderModel(
         config.supplierStorage
       )
     ),
-    customerProject: await when(isFieldExits(order.customerId), () =>
-      storageClient.get<Projects.Hami.CustomerProject>(
-        order.customerProjectId,
-        config.customerProjectStoragePrefix + order.customerId
-      )
+    customerProject: await when(
+      isFieldExits(order.customerProjectId, order.customerId),
+      () =>
+        storageClient.get<Projects.Hami.CustomerProject>(
+          order.customerProjectId,
+          config.customerProjectStoragePrefix + order.customerId
+        )
     ),
-    supplier: await when(isFieldExits(order.supplierId), () =>
-      storageClient.get<Projects.Hami.Supplier>(
-        order.supplierId,
-        config.supplierStorage
-      )
-    ),
+    supplier,
     productList,
   };
 }
