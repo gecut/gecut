@@ -1,3 +1,6 @@
+import { dataSanitize } from '#hami/controllers/data-sanitize';
+import { isFieldExits } from '#hami/controllers/is-field-exists';
+
 import i18n from '@gecut/i18n';
 import { dispatch, request } from '@gecut/signal';
 
@@ -73,9 +76,9 @@ export function editOrderDialog(
             slotList: [
               i18n.msg('customer-name'),
               ': ',
-              order.customer.firstName,
+              dataSanitize(order.customer?.firstName),
               ' ',
-              order.customer.lastName,
+              dataSanitize(order.customer?.lastName),
             ],
             styles: {
               color: 'var(--md-sys-color-surface-variant)',
@@ -88,9 +91,9 @@ export function editOrderDialog(
             slotList: [
               i18n.msg('supplier-name'),
               ': ',
-              order.supplier.firstName,
+              dataSanitize(order.supplier?.firstName),
               ' ',
-              order.supplier.lastName,
+              dataSanitize(order.supplier?.lastName),
             ],
             styles: {
               color: 'var(--md-sys-color-surface-variant)',
@@ -101,7 +104,11 @@ export function editOrderDialog(
             component: 'typography',
             type: 'p',
             hidden: order.description === 'no-description',
-            slotList: [i18n.msg('description'), ': ', order.description],
+            slotList: [
+              i18n.msg('description'),
+              ': ',
+              dataSanitize(order.description),
+            ],
             styles: {
               color: 'var(--md-sys-color-surface-variant)',
               margin: '0',
@@ -113,9 +120,9 @@ export function editOrderDialog(
             slotList: [
               i18n.msg('creator'),
               ': ',
-              order.creator.firstName,
+              dataSanitize(order.creator?.firstName),
               ' ',
-              order.creator.lastName,
+              dataSanitize(order.creator?.lastName),
             ],
             styles: {
               color: 'var(--md-sys-color-surface-variant)',
@@ -128,8 +135,10 @@ export function editOrderDialog(
             slotList: [
               i18n.msg('project-address'),
               ': ',
-              i18n.msg(order.customerProject.projectAddress),
+              i18n.msg(dataSanitize(order.customerProject?.projectAddress)),
             ],
+            hidden:
+              isFieldExits(order.customerProject?.projectAddress) === false,
             styles: {
               color: 'var(--md-sys-color-surface-variant)',
               margin: '0',

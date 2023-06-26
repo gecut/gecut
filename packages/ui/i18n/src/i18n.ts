@@ -76,7 +76,7 @@ export function int(
   integer = Number(integer);
 
   if (Number.isNaN(integer)) {
-    logger.error('int', 'input_is_NaN', integer);
+    logger.warning('int', 'input_is_NaN', `${integer} is not number`);
   }
 
   return integer.toLocaleString(_activeLang, options);

@@ -109,8 +109,8 @@ function productCard(
                 productList: (order.productList ?? []).map((_orderProduct) => {
                   if (_orderProduct?.productId === product.id) {
                     _orderProduct.discount = Number(orderProduct.discount ?? 0);
-                    _orderProduct.purchasePrice = Number(
-                      orderProduct.purchasePrice ?? 0
+                    _orderProduct.salesPrice = Number(
+                      orderProduct.salesPrice ?? 0
                     );
                     _orderProduct.quantity = Number(orderProduct.quantity ?? 0);
                     _orderProduct.unit = orderProduct.unit;
