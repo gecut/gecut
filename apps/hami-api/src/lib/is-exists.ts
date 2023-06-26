@@ -1,4 +1,8 @@
+import { logger } from './config';
+
 export function isFieldExits(...values: (string | null | undefined)[]) {
+  logger.logMethodArgs?.('isFieldExits', { values });
+
   return values
     .map((value) => _isFieldExits(value))
     .reduce((p, c) => p || c, false);

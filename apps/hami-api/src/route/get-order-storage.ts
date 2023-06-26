@@ -1,4 +1,4 @@
-import { isFieldExits } from '#hami/lib/isExists';
+import { isFieldExits } from '#hami/lib/is-exists';
 import { when } from '#hami/lib/when';
 
 import { config, logger } from '../lib/config';
@@ -47,15 +47,6 @@ export async function orderModel(
   );
   const productList: Projects.Hami.OrderProductModel[] = [];
 
-  let supplier = undefined;
-
-  if (isFieldExits(order.supplierId)) {
-    supplier = await storageClient.get<Projects.Hami.Supplier>(
-      order.supplierId,
-      config.supplierStorage
-    );
-  }
-
   for await (const orderProduct of order.productList) {
     productList.push({
       ...orderProduct,
@@ -83,7 +74,12 @@ export async function orderModel(
           config.customerProjectStoragePrefix + order.customerId
         )
     ),
-    supplier,
+    supplier: await when(isFieldExits(order.supplierId), () =>
+      storageClient.get<Projects.Hami.Supplier>(
+        order.supplierId,
+        config.supplierStorage
+      )
+    ),
     productList,
   };
 }
