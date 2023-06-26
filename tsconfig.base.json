@@ -28,7 +28,8 @@
       "@gecut/signal": ["packages/core/signal/src/index.ts"],
       "@gecut/types": ["packages/core/types/src/types.ts"],
       "@gecut/ui-kit": ["packages/ui/ui-kit/src/ui-kit.ts"],
-      "@gecut/ui-kit/m3": ["packages/ui/ui-kit/src/m3/m3.ts"]
+      "@gecut/ui-kit/m3": ["packages/ui/ui-kit/src/m3/m3.ts"],
+      "@gecut/utilities": ["packages/utilities/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

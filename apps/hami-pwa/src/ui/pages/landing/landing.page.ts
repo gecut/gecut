@@ -1,4 +1,5 @@
 import config from '#hami/config';
+import { dataSanitize } from '#hami/controllers/data-sanitize';
 import { requireSignIn } from '#hami/controllers/require-sign-in';
 import { urlForName } from '#hami/ui/router';
 import elementStyle from '#hami/ui/stylesheets/element.scss?inline';
@@ -68,7 +69,11 @@ export class PageLanding extends loggerElement {
         dispatch('snack-bar', {
           component: 'snack-bar',
           type: 'ellipsis-message',
-          message: i18n.msg('welcome-message', config.version, user.lastName),
+          message: i18n.msg(
+            'welcome-message',
+            config.version,
+            dataSanitize(user.lastName)
+          ),
           closeButton: true,
         });
       }

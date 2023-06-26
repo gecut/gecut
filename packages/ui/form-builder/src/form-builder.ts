@@ -2,6 +2,7 @@
 import { validator } from '@gecut/form-validator';
 import { loggerElement } from '@gecut/mixins';
 import { M3 } from '@gecut/ui-kit';
+import { gecutAnimationFrame } from '@gecut/utilities';
 import { animate } from '@lit-labs/motion';
 import { html, css, nothing } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
@@ -276,7 +277,7 @@ export class FormBuilder extends loggerElement {
                   })
                 );
 
-                requestAnimationFrame(async () => {
+                gecutAnimationFrame(async () => {
                   this.disableSubmitButtons = true;
 
                   if (this.data != null && this.data.onSubmit != null) {
@@ -323,29 +324,29 @@ export class FormBuilder extends loggerElement {
   get values(): FormValues | undefined {
     if (this.data?.slides == null) return undefined;
 
-    const formValues = Object.entries(
-      this.data.slides
-    ).map(([slideName, slideForm]): [string, Record<string, string>] => {
-      const formRowsValues = slideForm
-        .map((row) => {
-          const rowValues: [string, string][] = [row]
-            .flat()
-            .filter(
-              (component) =>
-                component.component === 'text-field' ||
-                component.component === 'select'
-            )
-            .map((component) => [
-              (component as M3.Types.TextFieldContent).name ?? '',
-              (component as M3.Types.TextFieldContent).value ?? '',
-            ]);
+    const formValues = Object.entries(this.data.slides).map(
+      ([slideName, slideForm]): [string, Record<string, string>] => {
+        const formRowsValues = slideForm
+          .map((row) => {
+            const rowValues: [string, string][] = [row]
+              .flat()
+              .filter(
+                (component) =>
+                  component.component === 'text-field' ||
+                  component.component === 'select'
+              )
+              .map((component) => [
+                (component as M3.Types.TextFieldContent).name ?? '',
+                (component as M3.Types.TextFieldContent).value ?? '',
+              ]);
 
-          return rowValues;
-        })
-        .flat();
+            return rowValues;
+          })
+          .flat();
 
-      return [slideName, Object.fromEntries(formRowsValues)];
-    });
+        return [slideName, Object.fromEntries(formRowsValues)];
+      }
+    );
 
     return Object.fromEntries(formValues);
   }

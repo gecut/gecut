@@ -10,6 +10,7 @@ import i18n from '@gecut/i18n';
 import { loggerElement } from '@gecut/mixins';
 import { dispatch, request } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
+import { gecutIdleCallback } from '@gecut/utilities';
 import { html, unsafeCSS } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
@@ -173,7 +174,7 @@ export class PageSignIn extends loggerElement {
         };
       });
 
-      requestIdleCallback(() => {
+      gecutIdleCallback(() => {
         if (response.ok === true) {
           routerGo('/');
         }

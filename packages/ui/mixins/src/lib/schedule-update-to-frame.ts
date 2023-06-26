@@ -1,3 +1,5 @@
+import { gecutAnimationFrame } from '@gecut/utilities';
+
 import { SignalMixinInterface } from './signal';
 
 import type { Constructor } from '@alwatr/type';
@@ -10,7 +12,7 @@ export function ScheduleUpdateToFrameMixin<
   class ScheduleUpdateToFrameMixinClass extends superClass {
     protected override async scheduleUpdate(): Promise<void> {
       await new Promise<void>((resolve) => {
-        requestAnimationFrame(() => resolve());
+        gecutAnimationFrame(() => resolve());
       });
       super.scheduleUpdate();
     }

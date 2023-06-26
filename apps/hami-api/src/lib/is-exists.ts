@@ -1,4 +1,8 @@
+import { logger } from './config';
+
 export function isFieldExits(...values: (string | null | undefined)[]) {
+  logger.logMethodArgs?.('isFieldExits', { values });
+
   return values
     .map((value) => _isFieldExits(value))
     .reduce((p, c) => p || c, false);
@@ -6,9 +10,9 @@ export function isFieldExits(...values: (string | null | undefined)[]) {
 function _isFieldExits(value: string | null | undefined): boolean {
   value = (value ?? '').trim();
 
-  const isExists = !(value === '' || value.indexOf('no') === 0);
+  const isEmpty = value === '' || value.indexOf('no') === 0;
 
-  if (isExists === true) return false;
+  if (isEmpty === true) return false;
 
   return true;
 }
