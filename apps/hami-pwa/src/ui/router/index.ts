@@ -1,5 +1,5 @@
 import { createLogger } from '@gecut/logger';
-import { gecutIdleCallback } from '@gecut/utilities';
+import { gecutCancelIdleCallback, gecutIdleCallback } from '@gecut/utilities';
 import { Router } from '@vaadin/router';
 
 import { routes } from './routes';
@@ -39,7 +39,7 @@ export const routerGo = (path: string) => {
   logger.methodArgs?.('routerGo', { path });
 
   if (lastRouterGo != null) {
-    cancelIdleCallback(lastRouterGo);
+    gecutCancelIdleCallback(lastRouterGo);
   }
 
   lastRouterGo = gecutIdleCallback(() => router.render(path, true));
