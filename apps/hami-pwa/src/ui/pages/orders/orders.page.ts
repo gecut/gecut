@@ -59,7 +59,9 @@ export class PageCustomers extends PageBase {
   override render(): RenderResult {
     super.render();
 
-    const headline = M3.Renderers.renderTypoGraphy(headingPageTypography(i18n.msg('orders')))
+    const headline = M3.Renderers.renderTypoGraphy(
+      headingPageTypography(i18n.msg('orders'))
+    );
 
     return html`${headline}${this.renderOrderList()}`;
   }
@@ -78,10 +80,13 @@ export class PageCustomers extends PageBase {
 
     const supplierList = Object.values(this.suppliers);
 
-    return Object.values(this.orders).map((order) =>
-      M3.Renderers.renderSurfaceCard(
-        orderCard(order, this.isAdmin, supplierList)
-      )
-    );
+    return Object.values(this.orders)
+      .sort((a, b) => a.registrationDate - b.registrationDate)
+      .reverse()
+      .map((order) =>
+        M3.Renderers.renderSurfaceCard(
+          orderCard(order, this.isAdmin, supplierList)
+        )
+      );
   }
 }
