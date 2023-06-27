@@ -1,9 +1,9 @@
-import { dataSanitize } from '#hami/controllers/data-sanitize';
 import { isFieldExits } from '#hami/controllers/is-field-exists';
 import icons from '#hami/ui/icons';
 
 import i18n from '@gecut/i18n';
 import { dispatch } from '@gecut/signal';
+import { join, sanitizer } from '@gecut/utilities';
 
 import { editOrderDialog } from '../dialogs/edit-order-dialog';
 import { logger } from '../logger';
@@ -85,9 +85,9 @@ export function orderCard(
         slotList: [
           i18n.msg('customer-name'),
           ': ',
-          dataSanitize(order.customer?.firstName),
+          sanitizer.str(order.customer?.firstName),
           ' ',
-          dataSanitize(order.customer?.lastName),
+          sanitizer.str(order.customer?.lastName),
         ],
         hidden:
           isFieldExits(order.customer?.firstName, order.customer?.lastName) ===
@@ -100,9 +100,9 @@ export function orderCard(
         slotList: [
           i18n.msg('supplier-name'),
           ': ',
-          dataSanitize(order.supplier?.firstName),
+          sanitizer.str(order.supplier?.firstName),
           ' ',
-          dataSanitize(order.supplier?.lastName),
+          sanitizer.str(order.supplier?.lastName),
         ],
         hidden:
           isFieldExits(order.supplier?.firstName, order.supplier?.lastName) ===
@@ -115,7 +115,7 @@ export function orderCard(
         slotList: [
           i18n.msg('description'),
           ': ',
-          dataSanitize(order.description),
+          sanitizer.str(order.description),
         ],
         hidden: isFieldExits(order.description) === false,
         classes: ['surface-card__paragraph'],
@@ -126,9 +126,9 @@ export function orderCard(
         slotList: [
           i18n.msg('creator'),
           ': ',
-          dataSanitize(order.creator?.firstName),
+          sanitizer.str(order.creator?.firstName),
           ' ',
-          dataSanitize(order.creator?.lastName),
+          sanitizer.str(order.creator?.lastName),
         ],
         hidden:
           isFieldExits(order.creator?.firstName, order.creator?.lastName) ===
@@ -141,7 +141,7 @@ export function orderCard(
         slotList: [
           i18n.msg('project-address'),
           ': ',
-          dataSanitize(order.customerProject?.projectAddress),
+          sanitizer.str(order.customerProject?.projectAddress),
         ],
         hidden: isFieldExits(order.customerProject?.projectAddress) === false,
         classes: ['surface-card__paragraph'],
@@ -164,12 +164,16 @@ export function orderCard(
               component: 'list-item',
               type: 'list-item',
               headline: orderProduct.product.name,
-              supportingText: `${i18n.int(
-                orderProduct.salesPrice
-              )} - ${i18n.int(orderProduct.purchasePrice)}`,
-              trailingSupportingText: `${i18n.int(orderProduct.quantity)} ${
+              supportingText: join(
+                ' - ',
+                i18n.int(orderProduct.salesPrice),
+                i18n.int(orderProduct.purchasePrice)
+              ),
+              trailingSupportingText: join(
+                ' ',
+                i18n.int(orderProduct.quantity),
                 orderProduct.unit
-              }`,
+              ),
               styleVars: {
                 '--_list-item-container-color': 'transparent',
               },

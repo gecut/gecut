@@ -1,11 +1,11 @@
 import type { NewOrder } from '#hami/config';
-import { dataSanitize } from '#hami/controllers/data-sanitize';
 import { isFieldExits } from '#hami/controllers/is-field-exists';
 import icons from '#hami/ui/icons';
 
 import i18n from '@gecut/i18n';
 import { dispatch } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
+import { join, sanitizer } from '@gecut/utilities';
 import { flow } from '@lit-labs/virtualizer/layouts/flow.js';
 import { html } from 'lit';
 
@@ -25,9 +25,11 @@ export function productItem(
     component: 'list-item',
     type: 'list-item',
     headline: product.code + ' - ' + product.name,
-    supportingText: `${i18n.int(orderProduct?.salesPrice ?? 0)} - ${i18n.int(
-      orderProduct?.purchasePrice ?? 0
-    )}`,
+    supportingText: join(
+      ' - ',
+      i18n.int(orderProduct?.salesPrice ?? 0),
+      i18n.int(orderProduct?.purchasePrice ?? 0)
+    ),
     multiLineSupportingText: true,
     trailingSupportingText:
       i18n.int(orderProduct?.quantity ?? 0) + ' ' + orderProduct?.unit,
@@ -162,9 +164,9 @@ function reviewCard(
         component: 'list-item',
         type: 'list-item',
         headline:
-          dataSanitize(customer?.firstName) +
+          sanitizer.str(customer?.firstName) +
           ' ' +
-          dataSanitize(customer?.lastName),
+          sanitizer.str(customer?.lastName),
         supportingText: customer?.description,
         slotList: [
           {
@@ -178,7 +180,7 @@ function reviewCard(
       {
         component: 'list-item',
         type: 'list-item',
-        headline: dataSanitize(project?.projectName),
+        headline: sanitizer.str(project?.projectName),
         supportingText: project?.projectAddress,
         multiLineSupportingText: true,
         slotList: [

@@ -3,6 +3,7 @@ import icons from '#hami/ui/icons';
 
 import i18n from '@gecut/i18n';
 import { M3 } from '@gecut/ui-kit';
+import { sanitizer } from '@gecut/utilities';
 import { html, nothing, unsafeCSS } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
@@ -85,7 +86,7 @@ export class PageUser extends PageBase {
             {
               component: 'list-item',
               type: 'list-item',
-              headline: `${i18n.phone(this.user.phoneNumber)}`,
+              headline: `${i18n.phone(sanitizer.str(this.user.phoneNumber))}`,
               slotList: [
                 {
                   component: 'icon',

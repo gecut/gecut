@@ -1,5 +1,6 @@
 import type { NewOrder } from '#hami/config';
 import { validators } from '#hami/controllers/default-validators';
+import { numberHelper } from '#hami/controllers/text-field-number-helper';
 
 import i18n from '@gecut/i18n';
 import { dispatch } from '@gecut/signal';
@@ -63,6 +64,13 @@ function productCard(
                   value: orderProduct.quantity?.toString(),
                   validator: validators('required', 'numeric'),
                   textDirection: 'ltr',
+                  customConfig: (target) => {
+                    target.addEventListener('click', () => {
+                      target = numberHelper(target);
+                    });
+
+                    return target;
+                  },
                 },
                 {
                   component: 'text-field',
@@ -84,6 +92,13 @@ function productCard(
                   value: orderProduct.salesPrice?.toString(),
                   validator: validators('required', 'numeric'),
                   textDirection: 'ltr',
+                  customConfig: (target) => {
+                    target.addEventListener('click', () => {
+                      target = numberHelper(target);
+                    });
+
+                    return target;
+                  },
                 },
                 {
                   component: 'text-field',
@@ -95,6 +110,13 @@ function productCard(
                   validator: validators('required', 'numeric'),
                   prefixText: '%',
                   textDirection: 'ltr',
+                  customConfig: (target) => {
+                    target.addEventListener('click', () => {
+                      target = numberHelper(target);
+                    });
+
+                    return target;
+                  },
                 },
               ],
             ],
