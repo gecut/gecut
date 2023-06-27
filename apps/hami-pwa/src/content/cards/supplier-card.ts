@@ -1,9 +1,9 @@
-import { dataSanitize } from '#hami/controllers/data-sanitize';
 import { isFieldExits } from '#hami/controllers/is-field-exists';
 import icons from '#hami/ui/icons';
 
 import i18n from '@gecut/i18n';
 import { dispatch } from '@gecut/signal';
+import { sanitizer } from '@gecut/utilities';
 
 import { addSupplierDialog } from '../dialogs/add-supplier-dialog';
 
@@ -28,7 +28,7 @@ export function supplierCard(
       {
         component: 'typography',
         type: 'h1',
-        slotList: [dataSanitize(supplier.firstName), ' ', dataSanitize(supplier.lastName)],
+        slotList: [sanitizer.str(supplier.firstName), ' ', sanitizer.str(supplier.lastName)],
         classes: ['surface-card__title'],
       },
       {
@@ -61,7 +61,7 @@ export function supplierCard(
         slotList: [
           i18n.msg('phone-number'),
           ': ',
-          i18n.phone(dataSanitize(supplier.phoneNumber), true),
+          i18n.phone(sanitizer.str(supplier.phoneNumber), true),
         ],
         classes: ['surface-card__paragraph'],
       },
@@ -79,14 +79,14 @@ export function supplierCard(
         component: 'typography',
         type: 'p',
         hidden: isFieldExits(supplier.address) === false,
-        slotList: [i18n.msg('address'), ': ', dataSanitize(supplier.address)],
+        slotList: [i18n.msg('address'), ': ', sanitizer.str(supplier.address)],
         classes: ['surface-card__paragraph'],
       },
       {
         component: 'typography',
         type: 'p',
         hidden: isFieldExits(supplier.description) === false,
-        slotList: [i18n.msg('description'), ': ', dataSanitize(supplier.description)],
+        slotList: [i18n.msg('description'), ': ', sanitizer.str(supplier.description)],
         classes: ['surface-card__paragraph'],
       },
       // {

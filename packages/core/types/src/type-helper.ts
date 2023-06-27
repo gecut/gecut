@@ -13,6 +13,8 @@ export type OmitFirstParam<F> = F extends (x: any, ...args: infer A) => infer R
 
 export type ArrowFunction<T = unknown> = () => T;
 
+export type Nullable<T> = T | null | undefined;
+
 /**
  * Object that can be JSON.stringify.
  */

@@ -1,5 +1,4 @@
 import config from '#hami/config';
-import { dataSanitize } from '#hami/controllers/data-sanitize';
 import { requireSignIn } from '#hami/controllers/require-sign-in';
 import { urlForName } from '#hami/ui/router';
 import elementStyle from '#hami/ui/stylesheets/element.scss?inline';
@@ -9,6 +8,7 @@ import i18n from '@gecut/i18n';
 import { loggerElement } from '@gecut/mixins';
 import { dispatch, request } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
+import { sanitizer } from '@gecut/utilities';
 import { html, unsafeCSS } from 'lit';
 import { customElement } from 'lit/decorators.js';
 
@@ -72,7 +72,7 @@ export class PageLanding extends loggerElement {
           message: i18n.msg(
             'welcome-message',
             config.version,
-            dataSanitize(user.lastName)
+            sanitizer.str(user.lastName)
           ),
           closeButton: true,
         });

@@ -1,4 +1,5 @@
 import { validators } from '#hami/controllers/default-validators';
+import { numberHelper } from '#hami/controllers/text-field-number-helper';
 import icons from '#hami/ui/icons';
 
 import i18n from '@gecut/i18n';
@@ -66,6 +67,13 @@ export function addProductPriceDialog(
                       label: i18n.msg('min-price'),
                       validator: validators('required'),
                       value: productPrice?.minPrice.toString(),
+                      customConfig: (target) => {
+                        target.addEventListener('click', () => {
+                          target = numberHelper(target);
+                        });
+
+                        return target;
+                      },
                     },
                     {
                       component: 'text-field',
@@ -75,6 +83,13 @@ export function addProductPriceDialog(
                       label: i18n.msg('normal-price'),
                       validator: validators('required'),
                       value: productPrice?.normalPrice.toString(),
+                      customConfig: (target) => {
+                        target.addEventListener('click', () => {
+                          target = numberHelper(target);
+                        });
+
+                        return target;
+                      },
                     },
                   ],
                   {

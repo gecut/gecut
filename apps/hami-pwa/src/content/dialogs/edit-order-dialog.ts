@@ -1,8 +1,9 @@
-import { dataSanitize } from '#hami/controllers/data-sanitize';
 import { isFieldExits } from '#hami/controllers/is-field-exists';
+import { numberHelper } from '#hami/controllers/text-field-number-helper';
 
 import i18n from '@gecut/i18n';
 import { dispatch, request } from '@gecut/signal';
+import { join, sanitizer } from '@gecut/utilities';
 
 import { orderStatusSelect } from '../selects/order-status-select';
 import { orderSupplierSelect } from '../selects/order-supplier-select';
@@ -76,9 +77,9 @@ export function editOrderDialog(
             slotList: [
               i18n.msg('customer-name'),
               ': ',
-              dataSanitize(order.customer?.firstName),
+              sanitizer.str(order.customer?.firstName),
               ' ',
-              dataSanitize(order.customer?.lastName),
+              sanitizer.str(order.customer?.lastName),
             ],
             styles: {
               color: 'var(--md-sys-color-surface-variant)',
@@ -91,9 +92,9 @@ export function editOrderDialog(
             slotList: [
               i18n.msg('supplier-name'),
               ': ',
-              dataSanitize(order.supplier?.firstName),
+              sanitizer.str(order.supplier?.firstName),
               ' ',
-              dataSanitize(order.supplier?.lastName),
+              sanitizer.str(order.supplier?.lastName),
             ],
             styles: {
               color: 'var(--md-sys-color-surface-variant)',
@@ -107,7 +108,7 @@ export function editOrderDialog(
             slotList: [
               i18n.msg('description'),
               ': ',
-              dataSanitize(order.description),
+              sanitizer.str(order.description),
             ],
             styles: {
               color: 'var(--md-sys-color-surface-variant)',
@@ -120,9 +121,9 @@ export function editOrderDialog(
             slotList: [
               i18n.msg('creator'),
               ': ',
-              dataSanitize(order.creator?.firstName),
+              sanitizer.str(order.creator?.firstName),
               ' ',
-              dataSanitize(order.creator?.lastName),
+              sanitizer.str(order.creator?.lastName),
             ],
             styles: {
               color: 'var(--md-sys-color-surface-variant)',
@@ -135,7 +136,7 @@ export function editOrderDialog(
             slotList: [
               i18n.msg('project-address'),
               ': ',
-              i18n.msg(dataSanitize(order.customerProject?.projectAddress)),
+              i18n.msg(sanitizer.str(order.customerProject?.projectAddress)),
             ],
             hidden:
               isFieldExits(order.customerProject?.projectAddress) === false,
@@ -160,29 +161,51 @@ export function editOrderDialog(
                   orderStatusSelect(order.status),
                   orderSupplierSelect(suppliers, order.supplierId),
                   ...order.productList.map(
-                    (orderProduct): FormTextFieldContent => ({
-                      component: 'text-field',
-                      type: 'filled',
-                      inputType: 'number',
-                      name: orderProduct.productId,
-                      label: `${orderProduct.product.name} (${i18n.int(
-                        orderProduct.quantity
-                      )} ${orderProduct.unit})`,
-                      value: String(orderProduct.purchasePrice),
-                      customConfig: (target) => {
-                        target.addEventListener('input', () => {
-                          if (!Number.isNaN(target.valueAsNumber)) {
-                            target.supportingText = i18n.int(
-                              target.valueAsNumber
-                            );
-                          } else {
-                            target.supportingText = '';
-                          }
-                        });
+                    (orderProduct): FormTextFieldContent[] => [
+                      {
+                        component: 'text-field',
+                        type: 'filled',
+                        inputType: 'number',
+                        name: `purchase-${orderProduct.productId}`,
+                        label: join(
+                          ' ',
+                          orderProduct.product.name,
+                          i18n.int(orderProduct.quantity),
+                          orderProduct.unit
+                        ),
+                        value: String(orderProduct.purchasePrice),
+                        customConfig: (target) => {
+                          target.addEventListener('input', () => {
+                            target = numberHelper(target);
+                          });
 
-                        return target;
+                          return target;
+                        },
                       },
-                    })
+                      {
+                        component: 'text-field',
+                        type: 'filled',
+                        inputType: 'number',
+                        name: `sales-${orderProduct.productId}`,
+                        label: join(
+                          ' ',
+                          i18n.msg('sales-price'),
+                          orderProduct.product.name,
+                          '(',
+                          i18n.int(orderProduct.quantity),
+                          orderProduct.unit,
+                          ')'
+                        ),
+                        value: String(orderProduct.salesPrice),
+                        customConfig: (target) => {
+                          target.addEventListener('input', () => {
+                            target = numberHelper(target);
+                          });
+
+                          return target;
+                        },
+                      },
+                    ]
                   ),
                   {
                     component: 'button',
@@ -220,11 +243,17 @@ export function editOrderDialog(
 
                   _order.productList = productList.map((orderProduct) => {
                     const purchasePrice = Number(
-                      formValues[orderProduct.productId]
+                      formValues[`purchase-${orderProduct.productId}`]
+                    );
+                    const salesPrice = Number(
+                      formValues[`sales-${orderProduct.productId}`]
                     );
 
                     if (Number.isNaN(purchasePrice) === false) {
                       orderProduct.purchasePrice = purchasePrice;
+                    }
+                    if (Number.isNaN(salesPrice) === false) {
+                      orderProduct.salesPrice = salesPrice;
                     }
 
                     return orderProduct;
