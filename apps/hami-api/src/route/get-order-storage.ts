@@ -1,3 +1,4 @@
+import { get } from '#hami/lib/get-data';
 import { isFieldExits } from '#hami/lib/is-exists';
 import { when } from '#hami/lib/when';
 
@@ -58,27 +59,21 @@ export async function orderModel(
     ...order,
 
     creator: await when(isFieldExits(order.creatorId), () =>
-      storageClient.get<Projects.Hami.User>(order.creatorId, config.userStorage)
+      get<Projects.Hami.User>(order.creatorId, config.userStorage)
     ),
     customer: await when(isFieldExits(order.customerId), () =>
-      storageClient.get<Projects.Hami.Supplier>(
-        order.customerId,
-        config.supplierStorage
-      )
+      get<Projects.Hami.Supplier>(order.customerId, config.supplierStorage)
     ),
     customerProject: await when(
       isFieldExits(order.customerProjectId, order.customerId),
       () =>
-        storageClient.get<Projects.Hami.CustomerProject>(
+        get<Projects.Hami.CustomerProject>(
           order.customerProjectId,
           config.customerProjectStoragePrefix + order.customerId
         )
     ),
     supplier: await when(isFieldExits(order.supplierId), () =>
-      storageClient.get<Projects.Hami.Supplier>(
-        order.supplierId,
-        config.supplierStorage
-      )
+      get<Projects.Hami.Supplier>(order.supplierId, config.supplierStorage)
     ),
     productList,
   };

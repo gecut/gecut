@@ -1,3 +1,5 @@
+import { get } from '#hami/lib/get-data';
+
 import { config, logger } from '../lib/config';
 import { nanoServer } from '../lib/server';
 import { storageClient } from '../lib/storage';
@@ -26,7 +28,7 @@ nanoServer.route(
 
     for await (const customerId of Object.keys(customerStorage.data)) {
       const customer = customerStorage.data[customerId];
-      const creator = await storageClient.get<Projects.Hami.User>(
+      const creator = await get<Projects.Hami.User>(
         customer.creatorId,
         config.userStorage
       );
