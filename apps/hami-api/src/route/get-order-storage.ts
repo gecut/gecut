@@ -62,7 +62,7 @@ export async function orderModel(
       get<Projects.Hami.User>(order.creatorId, config.userStorage)
     ),
     customer: await when(isFieldExits(order.customerId), () =>
-      get<Projects.Hami.Supplier>(order.customerId, config.supplierStorage)
+      get<Projects.Hami.Supplier>(order.customerId, config.customerStorage)
     ),
     customerProject: await when(
       isFieldExits(order.customerProjectId, order.customerId),
