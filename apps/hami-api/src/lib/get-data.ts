@@ -7,6 +7,8 @@ export async function get<T extends AlwatrDocumentObject>(
   documentId: string,
   storage?: string | undefined
 ): Promise<T | null> {
+  logger.logMethodArgs?.('get', { documentId, storage });
+
   try {
     return await storageClient.get<T>(documentId, storage);
   } catch (error) {
