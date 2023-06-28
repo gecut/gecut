@@ -1,6 +1,7 @@
 import { notFoundListCard } from '#hami/content/cards/not-found-list-card';
 import { orderCard } from '#hami/content/cards/order-card';
 import { newOrderFAB } from '#hami/content/fabs/new-order-fab';
+import { dateSelect } from '#hami/content/selects/date-select';
 import { headingPageTypography } from '#hami/content/typographies/heading-page-typography';
 import { ifAdmin } from '#hami/controllers/if-admin';
 import { PageBase } from '#hami/ui/helpers/page-base';
@@ -8,6 +9,12 @@ import { PageBase } from '#hami/ui/helpers/page-base';
 import i18n from '@gecut/i18n';
 import { dispatch, request } from '@gecut/signal';
 import { Lit, M3 } from '@gecut/ui-kit';
+import {
+  gecutAnimationFrame,
+  gecutIdleCallback,
+  join,
+  uniqueArray,
+} from '@gecut/utilities';
 import { flow } from '@lit-labs/virtualizer/layouts/flow.js';
 import { html, unsafeCSS } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
@@ -19,12 +26,12 @@ import type { PropertyValues } from 'lit';
 
 declare global {
   interface HTMLElementTagNameMap {
-    'page-orders': PageCustomers;
+    'page-orders': PageOrders;
   }
 }
 
 @customElement('page-orders')
-export class PageCustomers extends PageBase {
+export class PageOrders extends PageBase {
   static override styles = [unsafeCSS(styles), ...PageBase.styles];
 
   @state()
@@ -35,6 +42,8 @@ export class PageCustomers extends PageBase {
 
   @state()
   private isAdmin = false;
+
+  private dateFilter = new Date();
 
   override connectedCallback(): void {
     super.connectedCallback();
@@ -64,7 +73,56 @@ export class PageCustomers extends PageBase {
       headingPageTypography(i18n.msg('orders'))
     );
 
-    return html`${headline}${this.renderOrderList()}`;
+    const dateList: number[] = uniqueArray(
+      Object.values(this.orders)
+        .filter((order) => order.active === true)
+        .map((order) => order.evacuationDate)
+    );
+
+    const orderFilter = M3.Renderers.renderSelect(
+      dateSelect(
+        this.dateFilter.getTime(),
+        {
+          styles: {
+            'margin-bottom': 'calc(2*var(--sys-spacing-track))',
+          },
+          customConfig: (target) => {
+            target.addEventListener('change', () => {
+              this.dateFilter = new Date(Number(target.value));
+
+              gecutIdleCallback(() => {
+                gecutAnimationFrame(() => {
+                  this.requestUpdate('dateFilter');
+                });
+              });
+            });
+
+            return target;
+          },
+        },
+        dateList.map((date) => new Date(date))
+      )
+    );
+
+    return html`${headline}${orderFilter}${this.renderOrderList()}`;
+  }
+
+  static filterDateByOrder(timestamp: number, date: Date): boolean {
+    const orderTime = new Date(timestamp);
+    const orderTimeFilter = join(
+      '-',
+      orderTime.getFullYear().toString(),
+      orderTime.getMonth().toString(),
+      orderTime.getDate().toString()
+    );
+    const timeFilter = join(
+      '-',
+      date.getFullYear().toString(),
+      date.getMonth().toString(),
+      date.getDate().toString()
+    );
+
+    return orderTimeFilter === timeFilter;
   }
 
   protected firstUpdated(changedProperties: PropertyValues<this>): void {
@@ -90,7 +148,11 @@ export class PageCustomers extends PageBase {
       }),
 
       items: Object.values(this.orders)
-        .filter((order) => order.active === true)
+        .filter(
+          (order) =>
+            order.active === true &&
+            PageOrders.filterDateByOrder(order.evacuationDate, this.dateFilter)
+        )
         .sort((a, b) => a.registrationDate - b.registrationDate)
         .sort((a, b) => statusPriority[a.status] - statusPriority[b.status])
         .reverse(),
