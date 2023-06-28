@@ -20,7 +20,7 @@ export function orderCard(
 
   return {
     component: 'surface-card',
-    type: 'elevated',
+    type: order.status === 'awaitingConfirmation' ? 'filled' : 'elevated',
     styles: {
       position: 'relative',
       'margin-top': 'calc(.2*var(--sys-spacing-track,8px))',
