@@ -1,23 +1,28 @@
-import { AppDataSource } from '../data-source';
-import { User } from '../entity/User';
+import { appDataSource } from '../data-source';
+import { User } from '../entity/user';
 
-export * from '../entity/User';
-
-AppDataSource.initialize()
+appDataSource
+  .initialize()
   .then(async () => {
-    console.log('Inserting a new user into the database...');
+    const userAdmin = await appDataSource
+      .getMongoRepository(User)
+      .countBy({ permission: 'root' });
 
-    const user = new User();
+    if (userAdmin === 0) {
+      console.log('Inserting a new user into the database...');
 
-    user.firstName = 'MohammadMahdi';
-    user.lastName = 'Zamanian';
-    user.password = 'mmz1384';
-    user.permission = 'root';
-    user.phoneNumber = '09155595488';
-    user.active = true;
+      const user = new User();
 
-    await AppDataSource.manager.save(user);
+      user.firstName = 'MohammadMahdi';
+      user.lastName = 'Zamanian';
+      user.password = 'mmz1384';
+      user.permission = 'root';
+      user.phoneNumber = '09155595488';
+      user.active = true;
 
-    console.log('Saved a new user with id: ' + user.id);
+      await appDataSource.manager.save(user);
+
+      console.log('Saved a new user with id: ' + user.id);
+    }
   })
   .catch((error) => console.log(error));
