@@ -82,6 +82,7 @@ export class PageCustomers extends PageBase {
 
     return Object.values(this.orders)
       .sort((a, b) => a.registrationDate - b.registrationDate)
+      .sort((a, b) => statusPriority[a.status] - statusPriority[b.status])
       .reverse()
       .map((order) =>
         M3.Renderers.renderSurfaceCard(
@@ -90,3 +91,11 @@ export class PageCustomers extends PageBase {
       );
   }
 }
+
+const statusPriority = {
+  awaitingConfirmation: 10_000,
+  accepted: 1_000,
+  evacuated: 100,
+  canceled: 10,
+  failed: 1,
+};
