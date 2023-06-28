@@ -3,6 +3,7 @@ import icons from '#hami/ui/icons';
 import i18n from '@gecut/i18n';
 import { dispatch } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
+import { sanitizer } from '@gecut/utilities';
 import { flow } from '@lit-labs/virtualizer/layouts/flow.js';
 import { html } from 'lit';
 
@@ -76,7 +77,7 @@ export function customersListCard(
   if (query.trim() !== '') {
     customers = customers.filter((customer) =>
       String(
-        customer.firstName + customer.lastName + customer.phoneNumber
+        sanitizer.str(customer.firstName) + sanitizer.str(customer.lastName) + customer.phoneNumber
       ).includes(query)
     );
   }
