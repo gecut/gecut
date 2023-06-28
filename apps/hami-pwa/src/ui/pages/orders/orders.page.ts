@@ -16,7 +16,7 @@ import {
   uniqueArray,
 } from '@gecut/utilities';
 import { flow } from '@lit-labs/virtualizer/layouts/flow.js';
-import { html, unsafeCSS } from 'lit';
+import { html, nothing, unsafeCSS } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
 import styles from './orders.page.scss?inline';
@@ -73,38 +73,7 @@ export class PageOrders extends PageBase {
       headingPageTypography(i18n.msg('orders'))
     );
 
-    const dateList: number[] = uniqueArray(
-      Object.values(this.orders)
-        .filter((order) => order.active === true)
-        .map((order) => order.evacuationDate)
-    );
-
-    const orderFilter = M3.Renderers.renderSelect(
-      dateSelect(
-        this.dateFilter.getTime(),
-        {
-          styles: {
-            'margin-bottom': 'calc(2*var(--sys-spacing-track))',
-          },
-          customConfig: (target) => {
-            target.addEventListener('change', () => {
-              this.dateFilter = new Date(Number(target.value));
-
-              gecutIdleCallback(() => {
-                gecutAnimationFrame(() => {
-                  this.requestUpdate('dateFilter');
-                });
-              });
-            });
-
-            return target;
-          },
-        },
-        dateList.map((date) => new Date(date))
-      )
-    );
-
-    return html`${headline}${orderFilter}${this.renderOrderList()}`;
+    return html`${headline}${this.renderDateFilterSelect()}${this.renderOrderList()}`;
   }
 
   static filterDateByOrder(timestamp: number, date: Date): boolean {
@@ -162,6 +131,41 @@ export class PageOrders extends PageBase {
           orderCard(order, this.isAdmin, supplierList)
         )}`,
     });
+  }
+
+  private renderDateFilterSelect() {
+    if (Object.keys(this.orders).length === 0) return nothing;
+
+    const dateList: number[] = uniqueArray(
+      Object.values(this.orders)
+        .filter((order) => order.active === true)
+        .map((order) => order.evacuationDate)
+    );
+
+    return M3.Renderers.renderSelect(
+      dateSelect(
+        this.dateFilter.getTime(),
+        {
+          styles: {
+            'margin-bottom': 'calc(2*var(--sys-spacing-track))',
+          },
+          customConfig: (target) => {
+            target.addEventListener('change', () => {
+              this.dateFilter = new Date(Number(target.value));
+
+              gecutIdleCallback(() => {
+                gecutAnimationFrame(() => {
+                  this.requestUpdate('dateFilter');
+                });
+              });
+            });
+
+            return target;
+          },
+        },
+        dateList.map((date) => new Date(date))
+      )
+    );
   }
 }
 

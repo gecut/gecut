@@ -26,6 +26,9 @@ export function dateSelect(
         type: 'select-option',
         value: date.getTime().toString(),
         headline: i18n.date(date.getTime(), {
+          dateStyle: 'short',
+        }),
+        supportingText: i18n.date(date.getTime(), {
           dateStyle: 'full',
         }),
       })
