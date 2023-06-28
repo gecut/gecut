@@ -11,7 +11,7 @@
       "options": {
         "platform": "node",
         "outputPath": "dist/apps/persianpart-api",
-        "format": ["esm"],
+        "format": ["cjs"],
         "bundle": true,
         "main": "apps/persianpart-api/src/index.ts",
         "tsConfig": "apps/persianpart-api/tsconfig.app.json",
@@ -21,7 +21,7 @@
           "target": "node19",
           "sourcemap": true,
           "outExtension": {
-            ".js": ".mjs"
+            ".js": ".cjs"
           }
         }
       },
@@ -40,12 +40,12 @@
         "development": {
           "commands": [
             "nx run persianpart-api:build --watch",
-            "nodemon dist/apps/persianpart-api/index.mjs"
+            "nodemon dist/apps/persianpart-api/index.cjs"
           ],
           "parallel": true
         },
         "production": {
-          "command": "node dist/apps/persianpart-api/index.mjs"
+          "command": "node dist/apps/persianpart-api/index.cjs"
         }
       },
       "dependsOn": ["build"]
