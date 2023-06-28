@@ -7,13 +7,14 @@ import { PageBase } from '#hami/ui/helpers/page-base';
 
 import i18n from '@gecut/i18n';
 import { dispatch, request } from '@gecut/signal';
-import { M3 } from '@gecut/ui-kit';
+import { Lit, M3 } from '@gecut/ui-kit';
+import { flow } from '@lit-labs/virtualizer/layouts/flow.js';
 import { html, unsafeCSS } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
 import styles from './orders.page.scss?inline';
 
-import type { Projects, RenderResult, SingleOrArray } from '@gecut/types';
+import type { Projects, RenderResult } from '@gecut/types';
 import type { PropertyValues } from 'lit';
 
 declare global {
@@ -73,22 +74,32 @@ export class PageCustomers extends PageBase {
     request('supplier-storage', {}, 'cacheFirst');
   }
 
-  private renderOrderList(): SingleOrArray<M3.Components.SurfaceCard> {
+  private renderOrderList() {
     if (Object.values(this.orders).length === 0) {
       return M3.Renderers.renderSurfaceCard(notFoundListCard());
     }
 
     const supplierList = Object.values(this.suppliers);
 
-    return Object.values(this.orders)
-      .sort((a, b) => a.registrationDate - b.registrationDate)
-      .sort((a, b) => statusPriority[a.status] - statusPriority[b.status])
-      .reverse()
-      .map((order) =>
-        M3.Renderers.renderSurfaceCard(
+    return Lit.Renderers.renderLitVirtualizer({
+      component: 'lit-virtualizer',
+      type: 'lit-virtualizer',
+
+      layout: flow({
+        direction: 'vertical',
+      }),
+
+      items: Object.values(this.orders)
+        .filter((order) => order.active === true)
+        .sort((a, b) => a.registrationDate - b.registrationDate)
+        .sort((a, b) => statusPriority[a.status] - statusPriority[b.status])
+        .reverse(),
+
+      renderItem: (order) =>
+        html`${M3.Renderers.renderSurfaceCard(
           orderCard(order, this.isAdmin, supplierList)
-        )
-      );
+        )}`,
+    });
   }
 }
 

@@ -1,5 +1,6 @@
 import { isFieldExits } from '#hami/controllers/is-field-exists';
 import { numberHelper } from '#hami/controllers/text-field-number-helper';
+import icons from '#hami/ui/icons';
 
 import i18n from '@gecut/i18n';
 import { dispatch, request } from '@gecut/signal';
@@ -267,6 +268,46 @@ export function editOrderDialog(
             },
           },
         ],
+      },
+      {
+        component: 'button',
+        type: 'text',
+        hasIcon: true,
+        label: i18n.msg('delete'),
+        slot: 'footer',
+        slotList: [
+          {
+            component: 'icon',
+            type: 'svg',
+            slot: 'icon',
+            SVG: icons.outlineRounded.delete,
+          },
+        ],
+        customConfig: (target) => {
+          target.addEventListener('click', async () => {
+            if (order == null) return;
+
+            target.disabled = true;
+            await request('put-order', {
+              id: order.id,
+              active: false,
+            });
+            target.disabled = false;
+
+            request('order-storage', {});
+            dispatch('dialog', null);
+            dispatch('snack-bar', {
+              component: 'snack-bar',
+              type: 'ellipsis-message',
+              message: i18n.msg('order-successfully-deleted'),
+              align: 'bottom',
+              duration: 2_000,
+              closeButton: true,
+            });
+          });
+
+          return target;
+        },
       },
       {
         component: 'button',
