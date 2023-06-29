@@ -3,6 +3,9 @@
   "$dir": "rtl",
   "$name": "فارسی",
 
+  "update": "بروزرسانی",
+  "congratulations-the-web-app-is-ready-to-update": "تبریک می‌گوییم، وب اپلیکیشن آماده به‌روزرسانی است",
+  "web-application-is-now-installed-and-ready-to-work-in-offline-mode-but-the-application-requires-the-internet-to-synchronize-data-with-the-server": "وب اپلیکیشن اکنون نصب شده و آماده کار در حالت آفلاین است، اما برنامه برای همگام سازی داده ها با سرور به اینترنت نیاز دارد.",
   "accepted": "تایید شده",
   "add-customer": "افزودن مشتری",
   "add-notification": "افزودن اعلان",

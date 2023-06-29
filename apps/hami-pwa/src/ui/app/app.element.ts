@@ -4,6 +4,7 @@ import hamiLogo from '#hami/ui/assets/hami-logo.webp?inline';
 import icons from '#hami/ui/icons';
 import { attachRouter } from '#hami/ui/router';
 
+import i18n from '@gecut/i18n';
 import { signalElement } from '@gecut/mixins';
 import { dispatch } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
@@ -104,7 +105,36 @@ export class AppRoot extends signalElement {
   override connectedCallback(): void {
     super.connectedCallback();
 
-    registerSW({});
+    registerSW({
+      onOfflineReady() {
+        dispatch('snack-bar', {
+          component: 'snack-bar',
+          type: 'wrap-message',
+          message: i18n.msg(
+            'web-application-is-now-installed-and-ready-to-work-in-offline-mode-but-the-application-requires-the-internet-to-synchronize-data-with-the-server'
+          ),
+          align: 'bottom',
+          closeButton: true,
+        });
+      },
+      onNeedRefresh() {
+        dispatch('snack-bar', {
+          component: 'snack-bar',
+          type: 'wrap-message',
+          message: i18n.msg('congratulations-the-web-app-is-ready-to-update'),
+          align: 'bottom',
+          closeButton: true,
+          slotList: [
+            {
+              component: 'button',
+              type: 'text',
+              slot: 'action',
+              label: i18n.msg('update'),
+            },
+          ],
+        });
+      },
+    });
 
     this.addSignalListener('top-app-bar', (value) => {
       this.topAppBarContent = {
