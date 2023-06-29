@@ -5,11 +5,10 @@ import i18n from '@gecut/i18n';
 import type { FormSelectContent } from '@gecut/form-builder';
 import type { M3 } from '@gecut/ui-kit';
 
-const dateList = rangeDates();
-
 export function dateSelect(
   date = new Date().getTime(),
-  options?: Partial<FormSelectContent>
+  options?: Partial<FormSelectContent>,
+  dateList = rangeDates()
 ): FormSelectContent {
   const _date = new Date(date);
   const value = dateList
@@ -21,15 +20,15 @@ export function dateSelect(
     component: 'select',
     type: 'filled',
     value,
-    styles: {
-      'min-width': '10vw',
-    },
     slotList: dateList.map(
       (date): M3.Types.SelectOptionContent => ({
         component: 'select-option',
         type: 'select-option',
         value: date.getTime().toString(),
         headline: i18n.date(date.getTime(), {
+          dateStyle: 'short',
+        }),
+        supportingText: i18n.date(date.getTime(), {
           dateStyle: 'full',
         }),
       })

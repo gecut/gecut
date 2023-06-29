@@ -20,7 +20,7 @@ export function orderCard(
 
   return {
     component: 'surface-card',
-    type: 'elevated',
+    type: order.status === 'awaitingConfirmation' ? 'filled' : 'elevated',
     styles: {
       position: 'relative',
       'margin-top': 'calc(.2*var(--sys-spacing-track,8px))',
@@ -165,9 +165,12 @@ export function orderCard(
               type: 'list-item',
               headline: orderProduct.product.name,
               supportingText: join(
+                ' ',
+                i18n.msg('sales') + ':',
+                i18n.int(orderProduct.salesPrice ?? 0),
                 ' - ',
-                i18n.int(orderProduct.salesPrice),
-                i18n.int(orderProduct.purchasePrice)
+                i18n.msg('purchase') + ':',
+                i18n.int(orderProduct.purchasePrice ?? 0)
               ),
               trailingSupportingText: join(
                 ' ',
