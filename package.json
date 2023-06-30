@@ -29,7 +29,7 @@
     "@nrwl/jest": "16.3.2",
     "@nrwl/js": "^16.1.0",
     "@nrwl/linter": "^16.1.0",
-    "@nrwl/node": "16.4.0",
+    "@nrwl/node": "16.4.1",
     "@nrwl/vite": "^16.1.0",
     "@nrwl/web": "^16.1.0",
     "@nx/esbuild": "16.3.2",
