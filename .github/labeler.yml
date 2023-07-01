@@ -29,5 +29,5 @@ api:
   - apps/*-api/*
   - apps/*-api/**/*
 pwa:
-  - apps/*pwa/*
-  - apps/*pwa/**/*
+  - apps/*-pwa/*
+  - apps/*-pwa/**/*
