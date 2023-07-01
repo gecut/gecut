@@ -1,0 +1,9 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+  --sys-font-family: Vazirmatn;
+  --md-list-item-list-item-container-shape: 8px;
+}
+
+* {
+  font-family: var(--sys-font-family);
+}
