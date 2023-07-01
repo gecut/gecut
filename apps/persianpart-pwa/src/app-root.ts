@@ -14,6 +14,5 @@ import '@gecut/form-builder';
 import '@lit-labs/virtualizer';
 import 'unfonts.css';
 
-import './providers/index';
 import './ui/app/app.element';
-import './ui/stylesheets/styles.scss';
+import './ui/stylesheets/styles.css';
