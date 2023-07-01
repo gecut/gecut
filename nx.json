@@ -35,6 +35,12 @@
       "style": "scss",
       "linter": "eslint",
       "unitTestRunner": "none"
+    },
+    "@nx/web:application": {
+      "style": "css",
+      "linter": "eslint",
+      "unitTestRunner": "none",
+      "e2eTestRunner": "none"
     }
   },
   "defaultBase": "main"

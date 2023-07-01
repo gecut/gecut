@@ -18,6 +18,10 @@
     "baseUrl": ".",
     "paths": {
       "#hami/*": ["apps/hami-pwa/src/*", "apps/hami-api/src/*"],
+      "#persianpart/*": [
+        "apps/persianpart-pwa/src/*",
+        "apps/persianpart-api/src/*"
+      ],
       "@gecut/common/*": ["packages/ui/common/src/*"],
       "@gecut/form-builder": ["packages/ui/form-builder/src/form-builder.ts"],
       "@gecut/form-validator": ["packages/ui/form-validator/src/index.ts"],
