@@ -203,9 +203,9 @@ export class FormBuilder extends loggerElement {
     if (component.component === 'text-field') {
       const textField = M3.Renderers.renderTextField({
         ...component,
-        customConfig: (target) => {
-          if (component.customConfig != null) {
-            target = component.customConfig(target);
+        transformers: (target) => {
+          if (component.transformers != null) {
+            target = component.transformers(target);
           }
 
           FormBuilder.textFieldValidator(component);
@@ -236,9 +236,9 @@ export class FormBuilder extends loggerElement {
         ...component,
         disabled: this.getDisabledForButton(component.disabled),
 
-        customConfig: (target) => {
-          if (component.customConfig != null) {
-            target = component.customConfig(target);
+        transformers: (target) => {
+          if (component.transformers != null) {
+            target = component.transformers(target);
           }
 
           target.addEventListener('click', (event) => {
@@ -298,9 +298,9 @@ export class FormBuilder extends loggerElement {
     } else if (component.component === 'select') {
       const textField = M3.Renderers.renderSelect({
         ...component,
-        customConfig: (target) => {
-          if (component.customConfig != null) {
-            target = component.customConfig(target);
+        transformers: (target) => {
+          if (component.transformers != null) {
+            target = component.transformers(target);
           }
 
           target.addEventListener('change', (event) => {

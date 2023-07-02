@@ -20,8 +20,8 @@ export function createElementByContent<
 
   element.hidden = content.hidden === true;
 
-  if (content.customConfig != null) {
-    element = content.customConfig(element);
+  if (content.transformers != null) {
+    element = content.transformers(element);
   }
 
   if (content.classes != null) {
@@ -32,8 +32,8 @@ export function createElementByContent<
     element.slot = content.slot;
   }
 
-  if (content.slotList != null) {
-    for (const slotContent of content.slotList) {
+  if (content.children != null) {
+    for (const slotContent of content.children) {
       if (typeof slotContent === 'string') {
         element.innerHTML += slotContent;
       } else {

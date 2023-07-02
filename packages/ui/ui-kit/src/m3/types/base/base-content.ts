@@ -1,21 +1,34 @@
-import type { CustomConfigFunction, AllComponentsContent } from '../types';
+import type { AllComponentsContent } from '../types';
+import type { SingleOrArray } from '@gecut/types';
+import type { LiteralUnion } from 'type-fest';
 
 export interface BaseContent<
-  TCustomConfig extends HTMLElement,
-  TSlot = string,
-  TSlotList =
+  TransformerTarget extends HTMLElement,
+  Slot = string,
+  Child =
     | string
-    | (AllComponentsContent<unknown> & { slot?: TSlot | string })
+    | (AllComponentsContent<unknown> & { slot?: LiteralUnion<Slot, string> })
 > {
+  children?: Array<Child>;
+  attributes?: Attributes;
+  transformers?: SingleOrArray<Transformer<TransformerTarget>>;
+  events?: Events;
+}
+
+export type Events<
+  Event extends keyof HTMLElementEventMap = keyof HTMLElementEventMap
+> = Partial<Record<Event, (event: HTMLElementEventMap[Event]) => void>>;
+
+export type Attributes = {
   hidden?: boolean;
   slot?: string;
-  slotList?: TSlotList[];
-  classes?: string[];
-  styles?: Partial<Record<CSSProperty, string>>;
-  styleVars?: Record<string, string>;
-  customConfig?: CustomConfigFunction<TCustomConfig>;
-  ariaLabel?: string;
-}
+  classes?: Array<string>;
+  styles?: Partial<Record<LiteralUnion<CSSProperty, CSSVariable>, string>>;
+} & Record<string, string>;
+
+export type Transformer<T> = (target: T) => T;
+
+export type CSSVariable = `--${string}`;
 
 export type CSSProperty =
   | 'accent-color'
