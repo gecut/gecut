@@ -1,4 +1,5 @@
 import i18n from '@gecut/i18n';
+import { dispatch } from '@gecut/signal';
 
 import { customerCard } from '../cards/customer-card';
 import { customerProjectListCard } from '../cards/customer-projects-list-card';
@@ -28,7 +29,9 @@ export function customerDialog(
         label: i18n.msg('close'),
         slot: 'footer',
         customConfig: (target) => {
-          target.setAttribute('dialogAction', 'close');
+          target.addEventListener('click', () => {
+            dispatch('dialog', null);
+          });
 
           return target;
         },

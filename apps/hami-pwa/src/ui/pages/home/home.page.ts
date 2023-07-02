@@ -12,7 +12,7 @@ import pageStyle from '#hami/ui/stylesheets/page.scss?inline';
 import i18n from '@gecut/i18n';
 import { dispatch, request } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
-import { html, nothing, unsafeCSS } from 'lit';
+import { html, unsafeCSS } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
 import styles from './home.page.scss?inline';

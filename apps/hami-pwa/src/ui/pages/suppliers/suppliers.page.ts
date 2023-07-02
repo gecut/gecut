@@ -8,7 +8,7 @@ import icons from '#hami/ui/icons';
 import i18n from '@gecut/i18n';
 import { dispatch, request } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
-import { html, nothing, unsafeCSS } from 'lit';
+import { html, unsafeCSS } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 
 import styles from './suppliers.page.scss?inline';

@@ -118,7 +118,9 @@ export function addCustomerDialog(): M3.Types.DialogContent {
         label: i18n.msg('close'),
         slot: 'footer',
         customConfig: (target) => {
-          target.setAttribute('dialogAction', 'close');
+          target.addEventListener('click', () => {
+            dispatch('dialog', null);
+          });
 
           return target;
         },

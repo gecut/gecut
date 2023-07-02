@@ -191,7 +191,9 @@ export function addSupplierDialog(
         label: i18n.msg('close'),
         slot: 'footer',
         customConfig: (target) => {
-          target.setAttribute('dialogAction', 'close');
+          target.addEventListener('click', () => {
+            dispatch('dialog', null);
+          });
 
           return target;
         },

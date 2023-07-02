@@ -57,7 +57,9 @@ export function confirmLogoutDialog(): M3.Types.DialogContent {
         label: i18n.msg('cancel'),
         slot: 'footer',
         customConfig: (target) => {
-          target.setAttribute('dialogAction', 'close');
+          target.addEventListener('click', () => {
+            dispatch('dialog', null);
+          });
 
           return target;
         },

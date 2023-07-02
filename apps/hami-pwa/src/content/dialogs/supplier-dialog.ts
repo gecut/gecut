@@ -1,4 +1,5 @@
 import i18n from '@gecut/i18n';
+import { dispatch } from '@gecut/signal';
 
 import { orderCard } from '../cards/order-card';
 import { supplierCard } from '../cards/supplier-card';
@@ -29,7 +30,9 @@ export function supplierDialog(
         label: i18n.msg('close'),
         slot: 'footer',
         customConfig: (target) => {
-          target.setAttribute('dialogAction', 'close');
+          target.addEventListener('click', () => {
+            dispatch('dialog', null);
+          });
 
           return target;
         },

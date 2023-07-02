@@ -8,7 +8,7 @@ import i18n from '@gecut/i18n';
 import { signalElement } from '@gecut/mixins';
 import { dispatch } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
-import { gecutAnimationFrame } from '@gecut/utilities';
+import { gecutAnimationFrame, gecutIdleCallback } from '@gecut/utilities';
 import '@material/web/icon/icon';
 import '@material/web/labs/navigationbar/navigation-bar';
 import '@material/web/labs/navigationtab/navigation-tab';
@@ -341,9 +341,17 @@ export class AppRoot extends signalElement {
     if (this.fixedDivision == null) return;
 
     if (content == null) {
-      return this.fixedDivision
+      this.fixedDivision
         .querySelectorAll('md-dialog')
-        .forEach((dialog) => dialog.remove());
+        .forEach((dialog) => dialog.close());
+
+      gecutIdleCallback(() => {
+        this.fixedDivision
+          ?.querySelectorAll('md-dialog')
+          .forEach((dialog) => dialog.close());
+      });
+
+      return;
     }
 
     const dialog = M3.Renderers.renderDialog(content);
