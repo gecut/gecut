@@ -24,7 +24,7 @@
     "@lit-labs/virtualizer": "2.0.3",
     "@material/web": "^1.0.0-pre.6",
     "@nrwl/cli": "^15.9.2",
-    "@nrwl/esbuild": "16.4.1",
+    "@nrwl/esbuild": "16.4.2",
     "@nrwl/eslint-plugin-nx": "^16.1.0",
     "@nrwl/jest": "16.3.2",
     "@nrwl/js": "^16.1.0",
