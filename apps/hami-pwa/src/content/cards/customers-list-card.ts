@@ -61,13 +61,15 @@ export function customerList(
     component: 'lit-virtualizer',
     type: 'lit-virtualizer',
 
-    // scroller: true,
-    items: customers,
-    layout: flow({
-      direction: 'vertical',
-    }),
-    renderItem: (customers) => {
-      return html`${customerItem(customers)}`;
+    attributes: {
+      // scroller: true,
+      items: customers,
+      layout: flow({
+        direction: 'vertical',
+      }),
+      renderItem: (customers) => {
+        return html`${customerItem(customers)}`;
+      },
     },
   };
 }

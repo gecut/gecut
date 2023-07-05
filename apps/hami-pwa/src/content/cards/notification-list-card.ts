@@ -82,13 +82,15 @@ export function notificationList(
     component: 'lit-virtualizer',
     type: 'lit-virtualizer',
 
-    scroller: true,
-    items: notifications,
-    layout: flow({
-      direction: 'vertical',
-    }),
-    renderItem: (notification) => {
-      return html`${notificationItem(notification)}`;
+    attributes: {
+      scroller: true,
+      items: notifications,
+      layout: flow({
+        direction: 'vertical',
+      }),
+      renderItem: (notification) => {
+        return html`${notificationItem(notification)}`;
+      },
     },
   };
 }

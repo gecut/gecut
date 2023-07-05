@@ -55,17 +55,19 @@ export function productList(
     component: 'lit-virtualizer',
     type: 'lit-virtualizer',
 
-    // scroller: true,
-    items: products,
-    layout: flow({
-      direction: 'vertical',
-    }),
-    renderItem: (product) => {
-      const orderProduct = (order.productList ?? []).find(
-        (_orderProduct) => _orderProduct?.productId === product.id
-      );
+    attributes: {
+      // scroller: true,
+      items: products,
+      layout: flow({
+        direction: 'vertical',
+      }),
+      renderItem: (product) => {
+        const orderProduct = (order.productList ?? []).find(
+          (_orderProduct) => _orderProduct?.productId === product.id
+        );
 
-      return html`${productItem(product, orderProduct)}`;
+        return html`${productItem(product, orderProduct)}`;
+      },
     },
   };
 }

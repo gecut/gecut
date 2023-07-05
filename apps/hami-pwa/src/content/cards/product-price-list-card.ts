@@ -47,13 +47,15 @@ export function productPriceList(
     component: 'lit-virtualizer',
     type: 'lit-virtualizer',
 
-    scroller: true,
-    items: productPrices,
-    layout: flow({
-      direction: 'vertical',
-    }),
-    renderItem: (productPrice) => {
-      return html`${productPriceItem(productPrice)}`;
+    attributes: {
+      scroller: true,
+      items: productPrices,
+      layout: flow({
+        direction: 'vertical',
+      }),
+      renderItem: (productPrice) => {
+        return html`${productPriceItem(productPrice)}`;
+      },
     },
   };
 }

@@ -92,13 +92,15 @@ function productList(
     component: 'lit-virtualizer',
     type: 'lit-virtualizer',
 
-    // scroller: true,
-    items: products,
-    layout: flow({
-      direction: 'vertical',
-    }),
-    renderItem: (products) => {
-      return html`${productItem(products, order)}`;
+    attributes: {
+      // scroller: true,
+      items: products,
+      layout: flow({
+        direction: 'vertical',
+      }),
+      renderItem: (products) => {
+        return html`${productItem(products, order)}`;
+      },
     },
   };
 }

@@ -69,13 +69,15 @@ export function supplierList(
     component: 'lit-virtualizer',
     type: 'lit-virtualizer',
 
-    // scroller: true,
-    items: suppliers,
-    layout: flow({
-      direction: 'vertical',
-    }),
-    renderItem: (suppliers) => {
-      return html`${supplierItem(suppliers)}`;
+    attributes: {
+      // scroller: true,
+      items: suppliers,
+      layout: flow({
+        direction: 'vertical',
+      }),
+      renderItem: (suppliers) => {
+        return html`${supplierItem(suppliers)}`;
+      },
     },
   };
 }

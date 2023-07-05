@@ -79,13 +79,15 @@ function customerList(
     component: 'lit-virtualizer',
     type: 'lit-virtualizer',
 
-    // scroller: true,
-    items: customers,
-    layout: flow({
-      direction: 'vertical',
-    }),
-    renderItem: (customers) => {
-      return html`${customerItem(customers, order)}`;
+    attributes: {
+      // scroller: true,
+      items: customers,
+      layout: flow({
+        direction: 'vertical',
+      }),
+      renderItem: (customers) => {
+        return html`${customerItem(customers, order)}`;
+      },
     },
   };
 }

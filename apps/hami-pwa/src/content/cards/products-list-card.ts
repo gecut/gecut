@@ -53,13 +53,15 @@ export function productList(
     component: 'lit-virtualizer',
     type: 'lit-virtualizer',
 
-    // scroller: true,
-    items: products,
-    layout: flow({
-      direction: 'vertical',
-    }),
-    renderItem: (products) => {
-      return html`${productItem(products)}`;
+    attributes: {
+      // scroller: true,
+      items: products,
+      layout: flow({
+        direction: 'vertical',
+      }),
+      renderItem: (products) => {
+        return html`${productItem(products)}`;
+      },
     },
   };
 }

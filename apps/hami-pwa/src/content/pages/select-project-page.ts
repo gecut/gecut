@@ -77,13 +77,15 @@ function projectList(
     component: 'lit-virtualizer',
     type: 'lit-virtualizer',
 
-    // scroller: true,
-    items: projects,
-    layout: flow({
-      direction: 'vertical',
-    }),
-    renderItem: (projects) => {
-      return html`${projectItem(projects, order)}`;
+    attributes: {
+      // scroller: true,
+      items: projects,
+      layout: flow({
+        direction: 'vertical',
+      }),
+      renderItem: (projects) => {
+        return html`${projectItem(projects, order)}`;
+      },
     },
   };
 }
