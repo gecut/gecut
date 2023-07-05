@@ -35,20 +35,22 @@ export class PageCustomers extends PageBase {
     component: 'text-field',
     type: 'outlined',
 
-    inputType: 'search',
-    name: 'productPriceSearch',
-    placeholder: i18n.msg('search'),
-    hasLeadingIcon: true,
-    slotList: [
+    attributes: {
+      inputType: 'search',
+      name: 'productPriceSearch',
+      placeholder: i18n.msg('search'),
+      hasLeadingIcon: true,
+      styles: { width: '100%' },
+    },
+    children: [
       {
         component: 'icon',
         type: 'svg',
         SVG: icons.filledRounded.search,
-        slot: 'leadingicon',
+        attributes: { slot: 'leadingicon' },
       },
     ],
-    styles: { width: '100%' },
-    customConfig: (target) => {
+    transformers: (target) => {
       target.addEventListener('input', () => {
         this.query = target.value;
       });
@@ -68,7 +70,6 @@ export class PageCustomers extends PageBase {
       this.customers = value.data;
     });
   }
-
 
   override render(): RenderResult {
     super.render();

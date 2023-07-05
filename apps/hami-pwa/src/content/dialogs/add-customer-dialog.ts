@@ -12,117 +12,127 @@ export function addCustomerDialog(): M3.Types.DialogContent {
   return {
     component: 'dialog',
     type: 'dialog',
-    fullscreen: true,
-    slotList: [
+    attributes: { fullscreen: true },
+    children: [
       headingPageTypography(i18n.msg('add-customer'), {
-        slot: 'headline',
+        attributes: { slot: 'headline' },
       }),
       {
         component: 'surface-card',
         type: 'elevated',
-        styles: {
-          position: 'relative',
-          'margin-top': 'calc(.2*var(--sys-spacing-track,8px))',
-          'margin-bottom': 'var(--sys-spacing-track,8px)',
-          padding:
-            'var(--sys-spacing-track,8px) calc(2*var(--sys-spacing-track,8px)) calc(2*var(--sys-spacing-track,8px))',
+        attributes: {
+          styles: {
+            position: 'relative',
+            'margin-top': 'calc(.2*var(--sys-spacing-track,8px))',
+            'margin-bottom': 'var(--sys-spacing-track,8px)',
+            padding:
+              'var(--sys-spacing-track,8px) calc(2*var(--sys-spacing-track,8px)) calc(2*var(--sys-spacing-track,8px))',
+          },
         },
-        slotList: [
+        children: [
           {
             component: 'form-builder',
             type: 'form-builder',
-            styles: {
-              'margin-top': '8px',
-            },
-            styleVars: {
-              '--padding-side': '0',
-            },
-            data: {
-              slides: {
-                customer: [
-                  {
-                    component: 'text-field',
-                    type: 'filled',
-                    inputType: 'text',
-                    name: 'firstName',
-                    label: i18n.msg('first-name'),
-                    validator: validators('required'),
-                  },
-                  {
-                    component: 'text-field',
-                    type: 'filled',
-                    inputType: 'text',
-                    name: 'lastName',
-                    label: i18n.msg('last-name'),
-                    validator: validators('required'),
-                  },
-                  {
-                    component: 'text-field',
-                    type: 'filled',
-                    inputType: 'tel',
-                    name: 'phoneNumber',
-                    textDirection: 'ltr',
-                    label: i18n.msg('phone-number'),
-                    validator: validators('required', 'phone'),
-                  },
-                  {
-                    component: 'text-field',
-                    type: 'filled',
-                    inputType: 'text',
-                    name: 'description',
-                    label: i18n.msg('description'),
-                  },
-                  {
-                    component: 'button',
-                    type: 'filled',
-                    disabled: 'auto',
-                    action: 'form_submit',
-                    label: i18n.msg('add-customer'),
-                  },
-                ],
+            attributes: {
+              styles: {
+                'margin-top': '8px',
+                '--padding-side': '0',
               },
-              onSubmit: async (event) => {
-                if (event.validate === true && event.values != null) {
-                  const customer = event.values[
-                    'customer'
-                  ] as unknown as Projects.Hami.Customer;
-                  const userId = localStorage.getItem('USER_ID');
+              data: {
+                slides: {
+                  customer: [
+                    {
+                      component: 'text-field',
+                      type: 'filled',
+                      attributes: {
+                        inputType: 'text',
+                        name: 'firstName',
+                        label: i18n.msg('first-name'),
+                      },
+                      validator: validators('required'),
+                    },
+                    {
+                      component: 'text-field',
+                      type: 'filled',
+                      attributes: {
+                        inputType: 'text',
+                        name: 'lastName',
+                        label: i18n.msg('last-name'),
+                      },
+                      validator: validators('required'),
+                    },
+                    {
+                      component: 'text-field',
+                      type: 'filled',
+                      attributes: {
+                        inputType: 'tel',
+                        name: 'phoneNumber',
+                        textDirection: 'ltr',
+                        label: i18n.msg('phone-number'),
+                      },
+                      validator: validators('required', 'phone'),
+                    },
+                    {
+                      component: 'text-field',
+                      type: 'filled',
+                      attributes: {
+                        inputType: 'text',
+                        name: 'description',
+                        label: i18n.msg('description'),
+                      },
+                    },
+                    {
+                      component: 'button',
+                      type: 'filled',
+                      disabled: 'auto',
+                      action: 'form_submit',
+                      children: [i18n.msg('add-customer')],
+                    },
+                  ],
+                },
+                onSubmit: async (event) => {
+                  if (event.validate === true && event.values != null) {
+                    const customer = event.values[
+                      'customer'
+                    ] as unknown as Projects.Hami.Customer;
+                    const userId = localStorage.getItem('USER_ID');
 
-                  if (customer != null && userId != null) {
-                    customer.creatorId = userId;
+                    if (customer != null && userId != null) {
+                      customer.creatorId = userId;
 
-                    await request('patch-customer-storage', {
-                      data: [customer],
-                    });
-                    request('customer-storage', {});
-                    dispatch('dialog', null);
-                    dispatch('snack-bar', {
-                      component: 'snack-bar',
-                      type: 'ellipsis-message',
-                      message: i18n.msg('customer-successfully-registered'),
-                      align: 'bottom',
-                      duration: 2_000,
-                      closeButton: true,
-                    });
+                      await request('patch-customer-storage', {
+                        data: [customer],
+                      });
+                      request('customer-storage', {});
+                      dispatch('dialog', null);
+                      dispatch('snack-bar', {
+                        component: 'snack-bar',
+                        type: 'ellipsis-message',
+                        attributes: {
+                          message: i18n.msg('customer-successfully-registered'),
+                          align: 'bottom',
+                          duration: 2_000,
+                          closeButton: true,
+                        },
+                      });
+                    }
                   }
-                }
+                },
               },
+              activeSlide: 'customer',
             },
-            activeSlide: 'customer',
           },
         ],
       },
       {
         component: 'button',
         type: 'text',
-        label: i18n.msg('close'),
-        slot: 'footer',
-        customConfig: (target) => {
-          target.addEventListener('click', () => {
+        attributes: { slot: 'footer' },
+        children: [i18n.msg('close')],
+        events: {
+          click: () => {
             dispatch('dialog', null);
-          });
-
-          return target;
+          },
         },
       },
     ],

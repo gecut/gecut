@@ -36,20 +36,22 @@ export class PageProducts extends PageBase {
     component: 'text-field',
     type: 'outlined',
 
-    inputType: 'search',
-    name: 'productsSearch',
-    placeholder: i18n.msg('search'),
-    hasLeadingIcon: true,
-    slotList: [
+    attributes: {
+      inputType: 'search',
+      name: 'productsSearch',
+      placeholder: i18n.msg('search'),
+      hasLeadingIcon: true,
+      styles: { width: '100%' },
+    },
+    children: [
       {
         component: 'icon',
         type: 'svg',
         SVG: icons.filledRounded.search,
-        slot: 'leadingicon',
+        attributes: { slot: 'leadingicon' },
       },
     ],
-    styles: { width: '100%' },
-    customConfig: (target) => {
+    transformers: (target) => {
       target.addEventListener('input', () => {
         this.query = target.value;
       });

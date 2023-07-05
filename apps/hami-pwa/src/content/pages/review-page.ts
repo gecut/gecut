@@ -24,21 +24,23 @@ export function productItem(
   return M3.Renderers.renderListItem({
     component: 'list-item',
     type: 'list-item',
-    headline: product.code + ' - ' + product.name,
-    supportingText: join(
-      ' - ',
-      i18n.int(orderProduct?.salesPrice ?? 0),
-      i18n.int(orderProduct?.purchasePrice ?? 0)
-    ),
-    multiLineSupportingText: true,
-    trailingSupportingText:
-      i18n.int(orderProduct?.quantity ?? 0) + ' ' + orderProduct?.unit,
-    classes: ['product-item'],
-    slotList: [
+    attributes: {
+      headline: product.code + ' - ' + product.name,
+      supportingText: join(
+        ' - ',
+        i18n.int(orderProduct?.salesPrice ?? 0),
+        i18n.int(orderProduct?.purchasePrice ?? 0)
+      ),
+      multiLineSupportingText: true,
+      trailingSupportingText:
+        i18n.int(orderProduct?.quantity ?? 0) + ' ' + orderProduct?.unit,
+      classes: ['product-item'],
+    },
+    children: [
       {
         component: 'icon',
         type: 'svg',
-        slot: 'start',
+        attributes: { slot: 'start' },
         SVG: icons.outlineRounded.category,
       },
     ],
@@ -79,11 +81,13 @@ export function productsListCard(
   return M3.Renderers.renderSurfaceCard({
     component: 'surface-card',
     type: 'elevated',
-    styles: {
-      'margin-top': 'var(--sys-spacing-track,8px)',
-      'margin-bottom': 'calc(3*var(--sys-spacing-track,8px))',
+    attributes: {
+      styles: {
+        'margin-top': 'var(--sys-spacing-track,8px)',
+        'margin-bottom': 'calc(3*var(--sys-spacing-track,8px))',
+      },
     },
-    slotList: [
+    children: [
       productList(order, products) as Lit.Types.LitVirtualizerContent<unknown>,
     ],
   });
@@ -96,44 +100,48 @@ function descriptionCard(order: Partial<NewOrder>): RenderResult {
   const descriptionCardTemplate = M3.Renderers.renderSurfaceCard({
     component: 'surface-card',
     type: 'elevated',
-    styles: {
-      'margin-top': 'var(--sys-spacing-track,8px)',
-      'margin-bottom': 'var(--sys-spacing-track,8px)',
-      padding: 'calc(2*var(--sys-spacing-track,8px))',
-      'padding-top': 'var(--sys-spacing-track,8px)',
+    attributes: {
+      styles: {
+        'margin-top': 'var(--sys-spacing-track,8px)',
+        'margin-bottom': 'var(--sys-spacing-track,8px)',
+        padding: 'calc(2*var(--sys-spacing-track,8px))',
+        'padding-top': 'var(--sys-spacing-track,8px)',
+      },
     },
-    slotList: [
+    children: [
       {
         component: 'form-builder',
         type: 'form-builder',
-        styles: {
-          'margin-top': '8px',
-        },
-        styleVars: {
-          '--padding-side': '0',
-        },
-        activeSlide: 'initial',
-        data: {
-          slides: {
-            initial: [
-              {
-                component: 'text-field',
-                type: 'filled',
-                inputType: 'text',
-                name: 'description',
-                value: order.description,
-                label: i18n.msg('description'),
-              },
-            ],
+        attributes: {
+          styles: {
+            'margin-top': '8px',
+            '--padding-side': '0',
           },
-          onChange: (event) => {
-            const description = event.values?.['initial']['description'];
+          activeSlide: 'initial',
+          data: {
+            slides: {
+              initial: [
+                {
+                  component: 'text-field',
+                  type: 'filled',
+                  attributes: {
+                    inputType: 'text',
+                    name: 'description',
+                    value: order.description,
+                    label: i18n.msg('description'),
+                  },
+                },
+              ],
+            },
+            onChange: (event) => {
+              const description = event.values?.['initial']['description'];
 
-            if (description != null) {
-              dispatch('new-order', {
-                description,
-              });
-            }
+              if (description != null) {
+                dispatch('new-order', {
+                  description,
+                });
+              }
+            },
           },
         },
       },
@@ -155,24 +163,28 @@ function reviewCard(
   const customerCardTemplate = M3.Renderers.renderSurfaceCard({
     component: 'surface-card',
     type: 'elevated',
-    styles: {
-      'margin-top': 'var(--sys-spacing-track,8px)',
-      'margin-bottom': 'var(--sys-spacing-track,8px)',
+    attributes: {
+      styles: {
+        'margin-top': 'var(--sys-spacing-track,8px)',
+        'margin-bottom': 'var(--sys-spacing-track,8px)',
+      },
     },
-    slotList: [
+    children: [
       {
         component: 'list-item',
         type: 'list-item',
-        headline:
-          sanitizer.str(customer?.firstName) +
-          ' ' +
-          sanitizer.str(customer?.lastName),
-        supportingText: customer?.description,
-        slotList: [
+        attributes: {
+          headline:
+            sanitizer.str(customer?.firstName) +
+            ' ' +
+            sanitizer.str(customer?.lastName),
+          supportingText: customer?.description,
+        },
+        children: [
           {
             component: 'icon',
             type: 'svg',
-            slot: 'start',
+            attributes: { slot: 'start' },
             SVG: icons.outlineRounded.person,
           },
         ],
@@ -180,14 +192,16 @@ function reviewCard(
       {
         component: 'list-item',
         type: 'list-item',
-        headline: sanitizer.str(project?.projectName),
-        supportingText: project?.projectAddress,
-        multiLineSupportingText: true,
-        slotList: [
+        attributes: {
+          headline: sanitizer.str(project?.projectName),
+          supportingText: project?.projectAddress,
+          multiLineSupportingText: true,
+        },
+        children: [
           {
             component: 'icon',
             type: 'svg',
-            slot: 'start',
+            attributes: { slot: 'start' },
             SVG: icons.filledRounded.corporateFare,
           },
         ],
@@ -197,22 +211,26 @@ function reviewCard(
   const dateCardTemplate = M3.Renderers.renderSurfaceCard({
     component: 'surface-card',
     type: 'elevated',
-    styles: {
-      'margin-top': 'var(--sys-spacing-track,8px)',
-      'margin-bottom': 'var(--sys-spacing-track,8px)',
+    attributes: {
+      styles: {
+        'margin-top': 'var(--sys-spacing-track,8px)',
+        'margin-bottom': 'var(--sys-spacing-track,8px)',
+      },
     },
-    slotList: [
+    children: [
       {
         component: 'list-item',
         type: 'list-item',
-        headline: i18n.msg('registration-date'),
-        supportingText: i18n.date(order.registrationDate ?? 0),
-        hidden: isFieldExits(order.registrationDate) === false,
-        slotList: [
+        attributes: {
+          headline: i18n.msg('registration-date'),
+          supportingText: i18n.date(order.registrationDate ?? 0),
+          hidden: isFieldExits(order.registrationDate) === false,
+        },
+        children: [
           {
             component: 'icon',
             type: 'svg',
-            slot: 'start',
+            attributes: { slot: 'start' },
             SVG: icons.outlineRounded.event,
           },
         ],
@@ -220,14 +238,16 @@ function reviewCard(
       {
         component: 'list-item',
         type: 'list-item',
-        headline: i18n.msg('evacuation-date'),
-        supportingText: i18n.date(order.evacuationDate ?? 0),
-        hidden: isFieldExits(order.evacuationDate) === false,
-        slotList: [
+        attributes: {
+          headline: i18n.msg('evacuation-date'),
+          supportingText: i18n.date(order.evacuationDate ?? 0),
+          hidden: isFieldExits(order.evacuationDate) === false,
+        },
+        children: [
           {
             component: 'icon',
             type: 'svg',
-            slot: 'start',
+            attributes: { slot: 'start' },
             SVG: icons.outlineRounded.eventAvailable,
           },
         ],

@@ -10,30 +10,30 @@ export function submitFAB(): M3.Types.FABContent {
   return {
     component: 'fab',
     type: 'fab',
-    size: 'medium',
-    variant: 'primary',
-    slotList: [
+    attributes: {
+      size: 'medium',
+      variant: 'primary',
+      styles: {
+        position: 'absolute',
+        bottom: '16px',
+        'inset-inline-start': '16px',
+        'z-index': 'var(--sys-zindex-sticky)',
+      },
+    },
+    children: [
       {
         component: 'icon',
         type: 'svg',
-        slot: 'icon',
+        attributes: { slot: 'icon' },
         SVG: icons.filledRounded.done,
       },
     ],
-    styles: {
-      position: 'absolute',
-      bottom: '16px',
-      'inset-inline-start': '16px',
-      'z-index': 'var(--sys-zindex-sticky)',
-    },
-    customConfig: (target) => {
+    transformers: (target) => {
       target.addEventListener('click', async () => {
         const order = getValue('order');
         await request('put-order', order as Projects.Hami.Order);
-        request('order-storage',{});
+        request('order-storage', {});
         routerGo('/orders');
-
-        console.log(order);
       });
 
       return target;

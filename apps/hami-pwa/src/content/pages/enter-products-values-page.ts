@@ -28,120 +28,136 @@ function productCard(
   return {
     component: 'surface-card',
     type: 'elevated',
-    styles: {
-      'margin-top': 'var(--sys-spacing-track,8px)',
-      'margin-bottom': 'calc(2*var(--sys-spacing-track,8px))',
-      padding: 'calc(2*var(--sys-spacing-track,8px))',
-      'padding-top': 'var(--sys-spacing-track,8px)',
+    attributes: {
+      styles: {
+        'margin-top': 'var(--sys-spacing-track,8px)',
+        'margin-bottom': 'calc(2*var(--sys-spacing-track,8px))',
+        padding: 'calc(2*var(--sys-spacing-track,8px))',
+        'padding-top': 'var(--sys-spacing-track,8px)',
+      },
     },
-    slotList: [
+    children: [
       {
         component: 'typography',
         type: 'h1',
-        slotList: [product.name],
-        classes: ['surface-card__title'],
+        children: [product.name],
+        attributes: { classes: ['surface-card__title'] },
       },
       {
         component: 'form-builder',
         type: 'form-builder',
-        styles: {
-          'margin-top': '8px',
-        },
-        styleVars: {
-          '--padding-side': '0',
-        },
-        activeSlide: 'initial',
-        data: {
-          slides: {
-            initial: [
-              [
-                {
-                  component: 'text-field',
-                  type: 'outlined',
-                  inputType: 'number',
-                  name: 'quantity',
-                  label: i18n.msg('quantity'),
-                  value: orderProduct.quantity?.toString(),
-                  validator: validators('required', 'numeric'),
-                  textDirection: 'ltr',
-                  customConfig: (target) => {
-                    target.addEventListener('click', () => {
-                      target = numberHelper(target);
-                    });
-
-                    return target;
-                  },
-                },
-                {
-                  component: 'text-field',
-                  type: 'outlined',
-                  inputType: 'text',
-                  name: 'unit',
-                  label: i18n.msg('unit'),
-                  value: orderProduct.unit ?? product.unit,
-                  validator: validators('required'),
-                },
-              ],
-              [
-                {
-                  component: 'text-field',
-                  type: 'outlined',
-                  inputType: 'number',
-                  name: 'salesPrice',
-                  label: i18n.msg('sales-price'),
-                  value: orderProduct.salesPrice?.toString(),
-                  validator: validators('required', 'numeric'),
-                  textDirection: 'ltr',
-                  customConfig: (target) => {
-                    target.addEventListener('click', () => {
-                      target = numberHelper(target);
-                    });
-
-                    return target;
-                  },
-                },
-                {
-                  component: 'text-field',
-                  type: 'outlined',
-                  inputType: 'number',
-                  name: 'discount',
-                  label: i18n.msg('discount'),
-                  value: (orderProduct.discount ?? 0).toString(),
-                  validator: validators('required', 'numeric'),
-                  prefixText: '%',
-                  textDirection: 'ltr',
-                  customConfig: (target) => {
-                    target.addEventListener('click', () => {
-                      target = numberHelper(target);
-                    });
-
-                    return target;
-                  },
-                },
-              ],
-            ],
+        attributes: {
+          styles: {
+            'margin-top': '8px',
+            '--padding-side': '0',
           },
-          onChange: (event) => {
-            const orderProduct = event.values?.['initial'] as NonNullable<
-              NewOrder['productList']
-            >[number];
+          activeSlide: 'initial',
+          data: {
+            slides: {
+              initial: [
+                [
+                  {
+                    component: 'text-field',
+                    type: 'outlined',
+                    attributes: {
+                      inputType: 'number',
+                      name: 'quantity',
+                      label: i18n.msg('quantity'),
+                      value: orderProduct.quantity?.toString(),
+                      textDirection: 'ltr',
+                    },
+                    validator: validators('required', 'numeric'),
+                    transformers: (target) => {
+                      target.addEventListener('click', () => {
+                        target = numberHelper(target);
+                      });
 
-            if (orderProduct != null) {
-              dispatch('new-order', {
-                productList: (order.productList ?? []).map((_orderProduct) => {
-                  if (_orderProduct?.productId === product.id) {
-                    _orderProduct.discount = Number(orderProduct.discount ?? 0);
-                    _orderProduct.salesPrice = Number(
-                      orderProduct.salesPrice ?? 0
-                    );
-                    _orderProduct.quantity = Number(orderProduct.quantity ?? 0);
-                    _orderProduct.unit = orderProduct.unit;
-                  }
+                      return target;
+                    },
+                  },
+                  {
+                    component: 'text-field',
+                    type: 'outlined',
+                    attributes: {
+                      inputType: 'text',
+                      name: 'unit',
+                      label: i18n.msg('unit'),
+                      value: orderProduct.unit ?? product.unit,
+                    },
+                    validator: validators('required'),
+                  },
+                ],
+                [
+                  {
+                    component: 'text-field',
+                    type: 'outlined',
+                    attributes: {
+                      inputType: 'number',
+                      name: 'salesPrice',
+                      label: i18n.msg('sales-price'),
+                      value: orderProduct.salesPrice?.toString(),
+                      textDirection: 'ltr',
+                    },
+                    validator: validators('required', 'numeric'),
+                    transformers: (target) => {
+                      target.addEventListener('click', () => {
+                        target = numberHelper(target);
+                      });
 
-                  return _orderProduct;
-                }),
-              });
-            }
+                      return target;
+                    },
+                  },
+                  {
+                    component: 'text-field',
+                    type: 'outlined',
+                    attributes: {
+                      inputType: 'number',
+                      name: 'discount',
+                      label: i18n.msg('discount'),
+                      value: (orderProduct.discount ?? 0).toString(),
+                      prefixText: '%',
+                      textDirection: 'ltr',
+                    },
+                    validator: validators('required', 'numeric'),
+                    transformers: (target) => {
+                      target.addEventListener('click', () => {
+                        target = numberHelper(target);
+                      });
+
+                      return target;
+                    },
+                  },
+                ],
+              ],
+            },
+            onChange: (event) => {
+              const orderProduct = event.values?.['initial'] as NonNullable<
+                NewOrder['productList']
+              >[number];
+
+              if (orderProduct != null) {
+                dispatch('new-order', {
+                  productList: (order.productList ?? []).map(
+                    (_orderProduct) => {
+                      if (_orderProduct?.productId === product.id) {
+                        _orderProduct.discount = Number(
+                          orderProduct.discount ?? 0
+                        );
+                        _orderProduct.salesPrice = Number(
+                          orderProduct.salesPrice ?? 0
+                        );
+                        _orderProduct.quantity = Number(
+                          orderProduct.quantity ?? 0
+                        );
+                        _orderProduct.unit = orderProduct.unit;
+                      }
+
+                      return _orderProduct;
+                    }
+                  ),
+                });
+              }
+            },
           },
         },
       },
@@ -176,7 +192,7 @@ function enterProductsValuesCard(
   return M3.Renderers.renderDivision({
     component: 'division',
     type: 'div',
-    slotList: productList(products, order),
+    children: productList(products, order),
   });
 }
 

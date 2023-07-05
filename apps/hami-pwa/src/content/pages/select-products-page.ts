@@ -24,27 +24,27 @@ function productItem(
   return M3.Renderers.renderListItem({
     component: 'list-item',
     type: 'list-item',
-    headline: product.code + ' - ' + product.name,
-    supportingText: product.brand + ' - ' + product.category,
-    multiLineSupportingText: true,
-    trailingSupportingText: product.unit,
-    classes: ['product-item'],
-    slotList: [
+    attributes: {
+      headline: product.code + ' - ' + product.name,
+      supportingText: product.brand + ' - ' + product.category,
+      multiLineSupportingText: true,
+      trailingSupportingText: product.unit,
+      classes: ['product-item'],
+    },
+    children: [
       {
         component: 'icon',
         type: 'svg',
-        slot: 'start',
+        attributes: { slot: 'start' },
         SVG: icons.outlineRounded.category,
       },
       {
         component: 'checkbox',
         type: 'checkbox',
-        slot: 'end',
-        value: product.id,
-        checked,
+        attributes: { slot: 'end', value: product.id, checked },
       },
     ],
-    customConfig: (target) => {
+    transformers: (target) => {
       target.addEventListener('click', () => {
         const checkbox = target.querySelector('md-checkbox');
         if (checkbox != null) {
@@ -123,7 +123,7 @@ function productsListCard(
   return M3.Renderers.renderSurfaceCard({
     component: 'surface-card',
     type: 'elevated',
-    slotList: [
+    children: [
       productList(products, order) as Lit.Types.LitVirtualizerContent<unknown>,
     ],
   });

@@ -146,10 +146,12 @@ export class PageOrders extends PageBase {
       dateSelect(
         this.dateFilter.getTime(),
         {
-          styles: {
-            'margin-bottom': 'calc(2*var(--sys-spacing-track))',
+          attributes: {
+            styles: {
+              'margin-bottom': 'calc(2*var(--sys-spacing-track))',
+            },
           },
-          customConfig: (target) => {
+          transformers: (target) => {
             target.addEventListener('change', () => {
               this.dateFilter = new Date(Number(target.value));
 

@@ -14,45 +14,51 @@ function dateCard(order: Partial<NewOrder>): M3.Types.SurfaceCardContent {
   return {
     component: 'surface-card',
     type: 'elevated',
-    styles: {
-      'margin-top': 'var(--sys-spacing-track,8px)',
-      'margin-bottom': 'calc(2*var(--sys-spacing-track,8px))',
-      padding: 'calc(2*var(--sys-spacing-track,8px))',
-      'padding-top': 'var(--sys-spacing-track,8px)',
+    attributes: {
+      styles: {
+        'margin-top': 'var(--sys-spacing-track,8px)',
+        'margin-bottom': 'calc(2*var(--sys-spacing-track,8px))',
+        padding: 'calc(2*var(--sys-spacing-track,8px))',
+        'padding-top': 'var(--sys-spacing-track,8px)',
+      },
     },
-    slotList: [
+    children: [
       {
         component: 'form-builder',
         type: 'form-builder',
-        styles: {
-          'margin-top': '8px',
-        },
-        styleVars: {
-          '--padding-side': '0',
-        },
-        activeSlide: 'initial',
-        data: {
-          slides: {
-            initial: [
-              dateSelect(order.registrationDate, {
-                name: 'registrationDate',
-                label: i18n.msg('registration-date'),
-              }),
-              dateSelect(order.evacuationDate, {
-                name: 'evacuationDate',
-                label: i18n.msg('evacuation-date'),
-              }),
-            ],
+        attributes: {
+          styles: {
+            'margin-top': '8px',
+            '--padding-side': '0',
           },
-          onChange: (event) => {
-            const date = event.values?.['initial'];
+          activeSlide: 'initial',
+          data: {
+            slides: {
+              initial: [
+                dateSelect(order.registrationDate, {
+                  attributes: {
+                    name: 'registrationDate',
+                    label: i18n.msg('registration-date'),
+                  },
+                }),
+                dateSelect(order.evacuationDate, {
+                  attributes: {
+                    name: 'evacuationDate',
+                    label: i18n.msg('evacuation-date'),
+                  },
+                }),
+              ],
+            },
+            onChange: (event) => {
+              const date = event.values?.['initial'];
 
-            if (date != null) {
-              dispatch('new-order', {
-                registrationDate: Number(date['registrationDate']),
-                evacuationDate: Number(date['evacuationDate']),
-              });
-            }
+              if (date != null) {
+                dispatch('new-order', {
+                  registrationDate: Number(date['registrationDate']),
+                  evacuationDate: Number(date['evacuationDate']),
+                });
+              }
+            },
           },
         },
       },

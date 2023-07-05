@@ -15,10 +15,10 @@ export function customerDialog(
   return {
     component: 'dialog',
     type: 'dialog',
-    fullscreen: true,
-    slotList: [
+    attributes: { fullscreen: true },
+    children: [
       headingPageTypography(i18n.msg('customer-profile'), {
-        slot: 'headline',
+        attributes: { slot: 'headline' },
       }),
       customerCard(customer),
       customerProjectListCard(customer.projectList),
@@ -26,14 +26,12 @@ export function customerDialog(
       {
         component: 'button',
         type: 'text',
-        label: i18n.msg('close'),
-        slot: 'footer',
-        customConfig: (target) => {
-          target.addEventListener('click', () => {
+        children: [i18n.msg('close')],
+        attributes: { slot: 'footer' },
+        events: {
+          click: () => {
             dispatch('dialog', null);
-          });
-
-          return target;
+          },
         },
       },
     ],

@@ -16,10 +16,10 @@ export function supplierDialog(
   return {
     component: 'dialog',
     type: 'dialog',
-    fullscreen: true,
-    slotList: [
+    attributes: { fullscreen: true },
+    children: [
       headingPageTypography(i18n.msg('supplier-profile'), {
-        slot: 'headline',
+        attributes: { slot: 'headline' },
       }),
       supplierCard(supplier, editable),
       supplierPhoneNumberListCard(supplier),
@@ -27,14 +27,12 @@ export function supplierDialog(
       {
         component: 'button',
         type: 'text',
-        label: i18n.msg('close'),
-        slot: 'footer',
-        customConfig: (target) => {
-          target.addEventListener('click', () => {
+        children: [i18n.msg('close')],
+        attributes: { slot: 'footer' },
+        events: {
+          click: () => {
             dispatch('dialog', null);
-          });
-
-          return target;
+          },
         },
       },
     ],

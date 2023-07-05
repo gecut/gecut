@@ -42,9 +42,8 @@ export function notificationItemIcon(
   return {
     component: 'icon',
     type: 'svg',
-    slot: 'start',
+    attributes: { slot: 'start', styles: { color: cssColorVariable } },
     SVG: icon,
-    styles: { color: cssColorVariable },
   };
 }
 
@@ -56,11 +55,13 @@ export function notificationItem(
   return M3.Renderers.renderListItem({
     component: 'list-item',
     type: 'list-item',
-    supportingText: notification.message,
-    multiLineSupportingText: true,
-    classes: ['notification-item'],
-    slotList: [notificationItemIcon(notification.status)],
-    customConfig: (target) => {
+    attributes: {
+      supportingText: notification.message,
+      multiLineSupportingText: true,
+      classes: ['notification-item'],
+    },
+    children: [notificationItemIcon(notification.status)],
+    transformers: (target) => {
       ifAdmin(() => {
         target.addEventListener('click', () => {
           dispatch('dialog', addNotificationDialog(notification));
@@ -119,7 +120,7 @@ export function notificationListCard(
   return M3.Renderers.renderSurfaceCard({
     component: 'surface-card',
     type: 'elevated',
-    slotList: [
+    children: [
       notificationList(
         notifications
       ) as Lit.Types.LitVirtualizerContent<unknown>,

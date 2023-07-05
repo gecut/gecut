@@ -19,20 +19,22 @@ export function productItem(
   return M3.Renderers.renderListItem({
     component: 'list-item',
     type: 'list-item',
-    headline: product.code + ' - ' + product.name,
-    supportingText: product.brand + ' - ' + product.category,
-    multiLineSupportingText: true,
-    trailingSupportingText: product.unit,
-    classes: ['product-item'],
-    slotList: [
+    attributes: {
+      headline: product.code + ' - ' + product.name,
+      supportingText: product.brand + ' - ' + product.category,
+      multiLineSupportingText: true,
+      trailingSupportingText: product.unit,
+      classes: ['product-item'],
+    },
+    children: [
       {
         component: 'icon',
         type: 'svg',
-        slot: 'start',
+        attributes: { slot: 'start' },
         SVG: icons.outlineRounded.category,
       },
     ],
-    customConfig: (target) => {
+    transformers: (target) => {
       ifAdmin(() => {
         target.addEventListener('click', () => {
           dispatch('dialog', addProductDialog(product));
@@ -81,7 +83,7 @@ export function productsListCard(
   return M3.Renderers.renderSurfaceCard({
     component: 'surface-card',
     type: 'elevated',
-    slotList: [
+    children: [
       productList(products) as Lit.Types.LitVirtualizerContent<unknown>,
     ],
   });

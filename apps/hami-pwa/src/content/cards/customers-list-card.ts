@@ -20,27 +20,31 @@ export function customerItem(
   return M3.Renderers.renderListItem({
     component: 'list-item',
     type: 'list-item',
-    headline: customer.firstName + ' ' + customer.lastName,
-    supportingText: customer.description,
-    multiLineSupportingText: true,
-    trailingSupportingText: i18n.msg(
-      'number-of-order',
-      i18n.int(customer.orderList.length)
-    ),
-    classes: ['notification-item'],
-    styleVars: {
-      '--_list-item-trailing-supporting-text-color':
-        'var(--md-sys-color-primary)',
+    attributes: {
+      headline: customer.firstName + ' ' + customer.lastName,
+      supportingText: customer.description,
+      multiLineSupportingText: true,
+      trailingSupportingText: i18n.msg(
+        'number-of-order',
+        i18n.int(customer.orderList.length)
+      ),
+      classes: ['notification-item'],
+      styles: {
+        '--_list-item-trailing-supporting-text-color':
+          'var(--md-sys-color-primary)',
+      },
     },
-    slotList: [
+    children: [
       {
         component: 'icon',
         type: 'svg',
-        slot: 'start',
+        attributes: {
+          slot: 'start',
+        },
         SVG: icons.outlineRounded.person,
       },
     ],
-    customConfig: (target) => {
+    transformers: (target) => {
       target.addEventListener('click', () => {
         dispatch('dialog', customerDialog(customer));
       });
@@ -77,7 +81,9 @@ export function customersListCard(
   if (query.trim() !== '') {
     customers = customers.filter((customer) =>
       String(
-        sanitizer.str(customer.firstName) + sanitizer.str(customer.lastName) + customer.phoneNumber
+        sanitizer.str(customer.firstName) +
+          sanitizer.str(customer.lastName) +
+          customer.phoneNumber
       ).includes(query)
     );
   }
@@ -89,7 +95,7 @@ export function customersListCard(
   return M3.Renderers.renderSurfaceCard({
     component: 'surface-card',
     type: 'elevated',
-    slotList: [
+    children: [
       customerList(customers) as Lit.Types.LitVirtualizerContent<unknown>,
     ],
   });

@@ -13,21 +13,25 @@ export function customerProjectItem(
   return {
     component: 'list-item',
     type: 'list-item',
-    headline: project.projectName,
-    supportingText: project.projectAddress,
-    trailingSupportingText: i18n.msg(
-      'number-of-order',
-      i18n.int(project.ordersCount ?? 0)
-    ),
-    styles: {
-      width: '100%',
+    attributes: {
+      headline: project.projectName,
+      supportingText: project.projectAddress,
+      trailingSupportingText: i18n.msg(
+        'number-of-order',
+        i18n.int(project.ordersCount ?? 0)
+      ),
+      styles: {
+        width: '100%',
+      },
+      classes: ['project-item'],
     },
-    classes: ['project-item'],
-    slotList: [
+    children: [
       {
         component: 'icon',
         type: 'svg',
-        slot: 'start',
+        attributes: {
+          slot: 'start',
+        },
         SVG: icons.filledRounded.corporateFare,
       },
     ],
@@ -40,11 +44,13 @@ export function customerProjectList(
   return {
     component: 'list',
     type: 'list',
-    styles: {
-      'border-radius': '12px',
-      overflow: 'hidden',
+    attributes: {
+      styles: {
+        'border-radius': '12px',
+        overflow: 'hidden',
+      },
     },
-    slotList: projects.map((project) => customerProjectItem(project)),
+    children: projects.map((project) => customerProjectItem(project)),
   };
 }
 
@@ -58,7 +64,9 @@ export function customerProjectListCard(
   return {
     component: 'surface-card',
     type: 'elevated',
-    styles: { 'margin-bottom': 'calc(2*var(--sys-spacing-track,8px))' },
-    slotList: [customerProjectList(projects)],
+    attributes: {
+      styles: { 'margin-bottom': 'calc(2*var(--sys-spacing-track,8px))' },
+    },
+    children: [customerProjectList(projects)],
   };
 }

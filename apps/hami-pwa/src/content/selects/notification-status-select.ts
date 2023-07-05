@@ -9,13 +9,15 @@ export function notificationStatusSelect(
   return {
     component: 'select',
     type: 'filled',
-    label: i18n.msg('status'),
-    value,
-    name: 'status',
-    styles: {
-      "z-index": 'var(--sys-zindex-dropdown)',
+    attributes: {
+      label: i18n.msg('status'),
+      value,
+      name: 'status',
+      styles: {
+        'z-index': 'var(--sys-zindex-dropdown)',
+      },
     },
-    slotList: Projects.Hami.notificationStatusList.map((status) => ({
+    children: Projects.Hami.notificationStatusList.map((status) => ({
       component: 'select-option',
       type: 'select-option',
       value: status,

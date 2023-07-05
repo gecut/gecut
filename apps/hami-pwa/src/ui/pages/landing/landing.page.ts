@@ -32,10 +32,7 @@ export class PageLanding extends loggerElement {
   ];
 
   static progressTemplate = M3.Renderers.renderCircularProgress({
-    component: 'circular-progress',
-    type: 'circular-progress',
-    fourColor: true,
-    indeterminate: true,
+    attributes: { fourColor: true, indeterminate: true },
   });
 
   override connectedCallback() {
@@ -69,12 +66,14 @@ export class PageLanding extends loggerElement {
         dispatch('snack-bar', {
           component: 'snack-bar',
           type: 'ellipsis-message',
-          message: i18n.msg(
-            'welcome-message',
-            config.version,
-            sanitizer.str(user.lastName)
-          ),
-          closeButton: true,
+          attributes: {
+            message: i18n.msg(
+              'welcome-message',
+              config.version,
+              sanitizer.str(user.lastName)
+            ),
+            closeButton: true,
+          },
         });
       }
     }

@@ -45,28 +45,31 @@ export class AppRoot extends signalElement {
   static topAppBarLoadingSlot: M3.Types.CircularProgressContent = {
     component: 'circular-progress',
     type: 'circular-progress',
-    indeterminate: true,
-    styleVars: { '--_size': '40px' },
+    attributes: { indeterminate: true, styles: { '--_size': '40px' } },
   };
   static topAppBarTrailingSlot: M3.Types.DivisionContent = {
     component: 'division',
     type: 'div',
-    styles: {
-      display: 'flex',
-      'align-content': 'center',
-      'justify-content': 'center',
-      width: '40px',
-      height: '40px',
+    attributes: {
+      styles: {
+        display: 'flex',
+        'align-content': 'center',
+        'justify-content': 'center',
+        width: '40px',
+        height: '40px',
+      },
     },
-    slotList: [
+    children: [
       {
         component: 'img',
         type: 'img',
-        src: hamiLogo,
-        alt: 'gecut-logo',
-        styles: {
-          height: '24px',
-          margin: 'auto',
+        attributes: {
+          src: hamiLogo,
+          alt: 'gecut-logo',
+          styles: {
+            height: '24px',
+            margin: 'auto',
+          },
         },
       },
     ],
@@ -80,9 +83,9 @@ export class AppRoot extends signalElement {
       leadingSlot: <M3.Types.IconButtonContent>{
         component: 'icon-button',
         type: 'standard',
+        attributes: { ariaLabel: 'Log Out' },
         iconSVG: icons.filledRounded.logout,
-        ariaLabel: 'Log Out',
-        customConfig: (target) => {
+        transformers: (target) => {
           target.addEventListener('click', () => {
             dispatch('dialog', confirmLogoutDialog());
           });
@@ -110,26 +113,30 @@ export class AppRoot extends signalElement {
         dispatch('snack-bar', {
           component: 'snack-bar',
           type: 'wrap-message',
-          message: i18n.msg(
-            'web-application-is-now-installed-and-ready-to-work-in-offline-mode-but-the-application-requires-the-internet-to-synchronize-data-with-the-server'
-          ),
-          align: 'bottom',
-          closeButton: true,
+          attributes: {
+            message: i18n.msg(
+              'web-application-is-now-installed-and-ready-to-work-in-offline-mode-but-the-application-requires-the-internet-to-synchronize-data-with-the-server'
+            ),
+            align: 'bottom',
+            closeButton: true,
+          },
         });
       },
       onNeedRefresh() {
         dispatch('snack-bar', {
           component: 'snack-bar',
           type: 'wrap-message',
-          message: i18n.msg('congratulations-the-web-app-is-ready-to-update'),
-          align: 'bottom',
-          closeButton: true,
-          slotList: [
+          attributes: {
+            message: i18n.msg('congratulations-the-web-app-is-ready-to-update'),
+            align: 'bottom',
+            closeButton: true,
+          },
+          children: [
             {
               component: 'button',
               type: 'text',
-              slot: 'action',
-              label: i18n.msg('update'),
+              attributes: { slot: 'action' },
+              children: [i18n.msg('update')],
             },
           ],
         });
@@ -298,14 +305,19 @@ export class AppRoot extends signalElement {
     let bottom = 16;
 
     for (const content of contents) {
-      const fab = M3.Renderers.renderFAB({
-        styles: {
-          position: 'absolute',
-          bottom: bottom + 'px',
-          'inset-inline-end': '16px',
-          'z-index': 'var(--sys-zindex-sticky)',
-        },
+      content.attributes ??= {
+        size: 'medium',
+        variant: 'primary',
+      };
 
+      content.attributes['styles'] ??= {
+        position: 'absolute',
+        bottom: bottom + 'px',
+        'inset-inline-end': '16px',
+        'z-index': 'var(--sys-zindex-sticky)',
+      };
+
+      const fab = M3.Renderers.renderFAB({
         ...content,
       });
 
@@ -324,7 +336,7 @@ export class AppRoot extends signalElement {
 
     const oldSnackBar = this.fixedDivision.querySelector('snack-bar');
 
-    if (content.message === oldSnackBar?.message) return;
+    if (content.attributes?.message === oldSnackBar?.message) return;
 
     if (oldSnackBar != null) {
       oldSnackBar.addEventListener('closed', () => {

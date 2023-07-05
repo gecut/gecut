@@ -8,17 +8,16 @@ export function previousPageFAB(): M3.Types.FABContent {
   return {
     component: 'fab',
     type: 'fab',
-    size: 'medium',
-    variant: 'surface',
-    slotList: [
+    attributes: { size: 'medium', variant: 'surface' },
+    children: [
       {
         component: 'icon',
         type: 'svg',
-        slot: 'icon',
+        attributes: { slot: 'icon' },
         SVG: icons.filledRounded.arrowBack,
       },
     ],
-    customConfig: (target) => {
+    transformers: (target) => {
       target.addEventListener('click', () => {
         dispatch('new-order-state', 'previous');
       });

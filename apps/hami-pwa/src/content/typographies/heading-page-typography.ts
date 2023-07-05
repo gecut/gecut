@@ -7,10 +7,12 @@ export function headingPageTypography(
   return {
     component: 'typography',
     type: 'h1',
-    slotList: [title],
+    children: [title],
     style: 'title-large',
-    styles: {
-      color: 'var(--md-sys-color-surface-variant)',
+    attributes: {
+      styles: {
+        color: 'var(--md-sys-color-surface-variant)',
+      },
     },
 
     ...options,

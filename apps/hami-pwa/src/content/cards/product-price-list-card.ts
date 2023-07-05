@@ -19,14 +19,16 @@ export function productPriceItem(
   return M3.Renderers.renderListItem({
     component: 'list-item',
     type: 'list-item',
-    headline: productPrice.name,
-    supportingText: i18n.int(productPrice.minPrice),
-    trailingSupportingText: i18n.int(productPrice.normalPrice),
-    classes: ['notification-item'],
-    styleVars: {
-      '--_list-item-supporting-text-color': 'var(--md-sys-color-primary)',
+    attributes: {
+      headline: productPrice.name,
+      supportingText: i18n.int(productPrice.minPrice),
+      trailingSupportingText: i18n.int(productPrice.normalPrice),
+      classes: ['notification-item'],
+      styles: {
+        '--_list-item-supporting-text-color': 'var(--md-sys-color-primary)',
+      },
     },
-    customConfig: (target) => {
+    transformers: (target) => {
       ifAdmin(() => {
         target.addEventListener('click', () => {
           dispatch('dialog', addProductPriceDialog(productPrice));
@@ -85,7 +87,7 @@ export function productPriceListCard(
   return M3.Renderers.renderSurfaceCard({
     component: 'surface-card',
     type: 'elevated',
-    slotList: [
+    children: [
       productPriceList(
         productPrices
       ) as Lit.Types.LitVirtualizerContent<unknown>,

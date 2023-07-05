@@ -60,25 +60,27 @@ export class PageUser extends PageBase {
     return M3.Renderers.renderSurfaceCard({
       component: 'surface-card',
       type: 'elevated',
-      slotList: [
+      children: [
         {
           component: 'list',
           type: 'list',
-          slotList: [
+          children: [
             {
               component: 'list-item',
               type: 'list-item',
-              headline: [
-                this.user.gender != null ? i18n.msg(this.user.gender) : '',
-                this.user.firstName,
-                this.user.lastName,
-                `(${i18n.msg(this.user.role)})`,
-              ].join(' '),
-              slotList: [
+              attributes: {
+                headline: [
+                  this.user.gender != null ? i18n.msg(this.user.gender) : '',
+                  this.user.firstName,
+                  this.user.lastName,
+                  `(${i18n.msg(this.user.role)})`,
+                ].join(' '),
+              },
+              children: [
                 {
                   component: 'icon',
                   type: 'svg',
-                  slot: 'start',
+                  attributes: { slot: 'start' },
                   SVG: icons.outlineRounded.person,
                 },
               ],
@@ -86,12 +88,14 @@ export class PageUser extends PageBase {
             {
               component: 'list-item',
               type: 'list-item',
-              headline: `${i18n.phone(sanitizer.str(this.user.phoneNumber))}`,
-              slotList: [
+              attributes: {
+                headline: `${i18n.phone(sanitizer.str(this.user.phoneNumber))}`,
+              },
+              children: [
                 {
                   component: 'icon',
                   type: 'svg',
-                  slot: 'start',
+                  attributes: { slot: 'start' },
                   SVG: icons.outlineRounded.call,
                 },
               ],
@@ -99,13 +103,15 @@ export class PageUser extends PageBase {
             {
               component: 'list-item',
               type: 'list-item',
-              headline: `${this.user.email}`,
-              hidden: this.user.email == null,
-              slotList: [
+              attributes: {
+                headline: `${this.user.email}`,
+                hidden: this.user.email == null,
+              },
+              children: [
                 {
                   component: 'icon',
                   type: 'svg',
-                  slot: 'start',
+                  attributes: { slot: 'start' },
                   SVG: icons.filledRounded.alternateEmail,
                 },
               ],
@@ -113,17 +119,15 @@ export class PageUser extends PageBase {
             {
               component: 'list-item',
               type: 'list-item',
-              headline: i18n.msg(
-                'your-score',
-                i18n.int(this.user.score)
-              ),
-              slotList: [
+              attributes: {
+                headline: i18n.msg('your-score', i18n.int(this.user.score)),
+              },
+              children: [
                 {
                   component: 'icon',
                   type: 'svg',
-                  slot: 'start',
+                  attributes: { slot: 'start', classes: ['icon-gold'] },
                   SVG: icons.filledRounded.awardStar,
-                  classes: ['icon-gold'],
                 },
               ],
             },
@@ -131,39 +135,33 @@ export class PageUser extends PageBase {
             {
               component: 'division',
               type: 'div',
-              classes: ['buttons-list'],
-              slotList: [
+              attributes: { classes: ['buttons-list'] },
+              children: [
                 {
                   component: 'button',
                   type: 'tonal',
-                  label: i18n.msg(
-                    'add-score'
-                  ),
-                  hasIcon: true,
-                  trailingIcon: true,
-                  slotList: [
+                  attributes: { hasIcon: true, trailingIcon: true },
+                  children: [
+                    i18n.msg('add-score'),
                     {
                       component: 'icon',
                       type: 'svg',
                       SVG: icons.filledRounded.add,
-                      slot: 'icon',
+                      attributes: { slot: 'icon' },
                     },
                   ],
                 },
                 {
                   component: 'button',
                   type: 'tonal',
-                  label: i18n.msg(
-                    'change-password'
-                  ),
-                  hasIcon: true,
-                  trailingIcon: true,
-                  slotList: [
+                  attributes: { hasIcon: true, trailingIcon: true },
+                  children: [
+                    i18n.msg('change-password'),
                     {
                       component: 'icon',
                       type: 'svg',
                       SVG: icons.outline.lock,
-                      slot: 'icon',
+                      attributes: { slot: 'icon' },
                     },
                   ],
                 },
