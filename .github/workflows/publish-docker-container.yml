@@ -21,6 +21,7 @@ env:
   REGISTRY: ghcr.io
   USERNAME: ${{ github.repository_owner }}
   LIARA_TOKEN: ${{ secrets.LIARA_API_TOKEN }}
+  NODE_VERSION: v19.0.0
 
 jobs:
   build:
