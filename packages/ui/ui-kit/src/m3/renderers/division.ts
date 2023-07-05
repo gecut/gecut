@@ -6,7 +6,10 @@ import type {
 } from '../types/division';
 
 export function renderDivision(
-  content: DivisionContent
+  content: Partial<DivisionContent>
 ): DivisionRendererReturn {
-  return createElementByContent(content.type, content, []);
+  content.component = 'division';
+  content.type ??= 'div';
+
+  return createElementByContent(content.type, content);
 }

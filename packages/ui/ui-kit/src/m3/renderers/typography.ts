@@ -9,9 +9,12 @@ import type {
 } from '../types/typography';
 
 export function renderTypoGraphy(
-  content: TypoGraphyContent
+  content: Partial<TypoGraphyContent>
 ): TypoGraphyRendererReturn {
-  const typography = createElementByContent(content.type, content, []);
+  content.component = 'typography';
+  content.type ??= 'p';
+
+  const typography = createElementByContent(content.type, content);
 
   if (content.style != null) {
     typography.style.marginTop = '.6em';

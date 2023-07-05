@@ -8,9 +8,10 @@ import type {
 } from '../types/surface-card';
 
 export function renderSurfaceCard(
-  content: SurfaceCardContent,
+  content: Partial<SurfaceCardContent>
 ): SurfaceCardRendererReturn {
-  const card = createElementByContent('surface-card', content, ['type']);
+  content.component = 'surface-card';
+  content.type ??= 'elevated';
 
-  return card;
+  return createElementByContent('surface-card', content);
 }

@@ -8,10 +8,10 @@ import type {
 } from '../types/form-builder';
 
 export function renderFormBuilder(
-  content: FormBuilderContent
+  content: Partial<FormBuilderContent>
 ): FormBuilderRendererReturn {
-  return createElementByContent('form-builder', content, [
-    'activeSlide',
-    'data',
-  ]);
+  content.component = 'form-builder';
+  content.type = 'form-builder';
+
+  return createElementByContent('form-builder', content);
 }

@@ -5,17 +5,11 @@ import { createElementByContent } from './base/base-renderer';
 
 import type { ListItemContent, ItemRendererReturn } from '../types/list-item';
 
-export function renderListItem(content: ListItemContent): ItemRendererReturn {
-  const item = createElementByContent(`md-${content.type}`, content, [
-    'headline',
-    'supportingText',
-    'multiLineSupportingText',
-    'trailingSupportingText',
-    'disabled',
-    'active',
-    'href',
-    'target',
-  ]);
+export function renderListItem(
+  content: Partial<ListItemContent>
+): ItemRendererReturn {
+  content.component = 'list-item';
+  content.type ??= 'list-item';
 
-  return item;
+  return createElementByContent(`md-${content.type}`, content);
 }

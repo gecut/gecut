@@ -4,14 +4,9 @@ import { createElementByContent } from './base/base-renderer';
 
 import type { FABContent, FABRendererReturn } from '../types/fab';
 
-export function renderFAB(content: FABContent): FABRendererReturn {
-  const fab = createElementByContent('md-fab', content, [
-    'variant',
-    'size',
-    'label',
-    'lowered',
-    'reducedTouchTarget',
-  ]);
+export function renderFAB(content: Partial<FABContent>): FABRendererReturn {
+  content.component = 'fab';
+  content.type = 'fab';
 
-  return fab;
+  return createElementByContent('md-fab', content);
 }

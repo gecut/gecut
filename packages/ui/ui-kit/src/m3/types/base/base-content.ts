@@ -1,16 +1,14 @@
 import type { AllComponentsContent } from '../types';
 import type { SingleOrArray } from '@gecut/types';
-import type { LiteralUnion } from 'type-fest';
+import type { LiteralUnion, Merge } from 'type-fest';
 
 export interface BaseContent<
   TransformerTarget extends HTMLElement,
-  Slot = string,
-  Child =
-    | string
-    | (AllComponentsContent<unknown> & { slot?: LiteralUnion<Slot, string> })
+  _Attributes extends Attributes = Record<string, unknown>,
+  Child = string | AllComponentsContent<unknown>
 > {
   children?: Array<Child>;
-  attributes?: Attributes;
+  attributes?: Merge<Attributes, _Attributes>;
   transformers?: SingleOrArray<Transformer<TransformerTarget>>;
   events?: Events;
 }
@@ -24,7 +22,7 @@ export type Attributes = {
   slot?: string;
   classes?: Array<string>;
   styles?: Partial<Record<LiteralUnion<CSSProperty, CSSVariable>, string>>;
-} & Record<string, string>;
+} & Record<string, unknown>;
 
 export type Transformer<T> = (target: T) => T;
 

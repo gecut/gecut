@@ -130,39 +130,42 @@ const inputRole = [
 export type TextFieldRendererReturn = MdFilledTextField | MdOutlinedTextField;
 
 export interface TextFieldContent
-  extends BaseContent<TextFieldRendererReturn, 'leadingicon' | 'trailingicon'> {
+  extends BaseContent<
+    TextFieldRendererReturn,
+    {
+      name: string;
+      inputType: ArrayValues<typeof inputTypeList>;
+
+      label?: string;
+      placeholder?: string;
+      supportingText?: string;
+      textDirection?: 'rtl' | 'ltr';
+
+      value?: string;
+      defaultValue?: string;
+
+      role?: ArrayValues<typeof inputRole>;
+      required?: boolean;
+      pattern?: string;
+      errorText?: string;
+      error?: boolean;
+
+      prefixText?: string;
+      suffixText?: string;
+
+      max?: string;
+      maxLength?: number;
+      min?: string;
+      minLength?: number;
+      step?: string;
+
+      disabled?: boolean;
+      readOnly?: boolean;
+
+      hasLeadingIcon?: boolean;
+      hasTrailingIcon?: boolean;
+    }
+  > {
   component: 'text-field';
   type: 'outlined' | 'filled';
-
-  name: string;
-  inputType: ArrayValues<typeof inputTypeList>;
-
-  label?: string;
-  placeholder?: string;
-  supportingText?: string;
-  textDirection?: 'rtl' | 'ltr';
-
-  value?: string;
-  defaultValue?: string;
-
-  role?: ArrayValues<typeof inputRole>;
-  required?: boolean;
-  pattern?: string;
-  errorText?: string;
-  error?: boolean;
-
-  prefixText?: string;
-  suffixText?: string;
-
-  max?: string;
-  maxLength?: number;
-  min?: string;
-  minLength?: number;
-  step?: string;
-
-  disabled?: boolean;
-  readOnly?: boolean;
-
-  hasLeadingIcon?: boolean;
-  hasTrailingIcon?: boolean;
 }

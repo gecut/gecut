@@ -1,71 +1,80 @@
+import { join } from '@gecut/utilities';
+
 import { renderer } from '../renderers';
 
-import type { BaseContent, CSSProperty } from '../../types/base/base-content';
+import type { Attributes, BaseContent } from '../../types/base/base-content';
 
 export function createElementByContent<
   T extends keyof HTMLElementTagNameMap,
   K extends BaseContent<HTMLElementTagNameMap[T]>
->(tagName: T, content: K, attributes: (keyof K)[]): HTMLElementTagNameMap[T] {
+>(tagName: T, content: K): HTMLElementTagNameMap[T] {
   let element = document.createElement(tagName);
 
-  for (const key of attributes) {
-    const value = content[key];
+  type Element = typeof element;
 
-    if (value != null) {
-      const _key = key as keyof HTMLElementTagNameMap[T];
-
-      element[_key] = value as HTMLElementTagNameMap[T][typeof _key];
-    }
-  }
-
-  element.hidden = content.hidden === true;
-
-  if (content.ariaLabel != null) {
-    element.ariaLabel = content.ariaLabel;
-  }
-
-  if (content.transformers != null) {
-    element = content.transformers(element);
-  }
-
-  if (content.classes != null) {
-    element.className = content.classes.join(' ');
-  }
-
-  if (content.styles != null) {
-    for (const _property of Object.keys(content.styles)) {
-      const property = _property as CSSProperty;
-      const value = content.styles[property];
-
-      if (value != null) {
-        element.style.setProperty(property, value);
+  if (content.attributes != null) {
+    for (const attribute of Object.keys(content.attributes)) {
+      if (
+        attribute === 'classes' &&
+        content.attributes.classes != null &&
+        content.attributes.classes.length > 0
+      ) {
+        element = setClassList(element, content.attributes.classes);
+      } else if (attribute === 'styles' && content.attributes.styles != null) {
+        element = setStyle(element, content.attributes.styles);
+      } else {
+        element[attribute as keyof Element] = content.attributes[
+          attribute
+        ] as unknown as Element[keyof Element];
       }
     }
-  }
-
-  if (content.styleVars != null) {
-    for (const property of Object.keys(content.styleVars)) {
-      const value = content.styleVars[property];
-
-      element.style.setProperty(property, value);
-    }
-  }
-
-  if (content.slot != null) {
-    element.slot = content.slot;
   }
 
   if (content.children != null) {
-    for (const slotContent of content.children) {
-      if (typeof slotContent === 'string') {
-        element.innerHTML += slotContent;
+    for (const childContent of content.children) {
+      if (typeof childContent === 'string') {
+        element.innerHTML += childContent;
       } else {
-        const slotElement = renderer(slotContent);
-
-        if (slotElement != null) {
-          element.appendChild(slotElement);
-        }
+        element.appendChild(renderer(childContent));
       }
+    }
+  }
+
+  if (content.events != null) {
+    for (const [event, callback] of Object.entries(content.events)) {
+      element.addEventListener(event, (...args) => callback(...args));
+    }
+  }
+
+  if (content.transformers != null) {
+    if (Array.isArray(content.transformers)) {
+      for (const transformer of content.transformers) {
+        element = transformer(element);
+      }
+    } else {
+      element = content.transformers(element);
+    }
+  }
+
+  return element;
+}
+
+function setClassList<T extends HTMLElement>(
+  element: T,
+  classList: string[]
+): T {
+  element.className = join(' ', ...classList);
+
+  return element;
+}
+
+function setStyle<T extends HTMLElement>(
+  element: T,
+  style: NonNullable<Attributes['styles']>
+): T {
+  for (const [name, value] of Object.entries(style)) {
+    if (value != null) {
+      element.style.setProperty(name, value);
     }
   }
 

@@ -4,11 +4,13 @@ import type { Form, FormBuilder } from '@gecut/form-builder';
 export type FormBuilderRendererReturn = FormBuilder;
 
 export interface FormBuilderContent
-  extends BaseContent<FormBuilderRendererReturn, 'icon'> {
+  extends BaseContent<
+    FormBuilderRendererReturn,
+    {
+      data: Form;
+      activeSlide: string;
+    }
+  > {
   component: 'form-builder';
   type: 'form-builder';
-
-  data: Form;
-
-  activeSlide: string;
 }

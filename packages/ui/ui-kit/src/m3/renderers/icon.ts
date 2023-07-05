@@ -5,8 +5,13 @@ import type { MdIcon } from '@material/web/icon/icon';
 
 type renderIconReturnType = MdIcon;
 
-export function renderIcon(content: IconContent): renderIconReturnType {
-  const icon = createElementByContent('md-icon', content, []);
+export function renderIcon(
+  content: Partial<IconContent>
+): renderIconReturnType {
+  content.component = 'icon';
+  content.type = 'svg';
+
+  const icon = createElementByContent('md-icon', content);
 
   if (icon.slot === 'start') {
     icon.style.setProperty(
@@ -15,7 +20,9 @@ export function renderIcon(content: IconContent): renderIconReturnType {
     );
   }
 
-  icon.innerHTML = content.SVG;
+  if (content.SVG != null) {
+    icon.innerHTML = content.SVG;
+  }
 
   return icon;
 }

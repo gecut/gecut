@@ -8,20 +8,10 @@ import type {
 } from '../types/select-option';
 
 export function renderSelectOption(
-  content: SelectOptionContent
+  content: Partial<SelectOptionContent>
 ): SelectOptionRendererReturn {
-  return createElementByContent('md-select-option', content, [
-    'value',
-    'selected',
-    'isMenuItem',
-    'keepOpen',
-    'headline',
-    'supportingText',
-    'multiLineSupportingText',
-    'trailingSupportingText',
-    'disabled',
-    'itemTabIndex',
-    'active',
-    'isListItem',
-  ]);
+  content.component = 'select-option';
+  content.type = 'select-option';
+
+  return createElementByContent('md-select-option', content);
 }

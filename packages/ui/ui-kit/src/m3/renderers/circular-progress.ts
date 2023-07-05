@@ -8,13 +8,10 @@ import type {
 } from '../types/circular-progress';
 
 export function renderCircularProgress(
-  content: CircularProgressContent
+  content: Partial<CircularProgressContent>
 ): CircularProgressRendererReturn {
-  const progress = createElementByContent(`md-${content.type}`, content, [
-    'progress',
-    'indeterminate',
-    'fourColor',
-  ]);
+  content.component = 'circular-progress';
+  content.type = 'circular-progress';
 
-  return progress;
+  return createElementByContent(`md-${content.type}`, content);
 }
