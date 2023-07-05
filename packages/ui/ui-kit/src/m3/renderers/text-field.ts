@@ -9,19 +9,24 @@ import type {
   TextFieldRendererReturn,
 } from '../types/text-field';
 
+let i = 0;
+
 export function renderTextField(
   content: Partial<TextFieldContent>
 ): TextFieldRendererReturn {
   content.component = 'text-field';
   content.type ??= 'filled';
-  content.inputType ??= 'text';
+  content.attributes ??= {
+    inputType: 'text',
+    name: (++i).toString(),
+  };
 
   const textField = createElementByContent(
     `md-${content.type}-text-field`,
     content
   );
 
-  textField.type = content.inputType;
+  textField.type = content.attributes.inputType;
 
   return textField;
 }
