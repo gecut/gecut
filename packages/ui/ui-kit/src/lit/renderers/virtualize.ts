@@ -10,11 +10,5 @@ import type {
 export function renderLitVirtualizer<T>(
   content: LitVirtualizerContent<T>
 ): LitVirtualizerRendererReturn {
-  return createElementByContent('lit-virtualizer', content, [
-    'renderItem',
-    'keyFunction',
-    'scroller',
-    'layout',
-    'items',
-  ]);
+  return createElementByContent('lit-virtualizer', content);
 }
