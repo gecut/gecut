@@ -10,31 +10,25 @@ form.data = {
       {
         component: 'text-field',
         type: 'filled',
-        inputType: 'text',
-        label: 'Label',
-        name: 'Name1',
+        attributes: { inputType: 'text', label: 'Label', name: 'Name1' },
       },
       [
         {
           component: 'text-field',
           type: 'filled',
-          inputType: 'text',
-          label: 'Label',
-          name: 'Name2',
+          attributes: { inputType: 'text', label: 'Label', name: 'Name2' },
         },
         {
           component: 'text-field',
           type: 'filled',
-          inputType: 'text',
-          label: 'Label',
-          name: 'Name3',
+          attributes: { inputType: 'text', label: 'Label', name: 'Name3' },
         },
       ],
       {
         component: 'button',
         type: 'filled',
 
-        label: 'Next Slide',
+        children: ['Next Slide'],
 
         action: 'next_slide',
       },
@@ -43,9 +37,7 @@ form.data = {
       {
         component: 'text-field',
         type: 'filled',
-        inputType: 'email',
-        label: 'Email',
-        name: 'email',
+        attributes: { inputType: 'email', label: 'Email', name: 'email' },
         validator: [
           {
             rule: 'email',
@@ -57,16 +49,12 @@ form.data = {
         {
           component: 'text-field',
           type: 'filled',
-          inputType: 'text',
-          label: 'Label',
-          name: 'Name5',
+          attributes: { inputType: 'text', label: 'Label', name: 'Name5' },
         },
         {
           component: 'text-field',
           type: 'filled',
-          inputType: 'text',
-          label: 'Label',
-          name: 'Name6',
+          attributes: { inputType: 'text', label: 'Label', name: 'Name6' },
         },
       ],
       [
@@ -74,16 +62,16 @@ form.data = {
           component: 'button',
           type: 'filled',
 
-          label: 'Previous Slide',
+          children: ['Previous Slide'],
 
           action: 'previous_slide',
-          styles: { "flex-grow": '0' },
+          attributes: { styles: { 'flex-grow': '0' } },
         },
         {
           component: 'button',
           type: 'filled',
 
-          label: 'Form Submit',
+          children: ['Form Submit'],
 
           action: 'form_submit',
         },
@@ -93,8 +81,6 @@ form.data = {
 };
 
 form.addEventListener('change', (event) => {
-  console.log({ validate: form.validate }, event, form);
-
   if (result != null) {
     result.innerHTML = JSON.stringify(form.values, null, 2);
   }
