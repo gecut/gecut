@@ -331,7 +331,8 @@ export class FormBuilder extends loggerElement {
               )
               .map((component) => [
                 (component as M3.Types.TextFieldContent).attributes?.name ?? '',
-                (component as M3.Types.TextFieldContent).attributes?.value ?? '',
+                (component as M3.Types.TextFieldContent).attributes?.value ??
+                  '',
               ]);
 
             return rowValues;

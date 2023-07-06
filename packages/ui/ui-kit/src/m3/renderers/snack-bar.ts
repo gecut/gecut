@@ -8,7 +8,7 @@ import type {
 } from '../types/snack-bar';
 
 export function renderSnackBar(
-  content: Partial<SnackBarContent>
+    content: Partial<SnackBarContent>
 ): SnackBarRendererReturn {
   content.component = 'snack-bar';
   content.type ??= 'ellipsis-message';

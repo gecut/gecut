@@ -7,7 +7,7 @@ import type { Projects } from '@gecut/types';
 import type { M3 } from '@gecut/ui-kit';
 
 export function supplierPhoneNumberItem(
-  supplierPhoneNumber: Projects.Hami.SupplierPhoneNumber
+    supplierPhoneNumber: Projects.Hami.SupplierPhoneNumber
 ): M3.Types.ListItemContent {
   return {
     component: 'list-item',
@@ -34,7 +34,7 @@ export function supplierPhoneNumberItem(
 }
 
 export function supplierPhoneNumberList(
-  supplier: Projects.Hami.SupplierModel
+    supplier: Projects.Hami.SupplierModel
 ): M3.Types.ListContent {
   const items = [
     {
@@ -58,7 +58,7 @@ export function supplierPhoneNumberList(
 }
 
 export function supplierPhoneNumberListCard(
-  supplier: Projects.Hami.SupplierModel
+    supplier: Projects.Hami.SupplierModel
 ): M3.Types.SurfaceCardContent {
   return {
     component: 'surface-card',

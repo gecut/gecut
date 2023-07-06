@@ -15,7 +15,7 @@ import type { Projects } from '@gecut/types';
 import type { Lit } from '@gecut/ui-kit';
 
 export function customerItem(
-  customer: Projects.Hami.CustomerModel
+    customer: Projects.Hami.CustomerModel
 ): M3.Types.ItemRendererReturn {
   return M3.Renderers.renderListItem({
     component: 'list-item',
@@ -25,8 +25,8 @@ export function customerItem(
       supportingText: customer.description,
       multiLineSupportingText: true,
       trailingSupportingText: i18n.msg(
-        'number-of-order',
-        i18n.int(customer.orderList.length)
+          'number-of-order',
+          i18n.int(customer.orderList.length)
       ),
       classes: ['notification-item'],
       styles: {
@@ -55,7 +55,7 @@ export function customerItem(
 }
 
 export function customerList(
-  customers: Projects.Hami.CustomerModel[]
+    customers: Projects.Hami.CustomerModel[]
 ): Lit.Types.LitVirtualizerContent<Projects.Hami.CustomerModel> {
   return {
     component: 'lit-virtualizer',
@@ -75,15 +75,15 @@ export function customerList(
 }
 
 export function customersListCard(
-  customers: Projects.Hami.CustomerModel[],
-  query = ''
+    customers: Projects.Hami.CustomerModel[],
+    query = ''
 ): M3.Types.SurfaceCardRendererReturn {
   customers = customers.filter((customer) => customer.active === true);
 
   if (query.trim() !== '') {
     customers = customers.filter((customer) =>
       String(
-        sanitizer.str(customer.firstName) +
+          sanitizer.str(customer.firstName) +
           sanitizer.str(customer.lastName) +
           customer.phoneNumber
       ).includes(query)

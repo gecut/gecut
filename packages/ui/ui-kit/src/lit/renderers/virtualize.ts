@@ -8,7 +8,7 @@ import type {
 } from '../types/virtualize';
 
 export function renderLitVirtualizer<T>(
-  content: LitVirtualizerContent<T>
+    content: LitVirtualizerContent<T>
 ): LitVirtualizerRendererReturn {
   return createElementByContent('lit-virtualizer', content);
 }

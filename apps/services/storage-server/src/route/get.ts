@@ -11,7 +11,7 @@ import type { StringifyableRecord } from '@alwatr/type';
 nanoServer.route('GET', '/', getDocument);
 
 function getDocument(
-  connection: AlwatrConnection
+    connection: AlwatrConnection
 ): AlwatrServiceResponse<StringifyableRecord, StringifyableRecord> {
   logger.logMethod?.('getDocument');
 
@@ -28,7 +28,7 @@ function getDocument(
   connection.requireToken(config.nanoServer.accessToken);
 
   const params = connection.requireQueryParams<{ storage: string; id: string }>(
-    { storage: 'string', id: 'string' }
+      { storage: 'string', id: 'string' }
   );
 
   const storageEngine = storageProvider.get({ name: params.storage });

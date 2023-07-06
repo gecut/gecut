@@ -16,11 +16,11 @@ nanoServer.route('PATCH', '/customer-storage/', async (connection) => {
 
   for (let customer of bodyJson.data) {
     customer = await storageClient.set(
-      Projects.Hami.customerRequire({
-        creatorId: user.id,
-        ...customer,
-      }),
-      config.customerStorage
+        Projects.Hami.customerRequire({
+          creatorId: user.id,
+          ...customer,
+        }),
+        config.customerStorage
     );
   }
 

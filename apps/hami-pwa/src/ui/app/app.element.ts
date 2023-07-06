@@ -115,7 +115,7 @@ export class AppRoot extends signalElement {
           type: 'wrap-message',
           attributes: {
             message: i18n.msg(
-              'web-application-is-now-installed-and-ready-to-work-in-offline-mode-but-the-application-requires-the-internet-to-synchronize-data-with-the-server'
+                'web-application-is-now-installed-and-ready-to-work-in-offline-mode-but-the-application-requires-the-internet-to-synchronize-data-with-the-server'
             ),
             align: 'bottom',
             closeButton: true,
@@ -208,9 +208,9 @@ export class AppRoot extends signalElement {
       </main>
 
       ${this.renderNavigationBar(
-    config.navigationTabs,
-    this.bottomAppBarHidden
-  )}
+        config.navigationTabs,
+        this.bottomAppBarHidden
+      )}
     `;
   }
 
@@ -229,8 +229,8 @@ export class AppRoot extends signalElement {
   }
 
   static renderTopAppBar(
-    content: M3.Types.TopAppBarContent,
-    hidden = false
+      content: M3.Types.TopAppBarContent,
+      hidden = false
   ): RenderResult {
     if (hidden === true) return nothing;
 
@@ -238,8 +238,8 @@ export class AppRoot extends signalElement {
   }
 
   private renderNavigationBar(
-    navigationTabs: M3.Types.NavigationTabContent[],
-    hidden = false
+      navigationTabs: M3.Types.NavigationTabContent[],
+      hidden = false
   ): RenderResult {
     this.log.methodArgs?.('renderNavigationBar', {
       navigationTabs,
@@ -260,7 +260,7 @@ export class AppRoot extends signalElement {
   }
 
   private renderNavigationTab(
-    tab: M3.Types.NavigationTabContent
+      tab: M3.Types.NavigationTabContent
   ): RenderResult {
     const tabSlug = tab.link.split('/')[1];
     const activeSlug = location.pathname.split('/')[1];
@@ -354,13 +354,13 @@ export class AppRoot extends signalElement {
 
     if (content == null) {
       this.fixedDivision
-        .querySelectorAll('md-dialog')
-        .forEach((dialog) => dialog.close());
+          .querySelectorAll('md-dialog')
+          .forEach((dialog) => dialog.close());
 
       gecutIdleCallback(() => {
         this.fixedDivision
-          ?.querySelectorAll('md-dialog')
-          .forEach((dialog) => dialog.close());
+            ?.querySelectorAll('md-dialog')
+            .forEach((dialog) => dialog.close());
       });
 
       return;

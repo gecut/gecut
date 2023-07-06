@@ -8,7 +8,7 @@ export interface ProductPrice extends AlwatrDocumentObjectActive {
 }
 
 export const productPriceRequire: RequireFunc<ProductPrice> = (
-  productPrice: Partial<ProductPrice>
+    productPrice: Partial<ProductPrice>
 ): ProductPrice => ({
   id: 'auto_increment',
   name: 'no-name',

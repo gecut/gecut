@@ -10,8 +10,8 @@ export async function isAdmin(): Promise<boolean> {
 
   if ((await isSignIn()) === true) {
     return await request('user', {}, 'cacheFirst')
-      .then((user) => user.role === 'admin')
-      .catch(() => false);
+        .then((user) => user.role === 'admin')
+        .catch(() => false);
   }
 
   return false;

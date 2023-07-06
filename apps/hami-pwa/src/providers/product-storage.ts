@@ -6,6 +6,6 @@ import type { Projects } from '@gecut/types';
 
 setProvider('product-storage', async () => {
   return await fetchJSON<Projects.Hami.Routes['product-storage']>(
-    'product-storage/'
+      'product-storage/'
   );
 });

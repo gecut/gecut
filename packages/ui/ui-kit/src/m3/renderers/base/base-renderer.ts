@@ -24,7 +24,7 @@ export function createElementByContent<
         element = setStyle(element, content.attributes.styles);
       } else {
         element[attribute as keyof Element] = content.attributes[
-          attribute
+            attribute
         ] as unknown as Element[keyof Element];
       }
     }
@@ -60,8 +60,8 @@ export function createElementByContent<
 }
 
 function setClassList<T extends HTMLElement>(
-  element: T,
-  classList: string[]
+    element: T,
+    classList: string[]
 ): T {
   element.className = join(' ', ...classList);
 
@@ -69,8 +69,8 @@ function setClassList<T extends HTMLElement>(
 }
 
 function setStyle<T extends HTMLElement>(
-  element: T,
-  style: NonNullable<Attributes['styles']>
+    element: T,
+    style: NonNullable<Attributes['styles']>
 ): T {
   for (const [name, value] of Object.entries(style)) {
     if (value != null) {

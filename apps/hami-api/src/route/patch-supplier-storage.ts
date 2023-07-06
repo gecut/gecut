@@ -16,8 +16,8 @@ nanoServer.route('PATCH', '/supplier-storage/', async (connection) => {
 
   for (const supplier of bodyJson.data) {
     await storageClient.set(
-      Projects.Hami.supplierRequire(supplier),
-      config.supplierStorage
+        Projects.Hami.supplierRequire(supplier),
+        config.supplierStorage
     );
   }
 

@@ -8,7 +8,7 @@ import type {
 } from '../types/circular-progress';
 
 export function renderCircularProgress(
-  content: Partial<CircularProgressContent>
+    content: Partial<CircularProgressContent>
 ): CircularProgressRendererReturn {
   content.component = 'circular-progress';
   content.type = 'circular-progress';

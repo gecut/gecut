@@ -43,8 +43,8 @@ function createSignalProvider<T extends keyof Signals>(name: T) {
 }
 
 function addListener<T extends keyof Signals>(
-  name: T,
-  callback: SignalListener<T>
+    name: T,
+    callback: SignalListener<T>
 ): void {
   logger.methodArgs?.('addListener', { name, callback });
   __initSignal(name);
@@ -53,8 +53,8 @@ function addListener<T extends keyof Signals>(
 }
 
 function removeListener<T extends keyof Signals>(
-  name: T,
-  callback: SignalListener<T>
+    name: T,
+    callback: SignalListener<T>
 ): void {
   logger.methodArgs?.('removeListener', { name, callback });
   __initSignal(name);
@@ -80,8 +80,8 @@ function dispatch<T extends keyof Signals>(name: T, value: Signals[T]): void {
 }
 
 function setProvider<T extends keyof Signals>(
-  name: T,
-  provider: SignalProvider<T>
+    name: T,
+    provider: SignalProvider<T>
 ): void {
   logger.methodArgs?.('setProvider', { name, provider });
   __initSignal(name);
@@ -100,9 +100,9 @@ function getValue<T extends keyof Signals>(name: T): Signals[T] | undefined {
 }
 
 async function request<T extends keyof Signals>(
-  name: T,
-  args: Providers[T],
-  strategy:
+    name: T,
+    args: Providers[T],
+    strategy:
     | 'staleWhileRevalidate'
     | 'cacheFirst'
     | 'provideOnly' = 'provideOnly'
@@ -112,10 +112,10 @@ async function request<T extends keyof Signals>(
 
   if (signalsObject[name]?.provider == null) {
     throw logger.warning(
-      'request',
-      'provider_not_exists',
-      'Before run request, set Provider',
-      { name, args }
+        'request',
+        'provider_not_exists',
+        'Before run request, set Provider',
+        { name, args }
     );
   }
 
@@ -139,10 +139,10 @@ async function request<T extends keyof Signals>(
 
   if (value == null) {
     throw logger.warning(
-      'request',
-      'provider_return_empty',
-      'Provider must be return a value, not empty',
-      { name, args }
+        'request',
+        'provider_return_empty',
+        'Provider must be return a value, not empty',
+        { name, args }
     );
   }
 

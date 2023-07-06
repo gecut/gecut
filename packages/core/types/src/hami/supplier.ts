@@ -25,7 +25,7 @@ export interface SupplierPhoneNumber extends StringifyableRecord {
 }
 
 export const supplierRequire: RequireFunc<Supplier> = (
-  supplier: Partial<Supplier>
+    supplier: Partial<Supplier>
 ): Supplier => ({
   id: 'auto_increment',
   uniqueCode: 'no-unique-code',

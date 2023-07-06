@@ -7,7 +7,7 @@ import { createElementByContent } from './base/base-renderer';
 import type { SelectContent, SelectRendererReturn } from '../types/select';
 
 export function renderSelect(
-  content: Partial<SelectContent>
+    content: Partial<SelectContent>
 ): SelectRendererReturn {
   content.component = 'select';
   content.type ??= 'filled';

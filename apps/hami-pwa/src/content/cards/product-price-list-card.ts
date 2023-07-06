@@ -14,7 +14,7 @@ import type { Projects } from '@gecut/types';
 import type { Lit } from '@gecut/ui-kit';
 
 export function productPriceItem(
-  productPrice: Projects.Hami.ProductPrice
+    productPrice: Projects.Hami.ProductPrice
 ): M3.Types.ItemRendererReturn {
   return M3.Renderers.renderListItem({
     component: 'list-item',
@@ -41,7 +41,7 @@ export function productPriceItem(
 }
 
 export function productPriceList(
-  productPrices: Projects.Hami.ProductPrice[]
+    productPrices: Projects.Hami.ProductPrice[]
 ): Lit.Types.LitVirtualizerContent<Projects.Hami.ProductPrice> {
   return {
     component: 'lit-virtualizer',
@@ -61,24 +61,24 @@ export function productPriceList(
 }
 
 export function productPriceListCard(
-  productPrices: Projects.Hami.ProductPrice[],
-  query = ''
+    productPrices: Projects.Hami.ProductPrice[],
+    query = ''
 ): M3.Types.SurfaceCardRendererReturn {
   productPrices = productPrices.filter(
-    (notification) => notification.active === true
+      (notification) => notification.active === true
   );
 
   if (productPrices.length === 0) {
     return M3.Renderers.renderSurfaceCard(
-      notFoundListCard(i18n.msg('product-price-not-found'))
+        notFoundListCard(i18n.msg('product-price-not-found'))
     );
   }
 
   productPrices = productPrices
-    .sort((a, b) => {
-      return (a.meta?.updated ?? 0) - (b.meta?.updated ?? 0);
-    })
-    .reverse();
+      .sort((a, b) => {
+        return (a.meta?.updated ?? 0) - (b.meta?.updated ?? 0);
+      })
+      .reverse();
 
   if (query.trim() !== '') {
     productPrices = productPrices.filter((productPrice) =>
@@ -91,7 +91,7 @@ export function productPriceListCard(
     type: 'elevated',
     children: [
       productPriceList(
-        productPrices
+          productPrices
       ) as Lit.Types.LitVirtualizerContent<unknown>,
     ],
   });

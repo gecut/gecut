@@ -12,7 +12,7 @@ import type {
 let i = 0;
 
 export function renderTextField(
-  content: Partial<TextFieldContent>
+    content: Partial<TextFieldContent>
 ): TextFieldRendererReturn {
   content.component = 'text-field';
   content.type ??= 'filled';

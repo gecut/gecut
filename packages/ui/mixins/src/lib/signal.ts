@@ -18,7 +18,7 @@ export declare class SignalMixinInterface extends LitElement {
 }
 
 export function SignalMixin<T extends Constructor<LitElement>>(
-  superClass: T
+    superClass: T
 ): Constructor<SignalMixinInterface> & T {
   class SignalMixinClass extends superClass {
     private signalListeners: {
@@ -44,8 +44,8 @@ export function SignalMixin<T extends Constructor<LitElement>>(
     }
 
     protected addSignalListener<T extends keyof Signals>(
-      name: T,
-      listener: SignalListener<T>
+        name: T,
+        listener: SignalListener<T>
     ): void {
       this.signalListeners[name] ??= {
         listeners: [],

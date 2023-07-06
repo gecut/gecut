@@ -49,7 +49,7 @@ export interface OrderProduct extends StringifyableRecord {
 }
 
 export const orderRequire: RequireFunc<Order> = (
-  order: Partial<Order>
+    order: Partial<Order>
 ): Order => ({
   id: 'auto_increment',
   creatorId: undefined,

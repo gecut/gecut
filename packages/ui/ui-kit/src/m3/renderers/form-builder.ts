@@ -8,7 +8,7 @@ import type {
 } from '../types/form-builder';
 
 export function renderFormBuilder(
-  content: Partial<FormBuilderContent>
+    content: Partial<FormBuilderContent>
 ): FormBuilderRendererReturn {
   content.component = 'form-builder';
   content.type = 'form-builder';

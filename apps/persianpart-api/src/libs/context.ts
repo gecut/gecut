@@ -9,16 +9,16 @@ export async function createContext({
 }: trpcNext.CreateNextContextOptions) {
   async function getUserFromHeader() {
     console.log(req.headers.authorization);
-    
+
     if (req.headers.authorization != null) {
       const token = String(req.headers.authorization).replace('Bearer ', '');
 
       return await appDataSource
-        .getMongoRepository(User)
-        .findOneBy({ id: token });
+          .getMongoRepository(User)
+          .findOneBy({ id: token });
     }
 
-    return null
+    return null;
   }
   const user = await getUserFromHeader();
 

@@ -6,7 +6,7 @@ import type { AlwatrConnection } from '@alwatr/nano-server';
 import type { Projects } from '@gecut/types';
 
 export const requireAdmin = async (
-  connection: AlwatrConnection
+    connection: AlwatrConnection
 ): Promise<Projects.Hami.User> => {
   logger.logMethod?.('require-admin');
 

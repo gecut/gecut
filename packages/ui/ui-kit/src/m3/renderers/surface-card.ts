@@ -8,7 +8,7 @@ import type {
 } from '../types/surface-card';
 
 export function renderSurfaceCard(
-  content: Partial<SurfaceCardContent>
+    content: Partial<SurfaceCardContent>
 ): SurfaceCardRendererReturn {
   content.component = 'surface-card';
   content.type ??= 'elevated';

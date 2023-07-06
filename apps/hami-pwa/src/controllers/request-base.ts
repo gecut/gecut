@@ -21,8 +21,8 @@ const convertUrlToKey = (url: string): string => {
 };
 
 const promisesListSignalToggle = (
-  _request: Request,
-  type: 'add' | 'remove'
+    _request: Request,
+    type: 'add' | 'remove'
 ) => {
   const key = convertUrlToKey(_request.url);
 
@@ -66,8 +66,8 @@ export const requestBase = ky.create({
 });
 
 export async function fetchJSON<TJson extends StringifyableRecord>(
-  url: string,
-  options?: Options | undefined
+    url: string,
+    options?: Options | undefined
 ): Promise<TJson> {
   options = {
     method: 'get',
@@ -92,26 +92,26 @@ export async function fetchJSON<TJson extends StringifyableRecord>(
   }
 
   const response: ResponsePromise = await requestBase(url, options).catch(
-    async (error) => {
-      let message = '';
+      async (error) => {
+        let message = '';
 
-      if (error != null && error.response != null) {
-        const response =
+        if (error != null && error.response != null) {
+          const response =
           (await error.response.json()) as AlwatrServiceResponseFailed;
 
-        message = getByErrorCode(response.errorCode);
-      } else {
-        message = getByErrorCode();
+          message = getByErrorCode(response.errorCode);
+        } else {
+          message = getByErrorCode();
+        }
+
+        dispatch('snack-bar', {
+          component: 'snack-bar',
+          type: 'ellipsis-message',
+          attributes: { message: message, closeButton: true },
+        });
+
+        return error;
       }
-
-      dispatch('snack-bar', {
-        component: 'snack-bar',
-        type: 'ellipsis-message',
-        attributes: { message: message, closeButton: true },
-      });
-
-      return error;
-    }
   );
 
   return await response.json<TJson>();

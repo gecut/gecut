@@ -11,61 +11,61 @@ import type { AlwatrDocumentStorage } from '@alwatr/type/storage';
 import type { Projects } from '@gecut/types';
 
 nanoServer.route(
-  'GET',
-  '/customer-storage/',
-  async (connection): Promise<Projects.Hami.Routes['customer-storage']> => {
-    logger.logMethod?.('get-customer-storage');
+    'GET',
+    '/customer-storage/',
+    async (connection): Promise<Projects.Hami.Routes['customer-storage']> => {
+      logger.logMethod?.('get-customer-storage');
 
-    await requireSignedIn(connection);
+      await requireSignedIn(connection);
 
-    const customerStorage =
+      const customerStorage =
       await storageClient.getStorage<Projects.Hami.Customer>(
-        config.customerStorage
+          config.customerStorage
       );
-    const orderStorage = await storageClient.getStorage<Projects.Hami.Order>(
-      config.orderStorage
-    );
+      const orderStorage = await storageClient.getStorage<Projects.Hami.Order>(
+          config.orderStorage
+      );
 
-    for await (const customerId of Object.keys(customerStorage.data)) {
-      const customer = customerStorage.data[customerId];
-      const creator = await get<Projects.Hami.User>(
-        customer.creatorId,
-        config.userStorage
-      );
-      const customerProjectStorage =
-        await storageClient.getStorage<Projects.Hami.CustomerProject>(
-          config.customerProjectStoragePrefix + customerId
+      for await (const customerId of Object.keys(customerStorage.data)) {
+        const customer = customerStorage.data[customerId];
+        const creator = await get<Projects.Hami.User>(
+            customer.creatorId,
+            config.userStorage
         );
-      const projectList: Projects.Hami.CustomerProjectModel[] = [];
-      const orderList: Projects.Hami.OrderModel[] = [];
+        const customerProjectStorage =
+        await storageClient.getStorage<Projects.Hami.CustomerProject>(
+            config.customerProjectStoragePrefix + customerId
+        );
+        const projectList: Projects.Hami.CustomerProjectModel[] = [];
+        const orderList: Projects.Hami.OrderModel[] = [];
 
-      for await (const order of Object.values(orderStorage.data).filter(
-        (order) => order.customerId === customerId
-      )) {
-        orderList.push(await orderModel(order));
+        for await (const order of Object.values(orderStorage.data).filter(
+            (order) => order.customerId === customerId
+        )) {
+          orderList.push(await orderModel(order));
+        }
+
+        for await (const project of Object.values(customerProjectStorage.data)) {
+          projectList.push({
+            ...project,
+
+            ordersCount: orderList.filter(
+                (order) => order.customerProjectId === project.id
+            ).length,
+          });
+        }
+
+        delete creator['password'];
+        const customerModel: Projects.Hami.CustomerModel = {
+          creator,
+          orderList,
+          projectList,
+          ...customer,
+        };
+
+        customerStorage.data[customerId] = customerModel;
       }
 
-      for await (const project of Object.values(customerProjectStorage.data)) {
-        projectList.push({
-          ...project,
-
-          ordersCount: orderList.filter(
-            (order) => order.customerProjectId === project.id
-          ).length,
-        });
-      }
-
-      delete creator['password'];
-      const customerModel: Projects.Hami.CustomerModel = {
-        creator,
-        orderList,
-        projectList,
-        ...customer,
-      };
-
-      customerStorage.data[customerId] = customerModel;
+      return customerStorage as AlwatrDocumentStorage<Projects.Hami.CustomerModel>;
     }
-
-    return customerStorage as AlwatrDocumentStorage<Projects.Hami.CustomerModel>;
-  }
 );

@@ -4,7 +4,7 @@ import { Projects } from '@gecut/types';
 import type { FormSelectContent } from '@gecut/form-builder';
 
 export function notificationStatusSelect(
-  value: Projects.Hami.Notification['status'] = 'normal'
+    value: Projects.Hami.Notification['status'] = 'normal'
 ): FormSelectContent {
   return {
     component: 'select',

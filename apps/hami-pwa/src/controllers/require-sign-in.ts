@@ -10,9 +10,9 @@ export async function requireSignIn(options: {
   const _isSignIn = await isSignIn();
 
   logger.methodFull?.(
-    'requireSignIn',
-    { tryUrl: options.tryUrl, catchUrl: options.catchUrl },
-    _isSignIn
+      'requireSignIn',
+      { tryUrl: options.tryUrl, catchUrl: options.catchUrl },
+      _isSignIn
   );
 
   if (_isSignIn === true && options.tryUrl != null) {

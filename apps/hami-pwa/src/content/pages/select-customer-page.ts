@@ -15,8 +15,8 @@ import type { Projects, RenderResult } from '@gecut/types';
 import type { Lit } from '@gecut/ui-kit';
 
 function customerItem(
-  customer: Projects.Hami.CustomerModel,
-  order: Partial<NewOrder>
+    customer: Projects.Hami.CustomerModel,
+    order: Partial<NewOrder>
 ): M3.Types.ItemRendererReturn {
   return M3.Renderers.renderListItem({
     component: 'list-item',
@@ -26,8 +26,8 @@ function customerItem(
       supportingText: customer.description,
       multiLineSupportingText: true,
       trailingSupportingText: i18n.msg(
-        'number-of-order',
-        i18n.int(customer.orderList.length)
+          'number-of-order',
+          i18n.int(customer.orderList.length)
       ),
       classes: ['notification-item'],
       styles: {
@@ -72,8 +72,8 @@ function customerItem(
 }
 
 function customerList(
-  customers: Projects.Hami.CustomerModel[],
-  order: Partial<NewOrder>
+    customers: Projects.Hami.CustomerModel[],
+    order: Partial<NewOrder>
 ): Lit.Types.LitVirtualizerContent<Projects.Hami.CustomerModel> {
   return {
     component: 'lit-virtualizer',
@@ -93,16 +93,16 @@ function customerList(
 }
 
 function customersListCard(
-  customers: Projects.Hami.CustomerModel[],
-  order: Partial<NewOrder>,
-  query = ''
+    customers: Projects.Hami.CustomerModel[],
+    order: Partial<NewOrder>,
+    query = ''
 ): M3.Types.SurfaceCardRendererReturn {
   customers = customers.filter((customer) => customer.active === true);
 
   if (query.trim() !== '') {
     customers = customers.filter((customer) =>
       String(
-        customer?.firstName ??
+          customer?.firstName ??
           '' + customer?.lastName ??
           '' + customer.phoneNumber
       ).includes(query)
@@ -118,19 +118,19 @@ function customersListCard(
     type: 'elevated',
     children: [
       customerList(
-        customers,
-        order
+          customers,
+          order
       ) as Lit.Types.LitVirtualizerContent<unknown>,
     ],
   });
 }
 
 export function selectCustomerPage(
-  customers: Projects.Hami.CustomerModel[],
-  order: Partial<NewOrder>
+    customers: Projects.Hami.CustomerModel[],
+    order: Partial<NewOrder>
 ): RenderResult {
   const headline = M3.Renderers.renderTypoGraphy(
-    headingPageTypography(i18n.msg('select-customer'))
+      headingPageTypography(i18n.msg('select-customer'))
   );
 
   return html`${headline}${customersListCard(customers, order)}`;

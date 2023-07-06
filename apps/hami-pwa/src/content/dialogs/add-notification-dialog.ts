@@ -11,7 +11,7 @@ import type { Projects } from '@gecut/types';
 import type { M3 } from '@gecut/ui-kit';
 
 export function addNotificationDialog(
-  notification?: Projects.Hami.Notification
+    notification?: Projects.Hami.Notification
 ): M3.Types.DialogContent {
   const isEdit = notification != null;
   const title = isEdit
@@ -76,7 +76,7 @@ export function addNotificationDialog(
                 onSubmit: async (event) => {
                   if (event.validate === true && event.values != null) {
                     const _notification = event.values[
-                      'notification'
+                        'notification'
                     ] as unknown as Projects.Hami.Notification;
 
                     if (_notification != null) {
@@ -94,7 +94,7 @@ export function addNotificationDialog(
                         type: 'ellipsis-message',
                         attributes: {
                           message: i18n.msg(
-                            'notification-successfully-registered'
+                              'notification-successfully-registered'
                           ),
                           align: 'bottom',
                           duration: 2_000,

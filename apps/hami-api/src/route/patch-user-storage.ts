@@ -15,8 +15,8 @@ nanoServer.route('PATCH', '/user-storage/', async (connection) => {
 
   for (const user of bodyJson.data) {
     await storageClient.set(
-      Projects.Hami.userRequire(user),
-      config.userStorage
+        Projects.Hami.userRequire(user),
+        config.userStorage
     );
   }
 

@@ -15,7 +15,7 @@ import type { Projects } from '@gecut/types';
 import type { M3 } from '@gecut/ui-kit';
 
 export function customerCard(
-  customer: Projects.Hami.CustomerModel
+    customer: Projects.Hami.CustomerModel
 ): M3.Types.SurfaceCardContent {
   return {
     component: 'surface-card',
@@ -34,9 +34,9 @@ export function customerCard(
         type: 'h1',
         children: [
           join(
-            ' ',
-            sanitizer.str(customer.firstName),
-            sanitizer.str(customer.lastName)
+              ' ',
+              sanitizer.str(customer.firstName),
+              sanitizer.str(customer.lastName)
           ),
         ],
         attributes: {
@@ -45,27 +45,27 @@ export function customerCard(
       },
       ...paragraphTypographies([
         join(
-          ': ',
-          i18n.msg('phone-number'),
-          i18n.phone(sanitizer.str(customer?.phoneNumber), true)
+            ': ',
+            i18n.msg('phone-number'),
+            i18n.phone(sanitizer.str(customer?.phoneNumber), true)
         ),
         join(
-          ': ',
-          i18n.msg('number-of-projects'),
-          i18n.int(customer.projectList.length)
+            ': ',
+            i18n.msg('number-of-projects'),
+            i18n.int(customer.projectList.length)
         ),
         join(
-          ': ',
-          i18n.msg('number-of-orders'),
-          i18n.int(customer.orderList.length)
+            ': ',
+            i18n.msg('number-of-orders'),
+            i18n.int(customer.orderList.length)
         ),
         join(
-          '',
-          i18n.msg('creator'),
-          ': ',
-          sanitizer.str(customer.creator?.firstName),
-          ' ',
-          sanitizer.str(customer.creator?.lastName)
+            '',
+            i18n.msg('creator'),
+            ': ',
+            sanitizer.str(customer.creator?.firstName),
+            ' ',
+            sanitizer.str(customer.creator?.lastName)
         ),
       ]),
       paragraphTypography({

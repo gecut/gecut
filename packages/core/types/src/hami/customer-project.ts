@@ -14,7 +14,7 @@ export interface CustomerProject extends AlwatrDocumentObjectActive {
 }
 
 export const customerProjectRequire: RequireFunc<CustomerProject> = (
-  customerProject: Partial<CustomerProject>
+    customerProject: Partial<CustomerProject>
 ): CustomerProject => ({
   id: 'auto_increment',
   projectAddress: undefined,

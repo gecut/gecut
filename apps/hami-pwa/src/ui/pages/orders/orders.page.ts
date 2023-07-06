@@ -70,7 +70,7 @@ export class PageOrders extends PageBase {
     super.render();
 
     const headline = M3.Renderers.renderTypoGraphy(
-      headingPageTypography(i18n.msg('orders'))
+        headingPageTypography(i18n.msg('orders'))
     );
 
     return html`${headline}${this.renderDateFilterSelect()}${this.renderOrderList()}`;
@@ -79,16 +79,16 @@ export class PageOrders extends PageBase {
   static filterDateByOrder(timestamp: number, date: Date): boolean {
     const orderTime = new Date(timestamp);
     const orderTimeFilter = join(
-      '-',
-      orderTime.getFullYear().toString(),
-      orderTime.getMonth().toString(),
-      orderTime.getDate().toString()
+        '-',
+        orderTime.getFullYear().toString(),
+        orderTime.getMonth().toString(),
+        orderTime.getDate().toString()
     );
     const timeFilter = join(
-      '-',
-      date.getFullYear().toString(),
-      date.getMonth().toString(),
-      date.getDate().toString()
+        '-',
+        date.getFullYear().toString(),
+        date.getMonth().toString(),
+        date.getDate().toString()
     );
 
     return orderTimeFilter === timeFilter;
@@ -118,17 +118,17 @@ export class PageOrders extends PageBase {
         }),
 
         items: Object.values(this.orders)
-          .filter(
-            (order) =>
-              order.active === true &&
+            .filter(
+                (order) =>
+                  order.active === true &&
               PageOrders.filterDateByOrder(
-                order.evacuationDate,
-                this.dateFilter
+                  order.evacuationDate,
+                  this.dateFilter
               )
-          )
-          .sort((a, b) => a.registrationDate - b.registrationDate)
-          .sort((a, b) => statusPriority[a.status] - statusPriority[b.status])
-          .reverse(),
+            )
+            .sort((a, b) => a.registrationDate - b.registrationDate)
+            .sort((a, b) => statusPriority[a.status] - statusPriority[b.status])
+            .reverse(),
 
         renderItem: (order) =>
           html`${M3.Renderers.renderSurfaceCard(
@@ -142,36 +142,36 @@ export class PageOrders extends PageBase {
     if (Object.keys(this.orders).length === 0) return nothing;
 
     const dateList: number[] = uniqueArray(
-      Object.values(this.orders)
-        .filter((order) => order.active === true)
-        .map((order) => order.evacuationDate)
+        Object.values(this.orders)
+            .filter((order) => order.active === true)
+            .map((order) => order.evacuationDate)
     );
 
     return M3.Renderers.renderSelect(
-      dateSelect(
-        this.dateFilter.getTime(),
-        {
-          attributes: {
-            styles: {
-              'margin-bottom': 'calc(2*var(--sys-spacing-track))',
-            },
-          },
-          transformers: (target) => {
-            target.addEventListener('change', () => {
-              this.dateFilter = new Date(Number(target.value));
+        dateSelect(
+            this.dateFilter.getTime(),
+            {
+              attributes: {
+                styles: {
+                  'margin-bottom': 'calc(2*var(--sys-spacing-track))',
+                },
+              },
+              transformers: (target) => {
+                target.addEventListener('change', () => {
+                  this.dateFilter = new Date(Number(target.value));
 
-              gecutIdleCallback(() => {
-                gecutAnimationFrame(() => {
-                  this.requestUpdate('dateFilter');
+                  gecutIdleCallback(() => {
+                    gecutAnimationFrame(() => {
+                      this.requestUpdate('dateFilter');
+                    });
+                  });
                 });
-              });
-            });
 
-            return target;
-          },
-        },
-        dateList.map((date) => new Date(date))
-      )
+                return target;
+              },
+            },
+            dateList.map((date) => new Date(date))
+        )
     );
   }
 }

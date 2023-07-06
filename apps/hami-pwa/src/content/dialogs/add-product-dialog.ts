@@ -10,7 +10,7 @@ import type { Projects } from '@gecut/types';
 import type { M3 } from '@gecut/ui-kit';
 
 export function addProductDialog(
-  product?: Projects.Hami.Product
+    product?: Projects.Hami.Product
 ): M3.Types.DialogContent {
   const isEdit = product != null;
   const title = isEdit ? i18n.msg('edit-product') : i18n.msg('add-product');
@@ -126,7 +126,7 @@ export function addProductDialog(
                 onSubmit: async (event) => {
                   if (event.validate === true && event.values != null) {
                     const data = event.values[
-                      'product'
+                        'product'
                     ] as unknown as Projects.Hami.Product;
 
                     if (data != null) {

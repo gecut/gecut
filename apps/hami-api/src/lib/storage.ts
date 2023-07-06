@@ -5,5 +5,5 @@ import { config } from './config';
 import type { AlwatrDocumentObject } from '@alwatr/type/storage';
 
 export const storageClient = new AlwatrStorageClient(
-  config.storageClient
+    config.storageClient
 ) as AlwatrStorageClient<AlwatrDocumentObject>;

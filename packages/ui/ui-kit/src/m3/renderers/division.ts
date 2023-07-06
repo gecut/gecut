@@ -6,7 +6,7 @@ import type {
 } from '../types/division';
 
 export function renderDivision(
-  content: Partial<DivisionContent>
+    content: Partial<DivisionContent>
 ): DivisionRendererReturn {
   content.component = 'division';
   content.type ??= 'div';

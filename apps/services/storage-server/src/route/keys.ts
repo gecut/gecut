@@ -10,7 +10,7 @@ import type {
 nanoServer.route('GET', '/keys', getStorageKeys);
 
 function getStorageKeys(
-  connection: AlwatrConnection
+    connection: AlwatrConnection
 ): AlwatrServiceResponse<{ keys: Array<string> }, never> {
   logger.logMethod?.('getStorageKeys');
 

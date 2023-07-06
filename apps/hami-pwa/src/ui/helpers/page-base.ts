@@ -52,7 +52,7 @@ export abstract class PageBase<
   }
 
   protected setDataListener<T extends keyof Signals, F extends keyof Data>(
-    signals: Record<T, F>
+      signals: Record<T, F>
   ): void {
     this.log.methodArgs?.('setData', { signals });
 
@@ -66,7 +66,7 @@ export abstract class PageBase<
   }
 
   protected requestData<T extends keyof Providers>(
-    signals: Record<T, Providers[T]>
+      signals: Record<T, Providers[T]>
   ): void {
     this.log.methodArgs?.('setData', { signals });
 

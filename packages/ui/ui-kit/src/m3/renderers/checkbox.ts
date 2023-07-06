@@ -8,7 +8,7 @@ import type {
 } from '../types/checkbox';
 
 export function renderCheckbox(
-  content: Partial<CheckboxContent>
+    content: Partial<CheckboxContent>
 ): CheckboxRendererReturn {
   content.component = 'checkbox';
   content.type = 'checkbox';

@@ -8,8 +8,8 @@ const phoneValidatorRegexListByCountry: Record<PhoneRule['country'], RegExp> = {
 };
 
 export const phoneValidator: ValidatorFunction<PhoneRule> = (
-  value,
-  ruleData
+    value,
+    ruleData
 ) => {
   value = String(value).trim();
 

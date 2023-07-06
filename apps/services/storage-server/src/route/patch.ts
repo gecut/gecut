@@ -12,7 +12,7 @@ import type { StringifyableRecord } from '@alwatr/type';
 nanoServer.route('PATCH', 'all', updateDocument);
 
 async function updateDocument(
-  connection: AlwatrConnection
+    connection: AlwatrConnection
 ): Promise<AlwatrServiceResponse<StringifyableRecord, StringifyableRecord>> {
   logger.logMethod?.('updateDocument');
 

@@ -14,7 +14,7 @@ export declare class LoggerMixinInterface extends LitElement {
 }
 
 export function LoggerMixin<T extends Constructor<LitElement>>(
-  superClass: T
+    superClass: T
 ): Constructor<LoggerMixinInterface> & T {
   class LoggerMixinClass extends superClass {
     index: number = ++_lastIndex;
@@ -48,9 +48,9 @@ export function LoggerMixin<T extends Constructor<LitElement>>(
     }
 
     override requestUpdate(
-      name?: PropertyKey | undefined,
-      oldValue?: unknown,
-      options?: PropertyDeclaration<unknown, unknown> | undefined
+        name?: PropertyKey | undefined,
+        oldValue?: unknown,
+        options?: PropertyDeclaration<unknown, unknown> | undefined
     ): void {
       this?.log?.methodArgs?.('requestUpdate', {
         name,

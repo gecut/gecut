@@ -88,7 +88,7 @@ export class PageProducts extends PageBase {
 
   private renderProductsCard(): RenderResult {
     const titleTemplate = M3.Renderers.renderTypoGraphy(
-      headingPageTypography(i18n.msg('products'))
+        headingPageTypography(i18n.msg('products'))
     );
 
     return html`

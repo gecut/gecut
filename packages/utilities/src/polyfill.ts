@@ -6,7 +6,7 @@ interface IndexableWindow {
 export const win = globalThis as IndexableWindow;
 
 const requestAnimationFrameFallback = (
-  callback: FrameRequestCallback
+    callback: FrameRequestCallback
 ): ReturnType<typeof setTimeout> =>
   setTimeout(() => callback(Date.now()), 1000 / 60);
 
@@ -17,8 +17,8 @@ export const gecutAnimationFrame: typeof globalThis.requestAnimationFrame =
   requestAnimationFrameFallback;
 
 const requestIdleCallbackFallback = (
-  callback: () => void,
-  options?: IdleRequestOptions
+    callback: () => void,
+    options?: IdleRequestOptions
 ): ReturnType<typeof setTimeout> =>
   setTimeout(callback, options?.timeout ?? 1000);
 

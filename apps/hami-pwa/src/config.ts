@@ -47,7 +47,7 @@ declare global {
 
     readonly 'new-order-state': 'next' | 'previous' | States;
     readonly 'new-order': Partial<NewOrder>;
-    readonly 'order': Projects.Hami.Order;
+    readonly order: Projects.Hami.Order;
   }
   interface Providers
     extends Record<keyof Projects.Hami.Routes, Record<string, never>> {

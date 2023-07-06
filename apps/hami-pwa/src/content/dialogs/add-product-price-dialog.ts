@@ -11,7 +11,7 @@ import type { Projects } from '@gecut/types';
 import type { M3 } from '@gecut/ui-kit';
 
 export function addProductPriceDialog(
-  productPrice?: Projects.Hami.ProductPrice
+    productPrice?: Projects.Hami.ProductPrice
 ): M3.Types.DialogContent {
   const isEdit = productPrice != null;
   const title = isEdit
@@ -111,7 +111,7 @@ export function addProductPriceDialog(
                 onSubmit: async (event) => {
                   if (event.validate === true && event.values != null) {
                     const _productPrice = event.values[
-                      'productPrice'
+                        'productPrice'
                     ] as unknown as Projects.Hami.ProductPrice;
 
                     if (_productPrice != null) {
@@ -129,7 +129,7 @@ export function addProductPriceDialog(
                         type: 'ellipsis-message',
                         attributes: {
                           message: i18n.msg(
-                            'product-price-successfully-registered'
+                              'product-price-successfully-registered'
                           ),
                           align: 'bottom',
                           duration: 2_000,

@@ -4,8 +4,8 @@ import { storageClient } from './storage';
 import type { AlwatrDocumentObject } from '@alwatr/type';
 
 export async function get<T extends AlwatrDocumentObject>(
-  documentId: string,
-  storage?: string | undefined
+    documentId: string,
+    storage?: string | undefined
 ): Promise<T | null> {
   logger.logMethodArgs?.('get', { documentId, storage });
 

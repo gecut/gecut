@@ -10,7 +10,7 @@ import type { Projects } from '@gecut/types';
 import type { M3 } from '@gecut/ui-kit';
 
 export function customerDialog(
-  customer: Projects.Hami.CustomerModel
+    customer: Projects.Hami.CustomerModel
 ): M3.Types.DialogContent {
   return {
     component: 'dialog',

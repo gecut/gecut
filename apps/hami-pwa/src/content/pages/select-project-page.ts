@@ -15,8 +15,8 @@ import type { Projects, RenderResult } from '@gecut/types';
 import type { Lit } from '@gecut/ui-kit';
 
 function projectItem(
-  project: Projects.Hami.CustomerProjectModel,
-  order: Partial<NewOrder>
+    project: Projects.Hami.CustomerProjectModel,
+    order: Partial<NewOrder>
 ): M3.Types.ItemRendererReturn {
   return M3.Renderers.renderListItem({
     component: 'list-item',
@@ -25,8 +25,8 @@ function projectItem(
       headline: project.projectName,
       supportingText: project.projectAddress,
       trailingSupportingText: i18n.msg(
-        'number-of-order',
-        i18n.int(project.ordersCount ?? 0)
+          'number-of-order',
+          i18n.int(project.ordersCount ?? 0)
       ),
       styles: {
         width: '100%',
@@ -70,8 +70,8 @@ function projectItem(
 }
 
 function projectList(
-  projects: Projects.Hami.CustomerProjectModel[],
-  order: Partial<NewOrder>
+    projects: Projects.Hami.CustomerProjectModel[],
+    order: Partial<NewOrder>
 ): Lit.Types.LitVirtualizerContent<Projects.Hami.CustomerProjectModel> {
   return {
     component: 'lit-virtualizer',
@@ -91,9 +91,9 @@ function projectList(
 }
 
 function projectsListCard(
-  projects: Projects.Hami.CustomerProjectModel[],
-  order: Partial<NewOrder>,
-  query = ''
+    projects: Projects.Hami.CustomerProjectModel[],
+    order: Partial<NewOrder>,
+    query = ''
 ): M3.Types.SurfaceCardRendererReturn {
   projects = projects.filter((project) => project.active === true);
 
@@ -117,11 +117,11 @@ function projectsListCard(
 }
 
 export function selectProjectPage(
-  projects: Projects.Hami.CustomerProjectModel[],
-  order: Partial<NewOrder>
+    projects: Projects.Hami.CustomerProjectModel[],
+    order: Partial<NewOrder>
 ): RenderResult {
   const headline = M3.Renderers.renderTypoGraphy(
-    headingPageTypography(i18n.msg('select-project'))
+      headingPageTypography(i18n.msg('select-project'))
   );
 
   return html`${headline}${projectsListCard(projects, order)}`;

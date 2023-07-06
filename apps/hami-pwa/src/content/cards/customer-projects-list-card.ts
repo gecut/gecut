@@ -8,7 +8,7 @@ import type { Projects } from '@gecut/types';
 import type { M3 } from '@gecut/ui-kit';
 
 export function customerProjectItem(
-  project: Projects.Hami.CustomerProjectModel
+    project: Projects.Hami.CustomerProjectModel
 ): M3.Types.ListItemContent {
   return {
     component: 'list-item',
@@ -17,8 +17,8 @@ export function customerProjectItem(
       headline: project.projectName,
       supportingText: project.projectAddress,
       trailingSupportingText: i18n.msg(
-        'number-of-order',
-        i18n.int(project.ordersCount ?? 0)
+          'number-of-order',
+          i18n.int(project.ordersCount ?? 0)
       ),
       styles: {
         width: '100%',
@@ -39,7 +39,7 @@ export function customerProjectItem(
 }
 
 export function customerProjectList(
-  projects: Projects.Hami.CustomerProjectModel[]
+    projects: Projects.Hami.CustomerProjectModel[]
 ): M3.Types.ListContent {
   return {
     component: 'list',
@@ -55,7 +55,7 @@ export function customerProjectList(
 }
 
 export function customerProjectListCard(
-  projects: Projects.Hami.CustomerProjectModel[]
+    projects: Projects.Hami.CustomerProjectModel[]
 ): M3.Types.SurfaceCardContent {
   if (projects.length === 0) {
     return notFoundListCard(i18n.msg('project-not-found'));

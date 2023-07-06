@@ -10,7 +10,7 @@ import type { Projects } from '@gecut/types';
 import type { M3 } from '@gecut/ui-kit';
 
 export function addSupplierDialog(
-  supplier?: Projects.Hami.SupplierModel
+    supplier?: Projects.Hami.SupplierModel
 ): M3.Types.DialogContent {
   const isEdit = supplier != null;
   const title = isEdit ? i18n.msg('edit-supplier') : i18n.msg('add-supplier');
@@ -127,7 +127,7 @@ export function addSupplierDialog(
                 onSubmit: async (event) => {
                   if (event.validate === true && event.values != null) {
                     const data = event.values[
-                      'supplier'
+                        'supplier'
                     ] as unknown as Projects.Hami.Supplier;
 
                     if (data != null) {

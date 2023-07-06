@@ -31,7 +31,7 @@ export function confirmLogoutDialog(): M3.Types.DialogContent {
         attributes: { slot: 'headline-suffix' },
         children: [
           i18n.msg(
-            'after-exiting-the-tokens-will-be-deleted-so-you-have-to-enter-again'
+              'after-exiting-the-tokens-will-be-deleted-so-you-have-to-enter-again'
           ),
         ],
       },

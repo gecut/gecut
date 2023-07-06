@@ -1,3 +1,3 @@
-import { createLogger } from "@gecut/logger";
+import { createLogger } from '@gecut/logger';
 
 export const logger = createLogger('controllers');

@@ -50,7 +50,7 @@ export class PageLanding extends loggerElement {
   }
 
   override async firstUpdated(
-    changedProperties: PropertyValues<this>
+      changedProperties: PropertyValues<this>
   ): Promise<void> {
     super.firstUpdated(changedProperties);
 
@@ -68,9 +68,9 @@ export class PageLanding extends loggerElement {
           type: 'ellipsis-message',
           attributes: {
             message: i18n.msg(
-              'welcome-message',
-              config.version,
-              sanitizer.str(user.lastName)
+                'welcome-message',
+                config.version,
+                sanitizer.str(user.lastName)
             ),
             closeButton: true,
           },

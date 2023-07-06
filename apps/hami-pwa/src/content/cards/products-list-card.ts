@@ -14,7 +14,7 @@ import type { Projects } from '@gecut/types';
 import type { Lit } from '@gecut/ui-kit';
 
 export function productItem(
-  product: Projects.Hami.Product
+    product: Projects.Hami.Product
 ): M3.Types.ItemRendererReturn {
   return M3.Renderers.renderListItem({
     component: 'list-item',
@@ -47,7 +47,7 @@ export function productItem(
 }
 
 export function productList(
-  products: Projects.Hami.Product[]
+    products: Projects.Hami.Product[]
 ): Lit.Types.LitVirtualizerContent<Projects.Hami.Product> {
   return {
     component: 'lit-virtualizer',
@@ -67,8 +67,8 @@ export function productList(
 }
 
 export function productsListCard(
-  products: Projects.Hami.Product[],
-  query = ''
+    products: Projects.Hami.Product[],
+    query = ''
 ): M3.Types.SurfaceCardRendererReturn {
   products = products.filter((product) => product.active === true);
 

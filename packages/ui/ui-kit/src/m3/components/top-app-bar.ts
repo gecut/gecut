@@ -150,16 +150,16 @@ export class TopAppBar extends loggerElement {
       <div class="row">
         <div class="leading-icon">
           ${when(this.content != null && this.content.leadingSlot != null, () =>
-    renderer(this.content?.leadingSlot as AllComponentsContent)
-  )}
+      renderer(this.content?.leadingSlot as AllComponentsContent)
+          )}
         </div>
 
         <div class="title">${titleTemplate}</div>
 
         <div class="trailing-icon">
           ${map(this.content.trailingSlotList ?? [], (content) =>
-    renderer(content)
-  )}
+            renderer(content)
+          )}
         </div>
       </div>
 

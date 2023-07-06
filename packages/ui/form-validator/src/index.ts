@@ -17,18 +17,18 @@ export const validator = (value: Stringifyable, rules: Rules) => {
     let validate = false;
 
     switch (ruleData.rule) {
-    case 'phone':
-      validate = phoneValidator(value, ruleData);
-      break;
-    case 'numeric':
-      validate = numericValidator(value, ruleData);
-      break;
-    case 'required':
-      validate = requiredValidator(value, ruleData);
-      break;
-    case 'email':
-      validate = emailValidator(value, ruleData);
-      break;
+      case 'phone':
+        validate = phoneValidator(value, ruleData);
+        break;
+      case 'numeric':
+        validate = numericValidator(value, ruleData);
+        break;
+      case 'required':
+        validate = requiredValidator(value, ruleData);
+        break;
+      case 'email':
+        validate = emailValidator(value, ruleData);
+        break;
     }
 
     return { validate, errorMessage: ruleData.errorMessage };

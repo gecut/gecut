@@ -93,7 +93,7 @@ export function addCustomerDialog(): M3.Types.DialogContent {
                 onSubmit: async (event) => {
                   if (event.validate === true && event.values != null) {
                     const customer = event.values[
-                      'customer'
+                        'customer'
                     ] as unknown as Projects.Hami.Customer;
                     const userId = localStorage.getItem('USER_ID');
 

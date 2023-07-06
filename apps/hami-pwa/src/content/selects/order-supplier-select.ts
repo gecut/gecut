@@ -5,8 +5,8 @@ import type { Projects } from '@gecut/types';
 import type { M3 } from '@gecut/ui-kit';
 
 export function orderSupplierSelect(
-  suppliers: Projects.Hami.Supplier[],
-  supplierId?: string
+    suppliers: Projects.Hami.Supplier[],
+    supplierId?: string
 ): FormSelectContent {
   return {
     component: 'select',
@@ -26,14 +26,14 @@ export function orderSupplierSelect(
         },
       },
       ...suppliers.map(
-        (supplier): M3.Types.SelectOptionContent => ({
-          component: 'select-option',
-          type: 'select-option',
-          attributes: {
-            value: supplier.id,
-            headline: supplier.firstName + ' ' + supplier.lastName,
-          },
-        })
+          (supplier): M3.Types.SelectOptionContent => ({
+            component: 'select-option',
+            type: 'select-option',
+            attributes: {
+              value: supplier.id,
+              headline: supplier.firstName + ' ' + supplier.lastName,
+            },
+          })
       ),
     ],
   };

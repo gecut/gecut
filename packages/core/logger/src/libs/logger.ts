@@ -23,19 +23,19 @@ export const createLogger = (scopeName: string, devMode = DEV_MODE): Logger => {
     scopeName,
 
     warning: console.warn.bind(
-      console,
-      '%c%s%c.%s() Warning `%s` %s!',
-      styleScope,
-      scopeName,
-      _style.reset
+        console,
+        '%c%s%c.%s() Warning `%s` %s!',
+        styleScope,
+        scopeName,
+        _style.reset
     ),
 
     error: console.error.bind(
-      console,
-      '%c%s%c.%s() Error `%s`\n',
-      styleScope,
-      scopeName,
-      _style.reset
+        console,
+        '%c%s%c.%s() Error `%s`\n',
+        styleScope,
+        scopeName,
+        _style.reset
     ),
   } as const;
 
@@ -47,43 +47,43 @@ export const createLogger = (scopeName: string, devMode = DEV_MODE): Logger => {
     ...requiredLogger,
 
     property: console.debug.bind(
-      console,
-      _keySection + '.%s = %o;',
-      styleScope,
-      scopeName,
-      _style.reset
+        console,
+        _keySection + '.%s = %o;',
+        styleScope,
+        scopeName,
+        _style.reset
     ),
 
     method: console.debug.bind(
-      console,
-      _keySection + '.%s( );',
-      styleScope,
-      scopeName,
-      _style.reset
+        console,
+        _keySection + '.%s( );',
+        styleScope,
+        scopeName,
+        _style.reset
     ),
 
     methodArgs: console.debug.bind(
-      console,
-      _keySection + '.%s(%o);',
-      styleScope,
-      scopeName,
-      _style.reset
+        console,
+        _keySection + '.%s(%o);',
+        styleScope,
+        scopeName,
+        _style.reset
     ),
 
     methodFull: console.debug.bind(
-      console,
-      _keySection + '.%s(%o) => %o',
-      styleScope,
-      scopeName,
-      _style.reset
+        console,
+        _keySection + '.%s(%o) => %o',
+        styleScope,
+        scopeName,
+        _style.reset
     ),
 
     other: console.debug.bind(
-      console,
-      _keySection,
-      styleScope,
-      scopeName,
-      _style.reset
+        console,
+        _keySection,
+        styleScope,
+        scopeName,
+        _style.reset
     ),
 
     time: (label: string) => console.time(scopeName + '.' + label),

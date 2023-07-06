@@ -14,26 +14,26 @@ export const validators = (...rules: Rules[number]['rule'][]): Rules => {
 
 const validator = (rule: Rules[number]['rule']): Rules[number] => {
   switch (rule) {
-  case 'phone':
-    return {
-      rule: 'phone',
-      country: 'IR',
-      errorMessage: i18n.msg('phone-number-is-invalid'),
-    };
-  case 'email':
-    return {
-      rule: 'email',
-      errorMessage: i18n.msg('email-is-invalid'),
-    };
-  case 'numeric':
-    return {
-      rule: 'numeric',
-      errorMessage: i18n.msg('must-be-numeric'),
-    };
-  case 'required':
-    return {
-      rule: 'required',
-      errorMessage: i18n.msg('it-is-required'),
-    };
+    case 'phone':
+      return {
+        rule: 'phone',
+        country: 'IR',
+        errorMessage: i18n.msg('phone-number-is-invalid'),
+      };
+    case 'email':
+      return {
+        rule: 'email',
+        errorMessage: i18n.msg('email-is-invalid'),
+      };
+    case 'numeric':
+      return {
+        rule: 'numeric',
+        errorMessage: i18n.msg('must-be-numeric'),
+      };
+    case 'required':
+      return {
+        rule: 'required',
+        errorMessage: i18n.msg('it-is-required'),
+      };
   }
 };

@@ -15,7 +15,7 @@ export interface Notification extends AlwatrDocumentObjectActive {
 }
 
 export const notificationRequire: RequireFunc<Notification> = (
-  notification: Partial<Notification>
+    notification: Partial<Notification>
 ): Notification => ({
   id: 'auto_increment',
   message: 'no-message',

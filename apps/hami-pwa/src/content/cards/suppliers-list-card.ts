@@ -16,7 +16,7 @@ import type { Projects } from '@gecut/types';
 import type { Lit } from '@gecut/ui-kit';
 
 export function supplierItem(
-  supplier: Projects.Hami.SupplierModel
+    supplier: Projects.Hami.SupplierModel
 ): M3.Types.ItemRendererReturn {
   return M3.Renderers.renderListItem({
     component: 'list-item',
@@ -26,8 +26,8 @@ export function supplierItem(
       supportingText: supplier.description,
       multiLineSupportingText: true,
       trailingSupportingText: i18n.msg(
-        'number-of-order',
-        i18n.int(supplier.orderList.length)
+          'number-of-order',
+          i18n.int(supplier.orderList.length)
       ),
       classes: ['supplier-item'],
       styles: {
@@ -45,16 +45,16 @@ export function supplierItem(
     ],
     transformers: (target) => {
       ifAdmin(
-        () => {
-          target.addEventListener('click', () => {
-            dispatch('dialog', supplierDialog(supplier, true));
-          });
-        },
-        () => {
-          target.addEventListener('click', () => {
-            dispatch('dialog', supplierDialog(supplier, false));
-          });
-        }
+          () => {
+            target.addEventListener('click', () => {
+              dispatch('dialog', supplierDialog(supplier, true));
+            });
+          },
+          () => {
+            target.addEventListener('click', () => {
+              dispatch('dialog', supplierDialog(supplier, false));
+            });
+          }
       );
 
       return target;
@@ -63,7 +63,7 @@ export function supplierItem(
 }
 
 export function supplierList(
-  suppliers: Projects.Hami.SupplierModel[]
+    suppliers: Projects.Hami.SupplierModel[]
 ): Lit.Types.LitVirtualizerContent<Projects.Hami.SupplierModel> {
   return {
     component: 'lit-virtualizer',
@@ -83,18 +83,18 @@ export function supplierList(
 }
 
 export function suppliersListCard(
-  suppliers: Projects.Hami.SupplierModel[],
-  query = ''
+    suppliers: Projects.Hami.SupplierModel[],
+    query = ''
 ): M3.Types.SurfaceCardRendererReturn {
   suppliers = suppliers.filter((supplier) => supplier.active === true);
 
   if (query.trim() !== '') {
     suppliers = suppliers.filter((supplier) =>
       join(
-        ' ',
-        supplier.firstName,
-        supplier.lastName,
-        supplier.phoneNumber
+          ' ',
+          supplier.firstName,
+          supplier.lastName,
+          supplier.phoneNumber
       ).includes(query)
     );
   }

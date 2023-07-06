@@ -165,7 +165,7 @@ export class SnackBar extends loggerElement {
   }
 
   protected override firstUpdated(
-    changedProperties: PropertyValues<this>
+      changedProperties: PropertyValues<this>
   ): void {
     super.firstUpdated(changedProperties);
 

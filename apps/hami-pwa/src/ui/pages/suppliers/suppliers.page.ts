@@ -88,7 +88,7 @@ export class PageSuppliers extends PageBase {
 
   private renderSuppliersCard(): RenderResult {
     const titleTemplate = M3.Renderers.renderTypoGraphy(
-      headingPageTypography(i18n.msg('suppliers'))
+        headingPageTypography(i18n.msg('suppliers'))
     );
 
     return html`

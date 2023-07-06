@@ -8,7 +8,7 @@ import type {
 } from '../types/select-option';
 
 export function renderSelectOption(
-  content: Partial<SelectOptionContent>
+    content: Partial<SelectOptionContent>
 ): SelectOptionRendererReturn {
   content.component = 'select-option';
   content.type = 'select-option';

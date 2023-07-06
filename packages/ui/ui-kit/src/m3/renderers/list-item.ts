@@ -6,7 +6,7 @@ import { createElementByContent } from './base/base-renderer';
 import type { ListItemContent, ItemRendererReturn } from '../types/list-item';
 
 export function renderListItem(
-  content: Partial<ListItemContent>
+    content: Partial<ListItemContent>
 ): ItemRendererReturn {
   content.component = 'list-item';
   content.type ??= 'list-item';

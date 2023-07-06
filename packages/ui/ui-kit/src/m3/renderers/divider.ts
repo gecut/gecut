@@ -4,7 +4,9 @@ import { createElementByContent } from './base/base-renderer';
 
 import type { DividerContent, DividerRendererReturn } from '../types/divider';
 
-export function renderDivider(content: Partial<DividerContent>): DividerRendererReturn {
+export function renderDivider(
+    content: Partial<DividerContent>
+): DividerRendererReturn {
   content.component = 'divider';
   content.type = 'divider';
 

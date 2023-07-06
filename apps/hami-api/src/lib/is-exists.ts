@@ -4,8 +4,8 @@ export function isFieldExits(...values: (string | null | undefined)[]) {
   logger.logMethodArgs?.('isFieldExits', { values });
 
   return values
-    .map((value) => _isFieldExits(value))
-    .reduce((p, c) => p || c, false);
+      .map((value) => _isFieldExits(value))
+      .reduce((p, c) => p || c, false);
 }
 function _isFieldExits(value: string | null | undefined): boolean {
   value = (value ?? '').trim();

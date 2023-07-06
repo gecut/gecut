@@ -59,27 +59,27 @@ export class NewOrderData extends NewOrderBase<Data> {
   protected slideStates: StateManager<States, RenderResult> = {
       customers: () =>
         selectCustomerPage(
-          Object.values(this.customerStorage?.data ?? {}),
-          this.order
+            Object.values(this.customerStorage?.data ?? {}),
+            this.order
         ),
       projects: () => selectProjectPage(Object.values(this.projects), this.order),
       products: () =>
         selectProductsPage(
-          Object.values(this.productStorage?.data ?? {}),
-          this.order
+            Object.values(this.productStorage?.data ?? {}),
+            this.order
         ),
       quantities: () =>
         enterProductsValuesPage(
-          Object.values(this.productStorage?.data ?? {}),
-          this.order
+            Object.values(this.productStorage?.data ?? {}),
+            this.order
         ),
       date: () => enterDateValuesPage(this.order),
       review: () => {
         const customer = Object.values(this.customerStorage?.data ?? {}).find(
-          (customer) => customer.id === this.order.customerId
+            (customer) => customer.id === this.order.customerId
         );
         const customerProject = customer?.projectList.find(
-          (project) => project.id === this.order.customerProjectId
+            (project) => project.id === this.order.customerProjectId
         );
         const productList = Object.values(this.productStorage?.data ?? {});
 
@@ -118,9 +118,9 @@ export class NewOrderData extends NewOrderBase<Data> {
         newCustomer !== oldCustomer
       ) {
         this.projects = Object.fromEntries(
-          this.customerStorage.data[this.order.customerId].projectList.map(
-            (project) => [project.id, project]
-          )
+            this.customerStorage.data[this.order.customerId].projectList.map(
+                (project) => [project.id, project]
+            )
         );
       }
 
@@ -140,9 +140,9 @@ export class NewOrderData extends NewOrderBase<Data> {
   }
 
   override requestUpdate(
-    name?: PropertyKey | undefined,
-    oldValue?: unknown,
-    options?: PropertyDeclaration<unknown, unknown> | undefined
+      name?: PropertyKey | undefined,
+      oldValue?: unknown,
+      options?: PropertyDeclaration<unknown, unknown> | undefined
   ): void {
     super.requestUpdate(name, oldValue, options);
 
@@ -158,13 +158,13 @@ export class NewOrderData extends NewOrderBase<Data> {
   protected updateFab(): void {
     if (this.fabStates == null || this.state == null) {
       return this.log.warning(
-        'updateFab',
-        'not_exists',
-        'fab_states_or_state_not_exists',
-        {
-          stateName: this.state,
-          fabStates: this.fabStates,
-        }
+          'updateFab',
+          'not_exists',
+          'fab_states_or_state_not_exists',
+          {
+            stateName: this.state,
+            fabStates: this.fabStates,
+          }
       );
     }
 
@@ -189,8 +189,8 @@ export class NewOrderData extends NewOrderBase<Data> {
 
     if (nextState == null) {
       throw this.log.warning(
-        'getNextState',
-        'next_state_not_exists',
+          'getNextState',
+          'next_state_not_exists',
         `after '${state}' state not exists any state`
       );
     }
@@ -206,8 +206,8 @@ export class NewOrderData extends NewOrderBase<Data> {
 
     if (previousState == null) {
       throw this.log.warning(
-        'getPreviousState',
-        'next_state_not_exists',
+          'getPreviousState',
+          'next_state_not_exists',
         `before '${state}' state not exists any state`
       );
     }
@@ -222,8 +222,8 @@ export class NewOrderData extends NewOrderBase<Data> {
       this.state = state;
     } else {
       throw this.log.warning(
-        'setState',
-        'state_valid',
+          'setState',
+          'state_valid',
         `stateList not have '${state}' state`
       );
     }

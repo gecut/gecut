@@ -5,7 +5,7 @@ import i18n from '@gecut/i18n';
 import type { M3 } from '@gecut/ui-kit';
 
 export function notFoundListCard(
-  text = i18n.msg('nothing-found')
+    text = i18n.msg('nothing-found')
 ): M3.Types.SurfaceCardContent {
   return {
     component: 'surface-card',

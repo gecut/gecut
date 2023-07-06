@@ -4,7 +4,9 @@ import { createElementByContent } from './base/base-renderer';
 
 import type { RadioContent, RadioRendererReturn } from '../types/radio';
 
-export function renderRadio(content: Partial<RadioContent>): RadioRendererReturn {
+export function renderRadio(
+    content: Partial<RadioContent>
+): RadioRendererReturn {
   content.component = 'radio';
   content.type = 'radio';
 

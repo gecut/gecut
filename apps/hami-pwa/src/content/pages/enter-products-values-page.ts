@@ -13,11 +13,11 @@ import { headingPageTypography } from '../typographies/heading-page-typography';
 import type { Projects, RenderResult } from '@gecut/types';
 
 function productCard(
-  product: Projects.Hami.Product,
-  order: Partial<NewOrder>
+    product: Projects.Hami.Product,
+    order: Partial<NewOrder>
 ): M3.Types.SurfaceCardContent {
   const orderProductIndex = (order.productList ?? []).findIndex(
-    (_orderProduct) => _orderProduct?.productId === product.id
+      (_orderProduct) => _orderProduct?.productId === product.id
   );
   const orderProduct = order.productList?.[orderProductIndex];
 
@@ -138,22 +138,22 @@ function productCard(
               if (orderProduct != null) {
                 dispatch('new-order', {
                   productList: (order.productList ?? []).map(
-                    (_orderProduct) => {
-                      if (_orderProduct?.productId === product.id) {
-                        _orderProduct.discount = Number(
-                          orderProduct.discount ?? 0
-                        );
-                        _orderProduct.salesPrice = Number(
-                          orderProduct.salesPrice ?? 0
-                        );
-                        _orderProduct.quantity = Number(
-                          orderProduct.quantity ?? 0
-                        );
-                        _orderProduct.unit = orderProduct.unit;
-                      }
+                      (_orderProduct) => {
+                        if (_orderProduct?.productId === product.id) {
+                          _orderProduct.discount = Number(
+                              orderProduct.discount ?? 0
+                          );
+                          _orderProduct.salesPrice = Number(
+                              orderProduct.salesPrice ?? 0
+                          );
+                          _orderProduct.quantity = Number(
+                              orderProduct.quantity ?? 0
+                          );
+                          _orderProduct.unit = orderProduct.unit;
+                        }
 
-                      return _orderProduct;
-                    }
+                        return _orderProduct;
+                      }
                   ),
                 });
               }
@@ -166,16 +166,16 @@ function productCard(
 }
 
 function productList(
-  products: Projects.Hami.Product[],
-  order: Partial<NewOrder>
+    products: Projects.Hami.Product[],
+    order: Partial<NewOrder>
 ): M3.Types.SurfaceCardContent[] {
   return products.map((product) => productCard(product, order));
 }
 
 function enterProductsValuesCard(
-  products: Projects.Hami.Product[],
-  order: Partial<NewOrder>,
-  query = ''
+    products: Projects.Hami.Product[],
+    order: Partial<NewOrder>,
+    query = ''
 ): M3.Types.SurfaceCardRendererReturn | M3.Types.DivisionRendererReturn {
   products = products.filter((product) => product.active === true);
 
@@ -197,17 +197,17 @@ function enterProductsValuesCard(
 }
 
 export function enterProductsValuesPage(
-  products: Projects.Hami.Product[],
-  order: Partial<NewOrder>
+    products: Projects.Hami.Product[],
+    order: Partial<NewOrder>
 ): RenderResult {
   products = products.filter((product) =>
     (order.productList ?? [])
-      .map((orderProduct) => orderProduct?.productId ?? '')
-      .includes(product.id)
+        .map((orderProduct) => orderProduct?.productId ?? '')
+        .includes(product.id)
   );
 
   const headline = M3.Renderers.renderTypoGraphy(
-    headingPageTypography(i18n.msg('enter-products-values'))
+      headingPageTypography(i18n.msg('enter-products-values'))
   );
 
   return html`${headline}${enterProductsValuesCard(products, order)}`;

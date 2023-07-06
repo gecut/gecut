@@ -161,7 +161,7 @@ export class PageSignIn extends loggerElement {
       formBuilder.values != null
     ) {
       const values = formBuilder.values[
-        'sign-in'
+          'sign-in'
       ] as unknown as Projects.Hami.SignInRequest;
 
       this.submitButton = {

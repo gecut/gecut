@@ -68,7 +68,7 @@ function dateCard(order: Partial<NewOrder>): M3.Types.SurfaceCardContent {
 
 export function enterDateValuesPage(order: Partial<NewOrder>): RenderResult {
   const headline = M3.Renderers.renderTypoGraphy(
-    headingPageTypography(i18n.msg('enter-date-values'))
+      headingPageTypography(i18n.msg('enter-date-values'))
   );
 
   const template = [

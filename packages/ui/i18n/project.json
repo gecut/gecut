@@ -23,7 +23,8 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/ui/i18n/**/*.ts"]
+        "lintFilePatterns": ["packages/ui/i18n/**/*.ts"],
+        "fix": true
       }
     },
     "test": {

@@ -11,8 +11,8 @@ import type { Projects } from '@gecut/types';
 import type { M3 } from '@gecut/ui-kit';
 
 export function supplierCard(
-  supplier: Projects.Hami.SupplierModel,
-  editable = false
+    supplier: Projects.Hami.SupplierModel,
+    editable = false
 ): M3.Types.SurfaceCardContent {
   return {
     component: 'surface-card',
@@ -60,20 +60,20 @@ export function supplierCard(
       ...paragraphTypographies([
         join(': ', i18n.msg('unique-code'), supplier.uniqueCode),
         join(
-          ': ',
-          i18n.msg('phone-number'),
-          i18n.phone(sanitizer.str(supplier.phoneNumber), true)
+            ': ',
+            i18n.msg('phone-number'),
+            i18n.phone(sanitizer.str(supplier.phoneNumber), true)
         ),
         join(
-          ': ',
-          i18n.msg('number-of-orders'),
-          i18n.int(supplier.orderList.length)
+            ': ',
+            i18n.msg('number-of-orders'),
+            i18n.int(supplier.orderList.length)
         ),
         join(': ', i18n.msg('address'), sanitizer.str(supplier.address)),
         join(
-          ': ',
-          i18n.msg('description'),
-          sanitizer.str(supplier.description)
+            ': ',
+            i18n.msg('description'),
+            sanitizer.str(supplier.description)
         ),
       ]),
     ],

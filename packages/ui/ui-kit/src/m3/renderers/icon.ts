@@ -6,7 +6,7 @@ import type { MdIcon } from '@material/web/icon/icon';
 type renderIconReturnType = MdIcon;
 
 export function renderIcon(
-  content: Partial<IconContent>
+    content: Partial<IconContent>
 ): renderIconReturnType {
   content.component = 'icon';
   content.type = 'svg';
@@ -15,8 +15,8 @@ export function renderIcon(
 
   if (icon.slot === 'start') {
     icon.style.setProperty(
-      'margin-inline-start',
-      'calc(2 * var(--sys-spacing-track, 8px))'
+        'margin-inline-start',
+        'calc(2 * var(--sys-spacing-track, 8px))'
     );
   }
 

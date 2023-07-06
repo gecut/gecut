@@ -4,7 +4,7 @@ import { Projects } from '@gecut/types';
 import type { FormSelectContent } from '@gecut/form-builder';
 
 export function orderStatusSelect(
-  value?: Projects.Hami.Order['status']
+    value?: Projects.Hami.Order['status']
 ): FormSelectContent {
   return {
     component: 'select',

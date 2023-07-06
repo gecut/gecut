@@ -43,8 +43,8 @@ export function msg(key: string, ...replacement: string[]): string {
   }
 
   logger.warning(
-    'msg',
-    'key_not_defined',
+      'msg',
+      'key_not_defined',
     `'${key}' not have any value in '${_activeLang}' language`,
     key
   );
@@ -57,8 +57,8 @@ export function config(): LocaleConfig {
 
   if (config.$code == null || config.$dir == null || config.$name == null) {
     throw logger.error(
-      'activeConfiguration',
-      'active_language_not_have_translations'
+        'activeConfiguration',
+        'active_language_not_have_translations'
     );
   }
 
@@ -70,8 +70,8 @@ export function config(): LocaleConfig {
 }
 
 export function int(
-  integer: number,
-  options?: Intl.NumberFormatOptions
+    integer: number,
+    options?: Intl.NumberFormatOptions
 ): string {
   integer = Number(integer);
 
@@ -97,12 +97,12 @@ export function phone(phoneNumber: string, reverse = false): string {
 }
 
 export function date(
-  timestamp: number,
-  options: Intl.DateTimeFormatOptions = {
-    weekday: 'long',
-    day: 'numeric',
-    month: 'long',
-  }
+    timestamp: number,
+    options: Intl.DateTimeFormatOptions = {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+    }
 ): string {
   const date = new Date(timestamp);
 

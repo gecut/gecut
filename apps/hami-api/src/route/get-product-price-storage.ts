@@ -6,17 +6,17 @@ import { requireSignedIn } from '../util/require-signed-in';
 import type { Projects } from '@gecut/types';
 
 nanoServer.route(
-  'GET',
-  '/product-price-storage/',
-  async (
-    connection
-  ): Promise<Projects.Hami.Routes['product-price-storage']> => {
-    logger.logMethod?.('get-product-price-storage');
+    'GET',
+    '/product-price-storage/',
+    async (
+        connection
+    ): Promise<Projects.Hami.Routes['product-price-storage']> => {
+      logger.logMethod?.('get-product-price-storage');
 
-    await requireSignedIn(connection);
+      await requireSignedIn(connection);
 
-    return await storageClient.getStorage<Projects.Hami.ProductPrice>(
-      config.productPriceStorage
-    );
-  }
+      return await storageClient.getStorage<Projects.Hami.ProductPrice>(
+          config.productPriceStorage
+      );
+    }
 );

@@ -23,7 +23,8 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/utilities/**/*.ts"]
+        "lintFilePatterns": ["packages/utilities/**/*.ts"],
+        "fix": true
       }
     },
     "test": {

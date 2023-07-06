@@ -21,7 +21,7 @@ export interface Customer extends AlwatrDocumentObjectActive {
 }
 
 export const customerRequire: RequireFunc<Customer> = (
-  customer: Partial<Customer>
+    customer: Partial<Customer>
 ): Customer => ({
   id: 'auto_increment',
   creatorId: undefined,

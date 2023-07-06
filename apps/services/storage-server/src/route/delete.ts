@@ -10,7 +10,7 @@ import type {
 nanoServer.route('DELETE', 'all', deleteDocument);
 
 function deleteDocument(
-  connection: AlwatrConnection
+    connection: AlwatrConnection
 ): AlwatrServiceResponse<Record<string, never>, never> {
   logger.logMethodArgs?.('deleteDocument', { method: connection.method });
 

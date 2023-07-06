@@ -16,8 +16,8 @@ nanoServer.route('PATCH', '/notification-storage/', async (connection) => {
 
   for (const notification of bodyJson.data) {
     await storageClient.set(
-      Projects.Hami.notificationRequire(notification),
-      config.notificationStorage
+        Projects.Hami.notificationRequire(notification),
+        config.notificationStorage
     );
   }
 

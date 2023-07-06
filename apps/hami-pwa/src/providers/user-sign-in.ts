@@ -6,13 +6,13 @@ import type { Projects } from '@gecut/types';
 
 setProvider('sign-in', async (signInData) => {
   const response = await fetchJSON<Projects.Hami.Routes['sign-in']>(
-    'sign-in/',
-    {
-      method: 'post',
-      searchParams: {},
-      headers: {},
-      json: { data: signInData },
-    }
+      'sign-in/',
+      {
+        method: 'post',
+        searchParams: {},
+        headers: {},
+        json: { data: signInData },
+      }
   );
 
   if (response.ok === true) {

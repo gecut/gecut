@@ -9,7 +9,7 @@ import type { Projects } from '@gecut/types';
 import type { M3 } from '@gecut/ui-kit';
 
 export function addCustomerProjectDialog(
-  customerId: string
+    customerId: string
 ): M3.Types.DialogContent {
   return {
     component: 'dialog',
@@ -96,7 +96,7 @@ export function addCustomerProjectDialog(
                 onSubmit: async (event) => {
                   if (event.validate === true && event.values != null) {
                     const project = event.values[
-                      'project'
+                        'project'
                     ] as unknown as Projects.Hami.CustomerProject;
 
                     if (project != null) {
@@ -111,7 +111,7 @@ export function addCustomerProjectDialog(
                         type: 'ellipsis-message',
                         attributes: {
                           message: i18n.msg(
-                            'project-was-successfully-registered'
+                              'project-was-successfully-registered'
                           ),
                           align: 'bottom',
                           duration: 2_000,

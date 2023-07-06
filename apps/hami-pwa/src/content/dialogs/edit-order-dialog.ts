@@ -15,8 +15,8 @@ import type { Projects } from '@gecut/types';
 import type { M3 } from '@gecut/ui-kit';
 
 export function editOrderDialog(
-  order: Projects.Hami.OrderModel,
-  suppliers: Projects.Hami.Supplier[]
+    order: Projects.Hami.OrderModel,
+    suppliers: Projects.Hami.Supplier[]
 ): M3.Types.DialogContent {
   return {
     component: 'dialog',
@@ -179,55 +179,55 @@ export function editOrderDialog(
                     orderStatusSelect(order.status),
                     orderSupplierSelect(suppliers, order.supplierId),
                     ...order.productList.map(
-                      (orderProduct): FormTextFieldContent[] => [
-                        {
-                          component: 'text-field',
-                          type: 'filled',
-                          attributes: {
-                            inputType: 'number',
-                            name: `purchase-${orderProduct.productId}`,
-                            label: join(
-                              ' ',
-                              orderProduct.product.name,
-                              i18n.int(orderProduct.quantity),
-                              orderProduct.unit
-                            ),
-                            value: String(orderProduct.purchasePrice),
-                          },
-                          transformers: (target) => {
-                            target.addEventListener('input', () => {
-                              target = numberHelper(target);
-                            });
+                        (orderProduct): FormTextFieldContent[] => [
+                          {
+                            component: 'text-field',
+                            type: 'filled',
+                            attributes: {
+                              inputType: 'number',
+                              name: `purchase-${orderProduct.productId}`,
+                              label: join(
+                                  ' ',
+                                  orderProduct.product.name,
+                                  i18n.int(orderProduct.quantity),
+                                  orderProduct.unit
+                              ),
+                              value: String(orderProduct.purchasePrice),
+                            },
+                            transformers: (target) => {
+                              target.addEventListener('input', () => {
+                                target = numberHelper(target);
+                              });
 
-                            return target;
+                              return target;
+                            },
                           },
-                        },
-                        {
-                          component: 'text-field',
-                          type: 'filled',
-                          attributes: {
-                            inputType: 'number',
-                            name: `sales-${orderProduct.productId}`,
-                            label: join(
-                              ' ',
-                              i18n.msg('sales-price'),
-                              orderProduct.product.name,
-                              '(',
-                              i18n.int(orderProduct.quantity),
-                              orderProduct.unit,
-                              ')'
-                            ),
-                            value: String(orderProduct.salesPrice),
-                          },
-                          transformers: (target) => {
-                            target.addEventListener('input', () => {
-                              target = numberHelper(target);
-                            });
+                          {
+                            component: 'text-field',
+                            type: 'filled',
+                            attributes: {
+                              inputType: 'number',
+                              name: `sales-${orderProduct.productId}`,
+                              label: join(
+                                  ' ',
+                                  i18n.msg('sales-price'),
+                                  orderProduct.product.name,
+                                  '(',
+                                  i18n.int(orderProduct.quantity),
+                                  orderProduct.unit,
+                                  ')'
+                              ),
+                              value: String(orderProduct.salesPrice),
+                            },
+                            transformers: (target) => {
+                              target.addEventListener('input', () => {
+                                target = numberHelper(target);
+                              });
 
-                            return target;
+                              return target;
+                            },
                           },
-                        },
-                      ]
+                        ]
                     ),
                     {
                       component: 'button',
@@ -241,7 +241,7 @@ export function editOrderDialog(
                 onSubmit: async (event) => {
                   if (event.validate === true && event.values != null) {
                     const formValues = event.values[
-                      'initial'
+                        'initial'
                     ] as unknown as Record<string, string> &
                       Pick<Projects.Hami.Order, 'supplierId' | 'status'>;
 
@@ -252,23 +252,23 @@ export function editOrderDialog(
                       productList: [],
                     };
                     const productList = order.productList.map(
-                      (
-                        orderProduct: Projects.Hami.OrderProduct & {
+                        (
+                            orderProduct: Projects.Hami.OrderProduct & {
                           product?: unknown;
                         }
-                      ) => {
-                        delete orderProduct.product;
+                        ) => {
+                          delete orderProduct.product;
 
-                        return orderProduct as Projects.Hami.OrderProduct;
-                      }
+                          return orderProduct as Projects.Hami.OrderProduct;
+                        }
                     );
 
                     _order.productList = productList.map((orderProduct) => {
                       const purchasePrice = Number(
-                        formValues[`purchase-${orderProduct.productId}`]
+                          formValues[`purchase-${orderProduct.productId}`]
                       );
                       const salesPrice = Number(
-                        formValues[`sales-${orderProduct.productId}`]
+                          formValues[`sales-${orderProduct.productId}`]
                       );
 
                       if (Number.isNaN(purchasePrice) === false) {

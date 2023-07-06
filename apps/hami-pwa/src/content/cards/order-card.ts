@@ -12,9 +12,9 @@ import type { Projects } from '@gecut/types';
 import type { M3 } from '@gecut/ui-kit';
 
 export function orderCard(
-  order: Projects.Hami.OrderModel,
-  editable = false,
-  suppliers: Projects.Hami.Supplier[] = []
+    order: Projects.Hami.OrderModel,
+    editable = false,
+    suppliers: Projects.Hami.Supplier[] = []
 ): M3.Types.SurfaceCardContent {
   logger.methodArgs?.('orderCard', { order, editable, suppliers });
 
@@ -60,44 +60,44 @@ export function orderCard(
       ...paragraphTypographies([
         join(': ', i18n.msg('status'), i18n.msg(order.status)),
         join(
-          ': ',
-          i18n.msg('evacuation-date'),
-          i18n.date(order.evacuationDate)
+            ': ',
+            i18n.msg('evacuation-date'),
+            i18n.date(order.evacuationDate)
         ),
         join(
-          ': ',
-          i18n.msg('registration-date'),
-          i18n.date(order.registrationDate)
+            ': ',
+            i18n.msg('registration-date'),
+            i18n.date(order.registrationDate)
         ),
         join(
-          '',
-          i18n.msg('customer-name'),
-          ': ',
-          sanitizer.str(order.customer?.firstName),
-          ' ',
-          sanitizer.str(order.customer?.lastName)
+            '',
+            i18n.msg('customer-name'),
+            ': ',
+            sanitizer.str(order.customer?.firstName),
+            ' ',
+            sanitizer.str(order.customer?.lastName)
         ),
         join(
-          '',
-          i18n.msg('supplier-name'),
-          ': ',
-          sanitizer.str(order.supplier?.firstName),
-          ' ',
-          sanitizer.str(order.supplier?.lastName)
+            '',
+            i18n.msg('supplier-name'),
+            ': ',
+            sanitizer.str(order.supplier?.firstName),
+            ' ',
+            sanitizer.str(order.supplier?.lastName)
         ),
         join(': ', i18n.msg('description'), sanitizer.str(order.description)),
         join(
-          '',
-          i18n.msg('creator'),
-          ': ',
-          sanitizer.str(order.creator?.firstName),
-          ' ',
-          sanitizer.str(order.creator?.lastName)
+            '',
+            i18n.msg('creator'),
+            ': ',
+            sanitizer.str(order.creator?.firstName),
+            ' ',
+            sanitizer.str(order.creator?.lastName)
         ),
         join(
-          ': ',
-          i18n.msg('project-address'),
-          sanitizer.str(order.customerProject?.projectAddress)
+            ': ',
+            i18n.msg('project-address'),
+            sanitizer.str(order.customerProject?.projectAddress)
         ),
       ]),
       {
@@ -124,17 +124,17 @@ export function orderCard(
               headline: orderProduct.product.name,
               attributes: {
                 supportingText: join(
-                  ' ',
-                  i18n.msg('sales') + ':',
-                  i18n.int(orderProduct.salesPrice ?? 0),
-                  ' - ',
-                  i18n.msg('purchase') + ':',
-                  i18n.int(orderProduct.purchasePrice ?? 0)
+                    ' ',
+                    i18n.msg('sales') + ':',
+                    i18n.int(orderProduct.salesPrice ?? 0),
+                    ' - ',
+                    i18n.msg('purchase') + ':',
+                    i18n.int(orderProduct.purchasePrice ?? 0)
                 ),
                 trailingSupportingText: join(
-                  ' ',
-                  i18n.int(orderProduct.quantity),
-                  orderProduct.unit
+                    ' ',
+                    i18n.int(orderProduct.quantity),
+                    orderProduct.unit
                 ),
                 styleVars: {
                   '--_list-item-container-color': 'transparent',

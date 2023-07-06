@@ -14,12 +14,12 @@ import type { Projects, RenderResult } from '@gecut/types';
 import type { Lit } from '@gecut/ui-kit';
 
 function productItem(
-  product: Projects.Hami.Product,
-  order: Partial<NewOrder>
+    product: Projects.Hami.Product,
+    order: Partial<NewOrder>
 ): M3.Types.ItemRendererReturn {
   const checked = (order.productList ?? [])
-    .map((_product) => _product?.productId === product.id)
-    .reduce((p, c) => p || c, false);
+      .map((_product) => _product?.productId === product.id)
+      .reduce((p, c) => p || c, false);
 
   return M3.Renderers.renderListItem({
     component: 'list-item',
@@ -51,16 +51,16 @@ function productItem(
           let productList = order.productList ?? [];
 
           const isExists = productList
-            .map((product) => {
-              console.log(product);
+              .map((product) => {
+                console.log(product);
 
-              return product?.productId == checkbox.value;
-            })
-            .reduce((p, c) => p || c, false);
+                return product?.productId == checkbox.value;
+              })
+              .reduce((p, c) => p || c, false);
 
           if (isExists) {
             productList = productList.filter(
-              (product) => product?.productId !== checkbox.value
+                (product) => product?.productId !== checkbox.value
             );
           } else {
             productList.push({
@@ -85,8 +85,8 @@ function productItem(
 }
 
 function productList(
-  products: Projects.Hami.Product[],
-  order: Partial<NewOrder>
+    products: Projects.Hami.Product[],
+    order: Partial<NewOrder>
 ): Lit.Types.LitVirtualizerContent<Projects.Hami.Product> {
   return {
     component: 'lit-virtualizer',
@@ -106,9 +106,9 @@ function productList(
 }
 
 function productsListCard(
-  products: Projects.Hami.Product[],
-  order: Partial<NewOrder>,
-  query = ''
+    products: Projects.Hami.Product[],
+    order: Partial<NewOrder>,
+    query = ''
 ): M3.Types.SurfaceCardRendererReturn {
   products = products.filter((product) => product.active === true);
 
@@ -132,11 +132,11 @@ function productsListCard(
 }
 
 export function selectProductsPage(
-  products: Projects.Hami.Product[],
-  order: Partial<NewOrder>
+    products: Projects.Hami.Product[],
+    order: Partial<NewOrder>
 ): RenderResult {
   const headline = M3.Renderers.renderTypoGraphy(
-    headingPageTypography(i18n.msg('select-product'))
+      headingPageTypography(i18n.msg('select-product'))
   );
 
   return html`${headline}${productsListCard(products, order)}`;

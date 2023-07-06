@@ -16,8 +16,8 @@ import type { PartialDeep, Projects, RenderResult } from '@gecut/types';
 import type { Lit } from '@gecut/ui-kit';
 
 export function productItem(
-  product: Projects.Hami.Product,
-  orderProduct:
+    product: Projects.Hami.Product,
+    orderProduct:
     | PartialDeep<Projects.Hami.OrderProduct, { recurseIntoArrays: true }>
     | undefined
 ): M3.Types.ItemRendererReturn {
@@ -27,9 +27,9 @@ export function productItem(
     attributes: {
       headline: product.code + ' - ' + product.name,
       supportingText: join(
-        ' - ',
-        i18n.int(orderProduct?.salesPrice ?? 0),
-        i18n.int(orderProduct?.purchasePrice ?? 0)
+          ' - ',
+          i18n.int(orderProduct?.salesPrice ?? 0),
+          i18n.int(orderProduct?.purchasePrice ?? 0)
       ),
       multiLineSupportingText: true,
       trailingSupportingText:
@@ -48,8 +48,8 @@ export function productItem(
 }
 
 export function productList(
-  order: Partial<NewOrder>,
-  products: Projects.Hami.Product[]
+    order: Partial<NewOrder>,
+    products: Projects.Hami.Product[]
 ): Lit.Types.LitVirtualizerContent<Projects.Hami.Product> {
   return {
     component: 'lit-virtualizer',
@@ -63,7 +63,7 @@ export function productList(
       }),
       renderItem: (product) => {
         const orderProduct = (order.productList ?? []).find(
-          (_orderProduct) => _orderProduct?.productId === product.id
+            (_orderProduct) => _orderProduct?.productId === product.id
         );
 
         return html`${productItem(product, orderProduct)}`;
@@ -73,8 +73,8 @@ export function productList(
 }
 
 export function productsListCard(
-  order: Partial<NewOrder>,
-  products: Projects.Hami.Product[]
+    order: Partial<NewOrder>,
+    products: Projects.Hami.Product[]
 ): M3.Types.SurfaceCardRendererReturn {
   if (products.length === 0) {
     return M3.Renderers.renderSurfaceCard(notFoundListCard());
@@ -97,7 +97,7 @@ export function productsListCard(
 
 function descriptionCard(order: Partial<NewOrder>): RenderResult {
   const headline = M3.Renderers.renderTypoGraphy(
-    headingPageTypography(i18n.msg('description'))
+      headingPageTypography(i18n.msg('description'))
   );
   const descriptionCardTemplate = M3.Renderers.renderSurfaceCard({
     component: 'surface-card',
@@ -154,13 +154,13 @@ function descriptionCard(order: Partial<NewOrder>): RenderResult {
 }
 
 function reviewCard(
-  order: Partial<NewOrder>,
-  customer: Projects.Hami.CustomerModel | undefined,
-  project: Projects.Hami.CustomerProjectModel | undefined,
-  productList: Projects.Hami.Product[]
+    order: Partial<NewOrder>,
+    customer: Projects.Hami.CustomerModel | undefined,
+    project: Projects.Hami.CustomerProjectModel | undefined,
+    productList: Projects.Hami.Product[]
 ): RenderResult {
   const headline = M3.Renderers.renderTypoGraphy(
-    headingPageTypography(i18n.msg('review'))
+      headingPageTypography(i18n.msg('review'))
   );
   const customerCardTemplate = M3.Renderers.renderSurfaceCard({
     component: 'surface-card',
@@ -264,15 +264,15 @@ function reviewCard(
 }
 
 export function reviewPage(
-  order: Partial<NewOrder>,
-  customer: Projects.Hami.CustomerModel | undefined,
-  project: Projects.Hami.CustomerProjectModel | undefined,
-  products: Projects.Hami.Product[]
+    order: Partial<NewOrder>,
+    customer: Projects.Hami.CustomerModel | undefined,
+    project: Projects.Hami.CustomerProjectModel | undefined,
+    products: Projects.Hami.Product[]
 ): RenderResult {
   products = products.filter((product) =>
     (order.productList ?? [])
-      .map((orderProduct) => orderProduct?.productId ?? '')
-      .includes(product.id)
+        .map((orderProduct) => orderProduct?.productId ?? '')
+        .includes(product.id)
   );
 
   return html`${descriptionCard(order)}${reviewCard(

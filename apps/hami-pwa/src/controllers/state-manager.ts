@@ -8,8 +8,8 @@ export type StateManager<S extends string = string, T = unknown> = Record<
 >;
 
 export function stateManager<T extends StateManager, S extends keyof T>(
-  states: T,
-  state: S
+    states: T,
+    state: S
 ): ReturnType<T[S]> {
   logger.methodArgs?.('stateManager', { states, state });
 

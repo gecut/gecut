@@ -11,7 +11,7 @@ import type {
 } from '../types/icon-button';
 
 export function renderIconButton(
-  content: Partial<IconButtonContent>
+    content: Partial<IconButtonContent>
 ): IconButtonRendererReturn {
   content.component = 'icon-button';
   content.type ??= 'standard';

@@ -5,7 +5,7 @@ import { createElementByContent } from './base/base-renderer';
 import type { DialogContent, DialogRendererReturn } from '../types/dialog';
 
 export function renderDialog(
-  content: Partial<DialogContent>
+    content: Partial<DialogContent>
 ): DialogRendererReturn {
   content.component = 'dialog';
   content.type = 'dialog';

@@ -11,7 +11,7 @@ import type { StringifyableRecord } from '@alwatr/type';
 nanoServer.route('GET', '/storage', getStorage);
 
 function getStorage(
-  connection: AlwatrConnection
+    connection: AlwatrConnection
 ): AlwatrServiceResponse<
   Record<string, StringifyableRecord>,
   StringifyableRecord

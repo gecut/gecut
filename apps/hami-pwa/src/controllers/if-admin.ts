@@ -4,18 +4,18 @@ import { logger } from './logger';
 import type { ArrowFunction } from '@gecut/types';
 
 export async function ifAdmin(
-  trueCallback?: ArrowFunction,
-  falseCallback?: ArrowFunction
+    trueCallback?: ArrowFunction,
+    falseCallback?: ArrowFunction
 ): Promise<boolean> {
   const _isAdmin = await isAdmin();
 
   logger.methodFull?.(
-    'ifAdmin',
-    {
-      trueCallback,
-      falseCallback,
-    },
-    _isAdmin
+      'ifAdmin',
+      {
+        trueCallback,
+        falseCallback,
+      },
+      _isAdmin
   );
 
   if (await isAdmin()) {

@@ -9,7 +9,7 @@ import { createElementByContent } from './base/base-renderer';
 import type { ButtonContent, ButtonRendererReturn } from '../types/button';
 
 export function renderButton(
-  content: Partial<ButtonContent>
+    content: Partial<ButtonContent>
 ): ButtonRendererReturn {
   content.component = 'button';
   content.type ??= 'elevated';

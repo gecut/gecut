@@ -11,7 +11,7 @@ export interface Product extends AlwatrDocumentObjectActive {
 }
 
 export const productRequire: RequireFunc<Product> = (
-  product: Partial<Product>
+    product: Partial<Product>
 ): Product => ({
   id: 'auto_increment',
   code: 'no-code',

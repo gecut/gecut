@@ -109,8 +109,8 @@ export class PageHome extends PageBase {
   private renderNotificationCard(): RenderResult {
     return html`
       ${M3.Renderers.renderTypoGraphy(
-    headingPageTypography(i18n.msg('notifications'))
-  )}
+        headingPageTypography(i18n.msg('notifications'))
+      )}
       ${notificationListCard(Object.values(this.notificationStorage))}
     `;
   }
@@ -118,15 +118,15 @@ export class PageHome extends PageBase {
   private renderProductPriceCard(): RenderResult {
     return html`
       ${M3.Renderers.renderTypoGraphy(
-    headingPageTypography(i18n.msg('price-list'))
-  )}
+        headingPageTypography(i18n.msg('price-list'))
+      )}
 
       <div class="search-box">${this.productsPriceSearchBoxComponent}</div>
 
       ${productPriceListCard(
-    Object.values(this.productsPriceStorage),
-    this.productsPriceQuery
-  )}
+        Object.values(this.productsPriceStorage),
+        this.productsPriceQuery
+      )}
     `;
   }
 }

@@ -10,8 +10,8 @@ import type { Projects } from '@gecut/types';
 import type { M3 } from '@gecut/ui-kit';
 
 export function supplierDialog(
-  supplier: Projects.Hami.SupplierModel,
-  editable = false
+    supplier: Projects.Hami.SupplierModel,
+    editable = false
 ): M3.Types.DialogContent {
   return {
     component: 'dialog',

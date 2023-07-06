@@ -16,8 +16,8 @@ nanoServer.route('PATCH', '/product-price-storage/', async (connection) => {
 
   for (const productPrice of bodyJson.data) {
     await storageClient.set(
-      Projects.Hami.productPriceRequire(productPrice),
-      config.productPriceStorage
+        Projects.Hami.productPriceRequire(productPrice),
+        config.productPriceStorage
     );
   }
 

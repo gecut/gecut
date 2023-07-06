@@ -9,7 +9,7 @@ import type {
 } from '../types/typography';
 
 export function renderTypoGraphy(
-  content: Partial<TypoGraphyContent>
+    content: Partial<TypoGraphyContent>
 ): TypoGraphyRendererReturn {
   content.component = 'typography';
   content.type ??= 'p';
