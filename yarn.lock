@@ -6423,10 +6423,10 @@ eslint-plugin-import@^2.27.5:
     semver "^6.3.0"
     tsconfig-paths "^3.14.1"
 
-eslint-plugin-lit-a11y@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-lit-a11y/-/eslint-plugin-lit-a11y-3.0.0.tgz#5af8dc46c0aa253be0f9eb31a6fa7b079ea5d6fd"
-  integrity sha512-+HMLB0XVDh6hX9rJZqmfkSfOuTSXzjab/gmDSbhIr/i60aUV+xLm1WdLAPAqLE5YsyxWd1CcycON4OO37ro0xA==
+eslint-plugin-lit-a11y@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-lit-a11y/-/eslint-plugin-lit-a11y-4.0.0.tgz#904ffc8e5ef2a84dbd8e808ad84af01bb9b67fba"
+  integrity sha512-0qVe6Wz9/NzZs+0BwjetVRaSRs48dWgMKshmLmhrL3p3Ko86ujJdP4xkWMDsFJwJa58zJmTj2NKmraqPD0N54w==
   dependencies:
     aria-query "^5.1.3"
     axe-core "^4.3.3"
