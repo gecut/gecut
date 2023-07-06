@@ -1,6 +1,7 @@
 import icons from '#hami/ui/icons';
 
 import i18n from '@gecut/i18n';
+import { sanitizer } from '@gecut/utilities';
 
 import type { Projects } from '@gecut/types';
 import type { M3 } from '@gecut/ui-kit';
@@ -11,19 +12,21 @@ export function supplierPhoneNumberItem(
   return {
     component: 'list-item',
     type: 'list-item-link',
-    headline: supplierPhoneNumber.name,
-    supportingText: i18n.phone(supplierPhoneNumber.phoneNumber),
-    href: `tel:${supplierPhoneNumber.phoneNumber}`,
-    classes: ['supplier-phone-number-item'],
-    styleVars: {
-      '--_list-item-trailing-supporting-text-color':
-        'var(--md-sys-color-primary)',
+    attributes: {
+      headline: supplierPhoneNumber.name,
+      supportingText: i18n.phone(supplierPhoneNumber.phoneNumber),
+      href: `tel:${supplierPhoneNumber.phoneNumber}`,
+      classes: ['supplier-phone-number-item'],
+      styles: {
+        '--_list-item-trailing-supporting-text-color':
+          'var(--md-sys-color-primary)',
+      },
     },
-    slotList: [
+    children: [
       {
         component: 'icon',
         type: 'svg',
-        slot: 'start',
+        attributes: { slot: 'start' },
         SVG: icons.outlineRounded.call,
       },
     ],
@@ -36,7 +39,7 @@ export function supplierPhoneNumberList(
   const items = [
     {
       name: i18n.msg('main'),
-      phoneNumber: supplier.phoneNumber,
+      phoneNumber: sanitizer.str(supplier.phoneNumber),
     },
     ...supplier.phoneNumberList,
   ];
@@ -44,11 +47,13 @@ export function supplierPhoneNumberList(
   return {
     component: 'list',
     type: 'list',
-    styles: {
-      'border-radius': '12px',
-      overflow: 'hidden',
+    attributes: {
+      styles: {
+        'border-radius': '12px',
+        overflow: 'hidden',
+      },
     },
-    slotList: items.map((item) => supplierPhoneNumberItem(item)),
+    children: items.map((item) => supplierPhoneNumberItem(item)),
   };
 }
 
@@ -58,7 +63,9 @@ export function supplierPhoneNumberListCard(
   return {
     component: 'surface-card',
     type: 'elevated',
-    styles: { 'margin-bottom': 'calc(2*var(--sys-spacing-track,8px))' },
-    slotList: [supplierPhoneNumberList(supplier)],
+    attributes: {
+      styles: { 'margin-bottom': 'calc(2*var(--sys-spacing-track,8px))' },
+    },
+    children: [supplierPhoneNumberList(supplier)],
   };
 }

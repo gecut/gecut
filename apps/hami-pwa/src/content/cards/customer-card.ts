@@ -3,8 +3,13 @@ import icons from '#hami/ui/icons';
 
 import i18n from '@gecut/i18n';
 import { dispatch } from '@gecut/signal';
+import { join, sanitizer } from '@gecut/utilities';
 
 import { addCustomerProjectDialog } from '../dialogs/add-customer-project-dialog';
+import {
+  paragraphTypographies,
+  paragraphTypography,
+} from '../typographies/surface-card-paragraph-typography';
 
 import type { Projects } from '@gecut/types';
 import type { M3 } from '@gecut/ui-kit';
@@ -15,85 +20,84 @@ export function customerCard(
   return {
     component: 'surface-card',
     type: 'elevated',
-    styles: {
-      'margin-top': 'var(--sys-spacing-track,8px)',
-      'margin-bottom': 'calc(2*var(--sys-spacing-track,8px))',
-      padding: 'calc(2*var(--sys-spacing-track,8px))',
-      'padding-top': 'var(--sys-spacing-track,8px)',
+    attributes: {
+      styles: {
+        'margin-top': 'var(--sys-spacing-track,8px)',
+        'margin-bottom': 'calc(2*var(--sys-spacing-track,8px))',
+        padding: 'calc(2*var(--sys-spacing-track,8px))',
+        'padding-top': 'var(--sys-spacing-track,8px)',
+      },
     },
-    slotList: [
+    children: [
       {
         component: 'typography',
         type: 'h1',
-        slotList: [customer.firstName, ' ', customer.lastName],
-        classes: ['surface-card__title'],
+        children: [
+          join(
+            ' ',
+            sanitizer.str(customer.firstName),
+            sanitizer.str(customer.lastName)
+          ),
+        ],
+        attributes: {
+          classes: ['surface-card__title'],
+        },
       },
-      {
-        component: 'typography',
-        type: 'p',
-        slotList: [
+      ...paragraphTypographies([
+        join(
+          ': ',
           i18n.msg('phone-number'),
+          i18n.phone(sanitizer.str(customer?.phoneNumber), true)
+        ),
+        join(
           ': ',
-          i18n.phone(customer.phoneNumber, true),
-        ],
-        classes: ['surface-card__paragraph'],
-      },
-      {
-        component: 'typography',
-        type: 'p',
-        slotList: [
           i18n.msg('number-of-projects'),
+          i18n.int(customer.projectList.length)
+        ),
+        join(
           ': ',
-          i18n.int(customer.projectList.length),
-        ],
-        classes: ['surface-card__paragraph'],
-      },
-      {
-        component: 'typography',
-        type: 'p',
-        slotList: [
           i18n.msg('number-of-orders'),
-          ': ',
-          i18n.int(customer.orderList.length),
-        ],
-        classes: ['surface-card__paragraph'],
-      },
-      {
-        component: 'typography',
-        type: 'p',
-        slotList: [
+          i18n.int(customer.orderList.length)
+        ),
+        join(
+          '',
           i18n.msg('creator'),
           ': ',
-          customer.creator.firstName,
+          sanitizer.str(customer.creator?.firstName),
           ' ',
-          customer.creator.lastName,
+          sanitizer.str(customer.creator?.lastName)
+        ),
+      ]),
+      paragraphTypography({
+        children: [
+          ': ',
+          join(i18n.msg('description'), sanitizer.str(customer.description)),
         ],
-        classes: ['surface-card__paragraph'],
-      },
-      {
-        component: 'typography',
-        type: 'p',
-        hidden: isFieldExits(customer.description) === false,
-        slotList: [i18n.msg('description'), ': ', customer.description],
-        classes: ['surface-card__paragraph'],
-      },
+        attributes: {
+          hidden: isFieldExits(customer.description) === false,
+        },
+      }),
       {
         component: 'button',
         type: 'filled',
-        label: i18n.msg('add-project'),
-        styles: {
-          'margin-inline-start': 'auto',
-          'margin-top': 'calc(2*var(--sys-spacing-track,8px))',
+        attributes: {
+          styles: {
+            'margin-inline-start': 'auto',
+            'margin-top': 'calc(2*var(--sys-spacing-track,8px))',
+          },
         },
-        slotList: [
+        children: [
+          i18n.msg('add-project'),
           {
             component: 'icon',
             type: 'svg',
             SVG: icons.filledRounded.add,
-            slot: 'icon',
+            attributes: {
+              slot: 'icon',
+            },
           },
         ],
-        customConfig: (target) => {
+        transformers: (target) => {
           target.addEventListener('click', () => {
             dispatch('dialog', addCustomerProjectDialog(customer.id));
           });

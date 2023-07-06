@@ -190,11 +190,7 @@ export type TypoGraphyRendererReturn =
   | HTMLModElement;
 
 export interface TypoGraphyContent
-  extends BaseContent<
-    TypoGraphyRendererReturn,
-    undefined,
-    string | TypoGraphyContent
-  > {
+  extends BaseContent<TypoGraphyRendererReturn> {
   component: 'typography';
   type:
     | 'h1'

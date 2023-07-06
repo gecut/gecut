@@ -12,15 +12,11 @@ on:
       - next
       - main
 
-  pull_request:
-    paths:
-      - 'cloud/**/*/Dockerfile'
-      - '.github/workflows/publish-docker-container.yml'
-
 env:
   REGISTRY: ghcr.io
   USERNAME: ${{ github.repository_owner }}
   LIARA_TOKEN: ${{ secrets.LIARA_API_TOKEN }}
+  NODE_VERSION: v19.0.0
 
 jobs:
   build:
@@ -36,14 +32,14 @@ jobs:
             distribution: dist/apps/hami-pwa
             dockerfile: cloud/pwa/Dockerfile
             description: Hami Project Progressive Web Application
-            liara_deploy: true
+            deployment: true
 
           - image: hami-api
             source: apps/hami-api
             distribution: dist/apps/hami-api
             dockerfile: cloud/api/Dockerfile
             description: Hami Project API Server
-            liara_deploy: true
+            deployment: true
 
           # - image: survey-pwa
           #   source: apps/survey-pwa
@@ -56,7 +52,7 @@ jobs:
             distribution: dist/apps/services/storage-server
             dockerfile: cloud/api/Dockerfile
             description: Storage Server Micro-service
-            liara_deploy: true
+            deployment: true
 
     permissions:
       contents: read
@@ -128,7 +124,7 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: 🚀 Deploy On Lira
-        if: ${{ matrix.liara_deploy == true }}
+        if: ${{ matrix.deployment == true }}
         uses: nick-fields/retry@v2
         with:
           timeout_minutes: 3

@@ -39,21 +39,23 @@ export class PageSignIn extends loggerElement {
         {
           component: 'text-field',
           type: 'filled',
-          name: 'phoneNumber',
-          label: i18n.msg('phone-number'),
-          inputType: 'tel',
-          minLength: 11,
-          maxLength: 11,
-          textDirection: 'ltr',
-          slotList: [
+          attributes: {
+            name: 'phoneNumber',
+            label: i18n.msg('phone-number'),
+            inputType: 'tel',
+            minLength: 11,
+            maxLength: 11,
+            textDirection: 'ltr',
+            hasLeadingIcon: true,
+          },
+          children: [
             {
               component: 'icon',
               type: 'svg',
               SVG: icons.outlineRounded.call,
-              slot: 'leadingicon',
+              attributes: { slot: 'leadingicon' },
             },
           ],
-          hasLeadingIcon: true,
           validator: [
             {
               rule: 'required',
@@ -73,19 +75,21 @@ export class PageSignIn extends loggerElement {
         {
           component: 'text-field',
           type: 'filled',
-          inputType: 'password',
-          name: 'password',
-          label: i18n.msg('password'),
-          textDirection: 'ltr',
-          slotList: [
+          attributes: {
+            inputType: 'password',
+            name: 'password',
+            label: i18n.msg('password'),
+            textDirection: 'ltr',
+            hasLeadingIcon: true,
+          },
+          children: [
             {
               component: 'icon',
               type: 'svg',
               SVG: icons.outline.lock,
-              slot: 'leadingicon',
+              attributes: { slot: 'leadingicon' },
             },
           ],
-          hasLeadingIcon: true,
           validator: [
             {
               rule: 'required',
@@ -101,17 +105,17 @@ export class PageSignIn extends loggerElement {
   private submitButton: M3.Types.ButtonContent = {
       component: 'button',
       type: 'filled',
-      label: i18n.msg('sign-in'),
-      slotList: [
+      children: [
+        i18n.msg('sign-in'),
         {
           component: 'icon',
           type: 'svg',
           SVG: icons.filledRounded.login,
-          slot: 'icon',
+          attributes: { slot: 'icon' },
         },
       ],
-      styles: { 'margin-inline-start': 'auto' },
-      customConfig: (target) => {
+      attributes: { styles: { 'margin-inline-start': 'auto' } },
+      transformers: (target) => {
         target.addEventListener('click', () => this.submitForm());
 
         return target;
@@ -163,14 +167,14 @@ export class PageSignIn extends loggerElement {
       this.submitButton = {
         ...this.submitButton,
 
-        disabled: true,
+        attributes: { disabled: true },
       };
 
       const response = await request('sign-in', values).finally(() => {
         this.submitButton = {
           ...this.submitButton,
 
-          disabled: false,
+          attributes: { disabled: false },
         };
       });
 

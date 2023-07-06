@@ -8,16 +8,10 @@ import type {
 } from '../types/snack-bar';
 
 export function renderSnackBar(
-  content: SnackBarContent
+  content: Partial<SnackBarContent>
 ): SnackBarRendererReturn {
-  const snackBar = createElementByContent('snack-bar', content, [
-    'type',
-    'align',
-    'message',
-    'duration',
-    'startFrom',
-    'closeButton',
-  ]);
+  content.component = 'snack-bar';
+  content.type ??= 'ellipsis-message';
 
-  return snackBar;
+  return createElementByContent('snack-bar', content);
 }

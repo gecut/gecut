@@ -10,26 +10,26 @@ export function confirmLogoutDialog(): M3.Types.DialogContent {
   return {
     component: 'dialog',
     type: 'dialog',
-    slotList: [
+    children: [
       {
         component: 'icon',
         type: 'svg',
         SVG: icons.filledRounded.logout,
-        slot: 'headline-prefix',
+        attributes: { slot: 'headline-prefix' },
       },
       {
         component: 'typography',
         type: 'h2',
         style: 'headline-small',
-        slot: 'headline',
-        slotList: [i18n.msg('are-you-sure')],
+        attributes: { slot: 'headline' },
+        children: [i18n.msg('are-you-sure')],
       },
       {
         component: 'typography',
         type: 'p',
         style: 'body-medium',
-        slot: 'headline-suffix',
-        slotList: [
+        attributes: { slot: 'headline-suffix' },
+        children: [
           i18n.msg(
             'after-exiting-the-tokens-will-be-deleted-so-you-have-to-enter-again'
           ),
@@ -38,9 +38,9 @@ export function confirmLogoutDialog(): M3.Types.DialogContent {
       {
         component: 'button',
         type: 'text',
-        label: i18n.msg('sign-out'),
-        slot: 'footer',
-        customConfig: (target) => {
+        children: [i18n.msg('sign-out')],
+        attributes: { slot: 'footer' },
+        transformers: (target) => {
           target.addEventListener('click', () => {
             localStorage.removeItem('USER_ID');
             localStorage.removeItem('USER_TOKEN');
@@ -54,14 +54,12 @@ export function confirmLogoutDialog(): M3.Types.DialogContent {
       {
         component: 'button',
         type: 'text',
-        label: i18n.msg('cancel'),
-        slot: 'footer',
-        customConfig: (target) => {
-          target.addEventListener('click', () => {
+        children: [i18n.msg('cancel')],
+        attributes: { slot: 'footer' },
+        events: {
+          click: () => {
             dispatch('dialog', null);
-          });
-
-          return target;
+          },
         },
       },
     ],

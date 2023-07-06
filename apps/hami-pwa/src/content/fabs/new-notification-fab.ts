@@ -10,18 +10,20 @@ export function newNotificationFAB(): M3.Types.FABContent {
   return {
     component: 'fab',
     type: 'fab',
-    size: 'medium',
-    variant: 'secondary',
-    ariaLabel: 'New Notification',
-    slotList: [
+    attributes: {
+      size: 'medium',
+      variant: 'secondary',
+      ariaLabel: 'New Notification',
+    },
+    children: [
       {
         component: 'icon',
         type: 'svg',
         SVG: icons.outlineRounded.addAlert,
-        slot: 'icon',
+        attributes: { slot: 'icon' },
       },
     ],
-    customConfig: (target) => {
+    transformers: (target) => {
       target.addEventListener('click', () => {
         dispatch('dialog', addNotificationDialog());
       });

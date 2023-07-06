@@ -11,20 +11,14 @@ import type {
 } from '../types/icon-button';
 
 export function renderIconButton(
-  content: IconButtonContent
+  content: Partial<IconButtonContent>
 ): IconButtonRendererReturn {
+  content.component = 'icon-button';
+  content.type ??= 'standard';
+
   const iconButton = createElementByContent(
     `md-${content.type}-icon-button`,
-    content,
-    [
-      'disabled',
-      'flipIconInRtl',
-      'href',
-      'target',
-      'selectedAriaLabel',
-      'toggle',
-      'selected',
-    ]
+    content
   );
 
   if (content.iconSVG != null) {

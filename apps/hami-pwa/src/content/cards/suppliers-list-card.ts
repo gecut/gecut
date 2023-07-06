@@ -4,6 +4,7 @@ import icons from '#hami/ui/icons';
 import i18n from '@gecut/i18n';
 import { dispatch } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
+import { join } from '@gecut/utilities';
 import { flow } from '@lit-labs/virtualizer/layouts/flow.js';
 import { html } from 'lit';
 
@@ -20,27 +21,29 @@ export function supplierItem(
   return M3.Renderers.renderListItem({
     component: 'list-item',
     type: 'list-item',
-    headline: supplier.firstName + ' ' + supplier.lastName,
-    supportingText: supplier.description,
-    multiLineSupportingText: true,
-    trailingSupportingText: i18n.msg(
-      'number-of-order',
-      i18n.int(supplier.orderList.length)
-    ),
-    classes: ['supplier-item'],
-    styleVars: {
-      '--_list-item-trailing-supporting-text-color':
-        'var(--md-sys-color-primary)',
+    attributes: {
+      headline: supplier.firstName + ' ' + supplier.lastName,
+      supportingText: supplier.description,
+      multiLineSupportingText: true,
+      trailingSupportingText: i18n.msg(
+        'number-of-order',
+        i18n.int(supplier.orderList.length)
+      ),
+      classes: ['supplier-item'],
+      styles: {
+        '--_list-item-trailing-supporting-text-color':
+          'var(--md-sys-color-primary)',
+      },
     },
-    slotList: [
+    children: [
       {
         component: 'icon',
         type: 'svg',
-        slot: 'start',
+        attributes: { slot: 'start' },
         SVG: icons.outlineRounded.person,
       },
     ],
-    customConfig: (target) => {
+    transformers: (target) => {
       ifAdmin(
         () => {
           target.addEventListener('click', () => {
@@ -66,13 +69,15 @@ export function supplierList(
     component: 'lit-virtualizer',
     type: 'lit-virtualizer',
 
-    // scroller: true,
-    items: suppliers,
-    layout: flow({
-      direction: 'vertical',
-    }),
-    renderItem: (suppliers) => {
-      return html`${supplierItem(suppliers)}`;
+    attributes: {
+      // scroller: true,
+      items: suppliers,
+      layout: flow({
+        direction: 'vertical',
+      }),
+      renderItem: (suppliers) => {
+        return html`${supplierItem(suppliers)}`;
+      },
     },
   };
 }
@@ -85,8 +90,11 @@ export function suppliersListCard(
 
   if (query.trim() !== '') {
     suppliers = suppliers.filter((supplier) =>
-      String(
-        supplier.firstName + supplier.lastName + supplier.phoneNumber
+      join(
+        ' ',
+        supplier.firstName,
+        supplier.lastName,
+        supplier.phoneNumber
       ).includes(query)
     );
   }
@@ -98,7 +106,7 @@ export function suppliersListCard(
   return M3.Renderers.renderSurfaceCard({
     component: 'surface-card',
     type: 'elevated',
-    slotList: [
+    children: [
       supplierList(suppliers) as Lit.Types.LitVirtualizerContent<unknown>,
     ],
   });

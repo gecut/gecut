@@ -4,24 +4,13 @@ import { createElementByContent } from './base/base-renderer';
 
 import type { DialogContent, DialogRendererReturn } from '../types/dialog';
 
-export function renderDialog(content: DialogContent): DialogRendererReturn {
-  content.transition ??= 'grow';
+export function renderDialog(
+  content: Partial<DialogContent>
+): DialogRendererReturn {
+  content.component = 'dialog';
+  content.type = 'dialog';
+  content.attributes ??= {};
+  content.attributes.transition ??= 'grow';
 
-  const dialog = createElementByContent('md-dialog', content, [
-    'open',
-    'fullscreen',
-    'fullscreenBreakpoint',
-    'footerHidden',
-    'stacked',
-    'defaultAction',
-    'actionAttribute',
-    'focusAttribute',
-    'scrimClickAction',
-    'escapeKeyAction',
-    'modeless',
-    'draggable',
-    'transition',
-  ]);
-
-  return dialog;
+  return createElementByContent('md-dialog', content);
 }

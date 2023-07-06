@@ -1,4 +1,3 @@
-import { isFieldExits } from '#hami/controllers/is-field-exists';
 import icons from '#hami/ui/icons';
 
 import i18n from '@gecut/i18n';
@@ -7,6 +6,7 @@ import { join, sanitizer } from '@gecut/utilities';
 
 import { editOrderDialog } from '../dialogs/edit-order-dialog';
 import { logger } from '../logger';
+import { paragraphTypographies } from '../typographies/surface-card-paragraph-typography';
 
 import type { Projects } from '@gecut/types';
 import type { M3 } from '@gecut/ui-kit';
@@ -21,31 +21,35 @@ export function orderCard(
   return {
     component: 'surface-card',
     type: order.status === 'awaitingConfirmation' ? 'filled' : 'elevated',
-    styles: {
-      position: 'relative',
-      'margin-top': 'calc(.2*var(--sys-spacing-track,8px))',
-      'margin-bottom': 'var(--sys-spacing-track,8px)',
-      padding:
-        'var(--sys-spacing-track,8px) calc(2*var(--sys-spacing-track,8px)) calc(2*var(--sys-spacing-track,8px))',
+    attributes: {
+      styles: {
+        position: 'relative',
+        'margin-top': 'calc(.2*var(--sys-spacing-track,8px))',
+        'margin-bottom': 'var(--sys-spacing-track,8px)',
+        padding:
+          'var(--sys-spacing-track,8px) calc(2*var(--sys-spacing-track,8px)) calc(2*var(--sys-spacing-track,8px))',
+      },
     },
-    slotList: [
+    children: [
       {
         component: 'typography',
         type: 'h1',
-        slotList: [i18n.msg('order-code'), ': ', order.id],
-        classes: ['surface-card__title'],
+        children: [i18n.msg('order-code'), ': ', order.id],
+        attributes: { classes: ['surface-card__title'] },
       },
       {
         component: 'icon-button',
         type: 'standard',
         iconSVG: icons.outlineRounded.edit,
-        disabled: editable !== true,
-        styles: {
-          position: 'absolute',
-          top: '16px',
-          'inset-inline-end': '16px',
+        attributes: {
+          disabled: editable !== true,
+          styles: {
+            position: 'absolute',
+            top: '16px',
+            'inset-inline-end': '16px',
+          },
         },
-        customConfig: (target) => {
+        transformers: (target) => {
           target.addEventListener('click', () => {
             dispatch('dialog', editOrderDialog(order, suppliers));
           });
@@ -53,132 +57,88 @@ export function orderCard(
           return target;
         },
       },
-      {
-        component: 'typography',
-        type: 'p',
-        slotList: [i18n.msg('status'), ': ', i18n.msg(order.status)],
-        classes: ['surface-card__paragraph'],
-      },
-      {
-        component: 'typography',
-        type: 'p',
-        slotList: [
+      ...paragraphTypographies([
+        join(': ', i18n.msg('status'), i18n.msg(order.status)),
+        join(
+          ': ',
           i18n.msg('evacuation-date'),
+          i18n.date(order.evacuationDate)
+        ),
+        join(
           ': ',
-          i18n.date(order.evacuationDate),
-        ],
-        classes: ['surface-card__paragraph'],
-      },
-      {
-        component: 'typography',
-        type: 'p',
-        slotList: [
           i18n.msg('registration-date'),
-          ': ',
-          i18n.date(order.registrationDate),
-        ],
-        classes: ['surface-card__paragraph'],
-      },
-      {
-        component: 'typography',
-        type: 'p',
-        slotList: [
+          i18n.date(order.registrationDate)
+        ),
+        join(
+          '',
           i18n.msg('customer-name'),
           ': ',
           sanitizer.str(order.customer?.firstName),
           ' ',
-          sanitizer.str(order.customer?.lastName),
-        ],
-        hidden:
-          isFieldExits(order.customer?.firstName, order.customer?.lastName) ===
-          false,
-        classes: ['surface-card__paragraph'],
-      },
-      {
-        component: 'typography',
-        type: 'p',
-        slotList: [
+          sanitizer.str(order.customer?.lastName)
+        ),
+        join(
+          '',
           i18n.msg('supplier-name'),
           ': ',
           sanitizer.str(order.supplier?.firstName),
           ' ',
-          sanitizer.str(order.supplier?.lastName),
-        ],
-        hidden:
-          isFieldExits(order.supplier?.firstName, order.supplier?.lastName) ===
-          false,
-        classes: ['surface-card__paragraph'],
-      },
-      {
-        component: 'typography',
-        type: 'p',
-        slotList: [
-          i18n.msg('description'),
-          ': ',
-          sanitizer.str(order.description),
-        ],
-        hidden: isFieldExits(order.description) === false,
-        classes: ['surface-card__paragraph'],
-      },
-      {
-        component: 'typography',
-        type: 'p',
-        slotList: [
+          sanitizer.str(order.supplier?.lastName)
+        ),
+        join(': ', i18n.msg('description'), sanitizer.str(order.description)),
+        join(
+          '',
           i18n.msg('creator'),
           ': ',
           sanitizer.str(order.creator?.firstName),
           ' ',
-          sanitizer.str(order.creator?.lastName),
-        ],
-        hidden:
-          isFieldExits(order.creator?.firstName, order.creator?.lastName) ===
-          false,
-        classes: ['surface-card__paragraph'],
-      },
-      {
-        component: 'typography',
-        type: 'p',
-        slotList: [
-          i18n.msg('project-address'),
+          sanitizer.str(order.creator?.lastName)
+        ),
+        join(
           ': ',
-          sanitizer.str(order.customerProject?.projectAddress),
-        ],
-        hidden: isFieldExits(order.customerProject?.projectAddress) === false,
-        classes: ['surface-card__paragraph'],
-      },
+          i18n.msg('project-address'),
+          sanitizer.str(order.customerProject?.projectAddress)
+        ),
+      ]),
       {
         component: 'surface-card',
         type: 'filled',
-        styles: {
-          'margin-top': 'var(--sys-spacing-track,8px)',
-          background: 'var(--md-ref-palette-neutral-variant5)',
+        attributes: {
+          styles: {
+            'margin-top': 'var(--sys-spacing-track,8px)',
+            background: 'var(--md-ref-palette-neutral-variant5)',
+          },
         },
-        slotList: [
+        children: [
           {
             component: 'list',
             type: 'list',
-            styleVars: {
-              '--_container-color': 'transparent',
+            attributes: {
+              styles: {
+                '--_container-color': 'transparent',
+              },
             },
-            slotList: order.productList.map((orderProduct) => ({
+            children: order.productList.map((orderProduct) => ({
               component: 'list-item',
               type: 'list-item',
               headline: orderProduct.product.name,
-              supportingText: join(
-                ' ',
-                i18n.msg('sales') + ':',
-                i18n.int(orderProduct.salesPrice ?? 0),
-                ' - ',
-                i18n.msg('purchase') + ':',
-                i18n.int(orderProduct.purchasePrice ?? 0)
-              ),
-              trailingSupportingText: join(
-                ' ',
-                i18n.int(orderProduct.quantity),
-                orderProduct.unit
-              ),
-              styleVars: {
-                '--_list-item-container-color': 'transparent',
+              attributes: {
+                supportingText: join(
+                  ' ',
+                  i18n.msg('sales') + ':',
+                  i18n.int(orderProduct.salesPrice ?? 0),
+                  ' - ',
+                  i18n.msg('purchase') + ':',
+                  i18n.int(orderProduct.purchasePrice ?? 0)
+                ),
+                trailingSupportingText: join(
+                  ' ',
+                  i18n.int(orderProduct.quantity),
+                  orderProduct.unit
+                ),
+                styleVars: {
+                  '--_list-item-container-color': 'transparent',
+                },
               },
             })),
           },
@@ -187,27 +147,33 @@ export function orderCard(
       {
         component: 'division',
         type: 'div',
-        styles: {
-          display: 'flex',
-          gap: 'calc(2*var(--sys-spacing-track,8px))',
-          'margin-top': 'calc(2*var(--sys-spacing-track,8px))',
+        attributes: {
+          styles: {
+            display: 'flex',
+            gap: 'calc(2*var(--sys-spacing-track,8px))',
+            'margin-top': 'calc(2*var(--sys-spacing-track,8px))',
+          },
         },
-        slotList: [
+        children: [
           {
             component: 'button',
             type: 'tonal',
-            label: i18n.msg('sales-invoice'),
-            styles: {
-              'flex-grow': '1',
+            attributes: {
+              styles: {
+                'flex-grow': '1',
+              },
             },
+            children: [i18n.msg('sales-invoice')],
           },
           {
             component: 'button',
             type: 'tonal',
-            label: i18n.msg('purchase-invoice'),
-            styles: {
-              'flex-grow': '1',
+            attributes: {
+              styles: {
+                'flex-grow': '1',
+              },
             },
+            children: [i18n.msg('purchase-invoice')],
           },
         ],
       },

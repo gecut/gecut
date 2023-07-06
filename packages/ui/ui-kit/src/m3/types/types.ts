@@ -20,7 +20,6 @@ import type { TextFieldContent } from './text-field';
 import type { TypoGraphyContent } from './typography';
 import type { LitVirtualizerContent } from '../../lit/types/virtualize';
 
-export type * from './base/custom-config-function';
 export type * from './button';
 export type * from './checkbox';
 export type * from './circular-progress';

@@ -107,8 +107,7 @@ export async function fetchJSON<TJson extends StringifyableRecord>(
       dispatch('snack-bar', {
         component: 'snack-bar',
         type: 'ellipsis-message',
-        message: message,
-        closeButton: true,
+        attributes: { message: message, closeButton: true },
       });
 
       return error;

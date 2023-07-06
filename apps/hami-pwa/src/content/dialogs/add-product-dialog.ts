@@ -18,146 +18,164 @@ export function addProductDialog(
   return {
     component: 'dialog',
     type: 'dialog',
-    fullscreen: true,
-    slotList: [
+    attributes: { fullscreen: true },
+    children: [
       headingPageTypography(title, {
-        slot: 'headline',
+        attributes: { slot: 'headline' },
       }),
       {
         component: 'surface-card',
         type: 'elevated',
-        styles: {
-          position: 'relative',
-          'margin-top': 'calc(.2*var(--sys-spacing-track,8px))',
-          'margin-bottom': 'var(--sys-spacing-track,8px)',
-          padding:
-            'var(--sys-spacing-track,8px) calc(2*var(--sys-spacing-track,8px)) calc(2*var(--sys-spacing-track,8px))',
+        attributes: {
+          styles: {
+            position: 'relative',
+            'margin-top': 'calc(.2*var(--sys-spacing-track,8px))',
+            'margin-bottom': 'var(--sys-spacing-track,8px)',
+            padding:
+              'var(--sys-spacing-track,8px) calc(2*var(--sys-spacing-track,8px)) calc(2*var(--sys-spacing-track,8px))',
+          },
         },
-        slotList: [
+        children: [
           {
             component: 'form-builder',
             type: 'form-builder',
-            styles: {
-              'margin-top': '8px',
-            },
-            styleVars: {
-              '--padding-side': '0',
-            },
-            data: {
-              slides: {
-                product: [
-                  {
-                    component: 'text-field',
-                    type: 'filled',
-                    inputType: 'text',
-                    name: 'code',
-                    label: i18n.msg('code'),
-                    validator: validators('required', 'numeric'),
-                    value: product?.code,
-                  },
-                  {
-                    component: 'text-field',
-                    type: 'filled',
-                    inputType: 'text',
-                    name: 'name',
-                    label: i18n.msg('name'),
-                    validator: validators('required'),
-                    value: product?.name,
-                  },
-                  [
+            attributes: {
+              styles: {
+                'margin-top': '8px',
+                '--padding-side': '0',
+              },
+              data: {
+                slides: {
+                  product: [
                     {
                       component: 'text-field',
                       type: 'filled',
-                      inputType: 'text',
-                      name: 'category',
-                      label: i18n.msg('category'),
-                      validator: validators('required'),
-                      value: product?.category,
+                      attributes: {
+                        inputType: 'text',
+                        name: 'code',
+                        label: i18n.msg('code'),
+                        value: product?.code,
+                      },
+                      validator: validators('required', 'numeric'),
                     },
                     {
                       component: 'text-field',
                       type: 'filled',
-                      inputType: 'text',
-                      name: 'brand',
-                      label: i18n.msg('brand'),
+                      attributes: {
+                        inputType: 'text',
+                        name: 'name',
+                        label: i18n.msg('name'),
+                        value: product?.name,
+                      },
                       validator: validators('required'),
-                      value: product?.brand,
+                    },
+                    [
+                      {
+                        component: 'text-field',
+                        type: 'filled',
+                        attributes: {
+                          inputType: 'text',
+                          name: 'category',
+                          label: i18n.msg('category'),
+                          value: product?.category,
+                        },
+                        validator: validators('required'),
+                      },
+                      {
+                        component: 'text-field',
+                        type: 'filled',
+                        attributes: {
+                          inputType: 'text',
+                          name: 'brand',
+                          label: i18n.msg('brand'),
+                          value: product?.brand,
+                        },
+                        validator: validators('required'),
+                      },
+                    ],
+                    {
+                      component: 'text-field',
+                      type: 'filled',
+                      attributes: {
+                        inputType: 'text',
+                        name: 'unit',
+                        label: i18n.msg('unit'),
+                        value: product?.unit,
+                      },
+                      validator: validators('required'),
+                    },
+                    {
+                      component: 'text-field',
+                      type: 'filled',
+                      attributes: {
+                        inputType: 'text',
+                        name: 'description',
+                        label: i18n.msg('description'),
+                        value: product?.description,
+                      },
+                    },
+                    {
+                      component: 'button',
+                      type: 'filled',
+                      disabled: 'auto',
+                      action: 'form_submit',
+                      children: [title],
                     },
                   ],
-                  {
-                    component: 'text-field',
-                    type: 'filled',
-                    inputType: 'text',
-                    name: 'unit',
-                    label: i18n.msg('unit'),
-                    validator: validators('required'),
-                    value: product?.unit,
-                  },
-                  {
-                    component: 'text-field',
-                    type: 'filled',
-                    inputType: 'text',
-                    name: 'description',
-                    label: i18n.msg('description'),
-                    value: product?.description,
-                  },
-                  {
-                    component: 'button',
-                    type: 'filled',
-                    disabled: 'auto',
-                    action: 'form_submit',
-                    label: title,
-                  },
-                ],
-              },
-              onSubmit: async (event) => {
-                if (event.validate === true && event.values != null) {
-                  const data = event.values[
-                    'product'
-                  ] as unknown as Projects.Hami.Product;
+                },
+                onSubmit: async (event) => {
+                  if (event.validate === true && event.values != null) {
+                    const data = event.values[
+                      'product'
+                    ] as unknown as Projects.Hami.Product;
 
-                  if (data != null) {
-                    if (product != null) {
-                      data.id = product.id;
+                    if (data != null) {
+                      if (product != null) {
+                        data.id = product.id;
+                      }
+
+                      await request('patch-product-storage', {
+                        data: [data],
+                      });
+                      request('product-storage', {});
+                      dispatch('dialog', null);
+                      dispatch('snack-bar', {
+                        component: 'snack-bar',
+                        type: 'ellipsis-message',
+                        attributes: {
+                          message: i18n.msg('product-successfully-registered'),
+                          align: 'bottom',
+                          duration: 2_000,
+                          closeButton: true,
+                        },
+                      });
                     }
-
-                    await request('patch-product-storage', {
-                      data: [data],
-                    });
-                    request('product-storage', {});
-                    dispatch('dialog', null);
-                    dispatch('snack-bar', {
-                      component: 'snack-bar',
-                      type: 'ellipsis-message',
-                      message: i18n.msg('product-successfully-registered'),
-                      align: 'bottom',
-                      duration: 2_000,
-                      closeButton: true,
-                    });
                   }
-                }
+                },
               },
+              activeSlide: 'product',
             },
-            activeSlide: 'product',
           },
         ],
       },
       {
         component: 'button',
         type: 'text',
-        hasIcon: true,
-        label: i18n.msg('delete'),
-        disabled: !(isEdit === true),
-        slot: 'footer',
-        slotList: [
+        attributes: {
+          hasIcon: true,
+          label: i18n.msg('delete'),
+          slot: 'footer',
+          disabled: !(isEdit === true),
+        },
+        children: [
           {
             component: 'icon',
             type: 'svg',
-            slot: 'icon',
+            attributes: { slot: 'icon' },
             SVG: icons.outlineRounded.delete,
           },
         ],
-        customConfig: (target) => {
+        transformers: (target) => {
           target.addEventListener('click', async () => {
             if (product == null) return;
 
@@ -174,10 +192,12 @@ export function addProductDialog(
             dispatch('snack-bar', {
               component: 'snack-bar',
               type: 'ellipsis-message',
-              message: i18n.msg('product-successfully-deleted'),
-              align: 'bottom',
-              duration: 2_000,
-              closeButton: true,
+              attributes: {
+                message: i18n.msg('product-successfully-deleted'),
+                align: 'bottom',
+                duration: 2_000,
+                closeButton: true,
+              },
             });
           });
 
@@ -187,14 +207,12 @@ export function addProductDialog(
       {
         component: 'button',
         type: 'text',
-        label: i18n.msg('close'),
-        slot: 'footer',
-        customConfig: (target) => {
-          target.addEventListener('click', () => {
+        children: [i18n.msg('close')],
+        attributes: { slot: 'footer' },
+        events: {
+          click: () => {
             dispatch('dialog', null);
-          });
-
-          return target;
+          },
         },
       },
     ],

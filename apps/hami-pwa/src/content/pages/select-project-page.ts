@@ -21,32 +21,36 @@ function projectItem(
   return M3.Renderers.renderListItem({
     component: 'list-item',
     type: 'list-item',
-    headline: project.projectName,
-    supportingText: project.projectAddress,
-    trailingSupportingText: i18n.msg(
-      'number-of-order',
-      i18n.int(project.ordersCount ?? 0)
-    ),
-    styles: {
-      width: '100%',
+    attributes: {
+      headline: project.projectName,
+      supportingText: project.projectAddress,
+      trailingSupportingText: i18n.msg(
+        'number-of-order',
+        i18n.int(project.ordersCount ?? 0)
+      ),
+      styles: {
+        width: '100%',
+      },
+      classes: ['project-item'],
     },
-    classes: ['project-item'],
-    slotList: [
+    children: [
       {
         component: 'icon',
         type: 'svg',
-        slot: 'start',
+        attributes: { slot: 'start' },
         SVG: icons.filledRounded.corporateFare,
       },
       {
         component: 'radio',
         type: 'radio',
-        slot: 'end',
-        value: project.id,
-        checked: project.id === order.customerProjectId,
+        attributes: {
+          slot: 'end',
+          value: project.id,
+          checked: project.id === order.customerProjectId,
+        },
       },
     ],
-    customConfig: (target) => {
+    transformers: (target) => {
       target.addEventListener('click', () => {
         const radio = target.querySelector('md-radio');
         if (radio != null) {
@@ -73,13 +77,15 @@ function projectList(
     component: 'lit-virtualizer',
     type: 'lit-virtualizer',
 
-    // scroller: true,
-    items: projects,
-    layout: flow({
-      direction: 'vertical',
-    }),
-    renderItem: (projects) => {
-      return html`${projectItem(projects, order)}`;
+    attributes: {
+      // scroller: true,
+      items: projects,
+      layout: flow({
+        direction: 'vertical',
+      }),
+      renderItem: (projects) => {
+        return html`${projectItem(projects, order)}`;
+      },
     },
   };
 }
@@ -104,7 +110,7 @@ function projectsListCard(
   return M3.Renderers.renderSurfaceCard({
     component: 'surface-card',
     type: 'elevated',
-    slotList: [
+    children: [
       projectList(projects, order) as Lit.Types.LitVirtualizerContent<unknown>,
     ],
   });

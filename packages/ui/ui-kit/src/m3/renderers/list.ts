@@ -4,12 +4,9 @@ import { createElementByContent } from './base/base-renderer';
 
 import type { ListContent, ListRendererReturn } from '../types/list';
 
-export function renderList(content: ListContent): ListRendererReturn {
-  const item = createElementByContent('md-list', content, [
-    'type',
-    'listTabIndex',
-    'listRoot',
-  ]);
+export function renderList(content: Partial<ListContent>): ListRendererReturn {
+  content.component = 'list';
+  content.type = 'list';
 
-  return item;
+  return createElementByContent('md-list', content);
 }

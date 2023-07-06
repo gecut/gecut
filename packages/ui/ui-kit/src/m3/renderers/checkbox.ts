@@ -8,14 +8,10 @@ import type {
 } from '../types/checkbox';
 
 export function renderCheckbox(
-  content: CheckboxContent
+  content: Partial<CheckboxContent>
 ): CheckboxRendererReturn {
-  return createElementByContent('md-checkbox', content, [
-    'checked',
-    'disabled',
-    'error',
-    'indeterminate',
-    'value',
-    'name',
-  ]);
+  content.component = 'checkbox';
+  content.type = 'checkbox';
+
+  return createElementByContent('md-checkbox', content);
 }

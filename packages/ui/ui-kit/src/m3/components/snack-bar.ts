@@ -183,7 +183,7 @@ export class SnackBar extends loggerElement {
       component: 'icon',
       type: 'svg',
       SVG: SnackBar.closeIcon,
-      customConfig: (target) => {
+      transformers: (target) => {
         target.addEventListener('click', () => this.close());
 
         return target;

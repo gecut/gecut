@@ -10,27 +10,33 @@ export function notFoundListCard(
   return {
     component: 'surface-card',
     type: 'elevated',
-    styles: {
-      'align-items': 'center',
-      padding: 'var(--sys-spacing-track) 0',
+    attributes: {
+      styles: {
+        'align-items': 'center',
+        padding: 'var(--sys-spacing-track) 0',
+      },
     },
-    slotList: [
+    children: [
       {
         component: 'icon',
         type: 'svg',
         SVG: icons.outlineRounded.warning,
-        styles: {
-          'margin-top': 'var(--sys-spacing-track)',
-          color: 'var(--md-sys-color-tertiary)',
-          'font-size': 'min(12vw, 38px)',
+        attributes: {
+          styles: {
+            'margin-top': 'var(--sys-spacing-track)',
+            color: 'var(--md-sys-color-tertiary)',
+            'font-size': 'min(12vw, 38px)',
+          },
         },
       },
       {
         component: 'typography',
         type: 'p',
-        slotList: [text],
-        styles: {
-          color: 'var(--md-sys-color-tertiary)',
+        children: [text],
+        attributes: {
+          styles: {
+            color: 'var(--md-sys-color-tertiary)',
+          },
         },
         style: 'body-medium',
       },

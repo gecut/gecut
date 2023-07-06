@@ -9,40 +9,24 @@ import type {
   TextFieldRendererReturn,
 } from '../types/text-field';
 
+let i = 0;
+
 export function renderTextField(
-  content: TextFieldContent
+  content: Partial<TextFieldContent>
 ): TextFieldRendererReturn {
+  content.component = 'text-field';
+  content.type ??= 'filled';
+  content.attributes ??= {
+    inputType: 'text',
+    name: (++i).toString(),
+  };
+
   const textField = createElementByContent(
     `md-${content.type}-text-field`,
-    content,
-    [
-      'name',
-      'label',
-      'placeholder',
-      'supportingText',
-      'textDirection',
-      'value',
-      'defaultValue',
-      'role',
-      'required',
-      'pattern',
-      'errorText',
-      'error',
-      'prefixText',
-      'suffixText',
-      'max',
-      'maxLength',
-      'min',
-      'minLength',
-      'step',
-      'disabled',
-      'readOnly',
-      'hasLeadingIcon',
-      'hasTrailingIcon',
-    ]
+    content
   );
 
-  textField.type = content.inputType;
+  textField.type = content.attributes.inputType;
 
   return textField;
 }

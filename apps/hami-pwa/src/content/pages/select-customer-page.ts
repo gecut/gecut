@@ -21,34 +21,38 @@ function customerItem(
   return M3.Renderers.renderListItem({
     component: 'list-item',
     type: 'list-item',
-    headline: customer.firstName + ' ' + customer.lastName,
-    supportingText: customer.description,
-    multiLineSupportingText: true,
-    trailingSupportingText: i18n.msg(
-      'number-of-order',
-      i18n.int(customer.orderList.length)
-    ),
-    classes: ['notification-item'],
-    styleVars: {
-      '--_list-item-trailing-supporting-text-color':
-        'var(--md-sys-color-primary)',
+    attributes: {
+      headline: customer.firstName + ' ' + customer.lastName,
+      supportingText: customer.description,
+      multiLineSupportingText: true,
+      trailingSupportingText: i18n.msg(
+        'number-of-order',
+        i18n.int(customer.orderList.length)
+      ),
+      classes: ['notification-item'],
+      styles: {
+        '--_list-item-trailing-supporting-text-color':
+          'var(--md-sys-color-primary)',
+      },
     },
-    slotList: [
+    children: [
       {
         component: 'icon',
         type: 'svg',
-        slot: 'start',
+        attributes: { slot: 'start' },
         SVG: icons.outlineRounded.person,
       },
       {
         component: 'radio',
         type: 'radio',
-        slot: 'end',
-        value: customer.id,
-        checked: customer.id === order.customerId,
+        attributes: {
+          slot: 'end',
+          value: customer.id,
+          checked: customer.id === order.customerId,
+        },
       },
     ],
-    customConfig: (target) => {
+    transformers: (target) => {
       target.addEventListener('click', () => {
         const radio = target.querySelector('md-radio');
         if (radio != null) {
@@ -75,13 +79,15 @@ function customerList(
     component: 'lit-virtualizer',
     type: 'lit-virtualizer',
 
-    // scroller: true,
-    items: customers,
-    layout: flow({
-      direction: 'vertical',
-    }),
-    renderItem: (customers) => {
-      return html`${customerItem(customers, order)}`;
+    attributes: {
+      // scroller: true,
+      items: customers,
+      layout: flow({
+        direction: 'vertical',
+      }),
+      renderItem: (customers) => {
+        return html`${customerItem(customers, order)}`;
+      },
     },
   };
 }
@@ -110,7 +116,7 @@ function customersListCard(
   return M3.Renderers.renderSurfaceCard({
     component: 'surface-card',
     type: 'elevated',
-    slotList: [
+    children: [
       customerList(
         customers,
         order

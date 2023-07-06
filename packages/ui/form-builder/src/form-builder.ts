@@ -160,17 +160,22 @@ export class FormBuilder extends loggerElement {
     if (component.component !== 'text-field') return component;
 
     if (component.validator != null) {
+      component.attributes ??= {
+        name: '',
+        inputType: 'text',
+      };
+
       const validatorsResult = validator(
-        component.value ?? '',
+        component.attributes.value ?? '',
         component.validator
       );
 
-      component.errorText = validatorsResult
+      component.attributes.errorText = validatorsResult
         .filter((result) => result.validate != true)
         .map((result) => result.errorMessage)
         .join(' • ');
 
-      component.error = validatorsResult
+      component.attributes.error = validatorsResult
         .map((result) => !result.validate)
         .reduce((p, c) => p || c, false);
     }
@@ -203,30 +208,29 @@ export class FormBuilder extends loggerElement {
     if (component.component === 'text-field') {
       const textField = M3.Renderers.renderTextField({
         ...component,
-        customConfig: (target) => {
-          if (component.customConfig != null) {
-            target = component.customConfig(target);
-          }
-
+        transformers: (target) => {
           FormBuilder.textFieldValidator(component);
 
-          target.error = component.error ?? false;
-          target.errorText = component.errorText ?? '';
+          target.error = component.attributes?.error ?? false;
+          target.errorText = component.attributes?.errorText ?? '';
 
-          target.addEventListener('input', (event) => {
-            const _target = event.target as typeof target;
+          return target;
+        },
+        events: {
+          input: (event) => {
+            const _target = event.target as M3.Types.TextFieldRendererReturn;
 
-            component.value = _target.value;
+            if (component.attributes != null) {
+              component.attributes.value = _target.value;
+            }
 
             FormBuilder.textFieldValidator(component);
 
-            _target.error = component.error ?? false;
-            _target.errorText = component.errorText ?? '';
+            _target.error = component.attributes?.error ?? false;
+            _target.errorText = component.attributes?.errorText ?? '';
 
             this.onChange(event, component);
-          });
-
-          return target;
+          },
         },
       });
 
@@ -234,14 +238,10 @@ export class FormBuilder extends loggerElement {
     } else if (component.component === 'button') {
       const button = M3.Renderers.renderButton({
         ...component,
-        disabled: this.getDisabledForButton(component.disabled),
+        attributes: { disabled: this.getDisabledForButton(component.disabled) },
 
-        customConfig: (target) => {
-          if (component.customConfig != null) {
-            target = component.customConfig(target);
-          }
-
-          target.addEventListener('click', (event) => {
+        events: {
+          click: (event) => {
             // move slide
 
             const slideNames = Object.keys(this.data?.slides ?? {});
@@ -288,9 +288,7 @@ export class FormBuilder extends loggerElement {
                 });
               }
             }
-          });
-
-          return target;
+          },
         },
       });
 
@@ -298,20 +296,16 @@ export class FormBuilder extends loggerElement {
     } else if (component.component === 'select') {
       const textField = M3.Renderers.renderSelect({
         ...component,
-        customConfig: (target) => {
-          if (component.customConfig != null) {
-            target = component.customConfig(target);
-          }
+        events: {
+          change: (event) => {
+            const _target = event.target as M3.Types.SelectRendererReturn;
 
-          target.addEventListener('change', (event) => {
-            const _target = event.target as typeof target;
-
-            component.value = _target.value;
+            if (component.attributes != null) {
+              component.attributes.value = _target.value;
+            }
 
             this.onChange(event, component);
-          });
-
-          return target;
+          },
         },
       });
 
@@ -336,8 +330,8 @@ export class FormBuilder extends loggerElement {
                   component.component === 'select'
               )
               .map((component) => [
-                (component as M3.Types.TextFieldContent).name ?? '',
-                (component as M3.Types.TextFieldContent).value ?? '',
+                (component as M3.Types.TextFieldContent).attributes?.name ?? '',
+                (component as M3.Types.TextFieldContent).attributes?.value ?? '',
               ]);
 
             return rowValues;
@@ -356,7 +350,7 @@ export class FormBuilder extends loggerElement {
       .map((formSlide) =>
         formSlide.flat().map((component) => {
           if (component.component === 'text-field') {
-            return component.error ?? false;
+            return component.attributes?.error ?? false;
           }
 
           return false;

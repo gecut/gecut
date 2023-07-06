@@ -30,7 +30,7 @@ on:
     #        └───────────── minute (0 - 59)
 
 env:
-  NODE_VERSION: latest
+  NODE_VERSION: v19.0.0
 
 jobs:
   lint:

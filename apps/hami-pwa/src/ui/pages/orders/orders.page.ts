@@ -112,24 +112,29 @@ export class PageOrders extends PageBase {
       component: 'lit-virtualizer',
       type: 'lit-virtualizer',
 
-      layout: flow({
-        direction: 'vertical',
-      }),
+      attributes: {
+        layout: flow({
+          direction: 'vertical',
+        }),
 
-      items: Object.values(this.orders)
-        .filter(
-          (order) =>
-            order.active === true &&
-            PageOrders.filterDateByOrder(order.evacuationDate, this.dateFilter)
-        )
-        .sort((a, b) => a.registrationDate - b.registrationDate)
-        .sort((a, b) => statusPriority[a.status] - statusPriority[b.status])
-        .reverse(),
+        items: Object.values(this.orders)
+          .filter(
+            (order) =>
+              order.active === true &&
+              PageOrders.filterDateByOrder(
+                order.evacuationDate,
+                this.dateFilter
+              )
+          )
+          .sort((a, b) => a.registrationDate - b.registrationDate)
+          .sort((a, b) => statusPriority[a.status] - statusPriority[b.status])
+          .reverse(),
 
-      renderItem: (order) =>
-        html`${M3.Renderers.renderSurfaceCard(
-          orderCard(order, this.isAdmin, supplierList)
-        )}`,
+        renderItem: (order) =>
+          html`${M3.Renderers.renderSurfaceCard(
+            orderCard(order, this.isAdmin, supplierList)
+          )}`,
+      },
     });
   }
 
@@ -146,10 +151,12 @@ export class PageOrders extends PageBase {
       dateSelect(
         this.dateFilter.getTime(),
         {
-          styles: {
-            'margin-bottom': 'calc(2*var(--sys-spacing-track))',
+          attributes: {
+            styles: {
+              'margin-bottom': 'calc(2*var(--sys-spacing-track))',
+            },
           },
-          customConfig: (target) => {
+          transformers: (target) => {
             target.addEventListener('change', () => {
               this.dateFilter = new Date(Number(target.value));
 

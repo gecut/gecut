@@ -8,17 +8,11 @@ import { createElementByContent } from './base/base-renderer';
 
 import type { ButtonContent, ButtonRendererReturn } from '../types/button';
 
-export function renderButton(content: ButtonContent): ButtonRendererReturn {
-  const button = createElementByContent(`md-${content.type}-button`, content, [
-    'disabled',
-    'href',
-    'target',
-    'trailingIcon',
-    'hasIcon',
-    'preventClickDefault',
-  ]);
+export function renderButton(
+  content: Partial<ButtonContent>
+): ButtonRendererReturn {
+  content.component = 'button';
+  content.type ??= 'elevated';
 
-  button.append(content.label);
-
-  return button;
+  return createElementByContent(`md-${content.type}-button`, content);
 }

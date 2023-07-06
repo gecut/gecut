@@ -19,18 +19,20 @@ export function dateSelect(
   return {
     component: 'select',
     type: 'filled',
-    value,
-    slotList: dateList.map(
+    attributes: { value },
+    children: dateList.map(
       (date): M3.Types.SelectOptionContent => ({
         component: 'select-option',
         type: 'select-option',
-        value: date.getTime().toString(),
-        headline: i18n.date(date.getTime(), {
-          dateStyle: 'short',
-        }),
-        supportingText: i18n.date(date.getTime(), {
-          dateStyle: 'full',
-        }),
+        attributes: {
+          value: date.getTime().toString(),
+          headline: i18n.date(date.getTime(), {
+            dateStyle: 'short',
+          }),
+          supportingText: i18n.date(date.getTime(), {
+            dateStyle: 'full',
+          }),
+        },
       })
     ),
 

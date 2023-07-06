@@ -21,101 +21,113 @@ export function addNotificationDialog(
   return {
     component: 'dialog',
     type: 'dialog',
-    fullscreen: true,
-    slotList: [
+    attributes: { fullscreen: true },
+    children: [
       headingPageTypography(title, {
-        slot: 'headline',
+        attributes: { slot: 'headline' },
       }),
       {
         component: 'surface-card',
         type: 'elevated',
-        styles: {
-          position: 'relative',
-          'margin-top': 'calc(.2*var(--sys-spacing-track,8px))',
-          'margin-bottom': 'var(--sys-spacing-track,8px)',
-          padding:
-            'var(--sys-spacing-track,8px) calc(2*var(--sys-spacing-track,8px)) calc(2*var(--sys-spacing-track,8px))',
+        attributes: {
+          styles: {
+            position: 'relative',
+            'margin-top': 'calc(.2*var(--sys-spacing-track,8px))',
+            'margin-bottom': 'var(--sys-spacing-track,8px)',
+            padding:
+              'var(--sys-spacing-track,8px) calc(2*var(--sys-spacing-track,8px)) calc(2*var(--sys-spacing-track,8px))',
+          },
         },
-        slotList: [
+        children: [
           {
             component: 'form-builder',
             type: 'form-builder',
-            styles: {
-              'margin-top': '8px',
-            },
-            styleVars: {
-              '--padding-side': '0',
-            },
-            data: {
-              slides: {
-                notification: [
-                  {
-                    component: 'text-field',
-                    type: 'filled',
-                    inputType: 'text',
-                    name: 'message',
-                    label: i18n.msg('message'),
-                    validator: validators('required'),
-                    value: notification?.message,
-                  },
-                  notificationStatusSelect(notification?.status),
-                  {
-                    component: 'button',
-                    type: 'filled',
-                    disabled: 'auto',
-                    action: 'form_submit',
-                    label: title,
-                  },
-                ],
+            attributes: {
+              styles: {
+                'margin-top': '8px',
+                '--padding-side': '0',
               },
-              onSubmit: async (event) => {
-                if (event.validate === true && event.values != null) {
-                  const _notification = event.values[
-                    'notification'
-                  ] as unknown as Projects.Hami.Notification;
+              data: {
+                slides: {
+                  notification: [
+                    {
+                      component: 'text-field',
+                      type: 'filled',
+                      attributes: {
+                        inputType: 'text',
+                        name: 'message',
+                        label: i18n.msg('message'),
+                        value: notification?.message,
+                      },
+                      validator: validators('required'),
+                    },
+                    notificationStatusSelect(notification?.status),
+                    {
+                      component: 'button',
+                      type: 'filled',
+                      disabled: 'auto',
+                      attributes: {
+                        action: 'form_submit',
+                        label: title,
+                      },
+                    },
+                  ],
+                },
+                onSubmit: async (event) => {
+                  if (event.validate === true && event.values != null) {
+                    const _notification = event.values[
+                      'notification'
+                    ] as unknown as Projects.Hami.Notification;
 
-                  if (_notification != null) {
-                    if (notification?.id != null) {
-                      _notification.id = notification.id;
+                    if (_notification != null) {
+                      if (notification?.id != null) {
+                        _notification.id = notification.id;
+                      }
+
+                      await request('patch-notification-storage', {
+                        data: [_notification],
+                      });
+                      request('notification-storage', {});
+                      dispatch('dialog', null);
+                      dispatch('snack-bar', {
+                        component: 'snack-bar',
+                        type: 'ellipsis-message',
+                        attributes: {
+                          message: i18n.msg(
+                            'notification-successfully-registered'
+                          ),
+                          align: 'bottom',
+                          duration: 2_000,
+                          closeButton: true,
+                        },
+                      });
                     }
-
-                    await request('patch-notification-storage', {
-                      data: [_notification],
-                    });
-                    request('notification-storage', {});
-                    dispatch('dialog', null);
-                    dispatch('snack-bar', {
-                      component: 'snack-bar',
-                      type: 'ellipsis-message',
-                      message: i18n.msg('notification-successfully-registered'),
-                      align: 'bottom',
-                      duration: 2_000,
-                      closeButton: true,
-                    });
                   }
-                }
+                },
               },
+              activeSlide: 'notification',
             },
-            activeSlide: 'notification',
           },
         ],
       },
       {
         component: 'button',
         type: 'text',
-        hasIcon: true,
-        label: i18n.msg('delete'),
-        disabled: !(isEdit === true),
-        slot: 'footer',
-        slotList: [
+        attributes: {
+          hasIcon: true,
+          label: i18n.msg('delete'),
+          disabled: !(isEdit === true),
+          slot: 'footer',
+        },
+        children: [
           {
             component: 'icon',
             type: 'svg',
-            slot: 'icon',
+            attributes: { slot: 'icon' },
             SVG: icons.outlineRounded.delete,
           },
         ],
-        customConfig: (target) => {
+        transformers: (target) => {
           target.addEventListener('click', async () => {
             if (notification == null) return;
 
@@ -132,10 +144,12 @@ export function addNotificationDialog(
             dispatch('snack-bar', {
               component: 'snack-bar',
               type: 'ellipsis-message',
-              message: i18n.msg('notification-successfully-deleted'),
-              align: 'bottom',
-              duration: 2_000,
-              closeButton: true,
+              attributes: {
+                message: i18n.msg('notification-successfully-deleted'),
+                align: 'bottom',
+                duration: 2_000,
+                closeButton: true,
+              },
             });
           });
 
@@ -145,14 +159,12 @@ export function addNotificationDialog(
       {
         component: 'button',
         type: 'text',
-        label: i18n.msg('close'),
-        slot: 'footer',
-        customConfig: (target) => {
-          target.addEventListener('click', () => {
+        children: [i18n.msg('close')],
+        attributes: { slot: 'footer' },
+        events: {
+          click: () => {
             dispatch('dialog', null);
-          });
-
-          return target;
+          },
         },
       },
     ],

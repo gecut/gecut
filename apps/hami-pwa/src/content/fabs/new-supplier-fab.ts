@@ -11,18 +11,20 @@ export function newSupplierFAB(): M3.Types.FABContent {
   return {
     component: 'fab',
     type: 'fab',
-    size: 'medium',
-    variant: 'primary',
-    label: i18n.msg('new-supplier'),
-    slotList: [
+    attributes: {
+      size: 'medium',
+      variant: 'primary',
+      label: i18n.msg('new-supplier'),
+    },
+    children: [
       {
         component: 'icon',
         type: 'svg',
         SVG: icons.filledRounded.add,
-        slot: 'icon',
+        attributes: { slot: 'icon' },
       },
     ],
-    customConfig: (target) => {
+    transformers: (target) => {
       target.addEventListener('click', () => {
         dispatch('dialog', addSupplierDialog());
       });
