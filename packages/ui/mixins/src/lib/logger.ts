@@ -7,15 +7,16 @@ import type { PropertyValues, PropertyDeclaration } from 'lit';
 
 let _lastIndex = 0;
 
-export declare class LoggerMixinInterface extends LitElement {
+export declare class LoggerMixinInterface<T> extends LitElement {
   index: number;
+  thisClass: T;
 
   protected log: Logger;
 }
 
 export function LoggerMixin<T extends Constructor<LitElement>>(
     superClass: T
-): Constructor<LoggerMixinInterface> & T {
+): Constructor<LoggerMixinInterface<T>> & T {
   class LoggerMixinClass extends superClass {
     index: number = ++_lastIndex;
     protected log = createLogger(
@@ -93,7 +94,11 @@ export function LoggerMixin<T extends Constructor<LitElement>>(
       this.log.method?.('render');
       return;
     }
+
+    get thisClass(): T {
+      return this.constructor as T;
+    }
   }
 
-  return LoggerMixinClass as unknown as Constructor<LoggerMixinInterface> & T;
+  return LoggerMixinClass as unknown as Constructor<LoggerMixinInterface<T>> & T;
 }
