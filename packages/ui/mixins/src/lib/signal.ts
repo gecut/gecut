@@ -1,10 +1,16 @@
 import { addListener, removeListener } from '@gecut/signal';
 import { LitElement } from 'lit';
 
-import type { SignalListener } from '@gecut/signal';
+import type { SignalListener, createSignalProvider } from '@gecut/signal';
 import type { Constructor } from '@gecut/types';
 
+export type SignalsRecord = Partial<
+  Record<keyof Signals, ReturnType<typeof createSignalProvider>>
+>;
+
 export declare class SignalMixinInterface extends LitElement {
+  static signals: SignalsRecord;
+
   protected addSignalListener: <T extends keyof Signals>(
     name: T,
     listener: SignalListener<T>
@@ -21,6 +27,8 @@ export function SignalMixin<T extends Constructor<LitElement>>(
     superClass: T
 ): Constructor<SignalMixinInterface> & T {
   class SignalMixinClass extends superClass {
+    static signals: SignalsRecord = {};
+
     private signalListeners: {
       [T in keyof Signals]?: {
         listeners: SignalListener<T>[];
@@ -29,13 +37,12 @@ export function SignalMixin<T extends Constructor<LitElement>>(
 
     override disconnectedCallback(): void {
       for (const signalListenerName of Object.keys(this.signalListeners)) {
-        const _signalListenerName = signalListenerName as keyof Signals;
-        const _signalListeners =
-          this.signalListeners[_signalListenerName]?.listeners;
+        const listeners =
+          this.signalListeners[signalListenerName as keyof Signals]?.listeners;
 
-        if (_signalListeners != null) {
-          for (const listener of _signalListeners) {
-            removeListener(_signalListenerName, listener);
+        if (listeners != null) {
+          for (const listener of listeners) {
+            removeListener(signalListenerName as keyof Signals, listener);
           }
         }
       }
