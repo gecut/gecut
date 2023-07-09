@@ -15,7 +15,7 @@ export const config = {
     encoding: 'base64url',
     duration: null,
   },
-  nanoServer: <Partial<NanoServerConfig> & { adminToken: string }>{
+  nanoServer: <NanoServerConfig & { adminToken: string }>{
     host: process.env.HOST ?? '0.0.0.0',
     port: process.env.PORT != null ? +process.env.PORT : 3000,
     accessToken: process.env.ACCESS_TOKEN ?? 'YOUR_SECRET_TOKEN',
@@ -23,6 +23,9 @@ export const config = {
     allowAllOrigin: true,
     headersTimeout: 40_000,
     keepAliveTimeout: 30_000,
+    healthRoute: true,
+    requestTimeout: 10_000,
+    prefixPattern: '',
   },
   logger: (process.env.ALWATR_DEBUG ?? '1') === '1',
 
