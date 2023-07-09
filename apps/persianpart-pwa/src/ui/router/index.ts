@@ -6,7 +6,7 @@ import { routes } from './routes';
 
 import type { Params } from '@vaadin/router';
 
-const logger = createLogger('[router]');
+const logger = createLogger('router');
 const router = new Router();
 
 router.setRoutes([
@@ -21,8 +21,15 @@ router.setRoutes([
   ...routes,
 ]);
 
-export const attachRouter = (outlet: HTMLElement) => {
-  router.setOutlet(outlet);
+export const attachRouter = (outlet: HTMLElement | null) => {
+  logger.methodArgs?.('attachRouter', {
+    outlet,
+    isNode: outlet instanceof Node,
+  });
+
+  if (outlet != null && outlet.role === 'main') {
+    router.setOutlet(outlet);
+  }
 };
 
 export const urlForName = (name: string, params?: Params) => {
@@ -42,7 +49,7 @@ export const routerGo = (path: string) => {
     gecutCancelIdleCallback(lastRouterGo);
   }
 
-  lastRouterGo = gecutIdleCallback(() => router.render(path, true));
+  lastRouterGo = gecutIdleCallback(() => Router.go(path));
 
   return path;
 };

@@ -1,6 +1,7 @@
 /* eslint-disable import/order */
 
 import i18n from '@gecut/i18n';
+import './config';
 import 'element-internals-polyfill';
 
 i18n.set('fa-IR');
