@@ -23,9 +23,13 @@ export function createElementByContent<
       } else if (attribute === 'styles' && content.attributes.styles != null) {
         element = setStyle(element, content.attributes.styles);
       } else {
-        element[attribute as keyof Element] = content.attributes[
-            attribute
-        ] as unknown as Element[keyof Element];
+        const attributeValue = content.attributes[attribute] as unknown as
+          | Element[keyof Element]
+          | null;
+
+        if (attributeValue != null) {
+          element[attribute as keyof Element] = attributeValue;
+        }
       }
     }
   }
