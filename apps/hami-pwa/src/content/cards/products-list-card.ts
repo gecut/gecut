@@ -3,20 +3,17 @@ import icons from '#hami/ui/icons';
 
 import { dispatch } from '@gecut/signal';
 import { M3 } from '@gecut/ui-kit';
-import { flow } from '@lit-labs/virtualizer/layouts/flow.js';
-import { html } from 'lit';
 
 import { addProductDialog } from '../dialogs/add-product-dialog';
 
 import { notFoundListCard } from './not-found-list-card';
 
 import type { Projects } from '@gecut/types';
-import type { Lit } from '@gecut/ui-kit';
 
 export function productItem(
     product: Projects.Hami.Product
-): M3.Types.ItemRendererReturn {
-  return M3.Renderers.renderListItem({
+): M3.Types.ListItemContent {
+  return {
     component: 'list-item',
     type: 'list-item',
     attributes: {
@@ -43,26 +40,6 @@ export function productItem(
 
       return target;
     },
-  });
-}
-
-export function productList(
-    products: Projects.Hami.Product[]
-): Lit.Types.LitVirtualizerContent<Projects.Hami.Product> {
-  return {
-    component: 'lit-virtualizer',
-    type: 'lit-virtualizer',
-
-    attributes: {
-      // scroller: true,
-      items: products,
-      layout: flow({
-        direction: 'vertical',
-      }),
-      renderItem: (products) => {
-        return html`${productItem(products)}`;
-      },
-    },
   };
 }
 
@@ -85,8 +62,6 @@ export function productsListCard(
   return M3.Renderers.renderSurfaceCard({
     component: 'surface-card',
     type: 'elevated',
-    children: [
-      productList(products) as Lit.Types.LitVirtualizerContent<unknown>,
-    ],
+    children: products.map((product) => productItem(product)),
   });
 }
