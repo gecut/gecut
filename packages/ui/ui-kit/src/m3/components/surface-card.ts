@@ -41,7 +41,7 @@ export class SurfaceCard extends loggerElement {
       --md-elevation-level: 1;
 
       background: var(
-        --md-sys-color-surface-container-low,
+        --md-sys-color-surface-container-high,
         var(--md-sys-color-surface-container, #f0f1ec)
       );
     }
