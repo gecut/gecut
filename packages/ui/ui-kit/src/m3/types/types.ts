@@ -17,6 +17,7 @@ import type { SelectOptionContent } from './select-option';
 import type { SnackBarContent } from './snack-bar';
 import type { SurfaceCardContent } from './surface-card';
 import type { TextFieldContent } from './text-field';
+import type { TopAppBarContent } from './top-app-bar';
 import type { TypoGraphyContent } from './typography';
 import type { LitVirtualizerContent } from '../../lit/types/virtualize';
 
@@ -63,5 +64,6 @@ export type AllComponentsContent<T = unknown> =
   | SurfaceCardContent
   | TextFieldContent
   | TypoGraphyContent
+  | TopAppBarContent
   | IMGContent
   | LitVirtualizerContent<T>;

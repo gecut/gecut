@@ -1,15 +1,8 @@
 import { loggerElement } from '@gecut/mixins';
 import '@material/web/elevation/elevation';
-import '@material/web/iconbutton/standard-icon-button';
 import { html, nothing, css } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
-import { map } from 'lit/directives/map.js';
-import { when } from 'lit/directives/when.js';
 
-import { renderer } from '../renderers/renderers';
-import { TopAppBarContent } from '../types/top-app-bar';
-
-import type { AllComponentsContent } from '../types/types';
 import type { RenderResult } from '@gecut/types';
 
 declare global {
@@ -80,8 +73,8 @@ export class TopAppBar extends loggerElement {
         margin: calc(var(--sys-spacing-track) / 2);
       } */
 
-      .leading-icon,
-      .trailing-icon,
+      .leading,
+      .trailing,
       .title {
         display: flex;
         align-items: center;
@@ -127,39 +120,32 @@ export class TopAppBar extends loggerElement {
     `,
   ];
 
-  @property({ type: Object, attribute: false })
-    content?: TopAppBarContent;
+  @property({ type: String })
+    headline = '';
+
+  @property({ type: String, reflect: true })
+    mode: 'flat' | 'on-scroll' = 'flat';
+
+  @property({ type: String, reflect: true })
+    type: 'center' | 'small' | 'medium' | 'large' = 'small';
 
   override render(): RenderResult {
-    if (this.content == null) return nothing;
-
-    this.setAttribute('type', this.content.type);
-    this.setAttribute('mode', this.content?.mode ?? 'flat');
-
-    const headline = this.content.headline;
+    const headline = this.headline;
     const headlineTemplate =
-      this.content.type === 'medium' || this.content.type === 'large'
-        ? headline
-        : nothing;
+      this.type === 'medium' || this.type === 'large' ? headline : nothing;
     const titleTemplate =
-      this.content.type === 'center' || this.content.type === 'small'
-        ? headline
-        : nothing;
+      this.type === 'center' || this.type === 'small' ? headline : nothing;
 
     return html`
       <div class="row">
-        <div class="leading-icon">
-          ${when(this.content != null && this.content.leadingSlot != null, () =>
-      renderer(this.content?.leadingSlot as AllComponentsContent)
-          )}
+        <div class="leading">
+          <slot name="leading"></slot>
         </div>
 
         <div class="title">${titleTemplate}</div>
 
-        <div class="trailing-icon">
-          ${map(this.content.trailingSlotList ?? [], (content) =>
-            renderer(content)
-          )}
+        <div class="trailing">
+          <slot name="trailing"></slot>
         </div>
       </div>
 
