@@ -111,6 +111,11 @@
                 "position": "before"
               },
               {
+                "pattern": "#persianpart/**",
+                "group": "builtin",
+                "position": "before"
+              },
+              {
                 "pattern": "virtual:icons/**",
                 "group": "internal",
                 "position": "after"

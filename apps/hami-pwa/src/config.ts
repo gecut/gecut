@@ -39,7 +39,7 @@ declare global {
       Projects.Hami.SignInResponse,
       StringifyableRecord
     >;
-    readonly 'top-app-bar': Partial<M3.Types.TopAppBarContent>;
+    readonly 'top-app-bar-mode': 'flat' | 'on-scroll';
     readonly 'snack-bar': M3.Types.SnackBarContent;
     readonly dialog: M3.Types.DialogContent | null;
     readonly fab: M3.Types.FABContent[];

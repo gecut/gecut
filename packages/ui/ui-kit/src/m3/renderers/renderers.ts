@@ -19,6 +19,7 @@ import { renderSelectOption } from './select-option';
 import { renderSnackBar } from './snack-bar';
 import { renderSurfaceCard } from './surface-card';
 import { renderTextField } from './text-field';
+import { renderTopAppBar } from './top-app-bar';
 import { renderTypoGraphy } from './typography';
 
 import type { AllComponentsContent } from '../types/types';
@@ -43,6 +44,7 @@ export * from './snack-bar';
 export * from './surface-card';
 export * from './text-field';
 export * from './typography';
+export * from './top-app-bar';
 
 export function renderer<T>(content: AllComponentsContent<T>) {
   switch (content.component) {
@@ -86,6 +88,8 @@ export function renderer<T>(content: AllComponentsContent<T>) {
       return renderRadio(content);
     case 'text-field':
       return renderTextField(content);
+    case 'top-app-bar':
+      return renderTopAppBar(content);
     case 'lit-virtualizer':
       return renderLitVirtualizer(content);
   }

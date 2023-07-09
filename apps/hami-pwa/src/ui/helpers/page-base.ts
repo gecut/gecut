@@ -87,20 +87,16 @@ export abstract class PageBase<
 
   private topAppBarToggleMode() {
     const scrollY = Math.floor(this.scrollTop / 10);
-    const mode = getValue('top-app-bar')?.mode;
+    const mode = getValue('top-app-bar-mode') ?? 'flat';
 
     this.log.methodArgs?.('topAppBarSetMode', { scrollY, mode });
 
     if (scrollY > PageBase.topAppBarRangeScroll && mode !== 'on-scroll') {
-      dispatch('top-app-bar', {
-        mode: 'on-scroll',
-      });
+      dispatch('top-app-bar-mode', 'on-scroll');
     }
 
     if (scrollY <= PageBase.topAppBarRangeScroll && mode !== 'flat') {
-      dispatch('top-app-bar', {
-        mode: 'flat',
-      });
+      dispatch('top-app-bar-mode', 'flat');
     }
   }
 }

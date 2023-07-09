@@ -1,4 +1,4 @@
-import { PageBase } from '#hami/ui/helpers/page-base';
+import { PageBase } from '#persianpart/ui/helpers/page-base';
 
 import { html } from 'lit';
 import { customElement } from 'lit/decorators.js';
@@ -13,11 +13,9 @@ declare global {
 
 @customElement('page-home')
 export class PageHome extends PageBase {
-  static override styles = [];
-
   override render(): RenderResult {
     super.render();
 
-    return html``;
+    return html`<h1>Hello</h1>`;
   }
 }

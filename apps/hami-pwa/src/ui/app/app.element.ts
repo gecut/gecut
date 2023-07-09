@@ -28,73 +28,15 @@ declare global {
   }
 }
 
-const getDate = () => {
-  const now = new Date();
-
-  return now.toLocaleDateString('fa-IR', {
-    weekday: 'long',
-    day: 'numeric',
-    month: 'long',
-  });
-};
-
 @customElement('app-root')
 export class AppRoot extends signalElement {
   static override styles = [unsafeCSS(styles)];
 
-  static topAppBarLoadingSlot: M3.Types.CircularProgressContent = {
-    component: 'circular-progress',
-    type: 'circular-progress',
-    attributes: { indeterminate: true, styles: { '--_size': '40px' } },
-  };
-  static topAppBarTrailingSlot: M3.Types.DivisionContent = {
-    component: 'division',
-    type: 'div',
-    attributes: {
-      styles: {
-        display: 'flex',
-        'align-content': 'center',
-        'justify-content': 'center',
-        width: '40px',
-        height: '40px',
-      },
-    },
-    children: [
-      {
-        component: 'img',
-        type: 'img',
-        attributes: {
-          src: hamiLogo,
-          alt: 'gecut-logo',
-          styles: {
-            height: '24px',
-            margin: 'auto',
-          },
-        },
-      },
-    ],
-  };
+  @state()
+  private loading = true;
 
   @state()
-  private topAppBarContent: M3.Types.TopAppBarContent = {
-      component: 'top-app-bar',
-      type: 'center',
-      headline: getDate(),
-      leadingSlot: <M3.Types.IconButtonContent>{
-        component: 'icon-button',
-        type: 'standard',
-        attributes: { ariaLabel: 'Log Out' },
-        iconSVG: icons.filledRounded.logout,
-        transformers: (target) => {
-          target.addEventListener('click', () => {
-            dispatch('dialog', confirmLogoutDialog());
-          });
-
-          return target;
-        },
-      },
-      trailingSlotList: [AppRoot.topAppBarTrailingSlot],
-    };
+  private topAppBarMode: 'flat' | 'on-scroll' = 'flat';
 
   @state()
   private topAppBarHidden = false;
@@ -143,40 +85,15 @@ export class AppRoot extends signalElement {
       },
     });
 
-    this.addSignalListener('top-app-bar', (value) => {
-      this.topAppBarContent = {
-        ...this.topAppBarContent,
-        ...value,
-      };
+    this.addSignalListener('top-app-bar-mode', (value) => {
+      this.topAppBarMode = value;
     });
 
     this.addSignalListener('promises-list', (value) => {
-      if (
-        this.topAppBarContent.trailingSlotList != null &&
-        this.topAppBarContent.trailingSlotList[0] != null
-      ) {
-        if (
-          value.length > 0 &&
-          this.topAppBarContent.trailingSlotList[0].component !==
-            'circular-progress'
-        ) {
-          dispatch('top-app-bar', {
-            trailingSlotList: [AppRoot.topAppBarLoadingSlot],
-          });
-        }
-
-        if (
-          value.length === 0 &&
-          this.topAppBarContent.trailingSlotList[0].component !== 'icon-button'
-        ) {
-          dispatch('top-app-bar', {
-            trailingSlotList: [AppRoot.topAppBarTrailingSlot],
-          });
-        }
+      if (value.length > 0 && this.loading !== true) {
+        this.loading = true;
       } else {
-        dispatch('top-app-bar', {
-          trailingSlotList: [AppRoot.topAppBarLoadingSlot],
-        });
+        this.loading = false;
       }
     });
 
@@ -201,7 +118,7 @@ export class AppRoot extends signalElement {
 
   override render(): RenderResult {
     return html`
-      ${AppRoot.renderTopAppBar(this.topAppBarContent, this.topAppBarHidden)}
+      ${this.renderTopAppBar()}
 
       <main role="main">
         <div class="fixed"></div>
@@ -228,13 +145,78 @@ export class AppRoot extends signalElement {
     );
   }
 
-  static renderTopAppBar(
-      content: M3.Types.TopAppBarContent,
-      hidden = false
-  ): RenderResult {
-    if (hidden === true) return nothing;
+  private renderTopAppBar(): typeof nothing | M3.Components.TopAppBar {
+    if (this.topAppBarHidden === true) return nothing;
 
-    return html`<top-app-bar .content=${content}></top-app-bar>`;
+    const headline = i18n.date(new Date().getTime());
+
+    let trailing: M3.Types.DivisionContent | M3.Types.CircularProgressContent =
+      {
+        component: 'division',
+        type: 'div',
+        attributes: {
+          styles: {
+            display: 'flex',
+            'align-content': 'center',
+            'justify-content': 'center',
+            width: '40px',
+            height: '40px',
+          },
+          slot: 'trailing',
+        },
+        children: [
+          {
+            component: 'img',
+            type: 'img',
+            attributes: {
+              src: hamiLogo,
+              alt: 'gecut-logo',
+              styles: {
+                height: '24px',
+                margin: 'auto',
+              },
+            },
+          },
+        ],
+      };
+
+    if (this.loading) {
+      trailing = {
+        component: 'circular-progress',
+        type: 'circular-progress',
+        attributes: {
+          indeterminate: true,
+          styles: { '--_size': '40px' },
+          slot: 'trailing',
+        },
+      };
+    }
+
+    return M3.Renderers.renderTopAppBar({
+      component: 'top-app-bar',
+      type: 'center',
+      attributes: {
+        headline,
+        mode: this.topAppBarMode,
+      },
+      children: [
+        {
+          component: 'icon-button',
+          type: 'standard',
+          attributes: { ariaLabel: 'Log Out', slot: 'leading' },
+          iconSVG: icons.filledRounded.logout,
+
+          transformers: (target) => {
+            target.addEventListener('click', () => {
+              dispatch('dialog', confirmLogoutDialog());
+            });
+
+            return target;
+          },
+        },
+        trailing,
+      ],
+    });
   }
 
   private renderNavigationBar(
