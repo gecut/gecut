@@ -16,7 +16,7 @@ export function addCustomerProjectDialog(
     type: 'dialog',
     attributes: { fullscreen: true },
     children: [
-      headingPageTypography(i18n.msg('add-customer'), {
+      headingPageTypography(i18n.msg('add-project'), {
         attributes: { slot: 'headline' },
       }),
       {
@@ -122,7 +122,7 @@ export function addCustomerProjectDialog(
                   }
                 },
               },
-              activeSlide: 'customer',
+              activeSlide: 'project',
             },
           },
         ],
