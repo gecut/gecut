@@ -1,7 +1,7 @@
 import { attachRouter } from '#persianpart/ui/router';
 
-import i18n from '@gecut/i18n';
 import { M3 } from '@gecut/ui-kit';
+import { sanitizer } from '@gecut/utilities';
 import { html, nothing, unsafeCSS } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
@@ -44,15 +44,17 @@ export class AppRoot extends PageBase {
 
     attachRouter(this.renderRoot.querySelector('main'));
 
-    // window.addEventListener('vaadin-router-location-changed', () =>
-    //   this.requestUpdate()
-    // );
+    this.addSignalListener('headline', () => {
+      this.requestUpdate();
+    });
+
+    window.addEventListener('vaadin-router-location-changed', () =>
+      this.requestUpdate()
+    );
   }
 
   private get topAppBar(): typeof nothing | M3.Components.TopAppBar {
     if (this.fullscreen === true) return nothing;
-
-    const headline = i18n.date(new Date().getTime());
 
     let trailing: M3.Types.DivisionContent | M3.Types.CircularProgressContent =
       {
@@ -100,7 +102,7 @@ export class AppRoot extends PageBase {
       component: 'top-app-bar',
       type: 'center',
       attributes: {
-        headline,
+        headline: sanitizer.str(this.headline),
         mode: this.scrolling === true ? 'on-scroll' : 'flat',
       },
       children: [

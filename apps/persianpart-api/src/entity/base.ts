@@ -1,6 +1,11 @@
-import { Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, ObjectIdColumn, UpdateDateColumn } from 'typeorm';
 
-export abstract class Base {
+import type { ObjectId} from 'typeorm';
+
+export abstract class MongoBase {
+  @ObjectIdColumn()
+    id: ObjectId;
+
   @Column({ type: 'boolean', default: true })
     active: boolean;
 
@@ -8,5 +13,5 @@ export abstract class Base {
     createdAt: Date;
 
   @UpdateDateColumn({ name: 'updated_at' })
-    UpdatedAt: Date;
+    updatedAt: Date;
 }

@@ -1,14 +1,9 @@
-import { Entity, ObjectIdColumn, Column } from 'typeorm';
+import { Entity, Column } from 'typeorm';
 
-import { Base } from './base';
-
-import type { ObjectId } from 'typeorm';
+import { MongoBase } from './base';
 
 @Entity({ name: 'user' })
-export class User extends Base {
-  @ObjectIdColumn()
-    id: ObjectId;
-
+export class User extends MongoBase {
   @Column({ type: 'string', nullable: true })
     firstName: string;
 
