@@ -28,8 +28,8 @@ const manifestJson: Partial<ManifestOptions> = {
   start_url: '/?pwa',
 
   /* info */
-  name: 'Hami PWA',
-  short_name: 'Hami',
+  name: 'PersianPart PWA',
+  short_name: 'PersianPart',
   description: '',
 
   /* screen */

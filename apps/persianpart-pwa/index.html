@@ -1,38 +1,38 @@
 <!DOCTYPE html>
-<html lang="en" class="background on-background-text">
+<html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8" />
-    <title>Hami PWA</title>
+    <title>PersianPart PWA</title>
     <base href="/" />
 
     <meta name="color-scheme" content="light dark" />
     <meta
       name="theme-color"
       media="(prefers-color-scheme: light)"
-      content="var(--md-sys-color-background, #fbfdf8)"
+      content="var(--md-sys-color-surface, #fbfdf8)"
     />
     <meta
       name="theme-color"
       media="(prefers-color-scheme: dark)"
-      content="var(--md-sys-color-background, #191c1a)"
+      content="var(--md-sys-color-surface, #191c1a)"
     />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
 
-    <link rel="preconnect" href="https://api.hami-app.ir" />
+    <!-- <link rel="preconnect" href="https://api.hami-app.ir" /> -->
     <link rel="shortcut icon" href="favicon.ico" />
     <!-- Add to home screen for Chrome on Android. Fallback for manifest.json -->
     <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="application-name" content="Hami" />
+    <meta name="application-name" content="PersianPart" />
     <!-- Add to home screen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta
       name="apple-mobile-web-app-status-bar-style"
       content="black-translucent"
     />
-    <meta name="apple-mobile-web-app-title" content="Hami" />
+    <meta name="apple-mobile-web-app-title" content="PersianPart" />
     <link rel="apple-touch-startup-image" href="icon-192.png" />
     <!-- Home screen icons -->
     <link rel="apple-touch-icon" href="icon-180.png" />
@@ -41,16 +41,20 @@
     <meta name="msapplication-TileColor" content="#ffffff" />
     <meta name="msapplication-tap-highlight" content="no" />
 
-    <meta name="description" content="Hami Company Internal Web Application" />
-    <meta property="og:title" content="Hami PWA" />
+    <meta
+      name="description"
+      content="PersianPart Company Internal Web Application"
+    />
+    <meta property="og:title" content="PersianPart PWA" />
     <meta property="og:type" content="website" />
     <meta
       name="og:description"
-      content="Hami Company Internal Web Application"
+      content="PersianPart Company Internal Web Application"
     />
+
+    <script type="module" src="/src/app-root.ts" defer></script>
   </head>
   <body>
     <app-root></app-root>
-    <script type="module" src="/src/app-root.ts"></script>
   </body>
 </html>

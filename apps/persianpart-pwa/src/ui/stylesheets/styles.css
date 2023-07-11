@@ -4,6 +4,16 @@
   --md-list-item-list-item-container-shape: 8px;
 }
 
+html {
+  background-color: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-background);
+}
+
+app-root {
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+}
+
 * {
   font-family: var(--sys-font-family);
 }
