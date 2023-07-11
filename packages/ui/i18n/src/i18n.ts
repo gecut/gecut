@@ -97,16 +97,18 @@ export function phone(phoneNumber: string, reverse = false): string {
 }
 
 export function date(
-    timestamp: number,
+    _dateTime: number|Date,
     options: Intl.DateTimeFormatOptions = {
       weekday: 'long',
       day: 'numeric',
       month: 'long',
     }
 ): string {
-  const date = new Date(timestamp);
+  if (typeof _dateTime === 'number') {
+    _dateTime = new Date(_dateTime);
+  }
 
-  return date.toLocaleString(_activeLang, options);
+  return _dateTime.toLocaleString(_activeLang, options);
 }
 
 const i18n = {
