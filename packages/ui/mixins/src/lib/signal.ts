@@ -5,12 +5,10 @@ import type { SignalListener, createSignalProvider } from '@gecut/signal';
 import type { Constructor } from '@gecut/types';
 
 export type SignalsRecord = Partial<
-  Record<keyof Signals, ReturnType<typeof createSignalProvider>>
+  Record<keyof Signals, ReturnType<typeof createSignalProvider<keyof Signals>>>
 >;
 
 export declare class SignalMixinInterface extends LitElement {
-  static signals: SignalsRecord;
-
   protected addSignalListener: <T extends keyof Signals>(
     name: T,
     listener: SignalListener<T>
@@ -23,9 +21,13 @@ export declare class SignalMixinInterface extends LitElement {
   };
 }
 
+export type MixinReturn<T> = Constructor<SignalMixinInterface> & {
+  readonly signals: SignalsRecord;
+} & T;
+
 export function SignalMixin<T extends Constructor<LitElement>>(
     superClass: T
-): Constructor<SignalMixinInterface> & T {
+): MixinReturn<T> {
   class SignalMixinClass extends superClass {
     static signals: SignalsRecord = {};
 
@@ -64,5 +66,5 @@ export function SignalMixin<T extends Constructor<LitElement>>(
     }
   }
 
-  return SignalMixinClass as unknown as Constructor<SignalMixinInterface> & T;
+  return SignalMixinClass as unknown as MixinReturn<T>;
 }
