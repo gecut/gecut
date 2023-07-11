@@ -1,0 +1,29 @@
+:host {
+  padding: var(--sys-spacing-track);
+}
+
+.headline {
+  font-family: var(--md-sys-typescale-title-large-font-family-name);
+  font-style: var(--md-sys-typescale-title-large-font-family-style);
+  font-weight: var(--md-sys-typescale-title-large-font-weight);
+  font-size: var(--md-sys-typescale-title-large-font-size);
+  letter-spacing: var(--md-sys-typescale-title-large-tracking);
+  line-height: var(--md-sys-typescale-title-large-height);
+  text-transform: var(--md-sys-typescale-title-large-text-transform);
+  text-decoration: var(--md-sys-typescale-title-large-text-decoration);
+
+  margin-top: calc(2 * var(--sys-spacing-track));
+  margin-bottom: var(--sys-spacing-track);
+
+  color: var(--md-sys-color-surface-variant);
+}
+
+.search-bar {
+  --_container-color: var(--md-sys-color-surface-variant);
+  --_outline-color: var(--md-sys-color-surface-variant);
+  --_container-shape: 4px;
+
+  width: 100%;
+  border-radius: var(--_container-shape);
+  background-color: var(--_container-color);
+}
