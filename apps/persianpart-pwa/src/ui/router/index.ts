@@ -1,5 +1,9 @@
 import { createLogger } from '@gecut/logger';
-import { gecutCancelIdleCallback, gecutIdleCallback } from '@gecut/utilities';
+import {
+  gecutCancelIdleCallback,
+  gecutIdleCallback,
+  untilNextFrame,
+} from '@gecut/utilities';
 import { Router } from '@vaadin/router';
 
 import { routes } from './routes';
@@ -9,27 +13,33 @@ import type { Params } from '@vaadin/router';
 const logger = createLogger('router');
 const router = new Router();
 
-router.setRoutes([
-  // Redirect to URL without trailing slash
-  {
-    path: '(.*)/',
-    action: (context, commands) => {
-      const newPath = context.pathname.slice(0, -1);
-      return commands.redirect(newPath);
-    },
-  },
-  ...routes,
-]);
-
 export const attachRouter = (outlet: HTMLElement | null) => {
-  logger.methodArgs?.('attachRouter', {
-    outlet,
-    isNode: outlet instanceof Node,
-  });
-
   if (outlet != null && outlet.role === 'main') {
+    logger.methodArgs?.('attachRouter', {
+      outlet,
+      isNode: outlet instanceof Node,
+    });
+
     router.setOutlet(outlet);
   }
+
+  initRouter();
+};
+
+export const initRouter = async () => {
+  await untilNextFrame();
+
+  router.setRoutes([
+    // Redirect to URL without trailing slash
+    {
+      path: '(.*)/',
+      action: (context, commands) => {
+        const newPath = context.pathname.slice(0, -1);
+        return commands.redirect(newPath);
+      },
+    },
+    ...routes,
+  ]);
 };
 
 export const urlForName = (name: string, params?: Params) => {
