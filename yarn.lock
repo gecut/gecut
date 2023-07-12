@@ -2889,6 +2889,13 @@
   dependencies:
     "@nx/workspace" "16.4.3"
 
+"@nx-go/nx-go@2.7.0":
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/@nx-go/nx-go/-/nx-go-2.7.0.tgz#375303a300476c3e48bcb5e9e52ca32d5098af1e"
+  integrity sha512-TtesqhhHKG8uIagqHpxNlNN0MLlT0klGY8rWl83CZ1UIaEmL/2GWZMW8aHh1e0uRxBqe1hM6XNECJFADmknGTQ==
+  dependencies:
+    fs-extra "^9.1.0"
+
 "@nx/devkit@16.2.2":
   version "16.2.2"
   resolved "https://registry.yarnpkg.com/@nx/devkit/-/devkit-16.2.2.tgz#5035d7e3dc5e113ce29f243a912955fa7d93e95c"
