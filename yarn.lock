@@ -132,12 +132,7 @@
   resolved "https://registry.yarnpkg.com/@alwatr/type/-/type-0.32.0.tgz#a2bde2a6ffeb8fddae7d834a5e272c995a857e9e"
   integrity sha512-QGDLKZV4u+jRr7sSi6jpJu76ICLe9n5TfqhLgIMFg8+EdDJlNQ5zGa6DCpQK2jNig6c7iErF4hNHScihgREprQ==
 
-"@alwatr/type@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@alwatr/type/-/type-1.0.0.tgz#bd329829161ca1a366b8e9bc9c752f07ef2602bc"
-  integrity sha512-Da77UrLCbctJxBdBzlr/fjM0mwkD/q1oTHEkheVODAtp65+xuK+GmPAz2bFBTbct7+TZSnr73NJt0qh9dtxtSg==
-
-"@alwatr/type@^1.0.1":
+"@alwatr/type@^1.0.0", "@alwatr/type@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@alwatr/type/-/type-1.0.1.tgz#b1540dad17a39a51ac44234e628a546dfa5ccb5e"
   integrity sha512-rpJ2aztBv8F3U9sjtHvEbvdNoubS/e1zm5Wsx6ztEc4YBrGDe4gJaAUiFW8RmKT0fdc8DCzxNO9YchXH5JZlcQ==
